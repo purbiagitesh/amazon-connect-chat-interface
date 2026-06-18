@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "@emotion",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "presets": [
+    "react-app"
+  ]
+}
