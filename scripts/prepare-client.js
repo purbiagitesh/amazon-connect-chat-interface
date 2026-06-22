@@ -141,11 +141,16 @@ function generateBackendEndpoint(config, outputPath) {
 }
 
 
-function generateClientThemeCss(widgetConfig, outputPath) {
+function generateClientThemeCss(widgetConfig, headerConfig, outputPath) {
   const primaryColor = widgetConfig.primaryColor || '#3F51B5';
   const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
   const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
   const fontFamily = widgetConfig.fontFamily || 'Arial, sans-serif';
+
+  const headerBg            = (headerConfig && headerConfig.backgroundColor) || '#1a2340';
+  const headerTitleColor    = (headerConfig && headerConfig.textColor)        || headerTextColor;
+  const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor)    || 'rgba(255,255,255,0.70)';
+
 
   const content = `:root {
   --ac-widget-header-backgroundcolor: ${primaryColor};
@@ -158,6 +163,19 @@ function generateClientThemeCss(widgetConfig, outputPath) {
   --ac-widget-transcript-customer-textcolor: ${headerTextColor};
   --ac-widget-transcript-agent-bubble-color: #F5F5F5;
   --ac-widget-transcript-agent-textcolor: #333333;
+
+  /* ── Chat Header ── */
+  --header-bg:             ${headerBg};
+  --header-text-color:     ${headerTitleColor};
+  --header-subtitle-color: ${headerSubtitleColor};
+  --header-padding:        14px 16px;
+  --header-logo-size:      40px;
+  --header-title-size:     13px;
+  --header-title-weight:   600;
+  --header-title-spacing:  0.08em;
+  --header-subtitle-size:  11px;
+  --header-subtitle-maxw:  260px;
+  --header-close-size:     22px;
 }
 `;
 
@@ -183,7 +201,10 @@ function generateClientInfo(clientName, envName, config, outputPath, logoUrl) {
     client: clientName,
     environment: envName,
     generatedAt: new Date().toISOString(),
-    config: config.widget,
+    config: {
+      ...config.widget,
+      header: config.header || {},
+    },
   };
 
   if (logoUrl) {
@@ -286,7 +307,8 @@ Examples:
 
   const logoUrl = getClientLogoUrl(clientPath);
   generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl);
-  generateClientThemeCss(config.widget, path.join(localTestingDir, 'client-theme.css'));
+  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'));
+
 
   // Save current client/env selection
   const envStateFile = path.join(__dirname, '..', '.client-env');

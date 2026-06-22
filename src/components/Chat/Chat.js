@@ -72,10 +72,11 @@ const WelcomeText  = styled(Text)`
   padding-bottom: 10px;
 `
 
-
-const defaultHeaderConfig =  {
+const defaultHeaderConfig = {
   isHTML: false,
   render: (config) => {
+    const clientInfo = (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config) || {};
+    const hc = clientInfo.header || config || {};
     return (
       <HeaderWrapper>
         <div style={{
@@ -84,13 +85,12 @@ const defaultHeaderConfig =  {
           justifyContent: 'space-between',
           padding: 'var(--header-padding, 14px 16px)',
         }}>
-
-          {/* Left: logo + text */}
+          {/* Left: logo + title + subtitle */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {headerConfig && headerConfig.logoUrl && (
+            {hc.logoUrl && (
               <img
-                src={headerConfig.logoUrl}
-                alt="logo"
+                src={hc.logoUrl}
+                alt=""
                 style={{
                   width: 'var(--header-logo-size, 40px)',
                   height: 'var(--header-logo-size, 40px)',
@@ -103,31 +103,31 @@ const defaultHeaderConfig =  {
             <div>
               <div style={{
                 color: 'var(--header-text-color, #fff)',
-                fontSize: 'var(--header-title-size, 14px)',
+                fontSize: 'var(--header-title-size, 13px)',
                 fontWeight: 'var(--header-title-weight, 600)',
                 letterSpacing: 'var(--header-title-spacing, 0.08em)',
                 textTransform: 'uppercase',
               }}>
-                {headerConfig && headerConfig.title ? headerConfig.title : title}
+                {hc.title || ''}
               </div>
-              {headerConfig && headerConfig.subtitle && (
+              {hc.subtitle && (
                 <div style={{
                   color: 'var(--header-subtitle-color, rgba(255,255,255,0.7))',
                   fontSize: 'var(--header-subtitle-size, 11px)',
                   marginTop: '4px',
                   lineHeight: 1.35,
-                  maxWidth: 'var(--header-subtitle-width, 260px)',
+                  maxWidth: 'var(--header-subtitle-maxw, 260px)',
                 }}>
-                  {headerConfig.subtitle}
+                  {hc.subtitle}
                 </div>
               )}
             </div>
           </div>
 
-          {/* Right: close button */}
-          {headerConfig && headerConfig.showCloseButton && (
+          {/* Right: close button — wired to ChatActionBar's onEndChat */}
+          {hc.showCloseButton && (
             <button
-              onClick={onEndChat}   /* use your existing end-chat prop/handler */
+              onClick={() => config.onEndChat && config.onEndChat()}
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -145,7 +145,7 @@ const defaultHeaderConfig =  {
           )}
         </div>
       </HeaderWrapper>
-    )
+    );
   }
 };
 
@@ -154,10 +154,8 @@ Header.defaultProps = {
   logoConfig: {}
 }
 
-function Header({ headerConfig, logoConfig }){
-
-  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig);
-
+function Header({ headerConfig, logoConfig, onEndChat }){
+  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, { onEndChat });
   if(config.isHTML){
     return renderHTML(config.render());
   }else{
@@ -264,7 +262,9 @@ export default class Chat extends Component {
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) && 
-          <ParentHeaderWrapper className="header" ref={this.parentHeaderRef}><Header headerConfig={headerConfig} logoConfig={logoConfig}/></ParentHeaderWrapper>
+          <ParentHeaderWrapper className="header" ref={this.parentHeaderRef}>
+            <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.endChat()}/>
+          </ParentHeaderWrapper>
         }
         <ChatComposerWrapper  parentHeaderWrapperHeight={this.state.parentHeaderWrapperHeight}>
           <ChatTranscriptor
