@@ -10,24 +10,24 @@
     <style>
         /* ─── Custom "Chat now" pill launcher button ─── */
         #chat-now-btn {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        background-color: #8B005D;        /* deep magenta from your image */
-        color: #ffffff;
-        border: none;
-        border-radius: 50px;              /* pill shape */
-        padding: 8px 15px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 4px 16px rgba(139, 0, 93, 0.4);
-        z-index: 9999;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        transition: background-color 0.2s ease, transform 0.15s ease;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #8B005D;
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 16px rgba(139, 0, 93, 0.4);
+            z-index: 9999;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            transition: background-color 0.2s ease, transform 0.15s ease;
         }
         #chat-now-btn:hover {
         background-color: #a3006e;
@@ -72,61 +72,62 @@
         Chat now
     </button>
 
-<script type="text/javascript">
-    (function(w, d, x, id){
-        s=d.createElement('script');
-        s.src='https://db08fjupg2abb.cloudfront.net/amazon-connect-chat-interface-client.js';
-        s.async=1;
-        s.id=id;
-        d.getElementsByTagName('head')[0].appendChild(s);
-        w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
-    })(window, document, 'amazon_connect', '44d22e3a-1f9b-428d-ae76-115885672a11');
+    <script type="text/javascript">
+        (function(w, d, x, id){
+            s=d.createElement('script');
+            s.src='https://lctlearning.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+            s.async=1;
+            s.id=id;
+            d.getElementsByTagName('head')[0].appendChild(s);
+            w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+        })(window, document, 'amazon_connect', '916f816a-401a-477f-b2eb-504bda863bc8');
 
-    const clientConfig = window.__CHAT_CLIENT_INFO__?.config || {};
-    const openColor = clientConfig.headerTextColor || '#ffffff';
-    const openBg = clientConfig.primaryColor || '#123456';
-    const closeBg = clientConfig.secondaryColor || openBg;
+        const clientConfig = window.__CHAT_CLIENT_INFO__?.config || {};
+        const openColor = clientConfig.headerTextColor || '#ffffff';
+        const openBg = clientConfig.primaryColor || '#123456';
+        const closeBg = clientConfig.secondaryColor || openBg;
 
-    amazon_connect('styles', {
-        iconType: 'CHAT_VOICE',
-        openChat: { color: openColor, backgroundColor: openBg },
-        closeChat: { color: openColor, backgroundColor: closeBg }
-    });
-    amazon_connect('snippetId', 'QVFJREFIZ2JTNzdvNlZBdTFZSVJkT0xad3RDb08wM2NZamVYWno2UE4rbHpYL2JuRlFFd0U4c0FJNjVUNEpXZ1dxZWJjOS9DQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNS3cyRjBIRUpHcnZTejA3ZUFnRVFnQ3VBczBTNytqbGZ0TTR2SHJlVEZtVGtBVUhGc3NwZ0gyTXQvREQ4dkNZY1pHd1E4dWxPVzhrMVVQRDY6OncxNXpCSWlIVlQ5b1g2RXZ5aDljUWQ5NjFQL0w1UVh6K3FyVmxUS1d1VkpGTnpic3czZEhEVFU4eVpMVW1BY3VVSysvVTVNTThKdENqdXpHWFd2QU8vQ29PSkxzQVJNdm1mUmJMbUM4ejZubTNMSUUvZTkvZFp0NFMwam05aDZyRmZtR21MK1cveTBOQ0VmbHRoUzVSaVVxeW1kUEp2ND0=');
-    amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
-    amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
-    amazon_connect('customizationObject', {
-        composer: {
-            disableEmojiPicker: true,
-            disableCustomerAttachment: true,
-        },
-    });
-    amazon_connect('customLaunchBehavior', {
-      skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
-      alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
+        amazon_connect('styles', {
+            iconType: 'CHAT_VOICE',
+            openChat: { color: openColor, backgroundColor: openBg },
+            closeChat: { color: openColor, backgroundColor: closeBg }
+        });
+        amazon_connect('snippetId', 'QVFJREFIaFQ5MHpFSUtITkw4aWhjVFRTQ2xYNVRrZzZSNS9hc1gwdVNKbzBYYmJUUWdGNFI4T2s2OVZiQU1CYkNFamFKb1ZTQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNWnhDdXltZkRHTkFvT0prQUFnRVFnQ3RIMFQ2UVc5NTZoZEp2ZHpZSTkxbllQVUdDWmF1QytyOHgvLzRGRUJIWVBwVGQxVUZlamsyYS9sRk06OmlkQWZpTFlvMnhKTTQ4bks5bTZLWW1XUDFkQUtNOGRseFVlNEZkMmY2bEdJTk02TGxEbnZlM1FqZlQrVGkxUTE5cFU0VlFJak5HbWxhSVNkanF4UTZXejQwYlZGNnBSZlVIMHVyTFBvWnB3WUpEakNRV3Q5MTFhSFZtckpOM3hxU3NxdjJpb21tbmtWTVBoc0Y2UWpKaXV3akNkZUcybz0=');
+        amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
+        amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
+        amazon_connect('customizationObject', {
+            headerConfig: clientConfig.header,
+            composer: {
+                disableEmojiPicker: true,
+                disableCustomerAttachment: true,
+            },
+        });
+        amazon_connect('customLaunchBehavior', {
+        skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
+        alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
 
-      programmaticLaunch: function(launchCallback) {
-        // ✅ Store launchCallback globally so button click can use it
-        //    regardless of when this function runs vs when DOM is ready
-        window._connectLaunchCallback = launchCallback;
+        programmaticLaunch: function(launchCallback) {
+            // ✅ Store launchCallback globally so button click can use it
+            //    regardless of when this function runs vs when DOM is ready
+            window._connectLaunchCallback = launchCallback;
 
-        var btn = document.getElementById('chat-now-btn');
-        if (btn) {
-          // Button already in DOM — attach directly
-          btn.addEventListener('click', launchCallback);
+            var btn = document.getElementById('chat-now-btn');
+            if (btn) {
+            // Button already in DOM — attach directly
+            btn.addEventListener('click', launchCallback);
+            }
+            // If btn is null here, the DOMContentLoaded handler below covers it
         }
-        // If btn is null here, the DOMContentLoaded handler below covers it
-      }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('chat-now-btn');
-      if (btn && window._connectLaunchCallback) {
-        // Avoid double-binding — remove any existing listener first
-        btn.removeEventListener('click', window._connectLaunchCallback);
-        btn.addEventListener('click', window._connectLaunchCallback);
-      }
-    });
-</script>
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('chat-now-btn');
+        if (btn && window._connectLaunchCallback) {
+            // Avoid double-binding — remove any existing listener first
+            btn.removeEventListener('click', window._connectLaunchCallback);
+            btn.addEventListener('click', window._connectLaunchCallback);
+        }
+        });
+    </script>
 
 </body>
 </html>
