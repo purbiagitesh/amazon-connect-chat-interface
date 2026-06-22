@@ -58,13 +58,11 @@ const ChatComposerWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-  background: var(--ac-widget-header-backgroundcolor, #3F5773);
-  text-align: center;
-  padding: 16px;
-  color: var(--ac-widget-header-textcolor, #fff);
-  border-radius: 3px;
-  flex-shrink: 0;
-`
+  background: var(--header-bg, #3F5773);
+  padding: 0;
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+`;
 
 const LogoBanner = styled.img`
   max-height: var(--ac-widget-logo-max-height, 61px);
@@ -80,20 +78,72 @@ const defaultHeaderConfig =  {
   render: (config) => {
     return (
       <HeaderWrapper>
-        {!!config.sourceUrl &&
-          <LogoBanner src={config.sourceUrl} alt={config.altText ? config.altText : 'Logo banner'} />
-        }
-        <WelcomeText type={'h2'}>
-          {config.title ? config.title : (
-            <FormattedMessage
-              id="header.headerText"
-              defaultMessage="Hi there!"
-            />
+        <div style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          padding: 'var(--header-padding, 14px 16px)',
+        }}>
+
+          {/* Left: logo + text */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {headerConfig && headerConfig.logoUrl && (
+              <img
+                src={headerConfig.logoUrl}
+                alt="logo"
+                style={{
+                  width: 'var(--header-logo-size, 40px)',
+                  height: 'var(--header-logo-size, 40px)',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  flexShrink: 0,
+                }}
+              />
+            )}
+            <div>
+              <div style={{
+                color: 'var(--header-text-color, #fff)',
+                fontSize: 'var(--header-title-size, 14px)',
+                fontWeight: 'var(--header-title-weight, 600)',
+                letterSpacing: 'var(--header-title-spacing, 0.08em)',
+                textTransform: 'uppercase',
+              }}>
+                {headerConfig && headerConfig.title ? headerConfig.title : title}
+              </div>
+              {headerConfig && headerConfig.subtitle && (
+                <div style={{
+                  color: 'var(--header-subtitle-color, rgba(255,255,255,0.7))',
+                  fontSize: 'var(--header-subtitle-size, 11px)',
+                  marginTop: '4px',
+                  lineHeight: 1.35,
+                  maxWidth: 'var(--header-subtitle-width, 260px)',
+                }}>
+                  {headerConfig.subtitle}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right: close button */}
+          {headerConfig && headerConfig.showCloseButton && (
+            <button
+              onClick={onEndChat}   /* use your existing end-chat prop/handler */
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--header-text-color, #fff)',
+                fontSize: 'var(--header-close-size, 22px)',
+                lineHeight: 1,
+                cursor: 'pointer',
+                padding: '0 0 0 8px',
+                flexShrink: 0,
+              }}
+              aria-label="Close chat"
+            >
+              ×
+            </button>
           )}
-        </WelcomeText>
-        {(config.subtitle || config.description) &&
-          <Text type={'p'}>{config.subtitle || config.description}</Text>
-        }
+        </div>
       </HeaderWrapper>
     )
   }
