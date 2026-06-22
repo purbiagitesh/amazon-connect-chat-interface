@@ -84,13 +84,16 @@ const defaultHeaderConfig =  {
           <LogoBanner src={config.sourceUrl} alt={config.altText ? config.altText : 'Logo banner'} />
         }
         <WelcomeText type={'h2'}>
-          <FormattedMessage
-            id="header.headerText"
-            defaultMessage= "Hi there! "
-          />
+          {config.title ? config.title : (
+            <FormattedMessage
+              id="header.headerText"
+              defaultMessage="Hi there!"
+            />
+          )}
         </WelcomeText>
-        {/*TODO: translate below texts*/}
-        <Text type={'p'}>This is an example of how customers experience chat on your website</Text>
+        {(config.subtitle || config.description) &&
+          <Text type={'p'}>{config.subtitle || config.description}</Text>
+        }
       </HeaderWrapper>
     )
   }

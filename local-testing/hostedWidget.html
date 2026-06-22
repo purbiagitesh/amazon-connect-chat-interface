@@ -1,3 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hosted Widget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="./client-theme.css">
+    <script src="./clientInfo.js"></script>
+    <style>
+        /* ─── Custom "Chat now" pill launcher button ─── */
+        #chat-now-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background-color: #8B005D;        /* deep magenta from your image */
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;              /* pill shape */
+        padding: 8px 15px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 16px rgba(139, 0, 93, 0.4);
+        z-index: 9999;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+        #chat-now-btn:hover {
+        background-color: #a3006e;
+        transform: scale(1.04);
+        }
+        #chat-now-btn:active {
+        transform: scale(0.97);
+        }
+        /* ─── Sparkle icon circle ─── */
+        #chat-now-btn .btn-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        }
+        #chat-now-btn .btn-icon svg {
+        width: 15px;
+        height: 15px;
+        fill: #ffffff;
+        }
+        #chat-now-btn.widget-open {
+            display: none !important;
+        }
+        #amazon-connect-close-widget-button {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <button id="chat-now-btn" aria-label="Open chat">
+        <span class="btn-icon">
+            <!-- 4-point sparkle matching your design image -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 13.4826C28.0054 15.5762 27.5163 17.6414 26.5724 19.5102C25.4532 21.7495 23.7327 23.6329 21.6036 24.9496C19.4744 26.2663 17.0207 26.9643 14.5174 26.9652C12.4238 26.9707 10.3586 26.4816 8.48984 25.5377L1.25432 27.9495C0.510306 28.1975 -0.197519 27.4897 0.0504845 26.7457L2.46233 19.5102C1.51843 17.6414 1.0293 15.5762 1.03476 13.4826C1.03572 10.9793 1.73365 8.52557 3.05036 6.39643C4.36706 4.26729 6.25055 2.54678 8.48984 1.42761C10.3586 0.483724 12.4238 -0.00541329 14.5174 4.51875e-05H15.3104C18.6166 0.182444 21.7393 1.57792 24.0807 3.91929C26.4221 6.26066 27.8176 9.38338 28 12.6896V13.4826Z" fill="white"/>
+                <path d="M13.625 5.5846C13.9316 4.75602 15.1036 4.75602 15.4102 5.5846L17.1504 10.2876C17.2468 10.5481 17.4522 10.7535 17.7127 10.8499L22.4157 12.5901C23.2443 12.8967 23.2443 14.0687 22.4157 14.3753L17.7127 16.1155C17.4522 16.2119 17.2468 16.4173 17.1504 16.6778L15.4102 21.3808C15.1036 22.2094 13.9316 22.2094 13.625 21.3808L11.8848 16.6778C11.7884 16.4173 11.583 16.2119 11.3225 16.1155L6.61949 14.3753C5.79091 14.0687 5.79092 12.8967 6.61949 12.5901L11.3225 10.8499C11.583 10.7535 11.7884 10.5481 11.8848 10.2876L13.625 5.5846Z" fill="#36563D"/>
+            </svg>
+        </span>
+        Chat now
+    </button>
+
 <script type="text/javascript">
     (function(w, d, x, id){
         s=d.createElement('script');
@@ -7,14 +81,52 @@
         d.getElementsByTagName('head')[0].appendChild(s);
         w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
     })(window, document, 'amazon_connect', '44d22e3a-1f9b-428d-ae76-115885672a11');
-    amazon_connect('styles', { iconType: 'CHAT_VOICE', openChat: { color: '#ffffff', backgroundColor: '#123456' }, closeChat: { color: '#ffffff', backgroundColor: '#123456'} });
+
+    const clientConfig = window.__CHAT_CLIENT_INFO__?.config || {};
+    const openColor = clientConfig.headerTextColor || '#ffffff';
+    const openBg = clientConfig.primaryColor || '#123456';
+    const closeBg = clientConfig.secondaryColor || openBg;
+
+    amazon_connect('styles', {
+        iconType: 'CHAT_VOICE',
+        openChat: { color: openColor, backgroundColor: openBg },
+        closeChat: { color: openColor, backgroundColor: closeBg }
+    });
     amazon_connect('snippetId', 'QVFJREFIZ2JTNzdvNlZBdTFZSVJkT0xad3RDb08wM2NZamVYWno2UE4rbHpYL2JuRlFFd0U4c0FJNjVUNEpXZ1dxZWJjOS9DQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNS3cyRjBIRUpHcnZTejA3ZUFnRVFnQ3VBczBTNytqbGZ0TTR2SHJlVEZtVGtBVUhGc3NwZ0gyTXQvREQ4dkNZY1pHd1E4dWxPVzhrMVVQRDY6OncxNXpCSWlIVlQ5b1g2RXZ5aDljUWQ5NjFQL0w1UVh6K3FyVmxUS1d1VkpGTnpic3czZEhEVFU4eVpMVW1BY3VVSysvVTVNTThKdENqdXpHWFd2QU8vQ29PSkxzQVJNdm1mUmJMbUM4ejZubTNMSUUvZTkvZFp0NFMwam05aDZyRmZtR21MK1cveTBOQ0VmbHRoUzVSaVVxeW1kUEp2ND0=');
     amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
-    amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js')
+    amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
     amazon_connect('customizationObject', {
         composer: {
             disableEmojiPicker: true,
             disableCustomerAttachment: true,
         },
     });
+    amazon_connect('customLaunchBehavior', {
+      skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
+      alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
+
+      programmaticLaunch: function(launchCallback) {
+        // ✅ Store launchCallback globally so button click can use it
+        //    regardless of when this function runs vs when DOM is ready
+        window._connectLaunchCallback = launchCallback;
+
+        var btn = document.getElementById('chat-now-btn');
+        if (btn) {
+          // Button already in DOM — attach directly
+          btn.addEventListener('click', launchCallback);
+        }
+        // If btn is null here, the DOMContentLoaded handler below covers it
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('chat-now-btn');
+      if (btn && window._connectLaunchCallback) {
+        // Avoid double-binding — remove any existing listener first
+        btn.removeEventListener('click', window._connectLaunchCallback);
+        btn.addEventListener('click', window._connectLaunchCallback);
+      }
+    });
 </script>
+
+</body>
+</html>

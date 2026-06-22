@@ -141,18 +141,60 @@ function generateBackendEndpoint(config, outputPath) {
 }
 
 
+function generateClientThemeCss(widgetConfig, outputPath) {
+  const primaryColor = widgetConfig.primaryColor || '#3F51B5';
+  const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
+  const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
+  const fontFamily = widgetConfig.fontFamily || 'Arial, sans-serif';
+
+  const content = `:root {
+  --ac-widget-header-backgroundcolor: ${primaryColor};
+  --ac-widget-header-textcolor: ${headerTextColor};
+  --ac-widget-footer-backgroundcolor: ${secondaryColor};
+  --ac-widget-footer-button-backgroundcolor: ${secondaryColor};
+  --ac-widget-footer-button-textcolor: ${headerTextColor};
+  --ac-widget-global-typeface: ${fontFamily};
+  --ac-widget-transcript-customer-bubble-color: ${primaryColor};
+  --ac-widget-transcript-customer-textcolor: ${headerTextColor};
+  --ac-widget-transcript-agent-bubble-color: #F5F5F5;
+  --ac-widget-transcript-agent-textcolor: #333333;
+}
+`;
+
+  fs.writeFileSync(outputPath, content);
+  console.log(`  ✅ Generated client-theme.css`);
+}
+
+function getClientLogoUrl(clientPath) {
+  const logos = ['logo.png', 'logo.svg', 'assets/logo.png', 'assets/images/logo.png'];
+  for (const fileName of logos) {
+    const logoPath = path.join(clientPath, fileName);
+    if (fs.existsSync(logoPath)) {
+      const relativePath = path.relative(clientPath, logoPath).replace(/\\/g, '/');
+      return `./client-assets/${relativePath}`;
+    }
+  }
+  return null;
+}
+
 // Generate client info file for runtime reference
-function generateClientInfo(clientName, envName, config, outputPath) {
+function generateClientInfo(clientName, envName, config, outputPath, logoUrl) {
+  const info = {
+    client: clientName,
+    environment: envName,
+    generatedAt: new Date().toISOString(),
+    config: config.widget,
+  };
+
+  if (logoUrl) {
+    info.assets = { logo: logoUrl };
+  }
+
   const content = `/**
  * Current Client Configuration
  * Auto-generated - Do not edit manually
  */
-window.__CHAT_CLIENT_INFO__ = {
-  client: "${clientName}",
-  environment: "${envName}",
-  generatedAt: "${new Date().toISOString()}",
-  config: ${JSON.stringify(config.widget, null, 2)}
-};
+window.__CHAT_CLIENT_INFO__ = ${JSON.stringify(info, null, 2)};
 `;
 
   fs.writeFileSync(outputPath, content);
@@ -241,8 +283,11 @@ Examples:
   
   // Generate configuration files
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
-  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'));
-  
+
+  const logoUrl = getClientLogoUrl(clientPath);
+  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl);
+  generateClientThemeCss(config.widget, path.join(localTestingDir, 'client-theme.css'));
+
   // Save current client/env selection
   const envStateFile = path.join(__dirname, '..', '.client-env');
   fs.writeFileSync(envStateFile, JSON.stringify({ client: clientName, env: envName }, null, 2));

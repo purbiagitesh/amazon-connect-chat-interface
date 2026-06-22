@@ -1,0 +1,12 @@
+:root {
+  --ac-widget-header-backgroundcolor: #1976D2;
+  --ac-widget-header-textcolor: #FFFFFF;
+  --ac-widget-footer-backgroundcolor: #FFC107;
+  --ac-widget-footer-button-backgroundcolor: #FFC107;
+  --ac-widget-footer-button-textcolor: #FFFFFF;
+  --ac-widget-global-typeface: 'Roboto', sans-serif;
+  --ac-widget-transcript-customer-bubble-color: #1976D2;
+  --ac-widget-transcript-customer-textcolor: #FFFFFF;
+  --ac-widget-transcript-agent-bubble-color: #F5F5F5;
+  --ac-widget-transcript-agent-textcolor: #333333;
+}

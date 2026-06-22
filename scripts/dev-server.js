@@ -46,6 +46,23 @@ function parseArgs() {
   return args;
 }
 
+function openBrowser(url) {
+  let command;
+  if (process.platform === 'win32') {
+    command = `cmd.exe /c start "" "${url}"`;
+  } else if (process.platform === 'darwin') {
+    command = `open "${url}"`;
+  } else {
+    command = `xdg-open "${url}"`;
+  }
+
+  exec(command, err => {
+    if (err) {
+      console.error(`Unable to open browser automatically: ${err.message}`);
+    }
+  });
+}
+
 // Check current client state
 function getCurrentClientState() {
   const stateFile = path.join(__dirname, '..', '.client-env');
@@ -77,38 +94,51 @@ function prepareClient(client, env) {
   });
 }
 
+function resolveFilePath(urlPath) {
+  if (urlPath === '/' || urlPath === '') {
+    urlPath = '/hostedWidget.html';
+  }
+
+  let filePath = path.resolve(LOCAL_TESTING_DIR, `.${urlPath}`);
+  const basePath = path.resolve(LOCAL_TESTING_DIR);
+
+  if (!filePath.startsWith(basePath)) {
+    return null;
+  }
+
+  if (fs.existsSync(filePath)) {
+    return filePath;
+  }
+
+  if (!path.extname(filePath)) {
+    const htmlFilePath = `${filePath}.html`;
+    if (htmlFilePath.startsWith(basePath) && fs.existsSync(htmlFilePath)) {
+      return htmlFilePath;
+    }
+  }
+
+  return null;
+}
+
 // Create HTTP server
 function createServer() {
   return http.createServer((req, res) => {
     // Parse URL
-    let urlPath = req.url.split('?')[0];
-    
-    // Default to index or hostedWidget.html
-    if (urlPath === '/' || urlPath === '') {
-      urlPath = '/hostedWidget.html';
-    }
-    
-    // Resolve file path
-    const filePath = path.join(LOCAL_TESTING_DIR, urlPath);
-    
-    // Security check - prevent directory traversal
-    if (!filePath.startsWith(LOCAL_TESTING_DIR)) {
-      res.writeHead(403);
-      res.end('Forbidden');
-      return;
-    }
-    
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
+    const urlPath = req.url.split('?')[0];
+
+    // Resolve file path, including extensionless routes such as /hostedWidget
+    const filePath = resolveFilePath(urlPath);
+
+    if (!filePath) {
       res.writeHead(404);
       res.end('Not Found');
       return;
     }
-    
+
     // Get MIME type
     const ext = path.extname(filePath).toLowerCase();
     const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
-    
+
     // Read and serve file
     try {
       const content = fs.readFileSync(filePath);
@@ -147,6 +177,7 @@ async function main() {
   const server = createServer();
   
   server.listen(PORT, () => {
+    const serverUrl = `http://localhost:${PORT}/hostedWidget.html`;
     console.log(`\n🚀 Development server running at http://localhost:${PORT}\n`);
     
     if (state) {
@@ -156,7 +187,8 @@ async function main() {
       console.log('   ⚠️  No client configured. Run: npm run prepare -- --client=<name> --env=<env>');
     }
     
-    console.log(`\n   Open http://localhost:${PORT}/hostedWidget.html in your browser`);
+    console.log(`\n   Opening ${serverUrl} in your browser...`);
+    openBrowser(serverUrl);
     console.log('   Press Ctrl+C to stop\n');
   });
   
