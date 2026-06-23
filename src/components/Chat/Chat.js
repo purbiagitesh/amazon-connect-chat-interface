@@ -10,7 +10,6 @@ import ChatActionBar from "./ChatActionBar";
 import React, { Component } from "react";
 import {Text} from "connect-core";
 import styled from "styled-components";
-
 import renderHTML from 'react-render-html';
 
 const ChatWrapper = styled.div`
@@ -68,13 +67,15 @@ const LogoBanner = styled.img`
   max-height: var(--ac-widget-logo-max-height, 61px);
   max-width: var(--ac-widget-logo-max-width, 99%);
 `;
-const WelcomeText  = styled(Text)`
+
+const WelcomeText = styled(Text)`
   padding-bottom: 10px;
-`
+`;
 
 const defaultHeaderConfig = {
   isHTML: false,
   render: (config) => {
+    // Read header data from the generated clientInfo.js global
     const clientInfo = (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config) || {};
     const hc = clientInfo.header || {};
     return (
@@ -85,6 +86,7 @@ const defaultHeaderConfig = {
           justifyContent: 'space-between',
           padding: 'var(--header-padding, 14px 16px)',
         }}>
+          {/* Left: logo + title + subtitle */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {hc.logoUrl && (
               <img
@@ -122,6 +124,7 @@ const defaultHeaderConfig = {
               )}
             </div>
           </div>
+          {/* Right: close button */}
           {hc.showCloseButton && (
             <button
               onClick={() => config.onEndChat && config.onEndChat()}
@@ -149,7 +152,7 @@ const defaultHeaderConfig = {
 Header.defaultProps = {
   headerConfig: {},
   logoConfig: {}
-}
+};
 
 function Header({ headerConfig, logoConfig, onEndChat }) {
   const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, { onEndChat });
@@ -161,12 +164,13 @@ function Header({ headerConfig, logoConfig, onEndChat }) {
 }
 
 const textInputRef = React.createRef();
+
 const HEADER_HEIGHT = 115;
 
 export default class Chat extends Component {
+
   constructor(props) {
     super(props);
-
     this.state = {
       transcript: [],
       typingParticipants: [],
@@ -213,7 +217,7 @@ export default class Chat extends Component {
       this.init(this.props.chatSession);
     }
     if (prevProps.language !== this.props.language &&
-        typeof this.props.changeLanguage === "function") {
+      typeof this.props.changeLanguage === "function") {
       this.props.changeLanguage(this.props.language);
     }
   }
@@ -244,26 +248,26 @@ export default class Chat extends Component {
     this.props.chatSession.closeChat();
     this.props.onEnded();
   }
-/*
-  Note: For Mobile layout: divided into 3 sections
-  1. Header - Positon: absolute; top: 0, left: 0, right: 0 - height is dynamic!
-  2. MainContent - Position: absolute; top: {dynamicHeight}, left: 0, right: 0, bottom: {fixedFooterHeight: 85px}
-  3. Footer - position: absolute; bottom: 0, right: 0, left: 0
-  -- this prevents overlay from overflowing in mobile browser. 
-*/
+
+  /*
+    Note: For Mobile layout: divided into 3 sections
+    1. Header - Positon: absolute; top: 0, left: 0, right: 0 - height is dynamic!
+    2. MainContent - Position: absolute; top: {dynamicHeight}, left: 0, right: 0, bottom: {fixedFooterHeight: 85px}
+    3. Footer - position: absolute; bottom: 0, right: 0, left: 0
+    -- this prevents overlay from overflowing in mobile browser.
+  */
   render() {
     const {chatSession, headerConfig, transcriptConfig, composerConfig, footerConfig, logoConfig } = this.props;
     console.log('MESSAGES', this.state.transcript);
-
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
-          this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) && 
+          this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) &&
           <ParentHeaderWrapper className="header" ref={this.parentHeaderRef}>
             <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.endChat()}/>
           </ParentHeaderWrapper>
         }
-        <ChatComposerWrapper  parentHeaderWrapperHeight={this.state.parentHeaderWrapperHeight}>
+        <ChatComposerWrapper parentHeaderWrapperHeight={this.state.parentHeaderWrapperHeight}>
           <ChatTranscriptor
             loadPreviousTranscript={() => chatSession.loadPreviousTranscript()}
             addMessage={(data) => chatSession.addOutgoingMessage(data)}
