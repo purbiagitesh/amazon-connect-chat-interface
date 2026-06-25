@@ -34,7 +34,6 @@
     "dev:client": "node scripts/dev-server.js",
     "start": "npm run dev",
     "list-clients": "node scripts/prepare-client.js --list"
-
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -93,11 +92,6 @@
       "node"
     ],
     "globalSetup": "./global-setup.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run build && cp build/dist/static/js/amazon-connect-chat-interface.js local-testing/ && git add local-testing/amazon-connect-chat-interface.js"
-    }
   },
   "dependencies": {
     "@babel/runtime": "7.9.2",

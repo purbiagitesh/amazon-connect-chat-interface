@@ -203,6 +203,10 @@ function generateClientInfo(clientName, envName, config, outputPath, logoUrl) {
     generatedAt: new Date().toISOString(),
     config: {
       ...config.widget,
+      header:              config.header || {},
+      apiGatewayEndpoint:  config.aws?.apiGatewayEndpoint || '',
+      instanceId:          config.aws?.instanceId || '',
+      contactFlowId:       config.aws?.contactFlowId || '',
       header: config.header || {},
     },
   };

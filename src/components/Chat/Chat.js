@@ -17,6 +17,8 @@ const ChatWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
   @media (max-width:640px) {
     position: absolute;
     top: 0;
@@ -31,6 +33,8 @@ const ParentHeaderWrapper = styled.div`
   padding: 0;
   order: 1;
   height: var(--ac-widget-global-headerheight, min(115px, 21.2%));
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
   @media (max-width: 640px) {
     position: absolute;
     left: 0;
@@ -57,9 +61,8 @@ const ChatComposerWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-  background: var(--header-bg, #3F5773);
   padding: 0;
-  border-radius: 3px 3px 0 0;
+  border-radius: 24px 24px 0 0;
   overflow: hidden;
 `;
 
@@ -75,26 +78,34 @@ const WelcomeText = styled(Text)`
 const defaultHeaderConfig = {
   isHTML: false,
   render: (config) => {
-    // Read header data from the generated clientInfo.js global
-    const clientInfo = (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config) || {};
+    const clientInfo = (
+      (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config) ||
+      (window.parent && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.config) ||
+      {}
+    );
     const hc = clientInfo.header || {};
+
+    // Use inline styles for colors since CSS vars don't cross iframe boundary
+    const bgColor = hc.backgroundColor || '#3F5773';
+    const textColor = hc.textColor || '#ffffff';
+    const subtitleColor = hc.subtitleColor || 'rgba(255,255,255,0.70)';
+
     return (
-      <HeaderWrapper>
+      <HeaderWrapper style={{ background: bgColor}}>
         <div style={{
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           justifyContent: 'space-between',
-          padding: 'var(--header-padding, 14px 16px)',
+          padding: '10px 16px',
         }}>
-          {/* Left: logo + title + subtitle */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {hc.logoUrl && (
               <img
                 src={hc.logoUrl}
                 alt=""
                 style={{
-                  width: 'var(--header-logo-size, 40px)',
-                  height: 'var(--header-logo-size, 40px)',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '50%',
                   objectFit: 'cover',
                   flexShrink: 0,
@@ -103,36 +114,35 @@ const defaultHeaderConfig = {
             )}
             <div>
               <div style={{
-                color: 'var(--header-text-color, #fff)',
-                fontSize: 'var(--header-title-size, 13px)',
-                fontWeight: 'var(--header-title-weight, 600)',
-                letterSpacing: 'var(--header-title-spacing, 0.08em)',
+                color: textColor,
+                fontSize: '13px',
+                fontWeight: '600',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
               }}>
                 {hc.title || ''}
               </div>
               {hc.subtitle && (
                 <div style={{
-                  color: 'var(--header-subtitle-color, rgba(255,255,255,0.7))',
-                  fontSize: 'var(--header-subtitle-size, 11px)',
+                  color: subtitleColor,
+                  fontSize: '11px',
                   marginTop: '4px',
                   lineHeight: 1.35,
-                  maxWidth: 'var(--header-subtitle-maxw, 260px)',
+                  maxWidth: '260px',
                 }}>
                   {hc.subtitle}
                 </div>
               )}
             </div>
           </div>
-          {/* Right: close button */}
           {hc.showCloseButton && (
             <button
               onClick={() => config.onEndChat && config.onEndChat()}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'var(--header-text-color, #fff)',
-                fontSize: 'var(--header-close-size, 22px)',
+                color: textColor,
+                fontSize: '22px',
                 lineHeight: 1,
                 cursor: 'pointer',
                 padding: '0 0 0 8px',

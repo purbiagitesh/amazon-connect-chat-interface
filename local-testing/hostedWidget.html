@@ -58,6 +58,14 @@
         #amazon-connect-close-widget-button {
             display: none !important;
         }
+       div[class*="acWidgetContainer"] {
+            overflow: visible !important;
+            border-radius: 24px 24px 0 0 !important;
+        }
+
+        div[class*="acFrameContainer"] {
+            border-radius: 24px 24px 0 0 !important;
+        }
     </style>
 </head>
 <body>
@@ -102,22 +110,57 @@
                 disableCustomerAttachment: true,
             },
         });
-        amazon_connect('customLaunchBehavior', {
-        skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
-        alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
+       
+        amazon_connect('customStartChat', async function(callback) {
+            try {
+                const response = await fetch(clientConfig.apiGatewayEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerName: 'Guest',
+                        customerId:   '',
+                        pageUrl:      window.location.href,
+                        brand:        clientConfig.brand || 'demo-client',
+                    })
+                });
 
-        programmaticLaunch: function(launchCallback) {
-            // ✅ Store launchCallback globally so button click can use it
-            //    regardless of when this function runs vs when DOM is ready
-            window._connectLaunchCallback = launchCallback;
+                const data = await response.json();
+                console.log('Raw API response:', data);
 
-            var btn = document.getElementById('chat-now-btn');
-            if (btn) {
-            // Button already in DOM — attach directly
-            btn.addEventListener('click', launchCallback);
+                // Parse the body since Lambda returns it as a string
+                const body = typeof data.body === 'string' 
+                    ? JSON.parse(data.body) 
+                    : data;
+
+                console.log('Parsed body:', body);
+
+                // Pass in exact format widget expects
+                callback({
+                    startChatResult:    body.startChatResult,
+                    featurePermissions: body.featurePermissions
+                });
+
+            } catch (error) {
+                console.error('Failed to start chat:', error);
             }
-            // If btn is null here, the DOMContentLoaded handler below covers it
-        }
+        });
+
+        amazon_connect('customLaunchBehavior', {
+            skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
+            alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
+
+            programmaticLaunch: function(launchCallback) {
+                // ✅ Store launchCallback globally so button click can use it
+                //    regardless of when this function runs vs when DOM is ready
+                window._connectLaunchCallback = launchCallback;
+
+                var btn = document.getElementById('chat-now-btn');
+                if (btn) {
+                // Button already in DOM — attach directly
+                btn.addEventListener('click', launchCallback);
+                }
+                // If btn is null here, the DOMContentLoaded handler below covers it
+            }
         });
         document.addEventListener('DOMContentLoaded', function() {
         var btn = document.getElementById('chat-now-btn');
@@ -126,6 +169,23 @@
             btn.removeEventListener('click', window._connectLaunchCallback);
             btn.addEventListener('click', window._connectLaunchCallback);
         }
+       setTimeout(() => {
+            const widgetContainer = document.querySelector('div[class*="acWidgetContainer"]');
+            if (widgetContainer) {
+                widgetContainer.style.overflow = 'visible';
+                widgetContainer.style.borderRadius = '24px 24px 0 0';
+            }
+
+            const frameContainer = document.querySelector('div[class*="acFrameContainer"]');
+            if (frameContainer) {
+                frameContainer.style.borderRadius = '24px 24px 0 0';
+                // Apply radius on iframe to handle white corner bleed
+                const iframe = frameContainer.querySelector('iframe');
+                if (iframe) {
+                    iframe.style.borderRadius = '24px 24px 0 0';
+                }
+            }
+        }, 1000);
         });
     </script>
 
