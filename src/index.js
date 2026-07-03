@@ -31,6 +31,11 @@ function buildThemeConfig(clientConfig = {}) {
       ...defaultTheme.globals,
       bodyFontFamily: clientConfig.fontFamily,
     };
+
+    themeConfig.fonts = Object.keys(defaultTheme.fonts).reduce((fonts, key) => {
+      fonts[key] = clientConfig.fontFamily;
+      return fonts;
+    }, {});
   }
 
   return themeConfig;

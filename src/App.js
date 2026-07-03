@@ -8,7 +8,7 @@ import defaultTheme from './theme/defaultTheme';
 
 const Page = styled.div`
   width: 300px;
-  font-family: var(--ac-widget-global-typeface, ${props => props.theme.fonts.regular});
+  font-family: var(--ac-widget-global-typeface, ${props => props.theme.globals.bodyFontFamily});
 
   margin: ${props => props.theme.spacing.base};
   border-collapse: collapse;

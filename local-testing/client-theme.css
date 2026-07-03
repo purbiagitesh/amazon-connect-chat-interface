@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('./client-assets/Fonts/TTF/OPTIMADISPLAY-ROMAN.TTF') format('truetype'),
+       url('./client-assets/Fonts/WOFF2/OptimaDisplay-Roman.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --ac-widget-header-backgroundcolor: #1976D2;
   --ac-widget-header-textcolor: #FFFFFF;

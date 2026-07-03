@@ -93,7 +93,7 @@ const defaultHeaderConfig = {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '10px 16px',
+          padding: '16px 16px',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
             {hc.logoUrl && (

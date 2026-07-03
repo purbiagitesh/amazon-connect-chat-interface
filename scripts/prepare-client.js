@@ -140,8 +140,69 @@ function generateBackendEndpoint(config, outputPath) {
   console.log(`  ✅ Generated backendEndpoint.js`);
 }
 
+function getFontFamilyName(fontFamilyString) {
+  if (!fontFamilyString) return 'CustomFont';
+  const family = fontFamilyString.split(',')[0].trim();
+  return family.replace(/^['"]|['"]$/g, '') || 'CustomFont';
+}
 
-function generateClientThemeCss(widgetConfig, headerConfig, outputPath) {
+function generateFontFaceCss(fontFamilyString, fontFiles) {
+  if (!fontFiles || fontFiles.length === 0) {
+    return '';
+  }
+
+  const fontFamily = getFontFamilyName(fontFamilyString);
+  const sortedFiles = fontFiles.slice().sort((a, b) => a.ext.localeCompare(b.ext));
+  const srcLines = sortedFiles.map(font => {
+    const formatMap = {
+      woff2: 'woff2',
+      woff: 'woff',
+      ttf: 'truetype',
+      otf: 'opentype'
+    };
+    return `url('./client-assets/${font.relativePath}') format('${formatMap[font.ext] || 'truetype'}')`;
+  });
+
+  return `@font-face {
+  font-family: '${fontFamily}';
+  src: ${srcLines.join(',\n       ')};
+  font-weight: normal;
+  font-style: normal;
+}
+
+`;
+}
+
+function getClientFontFiles(fontsDir) {
+  if (!fs.existsSync(fontsDir)) {
+    return [];
+  }
+
+  const supported = ['.ttf', '.woff', '.woff2', '.otf'];
+
+  function scanDir(directory, parentRelative = '') {
+    const files = [];
+    const entries = fs.readdirSync(directory, {withFileTypes: true});
+    for (const entry of entries) {
+      const entryPath = path.join(directory, entry.name);
+      const relativePath = path.join(parentRelative, entry.name).replace(/\\/g, '/');
+      if (entry.isDirectory()) {
+        files.push(...scanDir(entryPath, relativePath));
+      } else if (supported.includes(path.extname(entry.name).toLowerCase())) {
+        files.push({
+          name: entry.name,
+          relativePath,
+          ext: path.extname(entry.name).slice(1).toLowerCase()
+        });
+      }
+    }
+    return files;
+  }
+
+  return scanDir(fontsDir, 'Fonts');
+}
+
+function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = []) {
   const primaryColor = widgetConfig.primaryColor || '#3F51B5';
   const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
   const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
@@ -151,8 +212,9 @@ function generateClientThemeCss(widgetConfig, headerConfig, outputPath) {
   const headerTitleColor    = (headerConfig && headerConfig.textColor)        || headerTextColor;
   const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor)    || 'rgba(255,255,255,0.70)';
 
+  const fontFaceCss = generateFontFaceCss(fontFamily, fontFiles);
 
-  const content = `:root {
+  const content = `${fontFaceCss}:root {
   --ac-widget-header-backgroundcolor: ${primaryColor};
   --ac-widget-header-textcolor: ${headerTextColor};
   --ac-widget-footer-backgroundcolor: ${secondaryColor};
@@ -286,35 +348,41 @@ Examples:
   const localTestingDir = path.join(__dirname, '..', 'local-testing');
   const clientAssetsDir = path.join(clientPath, 'assets');
   const clientThemeDir = path.join(clientPath, 'theme');
+  const clientFontsDir = path.join(clientPath, 'Fonts');
   const outputAssetsDir = path.join(localTestingDir, 'client-assets');
-  
+
   // Clean previous client assets
   if (fs.existsSync(outputAssetsDir)) {
     fs.rmSync(outputAssetsDir, {recursive: true});
     console.log('  🧹 Cleaned previous client assets');
   }
-  
+
   // Copy client assets
   if (fs.existsSync(clientAssetsDir)) {
     copyDirSync(clientAssetsDir, outputAssetsDir);
     console.log('  ✅ Copied client assets');
   }
-  
+
   // Copy theme files
   if (fs.existsSync(clientThemeDir)) {
     copyDirSync(clientThemeDir, path.join(outputAssetsDir, 'theme'));
     console.log('  ✅ Copied theme files');
   }
-  
+
+  // Copy font files for client-specific font families
+  if (fs.existsSync(clientFontsDir)) {
+    copyDirSync(clientFontsDir, path.join(outputAssetsDir, 'Fonts'));
+    console.log('  ✅ Copied font assets');
+  }
+
+  const fontFiles = getClientFontFiles(clientFontsDir);
+
   // Generate configuration files
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
 
   const logoUrl = getClientLogoUrl(clientPath);
   generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl);
-  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'));
-
-
-  // Save current client/env selection
+  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles);
   const envStateFile = path.join(__dirname, '..', '.client-env');
   fs.writeFileSync(envStateFile, JSON.stringify({client: clientName, env: envName}, null, 2));
   console.log('  ✅ Saved current client/env state');
