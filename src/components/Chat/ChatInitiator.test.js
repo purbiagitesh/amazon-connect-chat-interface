@@ -1,5 +1,5 @@
-import { initiateChat } from "./ChatInitiator";
-import { START_CHAT_CLIENT_TIMEOUT_MS } from "../../constants/http";
+import {initiateChat} from "./ChatInitiator";
+import {START_CHAT_CLIENT_TIMEOUT_MS} from "../../constants/http";
 import request from "../../utils/fetchRequest";
 
 jest.mock("../../utils/fetchRequest");

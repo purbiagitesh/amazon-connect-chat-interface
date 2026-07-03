@@ -1,10 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from 'react';
-import { screen, render, fireEvent } from "@testing-library/react"
-import { InteractiveMessageType } from "../../../datamodel/Model";
-import { ThemeProvider } from "../../../../../theme";
+import {screen, render, fireEvent} from "@testing-library/react"
+import {InteractiveMessageType} from "../../../datamodel/Model";
+import {ThemeProvider} from "../../../../../theme";
 import TimePicker from "./TimePicker";
 import * as helpers from '../../../../../utils/helper';
 
@@ -134,7 +131,7 @@ describe("<TimePicker />", () => {
             ...mockTimePickerContent,
             [fieldKey]: longTitle,
         };
-        renderElement({ ...mockProps, content: timePickerLongTitle });
+        renderElement({...mockProps, content: timePickerLongTitle});
         expect(() => screen.getByText(longTitle)).toThrow(
             "Unable to find an element"
         );
@@ -167,6 +164,6 @@ describe("TimePicker XSS Mitigation", () => {
     it("should use DOMPurify to mitigate malicious XSS input", () => {
       renderElement(mockProps);
       expect(screen.getByText("Title with script")).toBeDefined();
-      expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", { exact: false })).toBeDefined();
+      expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", {exact: false})).toBeDefined();
     });
   });

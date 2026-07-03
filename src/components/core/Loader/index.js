@@ -1,5 +1,2 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-export { default } from './Loader';
-export { TypingLoader } from './Loader'
+export {default} from './Loader';
+export {TypingLoader} from './Loader'

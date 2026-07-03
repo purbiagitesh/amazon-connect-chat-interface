@@ -1,13 +1,10 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import PT from "prop-types";
-import { FormattedMessage } from "react-intl";
-import { CONTACT_STATUS } from "../../constants/global";
+import {FormattedMessage} from "react-intl";
+import {CONTACT_STATUS} from "../../constants/global";
 import ChatTranscriptor from "./ChatTranscriptor";
 import ChatComposer from "./ChatComposer";
 import ChatActionBar from "./ChatActionBar";
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Text} from "connect-core";
 import styled from "styled-components";
 import renderHTML from 'react-render-html';
@@ -98,7 +95,7 @@ const defaultHeaderConfig = {
           justifyContent: 'space-between',
           padding: '10px 16px',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
             {hc.logoUrl && (
               <img
                 src={hc.logoUrl}
@@ -164,8 +161,8 @@ Header.defaultProps = {
   logoConfig: {}
 };
 
-function Header({ headerConfig, logoConfig, onEndChat }) {
-  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, { onEndChat });
+function Header({headerConfig, logoConfig, onEndChat}) {
+  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, {onEndChat});
   if (config.isHTML) {
     return renderHTML(config.render());
   } else {
@@ -192,7 +189,7 @@ export default class Chat extends Component {
     this.updateTypingParticipants = typingParticipants => this.setState({typingParticipants});
     this.updateContactStatus = contactStatus => this.setState({contactStatus});
     if(window.connect && window.connect.LogManager) {
-      this.logger = window.connect.LogManager.getLogger({ prefix: "ChatInterface-Chat" });
+      this.logger = window.connect.LogManager.getLogger({prefix: "ChatInterface-Chat"});
     }
   }
 
@@ -267,7 +264,7 @@ export default class Chat extends Component {
     -- this prevents overlay from overflowing in mobile browser.
   */
   render() {
-    const {chatSession, headerConfig, transcriptConfig, composerConfig, footerConfig, logoConfig } = this.props;
+    const {chatSession, headerConfig, transcriptConfig, composerConfig, footerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">

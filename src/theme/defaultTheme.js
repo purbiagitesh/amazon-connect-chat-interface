@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 /* eslint-disable id-length */ // Doesn't make sense for this file
 const palette = {
   white: '#FFFFFF', // white

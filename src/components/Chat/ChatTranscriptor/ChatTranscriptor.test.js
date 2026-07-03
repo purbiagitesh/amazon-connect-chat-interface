@@ -1,14 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { IntlProvider } from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import "@testing-library/jest-dom";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import {render, fireEvent, waitFor} from "@testing-library/react";
 import ChatTranscriptor from "./ChatTranscriptor";
-import { ATTACHMENT_MESSAGE, ContentType, AttachmentStatus, AttachmentErrorType, PARTICIPANT_MESSAGE } from "../datamodel/Model";
-import { ThemeProvider } from "../../../theme";
-import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
+import {ATTACHMENT_MESSAGE, ContentType, AttachmentStatus, AttachmentErrorType, PARTICIPANT_MESSAGE} from "../datamodel/Model";
+import {ThemeProvider} from "../../../theme";
+import {mockAllIsIntersecting} from "react-intersection-observer/test-utils";
 
 const mockRichMessagingTranscript = [
   {

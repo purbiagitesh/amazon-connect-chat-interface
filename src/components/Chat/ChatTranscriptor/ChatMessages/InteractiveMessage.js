@@ -1,23 +1,19 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import React, {useState, useLayoutEffect, useRef, useEffect} from 'react';
 import PT from "prop-types";
-import { Text } from "connect-core";
-import { InteractiveMessageType } from "../../datamodel/Model";
+import {Text} from "connect-core";
+import {InteractiveMessageType} from "../../datamodel/Model";
 import ListPicker from "./InteractiveMessages/ListPicker";
 import Panel from "./InteractiveMessages/Panel";
 import TimePicker from "./InteractiveMessages/TimePicker";
 import QuickReply from "./InteractiveMessages/QuickReply";
 import Carousel from "./InteractiveMessages/Carousel";
-import { RichMessageRenderer } from "../../RichMessageComponents";
+import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
-import { ContentType } from "../../datamodel/Model"
+import {ContentType} from "../../datamodel/Model"
 
-//#region Styled Components
 const MessageBody = styled.div`
-  border: ${({ theme }) => theme.globals.baseBorder};
-  border-radius: ${({ theme }) => theme.spacing.mini};
+  border: ${({ theme}) => theme.globals.baseBorder};
+  border-radius: ${({ theme}) => theme.spacing.mini};
 
   ${props => props.addChildBackgroundStyles ? `
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
@@ -52,11 +48,11 @@ const MessageBody = styled.div`
 
   button {
     cursor: pointer;
-    border: ${({ theme }) => theme.globals.baseBorder};
+    border: ${({ theme}) => theme.globals.baseBorder};
   
     &:hover:enabled {
       color: #fff;
-      background: ${({ theme }) => theme.color.primary};
+      background: ${({ theme}) => theme.color.primary};
     }
   }
 `;
@@ -66,7 +62,7 @@ const Title = styled(Text)`
 `;
 
 const Subtitle = styled(Text)`
-  color: ${({ theme }) => theme.globals.textSecondaryColor};
+  color: ${({ theme}) => theme.globals.textSecondaryColor};
 `;
 
 const ElementImage = styled.img`
@@ -76,7 +72,7 @@ const ElementImage = styled.img`
 `;
 
 const TextSection = styled.div`
-  padding: ${({ theme }) => theme.spacing.base};
+  padding: ${({ theme}) => theme.spacing.base};
   text-align: left;
 
   ${props => props.hasNestedSVG ? `
@@ -89,7 +85,7 @@ const TextSection = styled.div`
 const ResponsesSection = styled.div`
   position: relative;
   white-space: pre-line;
-  border-radius: ${({ theme }) => theme.spacing.mini};
+  border-radius: ${({ theme}) => theme.spacing.mini};
 
   ${props => props.isCarouselElem ? `
     margin-top: auto;
@@ -101,20 +97,20 @@ const PickerElementLink = styled.div`
   justify-content: center;
   width: 100%;
   max-width: none;
-  border: ${({ theme }) => theme.globals.baseBorder};
-  background: ${({ theme }) => theme.palette.white};
+  border: ${({ theme}) => theme.globals.baseBorder};
+  background: ${({ theme}) => theme.palette.white};
   white-space: pre-line;
-  padding-right: ${({ theme }) => theme.spacing.small};
-  padding-left: ${({ theme }) => theme.spacing.small};
-  padding-top: ${({ theme }) => theme.button.normal.padding};
-  padding-bottom: ${({ theme }) => theme.button.normal.padding};
-  font-size: ${({ theme }) => theme.button.normal.fontSize};
+  padding-right: ${({ theme}) => theme.spacing.small};
+  padding-left: ${({ theme}) => theme.spacing.small};
+  padding-top: ${({ theme}) => theme.button.normal.padding};
+  padding-bottom: ${({ theme}) => theme.button.normal.padding};
+  font-size: ${({ theme}) => theme.button.normal.fontSize};
   line-height: 1.465;
   text-decoration: none;
 
   &:last-child {
-    border-bottom-left-radius: ${({ theme }) => theme.spacing.mini};
-    border-bottom-right-radius: ${({ theme }) => theme.spacing.mini};
+    border-bottom-left-radius: ${({ theme}) => theme.spacing.mini};
+    border-bottom-right-radius: ${({ theme}) => theme.spacing.mini};
     margin-bottom: 0;
   }
 
@@ -124,8 +120,8 @@ const PickerElementLink = styled.div`
   }
 
   svg: {
-    color: ${({ theme }) => theme.globals.textSecondaryColor};
-    margin: 0 ${({ theme }) => theme.spacing.micro};
+    color: ${({ theme}) => theme.globals.textSecondaryColor};
+    margin: 0 ${({ theme}) => theme.spacing.micro};
   }
 `;
 const PickerOptionTitle = styled(Text)`
@@ -151,7 +147,7 @@ InteractiveMessage.propTypes = {
   templateIdentifier: PT.string
 };
 
-export function InteractiveMessage({ content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier }) {
+export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier}) {
   const [responseSelected, setResponseSelected] = useState(false);
   const ref = useRef();
 
@@ -177,7 +173,7 @@ export function InteractiveMessage({ content, templateType, addMessage, textInpu
       };
       const message = JSON.stringify(reshapedMessage);
 
-      addMessage({ text: message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE });
+      addMessage({text: message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE});
       setResponseSelected(true);
     });
 
@@ -228,7 +224,7 @@ ReactiveImage.propTypes = {
   imageDescription: PT.string
 };
 
-function ReactiveImage({ imageSrc, imageDescription, onImageLoad }) {
+function ReactiveImage({imageSrc, imageDescription, onImageLoad}) {
   return <ElementImage src={imageSrc} alt={imageDescription} onLoad={onImageLoad} onError={(err) => console.log("Failed to load image:", err)} />;
 }
 
@@ -237,7 +233,7 @@ HeaderText.propTypes = {
   subtitle: PT.string,
 };
 
-export function HeaderText({ title, subtitle }) {
+export function HeaderText({title, subtitle}) {
   return (
     <TextSection>
       <RichMessageRenderer content={title} styledWrapper={Title} />
@@ -262,7 +258,7 @@ function ExternalLinkIcon() {
   )
 }
 
-export function PickerElementLinkOption({ url, title, target, testId }) {
+export function PickerElementLinkOption({url, title, target, testId}) {
   return (
     <PickerElementLink data-testid={testId}>
       <PickerOptionTitle hasNestedSVG={true}>
@@ -275,4 +271,4 @@ export function PickerElementLinkOption({ url, title, target, testId }) {
   );
 }
 
-export { ReactiveImage, TextSection, Title, Subtitle, ResponsesSection, MessageBody, PickerOptionTitle }
+export {ReactiveImage, TextSection, Title, Subtitle, ResponsesSection, MessageBody, PickerOptionTitle}

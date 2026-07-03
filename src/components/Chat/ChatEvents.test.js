@@ -1,4 +1,4 @@
-import { ChatEvents } from './ChatEvents';
+import {ChatEvents} from './ChatEvents';
 import EventBus from './eventbus';
 
 describe('ChatEvents', () => {

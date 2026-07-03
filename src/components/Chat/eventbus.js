@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 /**
  * Simple utitlity for for Event subscription
  */
@@ -10,7 +7,7 @@ class EventBus {
   constructor() {
     this._eventMap = new Map();
     if(window.connect && window.connect.LogManager) {
-      this.logger = window.connect.LogManager.getLogger({ prefix: "ChatInterface-EventBus" });
+      this.logger = window.connect.LogManager.getLogger({prefix: "ChatInterface-EventBus"});
     }
   }
 

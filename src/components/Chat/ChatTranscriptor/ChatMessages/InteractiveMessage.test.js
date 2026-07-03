@@ -1,16 +1,13 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, fireEvent } from "@testing-library/react";
-import { ThemeProvider } from "../../../../theme";
-import { screen } from "@testing-library/dom";
-import { HeaderText } from "./InteractiveMessage";
-import { InteractiveMessage } from "./InteractiveMessage";
-import { mockQuickReplyContent } from "./InteractiveMessages/QuickReply.test";
-import { mockCarouselContent } from "./InteractiveMessages/Carousel.test";
-import { ContentType } from "../../datamodel/Model";
+import {render, fireEvent} from "@testing-library/react";
+import {ThemeProvider} from "../../../../theme";
+import {screen} from "@testing-library/dom";
+import {HeaderText} from "./InteractiveMessage";
+import {InteractiveMessage} from "./InteractiveMessage";
+import {mockQuickReplyContent} from "./InteractiveMessages/QuickReply.test";
+import {mockCarouselContent} from "./InteractiveMessages/Carousel.test";
+import {ContentType} from "../../datamodel/Model";
 
 describe("HeaderText", () => {
   const MOCK_TITLE = "MockTitle";
@@ -198,11 +195,11 @@ describe("Interactive message", () => {
   }
 
   it("should render interactive message -> list picker component correctly", () => {
-    renderComponent({ ...mockProps, templateType: "ListPicker" });
+    renderComponent({...mockProps, templateType: "ListPicker"});
     expect(screen.getByText("ListPickerElementTitle")).toBeInTheDocument();
   });
   it("should render interactive message -> panel picker component correctly", () => {
-    renderComponent({ ...mockProps, templateType: "Panel" });
+    renderComponent({...mockProps, templateType: "Panel"});
     expect(screen.getByText("ListPickerElementTitle")).toBeInTheDocument();
   });
   it("should render interactive message -> time picker component correctly", () => {
@@ -258,7 +255,7 @@ describe("Interactive message", () => {
     renderComponent({
       ...mockProps,
       templateType: "ViewResource",
-      content: { Name: "ViewName" }, // content does not matter, we are only checking if component is in dom
+      content: {Name: "ViewName"}, // content does not matter, we are only checking if component is in dom
     });
     let renderer_element = screen.getByTestId("connect-view-renderer");
     expect(renderer_element).toBeInTheDocument();
@@ -266,7 +263,7 @@ describe("Interactive message", () => {
     expect(mockProps.addMessage).toHaveBeenCalledTimes(0);
 
     fireEvent(renderer_element, new CustomEvent('onAction', {
-      detail: { Action: 'action' }
+      detail: {Action: 'action'}
     }));
 
     let message = JSON.stringify({
@@ -276,7 +273,7 @@ describe("Interactive message", () => {
       version: '1.0'
     });
 
-    message = { text: message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE };
+    message = {text: message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE};
 
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage.mock.calls[0][0]).toEqual(message);

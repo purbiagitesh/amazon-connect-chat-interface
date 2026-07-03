@@ -1,11 +1,11 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import ChatContainer from './ChatContainer';
-import { render, waitFor } from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
 import ThemeProvider from '../../theme/ThemeProvider';
 import request from '../../utils/fetchRequest';
 import EventBus from "./eventbus";
-import { LanguageProvider } from "../../context/LanguageContext";
+import {LanguageProvider} from "../../context/LanguageContext";
 
 jest.mock('../../utils/fetchRequest');
 
@@ -13,7 +13,7 @@ const startChatResponse = {
   json: {
     data: {
       persistedChatSession: "aaa",
-      featurePermissions: { ATTACHMENTS: false },
+      featurePermissions: {ATTACHMENTS: false},
       startChatResult: {
         ContactId: "abc",
         ParticipantId: "cde",
@@ -72,9 +72,9 @@ describe("<ChatContainer />", () => {
       ChatSession: {
         create: function (obj) {
           return {
-            controller: { contactId: "aaa" },
+            controller: {contactId: "aaa"},
             getChatDetails: jest.fn(() => {
-              return { participantId: "123" }
+              return {participantId: "123"}
             }),
             onMessage: jest.fn().mockResolvedValue("aaa"),
             onTyping: jest.fn().mockResolvedValue("aaa"),

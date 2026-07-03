@@ -60,7 +60,7 @@ Host your own `amazon-connect-chat-interface.js` bundle file and provide the lin
 <script type="text/javascript">
   (function(w, d, x, id){s=d.createElement('script');s.src='https://d2s9x5slbvr0vu.cloudfront.net/amazon-connect-chat-interface-client.js';s.async=1;s.id=id;d.getElementsByTagName('head')[0].appendChild(s);w[x]=w[x]||function(){(w[x].ac=w[x].ac||[]).push(arguments)}})(window, document, 'amazon_connect', 'asdfasdfasdf');
   
-  amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: { color: '#ffffff', backgroundColor: '#07b62a'} });
+  amazon_connect('styles', {openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: {color: '#ffffff', backgroundColor: '#07b62a'} });
   amazon_connect('snippetId', 'asdfsadfasdf...');
   amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
 + amazon_connect('customerChatInterfaceUrl', 'https://...'); // TODO: put in your link to amazon-connect-chat-interface.js

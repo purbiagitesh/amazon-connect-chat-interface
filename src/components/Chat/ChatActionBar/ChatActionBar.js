@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import {FormattedMessage} from "react-intl";
 import styled from "styled-components";
 import PT from "prop-types";
-import { Button } from "connect-core";
-import { CONTACT_STATUS } from "connect-constants";
+import {Button} from "connect-core";
+import {CONTACT_STATUS} from "connect-constants";
 
 export const ACTION_BAR_HEIGHT = "85px";
 
@@ -48,7 +45,7 @@ const ActionButton = styled(Button)`
 `;
 
 function createMarkup(content) {
-  return { __html: content };
+  return {__html: content};
 }
 
 export default class ChatActionBar extends React.Component {
@@ -56,7 +53,7 @@ export default class ChatActionBar extends React.Component {
   constructor() {
     super();
     if (window.connect && window.connect.LogManager) {
-      this.logger = window.connect.LogManager.getLogger({ prefix: "ChatInterface-ChatActionBar" });
+      this.logger = window.connect.LogManager.getLogger({prefix: "ChatInterface-ChatActionBar"});
     }
   }
 

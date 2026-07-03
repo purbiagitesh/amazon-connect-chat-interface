@@ -23,9 +23,9 @@ This will work for the out-of-box Amazon Connect hosted widget, from the html sn
     s.async=1;
     s.id=id;
     d.getElementsByTagName('head')[0].appendChild(s);
-    w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+    w[x] =  w[x] || function() {(w[x].ac = w[x].ac || []).push(arguments)};
   })(window, document, 'amazon_connect', '360f3075-92ac-4648-adfe-84ee860c3bfd');
-  amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: { color: '#ffffff', backgroundColor: '#07b62a'} });
+  amazon_connect('styles', {openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: {color: '#ffffff', backgroundColor: '#07b62a'} });
   amazon_connect('snippetId', 'QXA1ZnBvMU9ST3F6MXhz...QlhGbUdtbVY5RXV2dXNMT0JTQkVLdz0=');
   amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
 </script>

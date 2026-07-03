@@ -7,7 +7,7 @@ An implementation might look like the following, in the constructor of `ChatSess
 const audioObj = new Audio('my-notification-sound.mp3');
 
 this.session.onMessage(event => {
-  const { chatDetails, data } = event;
+  const {chatDetails, data} = event;
   if (data.ParticipantRole === "AGENT") {
     audioObj.play();
   }

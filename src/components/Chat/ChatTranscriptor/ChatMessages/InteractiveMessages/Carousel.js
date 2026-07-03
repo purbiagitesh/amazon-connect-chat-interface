@@ -1,19 +1,15 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useRef } from "react";
+import React, {useRef} from "react";
 import styled from "styled-components";
 import PT from "prop-types";
-import { RichMessageRenderer } from "../../../RichMessageComponents";
-import { InteractiveMessage, MessageBody } from "../InteractiveMessage";
-import { Button } from "connect-core";
-import { truncateStrFromCharLimit } from "../../../../../utils/helper";
+import {RichMessageRenderer} from "../../../RichMessageComponents";
+import {InteractiveMessage, MessageBody} from "../InteractiveMessage";
+import {Button} from "connect-core";
+import {truncateStrFromCharLimit} from "../../../../../utils/helper";
 import isJSON from "is-json";
-import { InteractiveMessageType } from "../../../datamodel/Model";
+import {InteractiveMessageType} from "../../../datamodel/Model";
 
-const SCROLL_OFFSET_AMOUNT = 200; // clicking arrow button scrolls horizontally, css will still snap to start of element
+const SCROLL_OFFSET_AMOUNT = 200;
 
-// Detect carousel interactive selection stringified object => "{\"listTitle\": \"Bel Air\", \"selectionText\": \"Book Room\"}"
 export function isCarouselSelectionMessage(messageContent) {
   if (isJSON(messageContent)) {
     const parsedContent = JSON.parse(messageContent);
@@ -25,18 +21,16 @@ export function isCarouselSelectionMessage(messageContent) {
   return false;
 }
 
-// Convert stringified object into readable transcript message => "Flights - Purchase Ticket"
 export function formatCarouselInteractiveSelection(messageContent) {
-  const { listTitle, selectionText } = JSON.parse(messageContent);
+  const {listTitle, selectionText} = JSON.parse(messageContent);
 
   const optionalColon = listTitle.slice(-1) === ":" ? "" : " -";
   return `${listTitle}${optionalColon} ${selectionText}`;
 }
 
-//#region Styled Components
 const ResponsesSection = styled.div`
-  padding: ${({ theme }) => theme.spacing.base};
-  margin: 0 ${({ theme }) => theme.spacing.mini};
+  padding: ${({ theme}) => theme.spacing.base};
+  margin: 0 ${({ theme}) => theme.spacing.mini};
   display: flex;
   gap: 2%;
   overflow-x: scroll;
@@ -81,9 +75,8 @@ const ChevronIconWrapper = styled.div`
     height: 12px;
   }
 `;
-//#endregion Styled Components
 
-function NestedInteractiveMessages({ elements, addMessage }) {
+function NestedInteractiveMessages({elements, addMessage}) {
   return (
     <>
       {elements.map((element, index) => (
@@ -100,7 +93,7 @@ function NestedInteractiveMessages({ elements, addMessage }) {
   );
 }
 
-function ChevronIcon({ direction }) {
+function ChevronIcon({direction}) {
   return (
     <ChevronIconWrapper direction={direction}>
       <svg width='8px' height='12px' viewBox='0 0 8 12' xmlns='http://www.w3.org/2000/svg'>
@@ -127,9 +120,9 @@ Carousel.propTypes = {
  *  - Supported templates: Panel, ListPicker
  *  - Render maximum of 5 elements
  */
-export default function Carousel({ content, addMessage }) {
+export default function Carousel({content, addMessage}) {
   // assumptions: version 1. Guaranteed title exists, at least 2 elements.
-  const { title: inputTitle, elements: inputElems } = content;
+  const {title: inputTitle, elements: inputElems} = content;
   const scrollerRef = useRef(null);
 
   const handleScrollLeft = () => {

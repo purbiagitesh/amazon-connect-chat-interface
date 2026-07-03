@@ -1,8 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useState } from "react";
-import { Button } from "connect-core";
+import React, {useState} from "react";
+import {Button} from "connect-core";
 import {
   ReactiveImage,
   ResponsesSection,
@@ -12,10 +9,9 @@ import {
 } from "../InteractiveMessage";
 import styled from "styled-components";
 import PT from "prop-types";
-import { InteractiveMessageSelectionType, InteractiveMessageType } from "../../../datamodel/Model";
-import { createInteractiveMessagePayload, truncateStrFromCharLimit } from "../../../../../utils/helper";
+import {InteractiveMessageSelectionType, InteractiveMessageType} from "../../../datamodel/Model";
+import {createInteractiveMessagePayload, truncateStrFromCharLimit} from "../../../../../utils/helper";
 
-//#region Styled Components
 const ImageContainer = styled.div`
   max-height: calc(95vw * (9 / 16));
   overflow: hidden;
@@ -35,24 +31,23 @@ const PanelButton = styled(Button)`
   justify-content: center;
   width: 100%;
   max-width: none;
-  border: ${({ theme }) => theme.globals.baseBorder};
+  border: ${({ theme}) => theme.globals.baseBorder};
   white-space: pre-line;
 
   &:hover {
-    background: ${({ theme }) => theme.color.primary};
+    background: ${({ theme}) => theme.color.primary};
   }
 
   /* Last child could be <a/>, only round last child */
   &:last-child {
-    border-bottom-left-radius: ${({ theme }) => theme.spacing.mini};
-    border-bottom-right-radius: ${({ theme }) => theme.spacing.mini};
+    border-bottom-left-radius: ${({ theme}) => theme.spacing.mini};
+    border-bottom-right-radius: ${({ theme}) => theme.spacing.mini};
     margin-bottom: 0;
   }
 `;
-//#endregion Styled Components
 
-function PanelPickerElement({ element, handleButtonClick }) {
-  const { title: inputTitle, type, url } = element;
+function PanelPickerElement({element, handleButtonClick}) {
+  const {title: inputTitle, type, url} = element;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.PANEL, "elementTitleCharLimit");
 
   if (type === InteractiveMessageSelectionType.HYPERLINK && url) {

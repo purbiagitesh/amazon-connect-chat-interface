@@ -1,14 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from 'react';
 import PT from 'prop-types';
 import styled from 'styled-components';
-import { default_image } from 'connect-images';
-import { SpriteSymbol } from 'connect-prop-types';
-import { FlexVerticalCenterContainer } from 'connect-theme/Helpers';
+import {default_image} from 'connect-images';
+import {SpriteSymbol} from 'connect-prop-types';
+import {FlexVerticalCenterContainer} from 'connect-theme/Helpers';
 
-const SVGComponent = function({ src, alt }) {
+const SVGComponent = function({src, alt}) {
   const svgConfig = {
     role: 'img',
     width: '100%',
@@ -23,10 +20,10 @@ const SVGComponent = function({ src, alt }) {
 const ImgComponent = styled.img``;
 
 const SIZE_TYPE = {
-  mini: { w: '13px', h: '13px' },
-  small: { w: '20px', h: '20px' },
-  medium: { w: '23px', h: '23px' },
-  large: { w: '30px', h: '30px' }
+  mini: {w: '13px', h: '13px'},
+  small: {w: '20px', h: '20px'},
+  medium: {w: '23px', h: '23px'},
+  large: {w: '30px', h: '30px'}
 };
 
 Icon.propTypes = {
@@ -43,14 +40,14 @@ Icon.defaultProps = {
 };
 
 const IconWrapper = styled(FlexVerticalCenterContainer)`
-  ${({ size }) => `width: ${size.w}; height: ${size.h};`};
+  ${({ size}) => `width: ${size.w}; height: ${size.h};`};
   
   img{
     width: 100%;
   }
 `;
 
-function Icon({ type, src, ...rest }) {
+function Icon({type, src, ...rest}) {
   const IconComponent = typeof src === 'string' ? ImgComponent : SVGComponent;
   return (
       <IconWrapper type={type} size={SIZE_TYPE[type]}>
@@ -59,4 +56,4 @@ function Icon({ type, src, ...rest }) {
   );
 }
 
-export { Icon, IconWrapper };
+export {Icon, IconWrapper};

@@ -43,7 +43,7 @@ function validateClientEnv(clientName, envName) {
     process.exit(1);
   }
   
-  return { clientPath, envFile };
+  return {clientPath, envFile};
 }
 
 // List available clients
@@ -81,9 +81,9 @@ function listEnvironments(clientName) {
 function copyDirSync(src, dest) {
   if (!fs.existsSync(src)) return;
   
-  fs.mkdirSync(dest, { recursive: true });
+  fs.mkdirSync(dest, {recursive: true});
   
-  const entries = fs.readdirSync(src, { withFileTypes: true });
+  const entries = fs.readdirSync(src, {withFileTypes: true});
   
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -212,7 +212,7 @@ function generateClientInfo(clientName, envName, config, outputPath, logoUrl) {
   };
 
   if (logoUrl) {
-    info.assets = { logo: logoUrl };
+    info.assets = {logo: logoUrl};
   }
 
   const content = `/**
@@ -276,11 +276,11 @@ Examples:
   console.log(`\n🚀 Preparing environment for client: ${clientName} (${envName})\n`);
   
   // Validate client and environment
-  const { clientPath, envFile } = validateClientEnv(clientName, envName);
+  const {clientPath, envFile} = validateClientEnv(clientName, envName);
   
   // Read environment configuration
   const config = JSON.parse(fs.readFileSync(envFile, 'utf8'));
-  config._meta = { client: clientName };
+  config._meta = {client: clientName};
   
   // Define paths
   const localTestingDir = path.join(__dirname, '..', 'local-testing');
@@ -290,7 +290,7 @@ Examples:
   
   // Clean previous client assets
   if (fs.existsSync(outputAssetsDir)) {
-    fs.rmSync(outputAssetsDir, { recursive: true });
+    fs.rmSync(outputAssetsDir, {recursive: true});
     console.log('  🧹 Cleaned previous client assets');
   }
   
@@ -316,7 +316,7 @@ Examples:
 
   // Save current client/env selection
   const envStateFile = path.join(__dirname, '..', '.client-env');
-  fs.writeFileSync(envStateFile, JSON.stringify({ client: clientName, env: envName }, null, 2));
+  fs.writeFileSync(envStateFile, JSON.stringify({client: clientName, env: envName}, null, 2));
   console.log('  ✅ Saved current client/env state');
   
   console.log(`\n✨ Environment ready! Client: ${clientName}, Env: ${envName}`);

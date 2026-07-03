@@ -26,9 +26,9 @@ function parseArgs() {
 
 // Copy directory recursively with content replacement
 function copyDirWithReplacements(src, dest, replacements) {
-  fs.mkdirSync(dest, { recursive: true });
+  fs.mkdirSync(dest, {recursive: true});
   
-  const entries = fs.readdirSync(src, { withFileTypes: true });
+  const entries = fs.readdirSync(src, {withFileTypes: true});
   
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -182,8 +182,8 @@ Examples:
   copyDirWithReplacements(templateDir, clientDir, replacements);
   
   // Create assets folders
-  fs.mkdirSync(path.join(clientDir, 'assets', 'fonts'), { recursive: true });
-  fs.mkdirSync(path.join(clientDir, 'assets', 'images'), { recursive: true });
+  fs.mkdirSync(path.join(clientDir, 'assets', 'fonts'), {recursive: true});
+  fs.mkdirSync(path.join(clientDir, 'assets', 'images'), {recursive: true});
   
   // Create placeholder logo
   const logoPlaceholder = path.join(clientDir, 'assets', 'logo.png');

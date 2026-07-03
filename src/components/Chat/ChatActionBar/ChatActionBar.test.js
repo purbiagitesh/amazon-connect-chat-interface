@@ -1,10 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from 'react';
-import { IntlProvider } from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import ChatActionBar from './ChatActionBar';
-import { ThemeProvider } from '../../../theme';
+import {ThemeProvider} from '../../../theme';
 
 describe('<ChatActionBar />', () => {
   test("Style should match the snapshot", () => {

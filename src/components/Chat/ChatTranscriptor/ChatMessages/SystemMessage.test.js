@@ -1,8 +1,8 @@
 import React from "react";
-import { IntlProvider } from "react-intl";
-import { SystemMessage } from "./SystemMessage";
-import { ContentType } from "../../datamodel/Model";
-import { PARTICIPANT_TYPES } from "../../datamodel/Model";
+import {IntlProvider} from "react-intl";
+import {SystemMessage} from "./SystemMessage";
+import {ContentType} from "../../datamodel/Model";
+import {PARTICIPANT_TYPES} from "../../datamodel/Model";
  
 const TEST_DISPLAY_NAME = 'Test';
 const GENERIC_DISPLAY_NAME = 'Generic Display Name';

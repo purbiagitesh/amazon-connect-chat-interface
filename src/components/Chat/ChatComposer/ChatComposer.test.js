@@ -1,14 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { IntlProvider } from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import ChatComposer from "./ChatComposer";
-import { ThemeProvider } from "../../../theme";
-import { render, fireEvent, screen, prettyDOM } from "@testing-library/react";
+import {ThemeProvider} from "../../../theme";
+import {render, fireEvent, screen, prettyDOM} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ContentType } from "../datamodel/Model";
-import { KEYBOARD_KEY_CONSTANTS } from "connect-constants";
+import {ContentType} from "../datamodel/Model";
+import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 import "@testing-library/jest-dom";
 
 const mockAttachmentsFile = {
@@ -47,7 +44,7 @@ describe("when window.connect is not defined", () => {
       contactId: "12344",
       contactStatus: "connected",
       typedMessage: "",
-      composerConfig: { attachmentsEnabled: true },
+      composerConfig: {attachmentsEnabled: true},
     };
     navigator.__defineGetter__("userAgent", function () {
       return "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X)";
@@ -68,9 +65,9 @@ describe("when window.connect is not defined", () => {
   test("Should be able to send an attachment", () => {
     renderElement(mockProps);
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
-    fireEvent.change(fileInput, { target: { files: [mockAttachmentsFile] } });
+    fireEvent.change(fileInput, {target: { files: [mockAttachmentsFile]} });
     const textInput = mockComposer.getByTestId("customer-chat-text-input");
-    fireEvent.keyDown(textInput, { key: KEYBOARD_KEY_CONSTANTS.ENTER });
+    fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
     expect(mockProps.addAttachment).toHaveBeenCalledTimes(1);
     expect(mockProps.addAttachment).toHaveBeenCalledWith(mockProps.contactId, {
       ...mockAttachmentsFile,
@@ -81,7 +78,7 @@ describe("when window.connect is not defined", () => {
     renderElement(mockProps);
 
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
-    fireEvent.change(fileInput, { target: { files: [mockAttachmentsFile] } });
+    fireEvent.change(fileInput, {target: { files: [mockAttachmentsFile]} });
 
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     fireEvent.click(sendMessageButton);
@@ -122,7 +119,7 @@ describe("when window.connect is not defined", () => {
     renderElement(mockProps);
 
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
-    fireEvent.change(fileInput, { target: { files: [mockAttachmentsFile] } });
+    fireEvent.change(fileInput, {target: { files: [mockAttachmentsFile]} });
 
     const testMessage = "Hello, World!";
     const textInput = mockComposer.getByTestId("customer-chat-text-input");
@@ -153,10 +150,10 @@ describe("when window.connect is not defined", () => {
   test("Should be able to unselect an attachment", () => {
     renderElement(mockProps);
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
-    fireEvent.change(fileInput, { target: { files: [mockAttachmentsFile] } });
+    fireEvent.change(fileInput, {target: { files: [mockAttachmentsFile]} });
     const textInput = mockComposer.getByTestId("customer-chat-text-input");
-    fireEvent.keyDown(textInput, { key: KEYBOARD_KEY_CONSTANTS.DELETE });
-    fireEvent.keyDown(textInput, { key: KEYBOARD_KEY_CONSTANTS.ENTER });
+    fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.DELETE});
+    fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
     expect(mockProps.addAttachment).toHaveBeenCalledTimes(0);
   });
 
@@ -168,7 +165,7 @@ describe("when window.connect is not defined", () => {
     userEvent.tab();
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     expect(sendMessageButton).toHaveFocus();
-    fireEvent.keyDown(sendMessageButton, { key: KEYBOARD_KEY_CONSTANTS.SPACE });
+    fireEvent.keyDown(sendMessageButton, {key: KEYBOARD_KEY_CONSTANTS.SPACE});
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
   });
 
@@ -180,7 +177,7 @@ describe("when window.connect is not defined", () => {
     userEvent.tab();
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     expect(sendMessageButton).toHaveFocus();
-    fireEvent.keyDown(sendMessageButton, { key: KEYBOARD_KEY_CONSTANTS.ENTER });
+    fireEvent.keyDown(sendMessageButton, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
   });
 
@@ -190,11 +187,11 @@ describe("when window.connect is not defined", () => {
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
     // focus on the attachment icon
-    userEvent.tab({ shift: true });
+    userEvent.tab({shift: true});
     expect(document.querySelector('[aria-label="Attach a file"]')).toHaveFocus();
     const attachmentIcon = mockComposer.getByTestId("customer-chat-attachment-icon");
     // TODO: add test for verifying the click event
-    fireEvent.keyDown(attachmentIcon, { key: KEYBOARD_KEY_CONSTANTS.SPACE });
+    fireEvent.keyDown(attachmentIcon, {key: KEYBOARD_KEY_CONSTANTS.SPACE});
   });
 
   test("Should be able to click attachment icon using Tab and Enter", () => {
@@ -203,11 +200,11 @@ describe("when window.connect is not defined", () => {
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
     // focus on the attachment icon
-    userEvent.tab({ shift: true });
+    userEvent.tab({shift: true});
     expect(document.querySelector('[aria-label="Attach a file"]')).toHaveFocus();
     const attachmentIcon = mockComposer.getByTestId("customer-chat-attachment-icon");
     // TODO: add test for verifying the click event
-    fireEvent.keyDown(attachmentIcon, { key: KEYBOARD_KEY_CONSTANTS.ENTER });
+    fireEvent.keyDown(attachmentIcon, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
   });
 });
 
@@ -235,7 +232,7 @@ describe("when window.connect is defined", () => {
     renderElement(mockProps);
 
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
-    fireEvent.change(fileInput, { target: { files: [mockAttachmentsFile] } });
+    fireEvent.change(fileInput, {target: { files: [mockAttachmentsFile]} });
 
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     fireEvent.click(sendMessageButton);

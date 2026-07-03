@@ -1,7 +1,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+    return (mod && mod.__esModule) ? mod : {"default": mod};
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.AmazonConnectChatInterfaceStrings = void 0;
 var en_US_json_1 = __importDefault(require("./localization/en_US.json"));
 var de_DE_json_1 = __importDefault(require("./localization/de_DE.json"));

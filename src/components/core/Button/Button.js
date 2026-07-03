@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PT from 'prop-types';
 import styled from 'styled-components';
-import { Icon, Loader} from 'connect-core';
+import {Icon, Loader} from 'connect-core';
 
-const globalStyles = ({ button, globals, fonts }) => (`
+const globalStyles = ({button, globals, fonts}) => (`
   white-space: nowrap;
   color: ${button.color};
   cursor: ${button.cursor};
@@ -23,20 +20,20 @@ const globalStyles = ({ button, globals, fonts }) => (`
   max-width: 260px;
 `);
 
-const normalStyles = ({ button }) => (`
+const normalStyles = ({button}) => (`
   padding-top: ${button.normal.padding};
   padding-bottom: ${button.normal.padding};
   font-size: ${button.normal.fontSize};
   box-shadow:  ${button.normal.boxShadow};
 `);
 
-const smallStyles = ({ button }) => (`
+const smallStyles = ({button}) => (`
   padding-top: ${button.small.padding};
   padding-bottom: ${button.small.padding};
   font-size: ${button.small.fontSize};
 `);
 
-const defaultStyles = ({ button, globals, spacing }) => (`
+const defaultStyles = ({button, globals, spacing}) => (`
   background: ${button.default.bg};
   border-color: ${button.default.borderColor};
   
@@ -69,7 +66,7 @@ const defaultStyles = ({ button, globals, spacing }) => (`
 `);
 
 
-const applyButtonStyles = ({ button, globals }, type) => (`
+const applyButtonStyles = ({button, globals}, type) => (`
   background: ${button[type].bg};
   border-color: ${button[type].borderColor};
 
@@ -99,16 +96,16 @@ const applyButtonStyles = ({ button, globals }, type) => (`
 `);
 
 export const StyledButton = styled.button`
-  ${({ theme }) => theme.typography.base};
-  ${({ theme }) => globalStyles(theme)};
-  ${({ theme }) => defaultStyles(theme)};
+  ${({ theme}) => theme.typography.base};
+  ${({ theme}) => globalStyles(theme)};
+  ${({ theme}) => defaultStyles(theme)};
   ${props => props.type && applyButtonStyles(props.theme, props.type)};
   ${props => props.small ? smallStyles(props.theme) : normalStyles(props.theme)};
 `;
 StyledButton.displayName = 'StyledButton';
 
 const StyledLink = styled.a`
-  ${({ theme }) => theme.typography.base};
+  ${({ theme}) => theme.typography.base};
   ${props => props.type && applyButtonStyles(props.theme, props.type)};
   ${props => props.small ? smallStyles(props.theme) : normalStyles(props.theme)};
   display: inline-block;
@@ -117,7 +114,7 @@ const StyledLink = styled.a`
   &:active,
   &:link {
     text-decoration: none;
-    ${({ theme }) => globalStyles(theme)};
+    ${({ theme}) => globalStyles(theme)};
   }
 `;
 StyledLink.displayName = 'StyledLink';

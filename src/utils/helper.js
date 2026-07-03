@@ -1,5 +1,5 @@
-import { ContentType, InteractiveMessageType } from "../components/Chat/datamodel/Model";
-import { INTERACTIVE_MESSAGE } from "../components/Chat/constants";
+import {ContentType, InteractiveMessageType} from "../components/Chat/datamodel/Model";
+import {INTERACTIVE_MESSAGE} from "../components/Chat/constants";
 import * as DOMPurify from 'dompurify';
 
 export function shouldDisplayMessageForType(correntType) {
@@ -37,7 +37,7 @@ export function createInteractiveMessagePayload(
     }
   }
 
-  const payload = { text: selectedElement.title };
+  const payload = {text: selectedElement.title};
   if (
     selectedElement.actionDetail &&
     (selectedElement.actionDetail === INTERACTIVE_MESSAGE.ACTIONS.SHOW_MORE ||
@@ -146,7 +146,7 @@ export const constructGuidesRendererUrl = (instanceAlias, rendererVersion) => {
  * @param {object} props props that were passed with the init call for this widget
  */
 export const setupGuidesRenderer = (props) => {
-  const logger = connect.LogManager ? connect.LogManager.getLogger({ prefix: "ChatInterface-Chat" }): console;
+  const logger = connect.LogManager ? connect.LogManager.getLogger({prefix: "ChatInterface-Chat"}): console;
   if (props.guidesInChat) {
     const version = props.guidesInChat.version || 'latest';
     const instanceAlias = props.guidesInChat.instanceAlias;

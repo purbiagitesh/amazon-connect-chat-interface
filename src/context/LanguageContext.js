@@ -1,10 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { LANGUAGES } from '../constants/global';
-import { AmazonConnectChatInterfaceStrings } from '../localization';
+import {IntlProvider} from 'react-intl';
+import {LANGUAGES} from '../constants/global';
+import {AmazonConnectChatInterfaceStrings} from '../localization';
 //Context
 export const LanguageContext = React.createContext();
 
@@ -43,7 +40,7 @@ export class LanguageProvider extends React.Component {
             this.loadLanguages(selectedLanguage);
         }
         try {
-            const logger = window.connect.LogManager.getLogger({ prefix: "ChatInterface-Chat" });
+            const logger = window.connect.LogManager.getLogger({prefix: "ChatInterface-Chat"});
             logger.warn("selected language:", language, selectedLanguage);
         } catch(err) {
             console.info("Error logging language change using LogManager", err);

@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
-import { ThemeProvider } from "../../../../../theme";
+import {render, fireEvent, screen} from "@testing-library/react";
+import {ThemeProvider} from "../../../../../theme";
 import ListPicker from "./ListPicker";
-import { InteractiveMessageType } from "../../../datamodel/Model";
-import { INTERACTIVE_MESSAGE } from "../../../constants";
+import {InteractiveMessageType} from "../../../datamodel/Model";
+import {INTERACTIVE_MESSAGE} from "../../../constants";
 import "@testing-library/jest-dom";
 import * as helpers from '../../../../../utils/helper';
 
@@ -55,7 +52,7 @@ describe("<ListPicker />", () => {
 
   beforeEach(() => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
-    mockProps = { content: mockListPickerContent, addMessage: addMessage, templateType: InteractiveMessageType.LIST_PICKER };
+    mockProps = {content: mockListPickerContent, addMessage: addMessage, templateType: InteractiveMessageType.LIST_PICKER};
   });
 
   it("style should match the snapshot", () => {
@@ -107,7 +104,7 @@ describe("<ListPicker />", () => {
           ...mockListPickerContent,
           [fieldKey]: longTitle,
       };
-      renderElement({ ...mockProps, content: listPickerLongTitle });
+      renderElement({...mockProps, content: listPickerLongTitle});
       expect(() => screen.getByText(longTitle)).toThrow(
           "Unable to find an element"
       );
@@ -128,7 +125,7 @@ describe("<ListPicker />", () => {
             [fieldKey]: longElementTitle
           }]
       };
-      renderElement({ ...mockProps, content: listPickerPickerLongTitle });
+      renderElement({...mockProps, content: listPickerPickerLongTitle});
       expect(() => screen.getByText(longElementTitle)).toThrow(
           "Unable to find an element"
       );
@@ -185,11 +182,11 @@ describe("ListPicker XSS Mitigation", () => {
   it("should use DOMPurify to mitigate malicious XSS input", () => {
     renderElement(mockProps);
     expect(screen.getByText("Title with script")).toBeDefined();
-    expect(screen.getByText("<img src=\"x\">", { exact: false })).toBeDefined();
-    expect(screen.getByText("<a>Click me</a>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", { exact: false })).toBeDefined();
+    expect(screen.getByText("<img src=\"x\">", {exact: false})).toBeDefined();
+    expect(screen.getByText("<a>Click me</a>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", {exact: false})).toBeDefined();
   });
 });
 

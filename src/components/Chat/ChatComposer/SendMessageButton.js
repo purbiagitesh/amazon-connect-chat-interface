@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import defaultTheme from '../../../theme/defaultTheme';
-import { KEYBOARD_KEY_CONSTANTS } from "connect-constants";
+import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 
 const ACTIVE_COLOR = defaultTheme.palette.secondaryBlack;
 const INACTIVE_COLOR = defaultTheme.palette.whisper;
@@ -21,7 +21,7 @@ const SendButton = styled.div`
  * @param {boolean} props.isActive
  * @param {Function} props.sendMessage
  */
-function SendMessageButton({ isActive, sendMessage }) {
+function SendMessageButton({isActive, sendMessage}) {
   return (
     <SendButton 
       isActive={isActive}

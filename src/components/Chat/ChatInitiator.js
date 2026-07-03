@@ -1,8 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import request from "../../utils/fetchRequest";
-import { START_CHAT_CLIENT_TIMEOUT_MS } from "../../constants/http";
+import {START_CHAT_CLIENT_TIMEOUT_MS} from "../../constants/http";
 
 function safeParse(jsonString, defaultValue) {
   try {

@@ -1,11 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import "amazon-connect-chatjs";
-import { CONTACT_STATUS } from "../../constants/global";
-import { modelUtils } from "./datamodel/Utils";
-import { ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE, AttachmentErrorType, PARTICIPANT_TYPES, InteractiveMessageType } from "./datamodel/Model";
-import { getTimeFromTimeStamp } from "../../utils/helper";
+import {CONTACT_STATUS} from "../../constants/global";
+import {modelUtils} from "./datamodel/Utils";
+import {ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE, AttachmentErrorType, PARTICIPANT_TYPES, InteractiveMessageType} from "./datamodel/Model";
+import {getTimeFromTimeStamp} from "../../utils/helper";
 import Eventbus from './eventbus';
 import isJson from "is-json";
 
@@ -30,7 +27,7 @@ class ChatJSClient {
     this.session = connect.ChatSession.create({
       chatDetails: chatDetails.startChatResult,
       type: "CUSTOMER",
-      options: { region: region },
+      options: {region: region},
     });
   }
 
@@ -160,11 +157,11 @@ class ChatJSClient {
   }
 
   sendAttachment(attachment) {
-    return this.session.sendAttachment({ attachment });
+    return this.session.sendAttachment({attachment});
   }
 
   downloadAttachment(attachmentId) {
-    return this.session.downloadAttachment({ attachmentId });
+    return this.session.downloadAttachment({attachmentId});
   }
 
   describeView(viewTokenObj) {
@@ -323,12 +320,12 @@ class ChatSession {
           data.type !== ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE) {
           let temp_message = {
             action: " ", // empty string is not allowed
-            data: { content: `${data.text}` },
+            data: {content: `${data.text}` },
             templateType: InteractiveMessageType.VIEW_RESOURCE,
             version: '1.0'
           };
           temp_message = JSON.stringify(temp_message);
-          data = { text: temp_message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE };
+          data = {text: temp_message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE};
         }
       } catch (e) {
         console.debug(`Unable to parse message.content.data. Skipping check for previous view message`);
@@ -337,7 +334,7 @@ class ChatSession {
 
     return modelUtils.createOutgoingTranscriptItem(
       PARTICIPANT_MESSAGE,
-      { data: data.text, type: data.type || ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN },
+      {data: data.text, type: data.type || ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN},
       this.thisParticipant
     );
   }
@@ -376,7 +373,7 @@ class ChatSession {
   }
 
   sendAttachment(transcriptItem) {
-    const { participantId, displayName } = this.thisParticipant;
+    const {participantId, displayName} = this.thisParticipant;
     return this.client
       .sendAttachment(transcriptItem.content)
       .then((response) => {
@@ -397,7 +394,7 @@ class ChatSession {
           } else {
             transcriptItem.transportDetails.error.message = "Attachment failed to send";
             transcriptItem.transportDetails.error.retry = () => {
-              const newTranscriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, transcriptItem.content, { displayName, participantId });
+              const newTranscriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, transcriptItem.content, {displayName, participantId});
               newTranscriptItem.id = transcriptItem.id;
               this._replaceItemInTranscript(transcriptItem, newTranscriptItem);
               this.sendAttachment(newTranscriptItem);
@@ -602,7 +599,7 @@ class ChatSession {
       }
       console.log("_handleIncomingData item created");
 
-      const { transportDetails, type, participantRole } = item;
+      const {transportDetails, type, participantRole} = item;
       if (transportDetails.direction === Direction.Incoming) {
         this._triggerEvent("incoming-message", data);
         if (modelUtils.isTypeMessageOrAttachment(type) && modelUtils.isParticipantAgentOrCustomer(participantRole)) {
@@ -644,7 +641,7 @@ class ChatSession {
     let newParsedView = {};
     const ViewResourceInputData = modelUtils.createViewMessageData(viewDetails.data);
     try {
-      const describeViewResponse = await this.describeView({ viewToken: ViewResourceInputData.viewToken });
+      const describeViewResponse = await this.describeView({viewToken: ViewResourceInputData.viewToken});
       const newView = describeViewResponse ? describeViewResponse.data.View : {};
       const Template = JSON.parse(newView.Content.Template);
       const InputSchema = JSON.parse(newView.Content.InputSchema);
@@ -659,7 +656,7 @@ class ChatSession {
       };
     } catch (err) {
       newParsedView = {
-        Content: { InputSchema: {}, Template: {} },
+        Content: {InputSchema: {}, Template: {} },
         ErrorType: 'INVALID_VIEW_ID',
         InputData: ViewResourceInputData.viewInputData
       };
@@ -679,7 +676,7 @@ class ChatSession {
       this.logger && this.logger.debug(`Message with messageId:${messageId} not found in transcript`);
       return;
     }
-    const { sentTime } = oldItemInTranscript.transportDetails;
+    const {sentTime} = oldItemInTranscript.transportDetails;
     this._handleMessageReceiptLatencyMetric(messageReceiptType, dataInput, sentTime);
     var newItem = modelUtils.createIncomingTranscriptReceiptItem(this.thisParticipant, oldItemInTranscript, messageReceiptData, messageReceiptType);
     this._replaceItemInTranscript(oldItemInTranscript, newItem, messageReceiptType);
@@ -687,15 +684,15 @@ class ChatSession {
 
   _handleMessageReceiptLatencyMetric(messageReceiptType, dataInput, sentTime) {
     const {
-      chatDetails: { participantId },
+      chatDetails: {participantId},
       data: {
-        MessageMetadata: { Receipts },
+        MessageMetadata: {Receipts},
       },
     } = dataInput;
     if (Receipts.length > 0) {
       const receipt = this._findReceipt(Receipts, participantId);
       if (receipt) {
-        const { DeliveredTimestamp, ReadTimestamp } = receipt;
+        const {DeliveredTimestamp, ReadTimestamp} = receipt;
         const timeDifference = messageReceiptType === "read" ? getTimeFromTimeStamp(ReadTimestamp) - sentTime * 1000 : getTimeFromTimeStamp(DeliveredTimestamp) - sentTime * 1000;
         this.logger && this.logger.info(messageReceiptType, timeDifference);
       }
@@ -727,7 +724,7 @@ class ChatSession {
 
     items = items.filter((item) => !this._isRoundTripSystemEvent(item));
 
-    const newItemMap = items.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
+    const newItemMap = items.reduce((acc, item) => ({...acc, [item.id]: item}), {});
 
     let newTranscript = this.transcript.filter((item) => newItemMap[item.id] === undefined);
     self._removePreviousInteractiveMessage(newTranscript, items);
@@ -762,8 +759,8 @@ class ChatSession {
     //so we need to explicitly fire readReceipt for the last received/incoming message.
     //Note: ChatJS has a mapper and prevents duplicate event if its already fired!
     if (lastIncomingMessageIdx !== -1 && lastOutgoingMessageIdx > lastIncomingMessageIdx) {
-      const { type, id } = newTranscript[lastIncomingMessageIdx];
-      this.sendReadReceipt(id, type === ATTACHMENT_MESSAGE ? { disableThrottle: true } : {});
+      const {type, id} = newTranscript[lastIncomingMessageIdx];
+      this.sendReadReceipt(id, type === ATTACHMENT_MESSAGE ? {disableThrottle: true} : {});
     }
 
     if (lastReadMessageIdx !== -1) {
@@ -950,7 +947,7 @@ class ChatSession {
       if (message.content && message.content.data && !modelUtils.isViewMessage(message)) {
         const str = message.content.data;
         if(isJson(str)) {
-          const { data } = JSON.parse(str);
+          const {data} = JSON.parse(str);
           if(data.actionName) {
             return false;
           }

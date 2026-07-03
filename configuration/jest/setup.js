@@ -1,14 +1,14 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import "jest-styled-components"
-import { ThemeProvider } from 'styled-components';
-import { defaultTheme } from '../../src/theme';
-import Enzyme, { shallow, render, mount } from 'enzyme';
+import {ThemeProvider} from 'styled-components';
+import {defaultTheme} from '../../src/theme';
+import Enzyme, {shallow, render, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import regeneratorRuntime from "regenerator-runtime";
 import '@testing-library/jest-dom'
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()});
 
 function createNodeMock(element) {
   return {
@@ -20,7 +20,7 @@ const createTree = (Component, themeOverride) => {
   const theme = themeOverride || defaultTheme;
   const ComponentWithTheme = React.cloneElement(
     Component,
-    { theme },
+    {theme},
   );
   return renderer.create(ComponentWithTheme, {createNodeMock}).toJSON();
 };

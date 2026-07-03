@@ -1,11 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { screen, render, fireEvent } from "@testing-library/react";
-import { ThemeProvider } from "../../../../../theme";
+import {screen, render, fireEvent} from "@testing-library/react";
+import {ThemeProvider} from "../../../../../theme";
 import QuickReply from "./QuickReply";
-import { InteractiveMessageType } from "../../../datamodel/Model";
+import {InteractiveMessageType} from "../../../datamodel/Model";
 import * as helpers from '../../../../../utils/helper';
 
 const QUICK_REPLY_CONSTRAINTS = helpers.INTERACTIVE_MESSAGE_CONSTRAINTS[InteractiveMessageType.QUICK_REPLY];
@@ -48,7 +45,7 @@ describe("<QuickReply />", () => {
   }
   beforeEach(() => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
-    mockProps = { content: mockQuickReplyContent, addMessage: addMessage };
+    mockProps = {content: mockQuickReplyContent, addMessage: addMessage};
   });
 
   it("Style should match the snapshot", () => {
@@ -70,7 +67,7 @@ describe("<QuickReply />", () => {
     expect(screen.getByText(mockQuickReplyContent.title)).toBeDefined();
 
     // Renders each element
-    mockQuickReplyContent.elements.forEach(({ title: replyOption }) => {
+    mockQuickReplyContent.elements.forEach(({title: replyOption}) => {
       expect(screen.getByText(replyOption)).toBeDefined();
     });
 
@@ -98,7 +95,7 @@ describe("<QuickReply />", () => {
   });
 
   it("Should truncate a title over the character limit", () => {
-    const { titleCharLimit } = QUICK_REPLY_CONSTRAINTS;
+    const {titleCharLimit} = QUICK_REPLY_CONSTRAINTS;
 
     const longTitle = "LongTitle".repeat(100);
     const truncatedTitle = `${longTitle.substring(0, titleCharLimit)}...`;
@@ -107,7 +104,7 @@ describe("<QuickReply />", () => {
       ...mockQuickReplyContent,
       title: longTitle,
     };
-    renderElement({ ...mockProps, content: quickReplyLongTitle });
+    renderElement({...mockProps, content: quickReplyLongTitle});
     expect(() => screen.getByText(longTitle)).toThrow(
       "Unable to find an element"
     );
@@ -115,7 +112,7 @@ describe("<QuickReply />", () => {
   });
 
   it("Should truncate a picker option over the character limit", () => {
-    const { replyOptionCharLimit } = QUICK_REPLY_CONSTRAINTS;
+    const {replyOptionCharLimit} = QUICK_REPLY_CONSTRAINTS;
 
     const longPickerOption = "LongPickerOption".repeat(100);
     const truncatedPickerOption = `${longPickerOption.substring(0, replyOptionCharLimit)}...`;
@@ -123,10 +120,10 @@ describe("<QuickReply />", () => {
 
     const quickReplyLongOption = {
       ...mockQuickReplyContent,
-      elements: [{ title: shortPickerOption }, { title: longPickerOption }],
+      elements: [{title: shortPickerOption}, {title: longPickerOption}],
     };
 
-    renderElement({ ...mockProps, content: quickReplyLongOption });
+    renderElement({...mockProps, content: quickReplyLongOption});
     expect(() => screen.getByText(longPickerOption)).toThrow(
       "Unable to find an element"
     );
@@ -179,9 +176,9 @@ describe("QuickReply XSS Mitigation", () => {
   it("should use DOMPurify to mitigate malicious XSS input", () => {
     renderElement(mockProps);
     expect(screen.getByText("Title with script")).toBeDefined();
-    expect(screen.getByText("<a>Click me</a>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", { exact: false })).toBeDefined();
+    expect(screen.getByText("<a>Click me</a>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", {exact: false})).toBeDefined();
   });
 });

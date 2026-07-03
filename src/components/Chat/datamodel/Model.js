@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 export const PARTICIPANT_MESSAGE = "MESSAGE";
 export const CHAT_EVENT = "EVENT";
 export const ATTACHMENT_MESSAGE = "ATTACHMENT";

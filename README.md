@@ -30,7 +30,7 @@ Add a chat widget to your website that is hosted by Amazon Connect. You can conf
 <script type="text/javascript">
   (function(w, d, x, id){s=d.createElement('script');s.src='https://1234lbvr0vu.cloudfront.net/amazon-connect-chat-interface-client.js';s.async=1;s.id=id;d.getElementsByTagName('head')[0].appendChild(s);w[x]=w[x]||function(){(w[x].ac=w[x].ac||[]).push(arguments)}})(window, document, 'amazon_connect', '360f3075-asfd-asfd-asdf-asdf');
   
-  amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: { color: '#ffffff', backgroundColor: '#07b62a'} });
+  amazon_connect('styles', {openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: {color: '#ffffff', backgroundColor: '#07b62a'} });
   amazon_connect('snippetId', 'asdf1234asdf1234adsf1234=');
   amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
 </script>
@@ -52,7 +52,7 @@ Host your own `amazon-connect-chat-interface.js` bundle file and provide the lin
 <script type="text/javascript">
   (function(w, d, x, id){s=d.createElement('script');s.src='https://d2s9x5slbvr0vu.cloudfront.net/amazon-connect-chat-interface-client.js';s.async=1;s.id=id;d.getElementsByTagName('head')[0].appendChild(s);w[x]=w[x]||function(){(w[x].ac=w[x].ac||[]).push(arguments)}})(window, document, 'amazon_connect', '360f3075-92ac-4648-adfe-84ee860c3bfd');
   
-  amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: { color: '#ffffff', backgroundColor: '#07b62a'} });
+  amazon_connect('styles', {openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: {color: '#ffffff', backgroundColor: '#07b62a'} });
   amazon_connect('snippetId', 'QVFJREFIsadfsadfasdf');
   amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
 + amazon_connect('customerChatInterfaceUrl', 'https://...'); // TODO: put in your link to amazon-connect-chat-interface.js
@@ -74,7 +74,7 @@ To get help setting up your own start chat backend and calling your own backend 
 <script type="text/javascript">
     (function(w, d, x, id){s=d.createElement('script');s.src='https://${apiId}.cloudfront.net/amazon-connect-chat-interface-client.js';s.async=1;s.id=id;d.getElementsByTagName('head')[0].appendChild(s);w[x]=w[x]||function(){(w[x].ac=w[x].ac||[]).push(arguments)}})(window, document, 'amazon_connect', '360f3075-asfd-asfd-asdf-asdf');
 
-    amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: { color: '#ffffff', backgroundColor: '#07b62a'} });
+    amazon_connect('styles', {openChat: { color: '#ffffff', backgroundColor: '#07b62a'}, closeChat: {color: '#ffffff', backgroundColor: '#07b62a'} });
     amazon_connect('snippetId', 'replace_with_snippetId');
     ....
 +   amazon_connect('customStartChat', async function(callback) {

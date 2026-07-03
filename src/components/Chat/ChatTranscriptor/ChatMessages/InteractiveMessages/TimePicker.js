@@ -1,13 +1,10 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PT from "prop-types";
-import { Button } from "connect-core";
+import {Button} from "connect-core";
 import styled from "styled-components";
-import { ResponsesSection, HeaderText } from "../InteractiveMessage";
-import { truncateStrFromCharLimit } from "../../../../../utils/helper";
-import { InteractiveMessageType } from "../../../datamodel/Model";
+import {ResponsesSection, HeaderText} from "../InteractiveMessage";
+import {truncateStrFromCharLimit} from "../../../../../utils/helper";
+import {InteractiveMessageType} from "../../../datamodel/Model";
 
 const NUM_TIMESLOTS_PER_PAGE = 3;
 
@@ -17,7 +14,7 @@ const DatePicker = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: ${({ theme }) => theme.globals.basePadding};
+  padding: ${({ theme}) => theme.globals.basePadding};
   
   span {
     padding: 0 5px;
@@ -25,7 +22,7 @@ const DatePicker = styled.div`
   }
 `;
 const DatePickerButton = styled(Button)`
-  border: ${({ theme }) => theme.globals.baseBorder};
+  border: ${({ theme}) => theme.globals.baseBorder};
   padding: 0;
   width: 24px;
   height: 24px;
@@ -59,18 +56,18 @@ const ChevronIcon = styled.div`
 `;
 
 const TimeslotsList = styled.div`
-  padding: 0 ${({ theme }) => theme.spacing.large};
+  padding: 0 ${({ theme}) => theme.spacing.large};
   
   button {
-    margin-top: ${({ theme }) => theme.globals.basePadding};
+    margin-top: ${({ theme}) => theme.globals.basePadding};
     width: 100%;
     max-width: none;
-    border-radius: ${({ theme }) => theme.spacing.mini};
+    border-radius: ${({ theme}) => theme.spacing.mini};
     white-space: pre-line;
     
     &[data-selected='true'] { 
       box-shadow: none;
-      border: 1px solid ${({ theme }) => theme.color.highlightColor};
+      border: 1px solid ${({ theme}) => theme.color.highlightColor};
     }
   }
 `;
@@ -79,11 +76,11 @@ const TimeslotControls = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${({ theme }) => theme.globals.basePadding} ${({theme }) => theme.spacing.large };
+  padding: ${({ theme}) => theme.globals.basePadding} ${({theme}) => theme.spacing.large };
   
   button{
-      border-radius: ${({ theme }) => theme.spacing.mini};
-	  padding: ${({ theme }) => theme.globals.basePadding};
+      border-radius: ${({ theme}) => theme.spacing.mini};
+	  padding: ${({ theme}) => theme.globals.basePadding};
 	     
 	  &[disabled] {
 	    opacity: 0.3 !important;
@@ -122,8 +119,8 @@ function getLocale(){
   return (navigator.languages && navigator.languages.length > 0 ? navigator.languages[0] : navigator.language) || 'en-US';
 }
 
-function TimeslotButton({timeslot, onClick, onKeyPress, selected }) {
-    const { date } = timeslot;
+function TimeslotButton({timeslot, onClick, onKeyPress, selected}) {
+    const {date} = timeslot;
     const parsedDate = new Date(date);
 
     const start = parsedDate.toLocaleTimeString(
@@ -147,7 +144,7 @@ TimePicker.propTypes = {
   addMessage: PT.func.isRequired
 };
 
-function Chevron({ direction }){
+function Chevron({direction}){
   return (
     <ChevronIcon direction={direction}>
       <svg width="8px" height="12px" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
@@ -160,8 +157,8 @@ function Chevron({ direction }){
   )
 }
 
-export default function TimePicker({ content, addMessage }) {
-  const { title: inputTitle, subtitle: inputSubtitle, timeZoneOffset, timeslots } = content;
+export default function TimePicker({content, addMessage}) {
+  const {title: inputTitle, subtitle: inputSubtitle, timeZoneOffset, timeslots} = content;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.TIME_PICKER, "titleCharLimit");
   const subtitle = truncateStrFromCharLimit(inputSubtitle, InteractiveMessageType.TIME_PICKER, "subtitleCharLimit");
 
@@ -210,7 +207,7 @@ export default function TimePicker({ content, addMessage }) {
   }
 
   function confirmSelection() {
-    addMessage({ text: selectedTimeslot });
+    addMessage({text: selectedTimeslot});
   }
 
   function renderTimeslot(timeslot) {

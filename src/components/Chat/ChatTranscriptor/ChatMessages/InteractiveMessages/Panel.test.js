@@ -1,10 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from 'react';
-import { screen, render, fireEvent } from "@testing-library/react";
-import { InteractiveMessageType } from "../../../datamodel/Model";
-import { ThemeProvider } from "../../../../../theme";
+import {screen, render, fireEvent} from "@testing-library/react";
+import {InteractiveMessageType} from "../../../datamodel/Model";
+import {ThemeProvider} from "../../../../../theme";
 import Panel from "./Panel";
 import * as helpers from '../../../../../utils/helper';
 
@@ -38,7 +35,7 @@ describe("<Panel />", () => {
 
   beforeEach(() => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
-    mockProps = { content: mockPanelContent, addMessage: addMessage, templateType: InteractiveMessageType.PANEL };
+    mockProps = {content: mockPanelContent, addMessage: addMessage, templateType: InteractiveMessageType.PANEL};
   });
 
   it("Style should match the snapshot", () => {
@@ -83,7 +80,7 @@ describe("<Panel />", () => {
           ...mockPanelContent,
           [fieldKey]: longTitle,
       };
-      renderElement({ ...mockProps, content: panelPickerLongTitle });
+      renderElement({...mockProps, content: panelPickerLongTitle});
       expect(() => screen.getByText(longTitle)).toThrow(
           "Unable to find an element"
       );
@@ -103,7 +100,7 @@ describe("<Panel />", () => {
             [fieldKey]: longElementTitle
           }]
       };
-      renderElement({ ...mockProps, content: panelPickerLongTitle });
+      renderElement({...mockProps, content: panelPickerLongTitle});
       expect(() => screen.getByText(longElementTitle)).toThrow(
           "Unable to find an element"
       );
@@ -156,10 +153,10 @@ describe("Panel XSS Mitigation", () => {
   it("should use DOMPurify to mitigate malicious XSS input", () => {
     renderElement(mockProps);
     expect(screen.getByText("Title with script")).toBeDefined();
-    expect(screen.getByText("<img src=\"x\">", { exact: false })).toBeDefined();
-    expect(screen.getByText("<a>Click me</a>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", { exact: false })).toBeDefined();
-    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", { exact: false })).toBeDefined();
+    expect(screen.getByText("<img src=\"x\">", {exact: false})).toBeDefined();
+    expect(screen.getByText("<a>Click me</a>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<input value=\"XSS attack!\" type=\"text\">", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div data-value=\"<img src=x onerror=alert('XSS attack!')>\"></div>", {exact: false})).toBeDefined();
+    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", {exact: false})).toBeDefined();
   });
 });

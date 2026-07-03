@@ -1,57 +1,54 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PT from 'prop-types';
 import styled from 'styled-components';
 
 const StyledH1 = styled.h1`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h1'])}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  ${({ inline }) => inline && 'display:inline;'}
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h1Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h1'])}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  ${({ inline}) => inline && 'display:inline;'}
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h1Margin : 0)};
 `;
 
 const StyledH2 = styled.h2`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h2'])}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h2Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h2'])}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h2Margin : 0)};
 `;
 const StyledH3 = styled.h3`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h3'])}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h3Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h3'])}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h3Margin : 0)};
 `;
 const StyledH4 = styled.h4`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h4'])}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h4Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h4'])}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h4Margin : 0)};
 `;
 const StyledH5 = styled.h5`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h5'])}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h5Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h5'])}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h5Margin : 0)};
 `;
 const StyledH6 = styled.h6`
-  ${({ styleAs, theme }) => (theme.typography[styleAs || 'h6'])}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.h6Margin : 0)};
+  ${({ styleAs, theme}) => (theme.typography[styleAs || 'h6'])}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.h6Margin : 0)};
 `;
 
 const StyledP = styled.p`
-  ${({ theme }) => theme.typography.base}
-  ${({ inline }) => inline && 'display:inline;'}
-  color: ${({ theme, textColor }) => (theme.typography.color[textColor] || 'inherit')};
+  ${({ theme}) => theme.typography.base}
+  ${({ inline}) => inline && 'display:inline;'}
+  color: ${({ theme, textColor}) => (theme.typography.color[textColor] || 'inherit')};
  
-  margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.baseMargin : 0)};
+  margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.baseMargin : 0)};
  
   &:last-child {
-    margin: ${({ theme: { typography }, withMargin }) => (withMargin ? typography.baseMargin : 0)};
+    margin: ${({ theme: { typography}, withMargin }) => (withMargin ? typography.baseMargin : 0)};
   }
 `;
 export default class Text extends PureComponent {

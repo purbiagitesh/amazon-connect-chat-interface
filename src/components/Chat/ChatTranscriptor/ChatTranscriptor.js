@@ -1,21 +1,18 @@
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import PT from "prop-types";
 import styled from "styled-components";
-import { modelUtils } from "../datamodel/Utils";
-import { Direction, PARTICIPANT_MESSAGE, ATTACHMENT_MESSAGE } from "../datamodel/Model";
+import {modelUtils} from "../datamodel/Utils";
+import {Direction, PARTICIPANT_MESSAGE, ATTACHMENT_MESSAGE} from "../datamodel/Model";
 import renderHTML from 'react-render-html';
 import {
   MessageBox,
   ParticipantMessage,
   ParticipantTyping,
 } from "./ChatMessages/ChatMessage";
-import { SystemMessage } from "./ChatMessages/SystemMessage";
+import {SystemMessage} from "./ChatMessages/SystemMessage";
 import ChatTranscriptScroller from "./ChatTranscriptScroller";
-import { CONTACT_STATUS } from "connect-constants";
+import {CONTACT_STATUS} from "connect-constants";
 
 
 const TranscriptBody = styled.div`
@@ -32,19 +29,19 @@ const TranscriptWrapper = styled(ChatTranscriptScroller)`
 const defaultTranscriptConfig = {
 
   participantMessageConfig: {
-    render: ({ ...props }) => {
+    render: ({...props}) => {
       return <ParticipantMessage {...props} />;
     }
   },
 
   attachmentMessageConfig: {
-    render: ({ ...props }) => {
+    render: ({...props}) => {
       return <ParticipantMessage {...props} />;
     }
   },
 
   systemMessageConfig: {
-    render: ({ ...props }) => {
+    render: ({...props}) => {
       return <SystemMessage {...props} />;
     }
   }
@@ -151,7 +148,7 @@ export default class ChatTranscriptor extends PureComponent {
 
   render() {
     const lastSentMessage = this.props.transcript
-      .filter(({ type, transportDetails }) => (
+      .filter(({type, transportDetails}) => (
         (type === PARTICIPANT_MESSAGE || type === ATTACHMENT_MESSAGE) &&
         transportDetails.direction === Direction.Outgoing
       )).pop();

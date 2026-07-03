@@ -1,17 +1,14 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useState, useLayoutEffect, useEffect, useRef, useMemo } from "react";
-import { useIntl } from 'react-intl'
+import React, {useState, useLayoutEffect, useEffect, useRef, useMemo} from "react";
+import {useIntl} from 'react-intl'
 import styled from "styled-components";
 import throttle from "lodash/throttle";
 import PT from "prop-types";
-import { CONTACT_STATUS, KEYBOARD_KEY_CONSTANTS } from "connect-constants";
+import {CONTACT_STATUS, KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 import TextareaAutosize from "react-textarea-autosize";
 import SendMessageButton from "./SendMessageButton";
-import { RichTextEditor } from "../RichMessageComponents";
+import {RichTextEditor} from "../RichMessageComponents";
 
-import { ATTACHMENT_ACCEPT_CONTENT_TYPES, ContentType } from "../datamodel/Model";
+import {ATTACHMENT_ACCEPT_CONTENT_TYPES, ContentType} from "../datamodel/Model";
 
 const ChatComposerWrapper = styled.div`
   margin: 0;
@@ -146,8 +143,8 @@ const CloseIcon = styled.div`
   display: flex;
   font-size: 0;
   svg {
-    width: ${({ theme }) => theme.fontsSize.mini};
-    height: ${({ theme }) => theme.fontsSize.mini};
+    width: ${({ theme}) => theme.fontsSize.mini};
+    height: ${({ theme}) => theme.fontsSize.mini};
   }
 `;
 
@@ -165,7 +162,7 @@ ChatComposer.defaultProps = {
   onTypingValidityTime: 10 * 1000,
 };
 
-export default function ChatComposer({ addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig }) {
+export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig}) {
   let logger;
   let mobileJitter;
   if (window.connect && window.connect.LogManager) {
@@ -259,7 +256,7 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
   }
 
   const throttleOptions = useMemo(
-    () => ({ trailing: false, leading: true }),
+    () => ({trailing: false, leading: true}),
     []
   );
 
@@ -279,7 +276,7 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
 
   function sendTextMessage(text) {
     if (text.trim()) {
-      addMessage(contactId, { text });
+      addMessage(contactId, {text});
     }
   }
 

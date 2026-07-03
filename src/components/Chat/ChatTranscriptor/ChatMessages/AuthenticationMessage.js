@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, {useState} from 'react';
+import {FormattedMessage} from 'react-intl';
 import styled from 'styled-components';
-import { AUTHENTICATION_POPUP_HEIGHT, AUTHENTICATION_POPUP_WIDTH } from '../../../Chat/constants';
-import { ContentType } from "../../datamodel/Model";
-import { getCurrentChatSessionInstance } from '../../ChatSession';
+import {AUTHENTICATION_POPUP_HEIGHT, AUTHENTICATION_POPUP_WIDTH} from '../../../Chat/constants';
+import {ContentType} from "../../datamodel/Model";
+import {getCurrentChatSessionInstance} from '../../ChatSession';
 
 const AuthenticationEventText = styled.button`
   background: none;
@@ -49,7 +49,7 @@ const messages = {
     },
 };
 
-const AuthenticationMessage = ({ link, content }) => {
+const AuthenticationMessage = ({link, content}) => {
     const [linksDisabled, setLinksDisabled] = useState(false);
     const [authLinkVisited, setAuthLinkVisited] = useState(false);
     const [cancelLinkVisited, setCancelLinkVisited] = useState(false);
@@ -80,7 +80,7 @@ const AuthenticationMessage = ({ link, content }) => {
         chatSession.cancelParticipantAuthentication(sessionId);
     };
 
-    const { id, defaultMessage } = messages[eventType] || {};
+    const {id, defaultMessage} = messages[eventType] || {};
 
     return (
         <>
@@ -110,4 +110,4 @@ const AuthenticationMessage = ({ link, content }) => {
     );
 };
 
-export { AuthenticationMessage };
+export {AuthenticationMessage};

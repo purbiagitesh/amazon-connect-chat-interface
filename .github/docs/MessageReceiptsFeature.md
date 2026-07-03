@@ -30,7 +30,7 @@ Enabling/disable message-receipts (Read/Delivered) for messages in `setGlobalCon
 
 ```js
 connect.ChatSession.setGlobalConfig({
-  loggerConfig: { /* ... */ },
+  loggerConfig: {/* ... */},
   /* ... */
   features: {
     messageReceipts: {
@@ -46,7 +46,7 @@ To customize wait time before sending read/delivered receipt, set the throttle i
 
 ```js
 connect.ChatSession.setGlobalConfig({
-  loggerConfig: { /* ... */ },
+  loggerConfig: {/* ... */},
   /* ... */
   features: {
     messageReceipts: {

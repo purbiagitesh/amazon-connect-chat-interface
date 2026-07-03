@@ -1,8 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import ChatSession, {getCurrentChatSessionInstance, setCurrentChatSessionInstance} from "./ChatSession";
-import { AttachmentErrorType, ContentType, InteractiveMessageType } from "./datamodel/Model";
+import {AttachmentErrorType, ContentType, InteractiveMessageType} from "./datamodel/Model";
 
 const ParticipantId = "123";
 const chatDetails = {
@@ -108,7 +105,7 @@ const transcriptResponse = {
           status: "SendSuccess",
         },
         ContentType: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE,
-        Content: JSON.stringify({ templateType: InteractiveMessageType.VIEW_RESOURCE }),
+        Content: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE}),
       },
       {
         Id: "view_response_1",
@@ -121,7 +118,7 @@ const transcriptResponse = {
           status: "SendSuccess",
         },
         ContentType: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
-        Content: JSON.stringify({ templateType: InteractiveMessageType.VIEW_RESOURCE }),
+        Content: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE}),
       },
       {
         Id: "bulletedList2",
@@ -158,9 +155,9 @@ beforeAll(() => {
     ChatSession: {
       create: function (obj) {
         return {
-          controller: { contactId: "aaa" },
+          controller: {contactId: "aaa"},
           getChatDetails: jest.fn(() => {
-            return { participantId: ParticipantId };
+            return {participantId: ParticipantId};
           }),
           sendMessage: jest.fn().mockResolvedValue("aaa"),
           sendEvent: jest.fn().mockResolvedValue("bb"),
@@ -314,9 +311,9 @@ describe("ChatSession", () => {
         ChatSession: {
           create: function (obj) {
             return {
-              controller: { contactId: "aaa" },
+              controller: {contactId: "aaa"},
               getChatDetails: jest.fn(() => {
-                return { participantId: ParticipantId };
+                return {participantId: ParticipantId};
               }),
               onMessage: jest.fn().mockResolvedValue("aaa"),
               onTyping: jest.fn().mockResolvedValue("aaa"),
@@ -398,8 +395,8 @@ describe("ChatSession", () => {
       expect(addItemsToTranscriptSpy).toHaveBeenCalledTimes(2);
     });
     test("should call authentication init event handler to update the transcript", async () => {
-      const session = new ChatSession(chatDetails, region, stage, { authenticationRedirectUri:'test', authenticationIdentityProvider: 'test'});
-      session.customizationParams = { authenticationRedirectUri:'test', authenticationIdentityProvider: 'test'}
+      const session = new ChatSession(chatDetails, region, stage, {authenticationRedirectUri:'test', authenticationIdentityProvider: 'test'});
+      session.customizationParams = {authenticationRedirectUri:'test', authenticationIdentityProvider: 'test'}
       const addItemsToTranscriptSpy = jest.spyOn(session, '_handleAuthenticationInitiated');
       const getAuthURL = jest.spyOn(session, 'getAuthenticationUrl');
       session.openChatSession(true);
@@ -823,7 +820,7 @@ describe("ChatSession", () => {
           lastDeliveredReceipt: true,
           content: {
             type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE,
-            data: JSON.stringify({ templateType: InteractiveMessageType.VIEW_RESOURCE })
+            data: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE})
           },
         },
       ]
@@ -842,7 +839,7 @@ describe("ChatSession", () => {
 
       const message = session.client.session.sendMessage.mock.calls[0][0].message;
       expect(JSON.parse(message).action).toEqual(" ");
-      expect(JSON.parse(message).data).toEqual({ content: "hi hello" });
+      expect(JSON.parse(message).data).toEqual({content: "hi hello"});
     });
 
     test("clear view message after customer interacts with it", () => {
@@ -879,7 +876,7 @@ describe("ChatSession", () => {
         lastDeliveredReceipt: true,
         content: {
           type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE,
-          data: JSON.stringify({ templateType: InteractiveMessageType.VIEW_RESOURCE })
+          data: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE})
         },
       };
 
@@ -908,14 +905,14 @@ describe("ChatSession", () => {
           lastDeliveredReceipt: true,
           content: {
             type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
-            data: JSON.stringify({ templateType: InteractiveMessageType.VIEW_RESOURCE })
+            data: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE})
           },
         },
         interactiveMessageInTranscript
       ]
       // create response
       const dataInput = {
-        text: JSON.stringify({ templateType: 'ViewResource', data: {} }),
+        text: JSON.stringify({templateType: 'ViewResource', data: {} }),
         type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE
       }
 

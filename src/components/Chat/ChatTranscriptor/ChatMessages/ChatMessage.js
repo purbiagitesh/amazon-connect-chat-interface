@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { PureComponent } from "react";
-import { FormattedMessage } from "react-intl";
+import React, {PureComponent} from "react";
+import {FormattedMessage} from "react-intl";
 import styled from "styled-components";
 import PT from "prop-types";
 import Linkify from "react-linkify";
-import { getCurrentChatSessionInstance } from "../../ChatSession";
+import {getCurrentChatSessionInstance} from "../../ChatSession";
 import {
   ATTACHMENT_MESSAGE,
   AttachmentStatus,
@@ -15,18 +12,18 @@ import {
   Direction,
   InteractiveMessageType,
 } from "../../datamodel/Model";
-import { ErrorBoundary } from 'react-error-boundary';
-import { Icon, TypingLoader } from "connect-core";
-import { InteractiveMessage } from "./InteractiveMessage";
-import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
-import { InView } from "react-intersection-observer";
-import { shouldDisplayMessageForType } from "../../../../utils/helper";
-import { modelUtils } from "../../datamodel/Utils";
-import { RichMessageRenderer } from "../../RichMessageComponents";
-import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
+import {ErrorBoundary} from 'react-error-boundary';
+import {Icon, TypingLoader} from "connect-core";
+import {InteractiveMessage} from "./InteractiveMessage";
+import {CSM_CONSTANTS, CSM_CATEGORY} from "../../../../constants/global";
+import {InView} from "react-intersection-observer";
+import {shouldDisplayMessageForType} from "../../../../utils/helper";
+import {modelUtils} from "../../datamodel/Utils";
+import {RichMessageRenderer} from "../../RichMessageComponents";
+import {formatCarouselInteractiveSelection, isCarouselSelectionMessage} from "./InteractiveMessages/Carousel";
 
 export const MessageBox = styled.div`
-  padding: ${({ theme }) => theme.globals.basePadding} ${({ theme }) => theme.spacing.base};
+  padding: ${({ theme}) => theme.globals.basePadding} ${({ theme}) => theme.spacing.base};
   word-break: break-word;
   white-space: pre-line;
   overflow: auto;
@@ -47,8 +44,8 @@ Header.Status = styled.div`
 `;
 const Footer = styled.div`
   overflow: auto;
-  color: ${({ theme }) => theme.globals.textSecondaryColor};
-  padding-right: ${({ theme }) => theme.spacing.mini};
+  color: ${({ theme}) => theme.globals.textSecondaryColor};
+  padding-right: ${({ theme}) => theme.spacing.mini};
 `;
 Footer.MessageReceipt = styled.div`
   float: right;
@@ -108,31 +105,31 @@ const Body = styled.div`
   }
 `;
 const ErrorText = styled.div`
-  color: ${({ theme }) => theme.palette.red};
+  color: ${({ theme}) => theme.palette.red};
   display: flex;
   > img {
-    margin-right: ${({ theme }) => theme.spacing.mini};
+    margin-right: ${({ theme}) => theme.spacing.mini};
   }
 `;
 const StatusText = styled.span`
-  color: ${({ theme }) => theme.globals.textSecondaryColor};
-  padding-right: ${({ theme }) => theme.spacing.mini};
+  color: ${({ theme}) => theme.globals.textSecondaryColor};
+  padding-right: ${({ theme}) => theme.spacing.mini};
 `;
 
 const TransportErrorMessage = styled.div`
   margin-left: ${(props) => props.theme.chatTranscriptor.msgStatusWidth};
-  padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.micro};
+  padding: ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.micro};
 
   span {
-    color: ${({ theme }) => theme.palette.red};
+    color: ${({ theme}) => theme.palette.red};
   }
 `;
 
 TransportErrorMessage.RetryButton = styled.a`
-  margin-left: ${({ theme }) => theme.spacing.micro};
+  margin-left: ${({ theme}) => theme.spacing.micro};
 `;
 
-export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageType }) => {
+export const ErrorFallback = ({error, resetErrorBoundary, InteractiveMessageType}) => {
   const metricName = InteractiveMessageType + "_ERROR"
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, CSM_CATEGORY.UI, false);
@@ -174,7 +171,7 @@ export class ParticipantMessage extends PureComponent {
     d.setUTCSeconds(timestamp);
     const today = new Date().toDateString();
     const thatDay = new Date(timestamp * 1000).toDateString();
-    const option = { hour: "numeric", minute: "numeric" };
+    const option = {hour: "numeric", minute: "numeric"};
     if (today === thatDay) {
       return d.toLocaleTimeString([], option);
     }
@@ -249,7 +246,7 @@ export class ParticipantMessage extends PureComponent {
       messageDetails: {
         lastReadReceipt = false,
         lastDeliveredReceipt = false,
-        transportDetails: { messageReceiptType, direction } = {},
+        transportDetails: {messageReceiptType, direction} = {},
       },
     } = this.props;
     if (direction !== Direction.Outgoing || !messageReceiptType) {
@@ -275,12 +272,12 @@ export class ParticipantMessage extends PureComponent {
 
   visibilityChangeListener() {
     const isVisible = document.visibilityState === "visible";
-    this.setState({ isVisible });
+    this.setState({isVisible});
   }
 
   componentDidUpdate() {
     const {
-      transportDetails: { direction },
+      transportDetails: {direction},
       type,
       id,
       participantRole,
@@ -295,7 +292,7 @@ export class ParticipantMessage extends PureComponent {
     ) {
       this.props.sendReadReceipt(
         id,
-        type === ATTACHMENT_MESSAGE ? { disableThrottle: true } : {},
+        type === ATTACHMENT_MESSAGE ? {disableThrottle: true} : {},
       );
     }
   }
@@ -317,7 +314,7 @@ export class ParticipantMessage extends PureComponent {
   }
 
   render() {
-    let { direction, error } = this.props.messageDetails.transportDetails;
+    let {direction, error} = this.props.messageDetails.transportDetails;
     const messageStyle =
       direction === Direction.Outgoing
         ? this.props.outgoingMsgStyle
@@ -334,7 +331,7 @@ export class ParticipantMessage extends PureComponent {
       bodyStyleConfig.hideDirectionArrow = true;
       bodyStyleConfig.removePadding = true;
 
-      const { templateType } = JSON.parse(this.props.messageDetails.content.data);
+      const {templateType} = JSON.parse(this.props.messageDetails.content.data);
       if (templateType === InteractiveMessageType.VIEW_RESOURCE || templateType === InteractiveMessageType.QUICK_REPLY || templateType === InteractiveMessageType.CAROUSEL) {
         bodyStyleConfig.childWillAddBackground = true;
       }
@@ -371,8 +368,8 @@ export class ParticipantMessage extends PureComponent {
     return (
       <div data-testid="main-message">
         <Header data-testid="message-header">{this.renderHeader()}</Header>
-        <InView onChange={(inView) => this.setState({ inView })}>
-          {({ ref }) => (
+        <InView onChange={(inView) => this.setState({ inView})}>
+          {({ ref}) => (
             <Body
               data-testid="message-body"
               direction={direction}
@@ -409,7 +406,7 @@ export class ParticipantMessage extends PureComponent {
     }
     
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE) {
-      const { data, templateType } = JSON.parse(content);
+      const {data, templateType} = JSON.parse(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)
         return (
@@ -429,7 +426,7 @@ export class ParticipantMessage extends PureComponent {
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE &&
       JSON.parse(content).templateType === InteractiveMessageType.VIEW_RESOURCE) {
       // this is a view response, render accordingly
-      let { action, data } = JSON.parse(content);
+      let {action, data} = JSON.parse(content);
       if (!action.trim() && data)
         action = data.content;
       return <PlainTextMessage content={action} />
@@ -482,7 +479,7 @@ export class ParticipantMessage extends PureComponent {
 class PlainTextMessage extends PureComponent {
   render() {
     return (
-      <Linkify properties={{ target: "_blank" }}>{this.props.content}</Linkify>
+      <Linkify properties={{ target: "_blank"}}>{this.props.content}</Linkify>
     );
   }
 }

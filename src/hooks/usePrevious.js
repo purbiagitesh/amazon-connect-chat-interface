@@ -1,7 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import { useEffect, useRef } from "react";
+import {useEffect, useRef} from "react";
 
 /**
  * Hook to access values from previous render. Example:

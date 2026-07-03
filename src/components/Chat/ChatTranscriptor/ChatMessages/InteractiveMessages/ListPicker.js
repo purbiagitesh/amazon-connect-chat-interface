@@ -1,10 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import PT from "prop-types";
-import { Button } from "connect-core";
+import {Button} from "connect-core";
 import {
   ReactiveImage,
   TextSection,
@@ -15,12 +12,10 @@ import {
   PickerOptionTitle,
   PickerElementLinkOption
 } from "../InteractiveMessage";
-import { createInteractiveMessagePayload, truncateStrFromCharLimit } from "../../../../../utils/helper";
-import { InteractiveMessageSelectionType, InteractiveMessageType } from "../../../datamodel/Model";
-import { RichMessageRenderer } from "../../../RichMessageComponents";
+import {createInteractiveMessagePayload, truncateStrFromCharLimit} from "../../../../../utils/helper";
+import {InteractiveMessageSelectionType, InteractiveMessageType} from "../../../datamodel/Model";
+import {RichMessageRenderer} from "../../../RichMessageComponents";
 
-//#region Styled Components
-// have to calculate max height to maintain 16:9 aspect ratio
 const ImageContainer = styled.div`
   max-height: calc(95vw * (9 / 16));
   overflow: hidden;
@@ -35,24 +30,22 @@ const ImageContainer = styled.div`
   ` : ""}
 `;
 
-// Align-right when using subtitle and/or image - otherwise center the text
-// Action buttons(SHOW_MORE/PREVIOUS_OPTIONS) always align to center
 const ListElementButton = styled(Button)`
   display: flex;
   justify-content: ${(props) => (props.isFloatLeft ? "flex-start" : "center")};
   width: 100%;
   max-width: none;
-  border: ${({ theme }) => theme.globals.baseBorder};
+  border: ${({ theme}) => theme.globals.baseBorder};
   white-space: pre-line;
 
   &:hover {
-    background: ${({ theme }) => theme.color.primary};
+    background: ${({ theme}) => theme.color.primary};
   }
 
   /* Last child could be <a/>, only round last child */
   &:last-child {
-    border-bottom-left-radius: ${({ theme }) => theme.spacing.mini};
-    border-bottom-right-radius: ${({ theme }) => theme.spacing.mini};
+    border-bottom-left-radius: ${({ theme}) => theme.spacing.mini};
+    border-bottom-right-radius: ${({ theme}) => theme.spacing.mini};
     margin-bottom: 0;
   }
 `;
@@ -60,10 +53,10 @@ const ListElementButton = styled(Button)`
 const ElementImageContainer = styled.div`
   width: ${(props) => props.theme.spacing.xxlarge};
   height: ${(props) => props.theme.spacing.xxlarge};
-  border: ${({ theme }) => theme.globals.baseBorder};
-  border-radius: ${({ theme }) => theme.spacing.mini};
+  border: ${({ theme}) => theme.globals.baseBorder};
+  border-radius: ${({ theme}) => theme.spacing.mini};
   flex-shrink: 0;
-  margin-right: ${({ theme }) => theme.spacing.small};
+  margin-right: ${({ theme}) => theme.spacing.small};
   display: ${(props) => (props.showImage ? "inline-flex" : "none")};
 `;
 //#endregion Styled Components
@@ -75,7 +68,7 @@ function ListPickerElement({
   onImageLoad,
   index,
 }) {
-  const { title: inputTitle, subtitle: inputSubtitle, imageData, imageDescription, type, url } = element;
+  const {title: inputTitle, subtitle: inputSubtitle, imageData, imageDescription, type, url} = element;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.LIST_PICKER, "elementTitleCharLimit");
   const subtitle = truncateStrFromCharLimit(inputSubtitle, InteractiveMessageType.LIST_PICKER, "elementSubtitleCharLimit");
 

@@ -1,11 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import {FormattedMessage} from "react-intl";
 import PT from "prop-types";
-import { ContentType } from "../../datamodel/Model";
-import { AuthenticationMessage } from './AuthenticationMessage'
+import {ContentType} from "../../datamodel/Model";
+import {AuthenticationMessage} from './AuthenticationMessage'
 export class SystemMessage extends React.PureComponent {
   static propTypes = {
     messageDetails: PT.object.isRequired,

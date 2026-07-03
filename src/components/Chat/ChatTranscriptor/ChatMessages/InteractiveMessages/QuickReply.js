@@ -1,60 +1,51 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
 import styled from "styled-components";
 import PT from "prop-types";
-import { RichMessageRenderer } from "../../../RichMessageComponents";
-import { Button } from "connect-core";
-import { MessageBody } from "../InteractiveMessage";
-import { truncateStrFromCharLimit } from "../../../../../utils/helper";
-import { InteractiveMessageType } from "../../../datamodel/Model";
+import {RichMessageRenderer} from "../../../RichMessageComponents";
+import {Button} from "connect-core";
+import {MessageBody} from "../InteractiveMessage";
+import {truncateStrFromCharLimit} from "../../../../../utils/helper";
+import {InteractiveMessageType} from "../../../datamodel/Model";
 
 const customerQuickReplyStyles = {
-  color: "#077398",
-  background: '#FFFFFF'
+  color: "#FFEA00",
+  background: '#D2042D'
 }
 
-//#region Styled Components
 const ResponsesSection = styled.div`
-  padding: ${({ theme }) => theme.spacing.base} 0;
+  padding: ${({ theme}) => theme.spacing.base} 0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: ${({ theme }) => theme.spacing.mini};
+  gap: ${({ theme}) => theme.spacing.mini};
   justify-content: flex-end;
 `;
 
-const QuickReplyOption = styled(Button)`
-  padding: 4px ${({ theme }) => theme.spacing.base};
-  text-align: left;
+const QuickReplyOption = styled.button`
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 24px;
+  background-color: #D6D6FA;
+  color: #1A1A1A;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
   cursor: pointer;
-  border: 2px solid ${customerQuickReplyStyles.color};
-  border-radius: 2px;
-  white-space: pre-wrap;
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.fontsSize.regular};
-  line-height: 22px;
-  font-weight: 600;
-  font-style: normal;
-  color: ${customerQuickReplyStyles.color};
-  background: ${customerQuickReplyStyles.background};
-  text-shadow: none;
-  box-shadow: none;
+  transition: background-color 0.15s ease;
 
-  :hover, :focus {
-    background: ${customerQuickReplyStyles.color};
-    color: ${customerQuickReplyStyles.background};
-    border: 2px solid ${customerQuickReplyStyles.color} !important;
+  &:hover {
+    background-color: #C4C4F8;
   }
 `;
-//#endregion Styled Components
 
-function ReplyElement({ element, handleSelection }) {
+function ReplyElement({element, handleSelection}) {
   const title = truncateStrFromCharLimit( element.title, InteractiveMessageType.QUICK_REPLY, "replyOptionCharLimit");
 
   return (
-    <QuickReplyOption onClick={() => handleSelection({ text: element.title })}>
+    <QuickReplyOption onClick={() => handleSelection({ text: element.title})}>
       {title}
     </QuickReplyOption>
   );
@@ -65,9 +56,8 @@ QuickReply.propTypes = {
   addMessage: PT.func.isRequired,
 };
 
-export default function QuickReply({ content, addMessage }) {
-  // assumptions: version 1. Guaranteed title exists, at least 2 elements.
-  const { title: inputTitle, elements } = content;
+export default function QuickReply({content, addMessage}) {
+  const {title: inputTitle, elements} = content;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.QUICK_REPLY, "titleCharLimit");
 
   return (

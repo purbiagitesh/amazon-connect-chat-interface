@@ -84,7 +84,7 @@ function startChatContact(contactFlowId, username, body, instanceId) {
             "ParticipantDetails": {
                 "DisplayName": body["ParticipantDetails"]["DisplayName"]
             },
-+           ...(!!body["SupportedMessagingContentTypes"] && { "SupportedMessagingContentTypes": body["SupportedMessagingContentTypes"] })
++           ...(!!body["SupportedMessagingContentTypes"] && {"SupportedMessagingContentTypes": body["SupportedMessagingContentTypes"]})
         };
 
         connect.startChatContact(startChat, function(err, data) { } );

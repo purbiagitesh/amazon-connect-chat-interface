@@ -6,7 +6,7 @@ import {
   constructGuidesRendererUrl,
   setupGuidesRenderer
 } from "./helper";
-import { InteractiveMessageType } from "../components/Chat/datamodel/Model";
+import {InteractiveMessageType} from "../components/Chat/datamodel/Model";
 
 describe("createInteractiveMessagePayload addMessage helper", () => {
   const MOCK_TEMPLATE_IDENTIFIER = "pickerList001";
@@ -17,7 +17,7 @@ describe("createInteractiveMessagePayload addMessage helper", () => {
     const IS_PICKER_IN_CAROUSEL = false;
 
     const interactiveMessagePayload = createInteractiveMessagePayload(
-      { title: MOCK_PICKER_SELECTION },
+      {title: MOCK_PICKER_SELECTION},
       "preIndex",
       "nextIndex",
       MOCK_TEMPLATE_IDENTIFIER,
@@ -37,7 +37,7 @@ describe("createInteractiveMessagePayload addMessage helper", () => {
     const IS_PICKER_IN_CAROUSEL = true;
 
     const interactiveMessagePayload = createInteractiveMessagePayload(
-      { title: MOCK_PICKER_SELECTION },
+      {title: MOCK_PICKER_SELECTION},
       "preIndex",
       "nextIndex",
       "listId",
@@ -212,22 +212,22 @@ describe("Guides in Chat", () => {
 
   it("should not be able to insert guides renderer script in head when invalid config is provided", () => {
     window.connect = {};
-    let props = { guidesInChat: { version: 'latest' } };
+    let props = {guidesInChat: { version: 'latest'} };
     setupGuidesRenderer(props);
     expect(document.head.innerHTML).not.toContain('connectwidget/static/views/renderer');
 
-    props = { guidesInChat: { instanceAlias: undefined, version: undefined } };
+    props = {guidesInChat: { instanceAlias: undefined, version: undefined} };
     setupGuidesRenderer(props);
     expect(document.head.innerHTML).not.toContain('connectwidget/static/views/renderer');
   });
 
   it("should insert guides renderer script in head", () => {
     window.connect = {};
-    let props = { guidesInChat: { instanceAlias: 'test-instance' } };
+    let props = {guidesInChat: { instanceAlias: 'test-instance'} };
     setupGuidesRenderer(props);
     expect(document.head.innerHTML).toContain('<script src="https://test-instance.my.connect.aws/connectwidget/static/views/renderer/latest/index.js"></script>');
     
-    props = { guidesInChat: { instanceAlias: 'test-instance', version: 'abcd' }};
+    props = {guidesInChat: { instanceAlias: 'test-instance', version: 'abcd'}};
     setupGuidesRenderer(props);
     expect(document.head.innerHTML).toContain('<script src="https://test-instance.my.connect.aws/connectwidget/static/views/renderer/abcd/index.js"></script>');
   });

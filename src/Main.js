@@ -1,7 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { Component } from "react";
+import React, {Component} from "react";
 import styled from "styled-components";
 import ChatContainer from "./components/Chat/ChatContainer";
 

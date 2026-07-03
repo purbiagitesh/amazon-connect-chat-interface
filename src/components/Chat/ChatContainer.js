@@ -1,20 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { Component } from "react";
+import React, {Component} from "react";
 import styled from "styled-components";
-import { Button, Loader } from "connect-core";
+import {Button, Loader} from "connect-core";
 import Chat from "./Chat";
-import ChatSession, { setCurrentChatSessionInstance } from "./ChatSession";
-import { initiateChat } from "./ChatInitiator";
+import ChatSession, {setCurrentChatSessionInstance} from "./ChatSession";
+import {initiateChat} from "./ChatInitiator";
 import EventBus from "./eventbus";
 import "./ChatInterface";
 import './ChatEvents';
-import { defaultTheme } from "connect-theme";
-import { FlexRowContainer } from "connect-theme/Helpers";
-import { CHAT_FEATURE_TYPES } from "./constants";
-import { ContentType } from "./datamodel/Model";
-import { LanguageProvider, LanguageContext } from "../../context/LanguageContext";
+import {defaultTheme} from "connect-theme";
+import {FlexRowContainer} from "connect-theme/Helpers";
+import {CHAT_FEATURE_TYPES} from "./constants";
+import {ContentType} from "./datamodel/Model";
+import {LanguageProvider, LanguageContext} from "../../context/LanguageContext";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -31,12 +28,12 @@ const MessageBoxFail = styled.div`
 `;
 
 const LoadingWrapper = styled(FlexRowContainer)`
-  padding: ${({ theme }) => theme.globals.basePadding};
+  padding: ${({ theme}) => theme.globals.basePadding};
   height: 100%;
 `;
 
 const Wrapper = styled.div`
-  padding: ${({ theme }) => theme.globals.basePadding};
+  padding: ${({ theme}) => theme.globals.basePadding};
   height: 100%;
 `;
 
@@ -94,7 +91,7 @@ class ChatContainer extends Component {
    * @param {*} failure
    */
   async submitChatInitiation(input, success, failure) {
-    this.setState({ status: "Initiating" });
+    this.setState({status: "Initiating"});
     const customizationParams = {
       authenticationRedirectUri: input.authenticationRedirectUri || '',
       authenticationIdentityProvider: input.authenticationIdentityProvider || ''
@@ -120,7 +117,7 @@ class ChatContainer extends Component {
       });
       success && success(chatSession);
     } catch (error) {
-      this.setState({ status: "InitiateFailed" });
+      this.setState({status: "InitiateFailed"});
       failure && failure(error);
     }
   }
@@ -136,7 +133,7 @@ class ChatContainer extends Component {
   }
 
   resetState = () => {
-    this.setState({ status: "NotInitiated", chatSession: null });
+    this.setState({status: "NotInitiated", chatSession: null});
     this.logger && this.logger.info("Chat session is reset");
   };
 

@@ -1,14 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
-import React, { useRef, useState, useEffect } from "react";
-import { FormattedMessage } from "react-intl";
+import React, {useRef, useState, useEffect} from "react";
+import {FormattedMessage} from "react-intl";
 import PT from "prop-types";
 import styled from "styled-components";
-import { defaultTheme } from "../../../theme";
+import {defaultTheme} from "../../../theme";
 
-import { Text, Loader } from "connect-core";
-import { usePrevious } from "connect-hooks";
+import {Text, Loader} from "connect-core";
+import {usePrevious} from "connect-hooks";
 
 import {
   MessageBox
@@ -136,7 +133,7 @@ export default function ChatTranscriptScroller({
           </Text>
         </LoaderWrapper>
       }
-      { children }
+      {children}
     </ScrollContainer>
   );
 }

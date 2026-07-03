@@ -1,12 +1,9 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-
 import React from "react";
-import { screen, render, fireEvent, within } from "@testing-library/react";
-import { ThemeProvider } from "../../../../../theme";
-import Carousel, { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./Carousel";
+import {screen, render, fireEvent, within} from "@testing-library/react";
+import {ThemeProvider} from "../../../../../theme";
+import Carousel, {formatCarouselInteractiveSelection, isCarouselSelectionMessage} from "./Carousel";
 import * as helpers from "../../../../../utils/helper";
-import { InteractiveMessageSelectionType, InteractiveMessageType } from "../../../datamodel/Model";
+import {InteractiveMessageSelectionType, InteractiveMessageType} from "../../../datamodel/Model";
 
 const CAROUSEL_CONSTRAINTS = helpers.INTERACTIVE_MESSAGE_CONSTRAINTS[InteractiveMessageType.CAROUSEL];
 
@@ -104,7 +101,7 @@ describe("<Carousel />", () => {
 
   beforeEach(() => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
-    mockProps = { content: mockCarouselContent, addMessage: addMessage };
+    mockProps = {content: mockCarouselContent, addMessage: addMessage};
   });
   window.connect = {
     csmService: {
@@ -124,7 +121,7 @@ describe("<Carousel />", () => {
     expect(screen.getByTestId("interactive-carousel-scroll-right-btn")).toBeInTheDocument();
     expect(screen.getByTestId("interactive-carousel-response-section")).toBeInTheDocument();
 
-    mockCarouselContent.elements.forEach(({ templateIdentifier }) => {
+    mockCarouselContent.elements.forEach(({templateIdentifier}) => {
       expect(screen.getByTestId(templateIdentifier)).toBeDefined();
     });
   });
@@ -136,17 +133,17 @@ describe("<Carousel />", () => {
     expect(screen.getByText(mockCarouselContent.title)).toBeDefined();
 
     // Renders each nested picker
-    mockCarouselContent.elements.forEach(({ templateIdentifier, data }) => {
-      const { title, subtitle, elements } = data.content;
+    mockCarouselContent.elements.forEach(({templateIdentifier, data}) => {
+      const {title, subtitle, elements} = data.content;
       expect(screen.getByTestId(templateIdentifier)).toBeDefined();
-      const { getByText: nestedElemGetByText } = within(screen.getByTestId(templateIdentifier));
+      const {getByText: nestedElemGetByText} = within(screen.getByTestId(templateIdentifier));
 
       // Nested picker title/subtitle
       expect(nestedElemGetByText(title)).toBeDefined();
       expect(nestedElemGetByText(subtitle)).toBeDefined();
 
       // Nested picker elements
-      elements.forEach(({ title: nestedPickerTitle, imageData, imageDescription }) => {
+      elements.forEach(({title: nestedPickerTitle, imageData, imageDescription}) => {
         expect(nestedElemGetByText(nestedPickerTitle)).toBeDefined();
 
         if (imageData && imageDescription) {
@@ -161,10 +158,10 @@ describe("<Carousel />", () => {
     renderElement(mockProps);
 
     const nestedPickerToChoose = mockNestedPanelPickerFlights;
-    const { content } = nestedPickerToChoose.data;
+    const {content} = nestedPickerToChoose.data;
     const optionToChoose = content.elements[1].title; // "View All Destinations"
     expect(screen.getByTestId(nestedPickerToChoose.templateIdentifier)).toBeDefined();
-    const { getByText: nestedElemGetByText } = within(screen.getByTestId(nestedPickerToChoose.templateIdentifier));
+    const {getByText: nestedElemGetByText} = within(screen.getByTestId(nestedPickerToChoose.templateIdentifier));
 
     fireEvent.click(nestedElemGetByText(optionToChoose));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
@@ -222,14 +219,14 @@ describe("<Carousel />", () => {
     const createMsgPayloadSpy = jest.spyOn(helpers, "createInteractiveMessagePayload");
 
     const nestedPickerToChoose = mockNestedPanelPickerFlights;
-    const { content } = nestedPickerToChoose.data;
+    const {content} = nestedPickerToChoose.data;
     const optionToChoose = content.elements[1].title; // "View All Destinations"
     expect(screen.getByTestId(nestedPickerToChoose.templateIdentifier)).toBeDefined();
-    const { getByText: nestedElemGetByText } = within(screen.getByTestId(nestedPickerToChoose.templateIdentifier));
+    const {getByText: nestedElemGetByText} = within(screen.getByTestId(nestedPickerToChoose.templateIdentifier));
 
     fireEvent.click(nestedElemGetByText(optionToChoose));
     expect(createMsgPayloadSpy).toHaveBeenCalledWith(
-      { title: optionToChoose },
+      {title: optionToChoose},
       undefined,
       undefined,
       undefined,
@@ -243,7 +240,7 @@ describe("<Carousel />", () => {
   });
 
   it("Should truncate a title over the character limit", () => {
-    const { titleCharLimit } = CAROUSEL_CONSTRAINTS;
+    const {titleCharLimit} = CAROUSEL_CONSTRAINTS;
 
     const longTitle = "LongTitle".repeat(150);
     const truncatedTitle = `${longTitle.substring(0, titleCharLimit)}...`;
@@ -252,7 +249,7 @@ describe("<Carousel />", () => {
       ...mockCarouselContent,
       title: longTitle,
     };
-    renderElement({ ...mockProps, content: carouselLongTitle });
+    renderElement({...mockProps, content: carouselLongTitle});
     expect(() => screen.getByText(longTitle)).toThrow(
       "Unable to find an element"
     );
@@ -264,8 +261,8 @@ describe("<Carousel />", () => {
       ...mockCarouselContent,
       title: '<div style="background-image: url(\'javascript:alert(\'XSS attack!\');\')"></div>',
     };
-    renderElement({ ...mockProps, content: mockCarouselXSSContent });
-    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", { exact: false })).toBeDefined();
+    renderElement({...mockProps, content: mockCarouselXSSContent});
+    expect(screen.getByText("<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>", {exact: false})).toBeDefined();
   });
 });
 
@@ -284,10 +281,10 @@ describe("[Carousel] Transcipt message formatting util", () => {
   });
 
   it("Should format a valid Carousel interactive selection stringified object", () => {
-    const messageContent = JSON.stringify({ listTitle: "Flight", selectionText: "Purchase Ticket", templateIdentifier: "listPicker001" });
+    const messageContent = JSON.stringify({listTitle: "Flight", selectionText: "Purchase Ticket", templateIdentifier: "listPicker001"});
     expect(formatCarouselInteractiveSelection(messageContent)).toBe("Flight - Purchase Ticket");
 
-    const messageContentColonFormat = JSON.stringify({ listTitle: "Flights:", selectionText: "Purchase Ticket" });
+    const messageContentColonFormat = JSON.stringify({listTitle: "Flights:", selectionText: "Purchase Ticket"});
     expect(formatCarouselInteractiveSelection(messageContentColonFormat)).toBe("Flights: Purchase Ticket");
   });
 });
