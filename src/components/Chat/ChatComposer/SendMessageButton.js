@@ -7,10 +7,23 @@ const ACTIVE_COLOR = defaultTheme.palette.secondaryBlack;
 const INACTIVE_COLOR = defaultTheme.palette.whisper;
 
 const SendButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--ac-widget-send-button-size, 32px);
+  height: var(--ac-widget-send-button-size, 32px);
+  border-radius: 50%;
   cursor: ${props => props.isActive ? 'pointer' : 'default'};
+  transition: background-color 0.15s ease;
+  background-color: ${props => props.isActive
+    ? `var(--ac-widget-send-button-active-bg, ${ACTIVE_COLOR})`
+    : `var(--ac-widget-send-button-bg, ${INACTIVE_COLOR})`};
 
   &>svg {
-    fill: ${props => props.isActive ? ACTIVE_COLOR : INACTIVE_COLOR};
+    width: var(--ac-widget-send-button-icon-size, 16px);
+    height: var(--ac-widget-send-button-icon-size, 16px);
+    fill: var(--ac-widget-send-button-icon-color, ${defaultTheme.palette.white});
   }
 `;
 

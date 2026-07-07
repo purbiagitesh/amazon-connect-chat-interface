@@ -3,7 +3,6 @@ import {FormattedMessage} from "react-intl";
 import {CONTACT_STATUS} from "../../constants/global";
 import ChatTranscriptor from "./ChatTranscriptor";
 import ChatComposer from "./ChatComposer";
-import ChatActionBar from "./ChatActionBar";
 import React, {Component} from "react";
 import {Text} from "connect-core";
 import styled from "styled-components";
@@ -14,7 +13,7 @@ const ChatWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  border-radius: 24px 24px 0 0;
+  border-radius: 24px; // to match the border with figma frame
   overflow: hidden;
   @media (max-width:640px) {
     position: absolute;
@@ -50,9 +49,10 @@ const ChatComposerWrapper = styled.div`
   @media (max-width:640px) {
     position: absolute;
     left: 0;
-    bottom: 85px;
+    bottom: 0;
     right: 0;
     top: ${props => props.parentHeaderWrapperHeight}px;
+    height: auto;
     min-height: auto;
   }
 `;
@@ -264,7 +264,7 @@ export default class Chat extends Component {
     -- this prevents overlay from overflowing in mobile browser.
   */
   render() {
-    const {chatSession, headerConfig, transcriptConfig, composerConfig, footerConfig, logoConfig} = this.props;
+    const {chatSession, headerConfig, transcriptConfig, composerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
@@ -297,13 +297,6 @@ export default class Chat extends Component {
             textInputRef={textInputRef}
           />
         </ChatComposerWrapper>
-        {<ChatActionBar
-          onEndChat={() => this.endChat()}
-          onClose ={() => this.closeChat()}
-          contactStatus={this.state.contactStatus}
-          footerConfig={footerConfig}
-        />
-        }
       </ChatWrapper>
     );
   }

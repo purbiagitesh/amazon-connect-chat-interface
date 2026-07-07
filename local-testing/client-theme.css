@@ -1,49 +1,25 @@
 @font-face {
-  font-family: 'Helvetica Neue LT Pro';
-  src: url('./client-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Bd.woff2') format('woff2'),
-       url('./client-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Bd.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue LT Pro';
-  src: url('./client-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Lt.woff2') format('woff2'),
-       url('./client-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Lt.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue LT Pro';
-  src: url('./client-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Md.woff2') format('woff2'),
-       url('./client-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Md.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Helvetica Neue LT Pro';
-  src: url('./client-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Roman.woff2') format('woff2'),
-       url('./client-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Roman.ttf') format('truetype');
+  font-family: 'Roboto';
+  src: url('./client-assets/Fonts/WOFF2/OptimaDisplay-Roman.woff2') format('woff2'),
+       url('./client-assets/Fonts/TTF/OPTIMADISPLAY-ROMAN.TTF') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 :root {
-  --ac-widget-header-backgroundcolor: #3F51B5;
+  --ac-widget-header-backgroundcolor: #1976D2;
   --ac-widget-header-textcolor: #FFFFFF;
-  --ac-widget-footer-backgroundcolor: #FF4081;
-  --ac-widget-footer-button-backgroundcolor: #FF4081;
+  --ac-widget-footer-backgroundcolor: #FFC107;
+  --ac-widget-footer-button-backgroundcolor: #FFC107;
   --ac-widget-footer-button-textcolor: #FFFFFF;
-  --ac-widget-global-typeface: Helvetica Neue LT Pro;
-  --ac-widget-transcript-customer-bubble-color: #3F51B5;
+  --ac-widget-global-typeface: Roboto;
+  --ac-widget-transcript-customer-bubble-color: #1976D2;
   --ac-widget-transcript-customer-textcolor: #FFFFFF;
   --ac-widget-transcript-agent-bubble-color: #F5F5F5;
   --ac-widget-transcript-agent-textcolor: #333333;
 
   /* ── Chat Header ── */
-  --header-bg:             #1a2340;
+  --header-bg:             #040A2B;
   --header-text-color:     #ffffff;
   --header-subtitle-color: rgba(255,255,255,0.70);
   --header-padding:        14px 16px;

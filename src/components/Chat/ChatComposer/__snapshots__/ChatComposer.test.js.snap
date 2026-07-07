@@ -5,11 +5,32 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     .c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--ac-widget-send-button-size,32px);
+  height: var(--ac-widget-send-button-size,32px);
+  border-radius: 50%;
   cursor: default;
+  -webkit-transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease;
+  background-color: var(--ac-widget-send-button-bg,#EDEDED);
 }
 
 .c7>svg {
-  fill: #EDEDED;
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
 .c0 {
@@ -23,18 +44,24 @@ Object {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: #FFFFFF;
-  border: 0.5px solid #CCCCCC;
-  border-left: 0;
-  border-right: 0;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--ac-widget-composer-background,#FFFFFF);
+  border: var(--ac-widget-composer-border,1px solid #CCCCCC);
+  border-radius: var(--ac-widget-composer-border-radius,24px);
+  margin: var(--ac-widget-composer-margin,8px 16px 16px);
 }
 
 .c6 {
   position: absolute;
-  padding: 10px;
-  padding-right: 14px;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: var(--ac-widget-composer-send-button-offset,10px);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   z-index: 2;
 }
 
@@ -95,8 +122,9 @@ Object {
   font-family: inherit;
   padding: 10px;
   padding-left: 0;
-  padding-right: 44px;
-  margin-left: 10px;
+  padding-right: var(--ac-widget-composer-send-button-clearance,44px);
+  margin-left: 14px;
+  background: transparent;
   max-height: 80px;
   line-height: 1.5rem;
   overflow: auto;
@@ -150,6 +178,12 @@ Object {
 .c4 svg {
   width: 24px;
   height: 24px;
+}
+
+@media (max-width:360px) {
+  .c1 {
+    margin: var(--ac-widget-composer-margin-small,8px 10px 10px);
+  }
 }
 
 <div>
@@ -242,7 +276,7 @@ Object {
       class="sc-kGXeez bsulgI composer"
     >
       <div
-        class="sc-kpOJdX yKUIE"
+        class="sc-kpOJdX iarBOT"
       >
         <div
           class="sc-ckVGcZ bSJpNg"
@@ -287,18 +321,18 @@ Object {
         </div>
         <textarea
           aria-label="Type a message"
-          class="sc-hMqMXs iSQVRJ"
+          class="sc-hMqMXs iMgfus"
           data-testid="customer-chat-text-input"
           placeholder="Type a message"
           spellcheck="true"
           tabindex="0"
         />
         <div
-          class="sc-dxgOiQ jhaimo"
+          class="sc-dxgOiQ jTrBKs"
         >
           <div
             aria-label="Send Message"
-            class="sc-bdVaJa iDYuWj"
+            class="sc-bdVaJa dJQglV"
             data-testid="customer-chat-send-message-button"
             tabindex="0"
           >
@@ -379,11 +413,32 @@ exports[`when window.connect is not defined Style should match the snapshot 1`] 
 Object {
   "asFragment": [Function],
   "baseElement": .c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--ac-widget-send-button-size,32px);
+  height: var(--ac-widget-send-button-size,32px);
+  border-radius: 50%;
   cursor: default;
+  -webkit-transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease;
+  background-color: var(--ac-widget-send-button-bg,#EDEDED);
 }
 
 .c7>svg {
-  fill: #EDEDED;
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
 .c0 {
@@ -397,18 +452,24 @@ Object {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: #FFFFFF;
-  border: 0.5px solid #CCCCCC;
-  border-left: 0;
-  border-right: 0;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--ac-widget-composer-background,#FFFFFF);
+  border: var(--ac-widget-composer-border,1px solid #CCCCCC);
+  border-radius: var(--ac-widget-composer-border-radius,24px);
+  margin: var(--ac-widget-composer-margin,8px 16px 16px);
 }
 
 .c6 {
   position: absolute;
-  padding: 10px;
-  padding-right: 14px;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: var(--ac-widget-composer-send-button-offset,10px);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   z-index: 2;
 }
 
@@ -469,8 +530,9 @@ Object {
   font-family: inherit;
   padding: 10px;
   padding-left: 0;
-  padding-right: 44px;
-  margin-left: 10px;
+  padding-right: var(--ac-widget-composer-send-button-clearance,44px);
+  margin-left: 14px;
+  background: transparent;
   max-height: 80px;
   line-height: 1.5rem;
   overflow: auto;
@@ -524,6 +586,12 @@ Object {
 .c4 svg {
   width: 24px;
   height: 24px;
+}
+
+@media (max-width:360px) {
+  .c1 {
+    margin: var(--ac-widget-composer-margin-small,8px 10px 10px);
+  }
 }
 
 <body>
@@ -617,7 +685,7 @@ Object {
       class="sc-kGXeez bsulgI composer"
     >
       <div
-        class="sc-kpOJdX yKUIE"
+        class="sc-kpOJdX iarBOT"
       >
         <div
           class="sc-ckVGcZ bSJpNg"
@@ -662,18 +730,18 @@ Object {
         </div>
         <textarea
           aria-label="Type a message"
-          class="sc-hMqMXs iSQVRJ"
+          class="sc-hMqMXs iMgfus"
           data-testid="customer-chat-text-input"
           placeholder="Type a message"
           spellcheck="true"
           tabindex="0"
         />
         <div
-          class="sc-dxgOiQ jhaimo"
+          class="sc-dxgOiQ jTrBKs"
         >
           <div
             aria-label="Send Message"
-            class="sc-bdVaJa iDYuWj"
+            class="sc-bdVaJa dJQglV"
             data-testid="customer-chat-send-message-button"
             tabindex="0"
           >

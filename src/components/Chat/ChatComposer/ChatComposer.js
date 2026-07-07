@@ -18,18 +18,23 @@ const ChatComposerWrapper = styled.div`
 const DefaultChatComposerWrapper = styled.div`
   position: relative;
   display: flex;
-  background: ${(props) => props.theme.palette.white};
-  border: 0.5px solid ${(props) => props.theme.palette.lightGray};
-  border-left: 0;
-  border-right: 0;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--ac-widget-composer-background, ${(props) => props.theme.palette.white});
+  border: var(--ac-widget-composer-border, 1px solid ${(props) => props.theme.palette.lightGray});
+  border-radius: var(--ac-widget-composer-border-radius, 24px);
+  margin: var(--ac-widget-composer-margin, 8px 16px 16px);
+
+  @media (max-width: 360px) {
+    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);
+  }
 `;
 
 const SendMessageButtonContainer = styled.div`
   position: absolute;
-  padding: ${(props) => props.theme.spacing.small};
-  padding-right: ${(props) => props.theme.spacing.base};
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: var(--ac-widget-composer-send-button-offset, ${(props) => props.theme.spacing.small});
+  transform: translateY(-50%);
   z-index: 2;
 `;
 
@@ -108,8 +113,9 @@ const TextInput = styled(TextareaAutosize)`
   font-family: inherit;
   padding: ${(props) => props.theme.spacing.small};
   padding-left: 0;
-  padding-right: ${(props) => props.theme.spacing.xxlarge};
-  margin-left: ${(props) => props.theme.spacing.small};
+  padding-right: var(--ac-widget-composer-send-button-clearance, ${(props) => props.theme.spacing.xxlarge});
+  margin-left: ${(props) => props.theme.spacing.base};
+  background: transparent;
   max-height: 80px;
   line-height: 1.5rem;
   overflow: auto;
@@ -118,7 +124,7 @@ const TextInput = styled(TextareaAutosize)`
   resize: none;
   letter-spacing: ${(props) => props.theme.globals.letterSpacing};
   font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));
-  border: none;
+  border: none
 
   &::placeholder {
     color: ${(props) => props.theme.palette.mediumGray};
@@ -147,6 +153,13 @@ const CloseIcon = styled.div`
     height: ${({ theme}) => theme.fontsSize.mini};
   }
 `;
+
+const DisclaimerText = styled.div`
+  text-align: center;
+  color: var(--ac-widget-composer-disclaimer-color, ${(props) => props.theme.palette.mediumGray});
+  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);
+  margin: 0 16px 8px;
+`;  //Text value to add in footer
 
 ChatComposer.propTypes = {
   addMessage: PT.func,
@@ -397,13 +410,24 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     </DefaultChatComposerWrapper>
   );
 
+  // Figma spec calls for a plain single-line composer with no Bold/Italic/list/link/emoji
+  // toolbar, so the rich-text composer is force-disabled here regardless of
+  // composerConfig.richMessagingEnabled. To restore rich text formatting (e.g. if the design
+  // changes back), set FORCE_DISABLE_RICH_MESSAGING to false.
+  const FORCE_DISABLE_RICH_MESSAGING = true;
+
   return (
     <ChatComposerWrapper className="composer">
       { contactStatus === CONTACT_STATUS.CONNECTED && (
-          composerConfig && composerConfig.richMessagingEnabled
+          composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING
               ? richMessagingComposer
               : defaultComposer)
       }
+      { contactStatus === CONTACT_STATUS.CONNECTED && (
+        <DisclaimerText>
+          Virtual Assistant is AI and can make mistakes.
+        </DisclaimerText>
+      )}
     </ChatComposerWrapper>
   );
 }
