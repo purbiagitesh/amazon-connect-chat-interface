@@ -244,7 +244,59 @@ const defaultTheme = {
         color: ${globals.link.hoverColor};
         text-decoration: ${globals.link.hoverDecoration};
       }
-    `
+    `,
+
+    // Canonical widget text styles. Sizing/line-height/weight/spacing are
+    // fixed across every brand - font-family is intentionally NOT set here,
+    // so these inherit --ac-widget-global-typeface from the Page wrapper
+    // (App.js) instead of overriding it with a hardcoded family.
+    title: `
+      font-size: 14px;
+      line-height: 14px;
+      font-weight: normal;
+      padding: 0;
+    `,
+
+    body: `
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: normal;
+      padding: 0;
+    `,
+    bodyMargin: '0 0 10px 0',
+    emphasis: `
+      font-weight: bold;
+    `,
+
+    label: `
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: normal;
+      padding: 0;
+    `,
+
+    supportingText: `
+      font-size: 10px;
+      line-height: 12px;
+      font-weight: normal;
+      padding: 0;
+    `,
+    supportingTextMargin: '0 0 10px 0',
+    inlineButton: `
+      text-decoration: underline;
+      font-weight: bold;
+    `,
+
+    disclaimer: `
+      font-size: 10px;
+      line-height: 16px;
+      font-weight: normal;
+      padding: 0;
+    `,
+    disclaimerMargin: '0 0 10px 0',
+    disclaimerLink: `
+      text-decoration: underline;
+    `,
   },
 
 // Button

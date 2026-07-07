@@ -19,10 +19,10 @@ const SCROLL_BOTTOM_MARGIN = 20;
 const SCROLL_TOP_MARGIN = 0;
 
 export const LoaderWrapper = styled(MessageBox) `
+  ${({ theme}) => theme.typography.supportingText};
   width: 80%;
   text-align: center;
   transition: 100ms;
-  font-size: 0.8em;
   margin: 0 auto;
 `;
 

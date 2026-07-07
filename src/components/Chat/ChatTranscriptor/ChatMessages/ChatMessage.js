@@ -40,9 +40,11 @@ Header.Sender = styled.div`
   white-space: nowrap;
 `;
 Header.Status = styled.div`
+  ${({ theme}) => theme.typography.supportingText};
   float: right;
 `;
 const Footer = styled.div`
+  ${({ theme}) => theme.typography.supportingText};
   overflow: auto;
   color: ${({ theme}) => theme.globals.textSecondaryColor};
   padding-right: ${({ theme}) => theme.spacing.mini};
@@ -75,6 +77,8 @@ const Body = styled.div`
 
   ${(props) => props.childWillAddBackground ? "background: none" : ""}
 
+  ${({ theme}) => theme.typography.body};
+
   padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.base)};
   margin-top: ${(props) => props.theme.spacing.mini};
   border-radius: 5px;
@@ -105,6 +109,7 @@ const Body = styled.div`
   }
 `;
 const ErrorText = styled.div`
+  ${({ theme}) => theme.typography.supportingText};
   color: ${({ theme}) => theme.palette.red};
   display: flex;
   > img {
@@ -112,11 +117,13 @@ const ErrorText = styled.div`
   }
 `;
 const StatusText = styled.span`
+  ${({ theme}) => theme.typography.supportingText};
   color: ${({ theme}) => theme.globals.textSecondaryColor};
   padding-right: ${({ theme}) => theme.spacing.mini};
 `;
 
 const TransportErrorMessage = styled.div`
+  ${({ theme}) => theme.typography.supportingText};
   margin-left: ${(props) => props.theme.chatTranscriptor.msgStatusWidth};
   padding: ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.micro};
 
@@ -126,6 +133,7 @@ const TransportErrorMessage = styled.div`
 `;
 
 TransportErrorMessage.RetryButton = styled.a`
+  ${({ theme}) => theme.typography.inlineButton};
   margin-left: ${({ theme}) => theme.spacing.micro};
 `;
 

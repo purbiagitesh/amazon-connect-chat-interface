@@ -112,19 +112,19 @@ const defaultHeaderConfig = {
             <div>
               <div style={{
                 color: textColor,
-                fontSize: '13px',
-                fontWeight: '600',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
+                fontSize: '14px',
+                lineHeight: '14px',
+                fontWeight: 'normal',
               }}>
                 {hc.title || ''}
               </div>
               {hc.subtitle && (
                 <div style={{
                   color: subtitleColor,
-                  fontSize: '11px',
+                  fontSize: '10px',
+                  lineHeight: '12px',
+                  fontWeight: 'normal',
                   marginTop: '4px',
-                  lineHeight: 1.35,
                   maxWidth: '260px',
                 }}>
                   {hc.subtitle}

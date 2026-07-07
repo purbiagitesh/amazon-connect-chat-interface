@@ -31,14 +31,12 @@ const ButtonWrapper = styled.div`
   > button {
     min-width: 85px;
     margin: ${props => props.theme.spacing.mini};
-    font-weight: bold;
   }
 `;
 
 const ActionButton = styled(Button)`
   margin: ${props => props.theme.spacing.small};
   width: ${props => (props.col ? 100 / props.col - 7 + "%" : "")};
-  font-size: var(--ac-widget-footer-button-fontsize, inherit);
   color: var(--ac-widget-footer-button-textcolor, inherit);
   border-color: var(--ac-widget-footer-button-bordercolor, inherit);
   background: var(--ac-widget-footer-button-backgroundcolor, inherit);

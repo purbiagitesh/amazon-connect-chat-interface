@@ -30,8 +30,7 @@ const QuickReplyOption = styled.button`
   border-radius: 24px;
   background-color: #D6D6FA;
   color: #1A1A1A;
-  font-size: 15px;
-  font-weight: 500;
+  ${({ theme}) => theme.typography.label};
   text-align: center;
   cursor: pointer;
   transition: background-color 0.15s ease;

@@ -223,6 +223,44 @@ const FONT_FORMAT_MAP = {
   otf: 'opentype'
 };
 
+// Preferred src ordering within a single @font-face block (browsers use the
+// first source they can load, so list the most efficient formats first).
+const FONT_FORMAT_PRIORITY = ['woff2', 'woff', 'otf', 'ttf'];
+
+const FONT_WEIGHT_MAP = {
+  thin: 100, th: 100, hairline: 100,
+  extralight: 200, ultralight: 200,
+  light: 300, lt: 300,
+  regular: 400, roman: 400, rg: 400, book: 400, normal: 400,
+  medium: 500, md: 500,
+  semibold: 600, demibold: 600, sb: 600,
+  bold: 700, bd: 700,
+  extrabold: 800, ultrabold: 800,
+  black: 900, blk: 900, heavy: 900
+};
+
+// Derives font-weight/font-style from a filename's trailing token, e.g.
+// "HelveticaNeueLTPro-BdIt.ttf" -> {weight: 700, style: 'italic'},
+// "HelveticaNeueLTPro-Roman.ttf" -> {weight: 400, style: 'normal'}.
+// Font files that don't distinguish weight in the filename all resolve to
+// the same {400, normal}, which is intentional since we can't tell them apart.
+function parseFontWeightStyle(fileName) {
+  const base = fileName.replace(/\.[^.]+$/, '');
+  const parts = base.split(/[-_\s]+/).filter(Boolean);
+  const last = (parts[parts.length - 1] || '').toLowerCase();
+
+  let style = 'normal';
+  let weightToken = last;
+  const italicMatch = last.match(/(italic|oblique|it)$/);
+  if (italicMatch) {
+    style = italicMatch[1] === 'oblique' ? 'oblique' : 'italic';
+    weightToken = last.slice(0, -italicMatch[1].length);
+  }
+
+  const weight = FONT_WEIGHT_MAP[weightToken] || 400;
+  return {weight, style};
+}
+
 // Descriptors describing where each client font file lives, used both to
 // emit the @font-face CSS block and to hand the same data to the runtime
 // (via clientInfo.js) so the widget can inject its own @font-face rules
@@ -247,11 +285,17 @@ function getFontFaceDescriptors(fontFiles, resolvedFontFamily) {
 
   return [].concat(fontFiles)
     .sort((a, b) => a.ext.localeCompare(b.ext))
-    .map(font => ({
-      family: resolvedFontFamily,
-      format: FONT_FORMAT_MAP[font.ext] || 'truetype',
-      url: './client-assets/Fonts/' + stripFontsSourcePrefix(font.relativePath)
-    }));
+    .map(font => {
+      const {weight, style} = parseFontWeightStyle(font.name);
+      return {
+        family: resolvedFontFamily,
+        format: FONT_FORMAT_MAP[font.ext] || 'truetype',
+        ext: font.ext,
+        url: './client-assets/Fonts/' + stripFontsSourcePrefix(font.relativePath),
+        weight,
+        style
+      };
+    });
 }
 
 function generateFontFaceCss(fontFamilyString, fontFiles, resolvedFontFamily = null) {
@@ -261,10 +305,25 @@ function generateFontFaceCss(fontFamilyString, fontFiles, resolvedFontFamily = n
     return '';
   }
 
-  const sources = descriptors
-    .map(font => "url('" + font.url + "') format('" + font.format + "')")
-    .join(',\n       ');
-  return "@font-face {\n  font-family: '" + fontFamily + "';\n  src: " + sources + ";\n  font-weight: normal;\n  font-style: normal;\n}\n\n";
+  // Group by weight/style so each distinct font file (Bold, Light, Medium, ...)
+  // gets its own @font-face rule instead of being squashed into a single
+  // normal-weight rule where the browser silently picks just one file.
+  const byWeightStyle = descriptors.reduce((acc, font) => {
+    const key = font.weight + '|' + font.style;
+    acc[key] = acc[key] || [];
+    acc[key].push(font);
+    return acc;
+  }, {});
+
+  return Object.keys(byWeightStyle).map(key => {
+    const group = byWeightStyle[key];
+    const {weight, style} = group[0];
+    const sources = [].concat(group)
+      .sort((a, b) => FONT_FORMAT_PRIORITY.indexOf(a.ext) - FONT_FORMAT_PRIORITY.indexOf(b.ext))
+      .map(font => "url('" + font.url + "') format('" + font.format + "')")
+      .join(',\n       ');
+    return "@font-face {\n  font-family: '" + fontFamily + "';\n  src: " + sources + ";\n  font-weight: " + weight + ";\n  font-style: " + style + ";\n}\n";
+  }).join('\n') + '\n';
 }
 
 function getClientFontFiles(clientPath) {

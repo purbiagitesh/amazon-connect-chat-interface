@@ -23,14 +23,12 @@ const globalStyles = ({button, globals, fonts}) => (`
 const normalStyles = ({button}) => (`
   padding-top: ${button.normal.padding};
   padding-bottom: ${button.normal.padding};
-  font-size: ${button.normal.fontSize};
   box-shadow:  ${button.normal.boxShadow};
 `);
 
 const smallStyles = ({button}) => (`
   padding-top: ${button.small.padding};
   padding-bottom: ${button.small.padding};
-  font-size: ${button.small.fontSize};
 `);
 
 const defaultStyles = ({button, globals, spacing}) => (`
@@ -96,7 +94,7 @@ const applyButtonStyles = ({button, globals}, type) => (`
 `);
 
 export const StyledButton = styled.button`
-  ${({ theme}) => theme.typography.base};
+  ${({ theme}) => theme.typography.label};
   ${({ theme}) => globalStyles(theme)};
   ${({ theme}) => defaultStyles(theme)};
   ${props => props.type && applyButtonStyles(props.theme, props.type)};
@@ -105,7 +103,7 @@ export const StyledButton = styled.button`
 StyledButton.displayName = 'StyledButton';
 
 const StyledLink = styled.a`
-  ${({ theme}) => theme.typography.base};
+  ${({ theme}) => theme.typography.label};
   ${props => props.type && applyButtonStyles(props.theme, props.type)};
   ${props => props.small ? smallStyles(props.theme) : normalStyles(props.theme)};
   display: inline-block;

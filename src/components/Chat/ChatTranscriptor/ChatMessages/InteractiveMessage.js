@@ -58,10 +58,11 @@ const MessageBody = styled.div`
 `;
 
 const Title = styled(Text)`
-  font-weight: bold !important;
+  ${({ theme}) => theme.typography.title};
 `;
 
 const Subtitle = styled(Text)`
+  ${({ theme}) => theme.typography.body};
   color: ${({ theme}) => theme.globals.textSecondaryColor};
 `;
 
@@ -104,8 +105,7 @@ const PickerElementLink = styled.div`
   padding-left: ${({ theme}) => theme.spacing.small};
   padding-top: ${({ theme}) => theme.button.normal.padding};
   padding-bottom: ${({ theme}) => theme.button.normal.padding};
-  font-size: ${({ theme}) => theme.button.normal.fontSize};
-  line-height: 1.465;
+  ${({ theme}) => theme.typography.label};
   text-decoration: none;
 
   &:last-child {
@@ -114,18 +114,17 @@ const PickerElementLink = styled.div`
     margin-bottom: 0;
   }
 
-  a: {
+  a {
     text-decoration: none !important;
-    font-weight: bold !important;
   }
 
-  svg: {
+  svg {
     color: ${({ theme}) => theme.globals.textSecondaryColor};
     margin: 0 ${({ theme}) => theme.spacing.micro};
   }
 `;
 const PickerOptionTitle = styled(Text)`
-  font-weight: bold;
+  ${({ theme}) => theme.typography.label};
 
   a {
     text-decoration: none;
