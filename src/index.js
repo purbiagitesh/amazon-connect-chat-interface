@@ -10,7 +10,41 @@ import defaultTheme from './theme/defaultTheme';
 import packageJson from '../package.json';
 
 function getClientInfo() {
-  return typeof window !== 'undefined' && window.__CHAT_CLIENT_INFO__ ? window.__CHAT_CLIENT_INFO__ : null;
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  if (window.__CHAT_CLIENT_INFO__) {
+    return window.__CHAT_CLIENT_INFO__;
+  }
+  // The widget is typically rendered inside the vendor's iframe, which never
+  // loads clientInfo.js itself - only the host page does. Fall back to the
+  // parent window's copy (same pattern Chat.js uses for header colors).
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__) {
+      return window.parent.__CHAT_CLIENT_INFO__;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
+
+function resolveFontFaces(clientConfig) {
+  const fontFaces = clientConfig.fontFaces;
+  if (!Array.isArray(fontFaces) || !fontFaces.length) {
+    return [];
+  }
+
+  let baseHref = window.location.href;
+  try {
+    if (window.parent && window.parent !== window) {
+      baseHref = window.parent.location.href;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; resolve font URLs against our own document instead
+  }
+
+  return fontFaces.map(face => ({...face, url: new URL(face.url, baseHref).href}));
 }
 
 function buildThemeConfig(clientConfig = {}) {
@@ -71,6 +105,7 @@ function buildLogoConfig(clientInfo) {
     const themeConfig = Object.assign({}, buildThemeConfig(clientConfig), props.themeConfig || {});
     const headerConfig = Object.assign({}, buildHeaderConfig(clientConfig), props.headerConfig || {});
     const logoConfig = Object.assign({}, buildLogoConfig(clientInfo), props.logoConfig || {});
+    const fontFaces = resolveFontFaces(clientConfig);
 
     if (props.widgetType) {
       config.csmConfig = {
@@ -90,7 +125,7 @@ function buildLogoConfig(clientInfo) {
     setupGuidesRenderer(props);
 
     ReactDOM.render(
-      <BrowserRouter><App {...props} themeConfig={themeConfig} headerConfig={headerConfig} logoConfig={logoConfig} /></BrowserRouter>, document.getElementById(containerId) || document.getElementById("root"));
+      <BrowserRouter><App {...props} themeConfig={themeConfig} headerConfig={headerConfig} logoConfig={logoConfig} fontFaces={fontFaces} /></BrowserRouter>, document.getElementById(containerId) || document.getElementById("root"));
   };
 
   connect.ChatInterface.getCurrentTheme = () => {

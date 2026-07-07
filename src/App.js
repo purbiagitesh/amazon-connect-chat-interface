@@ -3,6 +3,7 @@ import {ThemeProvider} from "./theme";
 import styled from "styled-components";
 
 import ChatContainer from "./components/Chat/ChatContainer";
+import Fonts from "./assets/fonts";
 
 import defaultTheme from './theme/defaultTheme';
 
@@ -23,8 +24,12 @@ const Page = styled.div`
 
 
 const AppProvider = props => {
+  const theme = props.themeConfig && Object.keys(props.themeConfig).length
+    ? Object.assign({}, defaultTheme, props.themeConfig)
+    : undefined;
+
   return (
-    <ThemeProvider theme={Object.assign({}, defaultTheme, props.themeConfig)}>
+    <ThemeProvider theme={theme}>
       {props.children}
     </ThemeProvider>
   );
@@ -34,9 +39,10 @@ App.defaultProps = {
   baseCssClass: "connect-customer-interface"
 };
 
-function App({baseCssClass, ...props}) {
+function App({baseCssClass, fontFaces, ...props}) {
   return (
     <AppProvider themeConfig={props.themeConfig || {}}>
+      <Fonts fontFaces={fontFaces} />
       <Page className={baseCssClass}>
         <ChatContainer {...props}/>
       </Page>

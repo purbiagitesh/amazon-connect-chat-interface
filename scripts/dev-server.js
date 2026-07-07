@@ -95,6 +95,8 @@ function prepareClient(client, env) {
 }
 
 function resolveFilePath(urlPath) {
+  urlPath = decodeURIComponent(urlPath);
+
   if (urlPath === '/' || urlPath === '') {
     urlPath = '/hostedWidget.html';
   }
@@ -169,10 +171,22 @@ async function main() {
       process.exit(1);
     }
   }
-  
+
   // Check current state
   const state = getCurrentClientState();
-  
+
+  // Re-run prepare for the already-selected client/env so font and theme
+  // changes on disk are picked up on every `npm run dev`, not just when
+  // --client/--env are passed explicitly.
+  if (!(args.client && args.env) && state && state.client && state.env) {
+    console.log(`\n🔄 Refreshing assets for client: ${state.client} (${state.env})\n`);
+    try {
+      await prepareClient(state.client, state.env);
+    } catch (err) {
+      console.error('Failed to refresh client assets:', err.message);
+    }
+  }
+
   // Start server
   const server = createServer();
   

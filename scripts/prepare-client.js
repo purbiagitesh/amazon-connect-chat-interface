@@ -146,103 +146,215 @@ function getFontFamilyName(fontFamilyString) {
   return family.replace(/^['"]|['"]$/g, '') || 'CustomFont';
 }
 
-function generateFontFaceCss(fontFamilyString, fontFiles) {
-  if (!fontFiles || fontFiles.length === 0) {
-    return '';
+function getFontFamilyFromPath(relativePath) {
+  const formatDirs = ['ttf', 'otf', 'woff', 'woff2'];
+  const ignoredDirs = ['assets', 'fonts'];
+  const parts = relativePath.split('/').filter(Boolean);
+
+  for (let index = parts.length - 1; index >= 0; index -= 1) {
+    const part = parts[index];
+    const lowerPart = part.toLowerCase();
+
+    if (!part || part.includes('.')) {
+      continue;
+    }
+
+    if (formatDirs.includes(lowerPart) || ignoredDirs.includes(lowerPart)) {
+      continue;
+    }
+
+    return part.replace(/_/g, ' ').trim() || 'CustomFont';
   }
 
-  const fontFamily = getFontFamilyName(fontFamilyString);
-  const sortedFiles = fontFiles.slice().sort((a, b) => a.ext.localeCompare(b.ext));
-  const srcLines = sortedFiles.map(font => {
-    const formatMap = {
-      woff2: 'woff2',
-      woff: 'woff',
-      ttf: 'truetype',
-      otf: 'opentype'
-    };
-    return `url('./client-assets/${font.relativePath}') format('${formatMap[font.ext] || 'truetype'}')`;
-  });
-
-  return `@font-face {
-  font-family: '${fontFamily}';
-  src: ${srcLines.join(',\n       ')};
-  font-weight: normal;
-  font-style: normal;
+  return 'CustomFont';
 }
 
-`;
+function inferFontFamilyFromClientPath(clientPath, fallback = 'CustomFont') {
+  const candidateDirs = [
+    path.join(clientPath, 'assets', 'fonts'),
+    path.join(clientPath, 'Fonts')
+  ];
+
+  for (const fontDir of candidateDirs) {
+    if (!fs.existsSync(fontDir)) {
+      continue;
+    }
+
+    const childNames = fs.readdirSync(fontDir).filter(name => {
+      const childPath = path.join(fontDir, name);
+      return fs.existsSync(childPath) && fs.statSync(childPath).isDirectory() && !['TTF', 'OTF', 'WOFF', 'WOFF2', 'ttf', 'otf', 'woff', 'woff2'].includes(name);
+    });
+
+    if (childNames.length > 0) {
+      return childNames[0].replace(/_/g, ' ').trim();
+    }
+  }
+
+  return fallback;
 }
 
-function getClientFontFiles(fontsDir) {
-  if (!fs.existsSync(fontsDir)) {
+function getResolvedFontFamily(fontFamilyString, fontFiles, clientPath = null) {
+  const detectedFamily = Array.isArray(fontFiles)
+    ? fontFiles.find(file => file.familyName && file.familyName !== 'CustomFont')?.familyName
+    : null;
+
+  if (detectedFamily) {
+    return detectedFamily;
+  }
+
+  if (clientPath) {
+    const inferredFamily = inferFontFamilyFromClientPath(clientPath);
+    if (inferredFamily && inferredFamily !== 'CustomFont') {
+      return inferredFamily;
+    }
+  }
+
+  if (fontFamilyString && fontFamilyString !== 'TTF' && fontFamilyString !== 'OTF' && fontFamilyString !== 'WOFF' && fontFamilyString !== 'WOFF2') {
+    return getFontFamilyName(fontFamilyString);
+  }
+
+  return 'CustomFont';
+}
+
+const FONT_FORMAT_MAP = {
+  woff2: 'woff2',
+  woff: 'woff',
+  ttf: 'truetype',
+  otf: 'opentype'
+};
+
+// Descriptors describing where each client font file lives, used both to
+// emit the @font-face CSS block and to hand the same data to the runtime
+// (via clientInfo.js) so the widget can inject its own @font-face rules
+// when it's rendered inside a cross-document iframe that never loads
+// client-theme.css.
+// Font files are scanned from either clients/<brand>/Fonts or
+// clients/<brand>/assets/fonts, but prepare-client.js copies both of those
+// source folders' *contents* into local-testing/client-assets/Fonts. Strip
+// the source-root prefix so served URLs match where files actually land.
+function stripFontsSourcePrefix(relativePath) {
+  const parts = relativePath.split('/').filter(Boolean);
+  while (parts.length && ['fonts', 'assets'].includes(parts[0].toLowerCase())) {
+    parts.shift();
+  }
+  return parts.join('/');
+}
+
+function getFontFaceDescriptors(fontFiles, resolvedFontFamily) {
+  if (!fontFiles || fontFiles.length === 0) {
     return [];
   }
 
+  return [].concat(fontFiles)
+    .sort((a, b) => a.ext.localeCompare(b.ext))
+    .map(font => ({
+      family: resolvedFontFamily,
+      format: FONT_FORMAT_MAP[font.ext] || 'truetype',
+      url: './client-assets/Fonts/' + stripFontsSourcePrefix(font.relativePath)
+    }));
+}
+
+function generateFontFaceCss(fontFamilyString, fontFiles, resolvedFontFamily = null) {
+  const fontFamily = resolvedFontFamily || getResolvedFontFamily(fontFamilyString, fontFiles);
+  const descriptors = getFontFaceDescriptors(fontFiles, fontFamily);
+  if (!descriptors.length) {
+    return '';
+  }
+
+  const sources = descriptors
+    .map(font => "url('" + font.url + "') format('" + font.format + "')")
+    .join(',\n       ');
+  return "@font-face {\n  font-family: '" + fontFamily + "';\n  src: " + sources + ";\n  font-weight: normal;\n  font-style: normal;\n}\n\n";
+}
+
+function getClientFontFiles(clientPath) {
   const supported = ['.ttf', '.woff', '.woff2', '.otf'];
+  const candidateDirs = [
+    path.join(clientPath, 'Fonts'),
+    path.join(clientPath, 'assets', 'fonts')
+  ];
+
+  const files = [];
+  const seen = new Set();
 
   function scanDir(directory, parentRelative = '') {
-    const files = [];
+    if (!fs.existsSync(directory)) {
+      return [];
+    }
+
     const entries = fs.readdirSync(directory, {withFileTypes: true});
+    const scannedFiles = [];
     for (const entry of entries) {
       const entryPath = path.join(directory, entry.name);
       const relativePath = path.join(parentRelative, entry.name).replace(/\\/g, '/');
       if (entry.isDirectory()) {
-        files.push(...scanDir(entryPath, relativePath));
+        scannedFiles.push(...scanDir(entryPath, relativePath));
       } else if (supported.includes(path.extname(entry.name).toLowerCase())) {
-        files.push({
+        const ext = path.extname(entry.name).slice(1).toLowerCase();
+        const familyName = getFontFamilyFromPath(relativePath);
+        scannedFiles.push({
           name: entry.name,
           relativePath,
-          ext: path.extname(entry.name).slice(1).toLowerCase()
+          ext,
+          familyName
         });
       }
     }
-    return files;
+    return scannedFiles;
   }
 
-  return scanDir(fontsDir, 'Fonts');
+  candidateDirs.forEach(fontsDir => {
+    const scanned = scanDir(fontsDir, path.relative(clientPath, fontsDir).replace(/\\/g, '/'));
+    scanned.forEach(file => {
+      const key = `${file.relativePath}:${file.ext}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        files.push(file);
+      }
+    });
+  });
+
+  return files;
 }
 
-function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = []) {
+function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null) {
   const primaryColor = widgetConfig.primaryColor || '#3F51B5';
   const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
   const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
-  const fontFamily = widgetConfig.fontFamily || 'Arial, sans-serif';
+  const fontFamily = resolvedFontFamily || getResolvedFontFamily(widgetConfig.fontFamily, fontFiles);
 
-  const headerBg            = (headerConfig && headerConfig.backgroundColor) || '#1a2340';
-  const headerTitleColor    = (headerConfig && headerConfig.textColor)        || headerTextColor;
-  const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor)    || 'rgba(255,255,255,0.70)';
+  const headerBg = (headerConfig && headerConfig.backgroundColor) || '#1a2340';
+  const headerTitleColor = (headerConfig && headerConfig.textColor) || headerTextColor;
+  const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor) || 'rgba(255,255,255,0.70)';
 
-  const fontFaceCss = generateFontFaceCss(fontFamily, fontFiles);
-
-  const content = `${fontFaceCss}:root {
-  --ac-widget-header-backgroundcolor: ${primaryColor};
-  --ac-widget-header-textcolor: ${headerTextColor};
-  --ac-widget-footer-backgroundcolor: ${secondaryColor};
-  --ac-widget-footer-button-backgroundcolor: ${secondaryColor};
-  --ac-widget-footer-button-textcolor: ${headerTextColor};
-  --ac-widget-global-typeface: ${fontFamily};
-  --ac-widget-transcript-customer-bubble-color: ${primaryColor};
-  --ac-widget-transcript-customer-textcolor: ${headerTextColor};
-  --ac-widget-transcript-agent-bubble-color: #F5F5F5;
-  --ac-widget-transcript-agent-textcolor: #333333;
-
-  /* ── Chat Header ── */
-  --header-bg:             ${headerBg};
-  --header-text-color:     ${headerTitleColor};
-  --header-subtitle-color: ${headerSubtitleColor};
-  --header-padding:        14px 16px;
-  --header-logo-size:      40px;
-  --header-title-size:     13px;
-  --header-title-weight:   600;
-  --header-title-spacing:  0.08em;
-  --header-subtitle-size:  11px;
-  --header-subtitle-maxw:  260px;
-  --header-close-size:     22px;
-}
-`;
+  const fontFaceCss = generateFontFaceCss(fontFamily, fontFiles, fontFamily);
+  const content = fontFaceCss + ':root {\n' +
+    '  --ac-widget-header-backgroundcolor: ' + primaryColor + ';\n' +
+    '  --ac-widget-header-textcolor: ' + headerTextColor + ';\n' +
+    '  --ac-widget-footer-backgroundcolor: ' + secondaryColor + ';\n' +
+    '  --ac-widget-footer-button-backgroundcolor: ' + secondaryColor + ';\n' +
+    '  --ac-widget-footer-button-textcolor: ' + headerTextColor + ';\n' +
+    '  --ac-widget-global-typeface: ' + fontFamily + ';\n' +
+    '  --ac-widget-transcript-customer-bubble-color: ' + primaryColor + ';\n' +
+    '  --ac-widget-transcript-customer-textcolor: ' + headerTextColor + ';\n' +
+    '  --ac-widget-transcript-agent-bubble-color: #F5F5F5;\n' +
+    '  --ac-widget-transcript-agent-textcolor: #333333;\n\n' +
+    '  /* ── Chat Header ── */\n' +
+    '  --header-bg:             ' + headerBg + ';\n' +
+    '  --header-text-color:     ' + headerTitleColor + ';\n' +
+    '  --header-subtitle-color: ' + headerSubtitleColor + ';\n' +
+    '  --header-padding:        14px 16px;\n' +
+    '  --header-logo-size:      40px;\n' +
+    '  --header-title-size:     13px;\n' +
+    '  --header-title-weight:   600;\n' +
+    '  --header-title-spacing:  0.08em;\n' +
+    '  --header-subtitle-size:  11px;\n' +
+    '  --header-subtitle-maxw:  260px;\n' +
+    '  --header-close-size:     22px;\n' +
+    '}\n';
 
   fs.writeFileSync(outputPath, content);
-  console.log(`  ✅ Generated client-theme.css`);
+  console.log('  ✅ Generated client-theme.css');
 }
 
 function getClientLogoUrl(clientPath) {
@@ -258,18 +370,20 @@ function getClientLogoUrl(clientPath) {
 }
 
 // Generate client info file for runtime reference
-function generateClientInfo(clientName, envName, config, outputPath, logoUrl) {
+function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null) {
+  const finalFontFamily = resolvedFontFamily || getResolvedFontFamily(config.widget?.fontFamily, fontFiles);
   const info = {
     client: clientName,
     environment: envName,
     generatedAt: new Date().toISOString(),
     config: {
       ...config.widget,
+      fontFamily: finalFontFamily,
+      fontFaces:           getFontFaceDescriptors(fontFiles, finalFontFamily),
       header:              config.header || {},
       apiGatewayEndpoint:  config.aws?.apiGatewayEndpoint || '',
       instanceId:          config.aws?.instanceId || '',
       contactFlowId:       config.aws?.contactFlowId || '',
-      header: config.header || {},
     },
   };
 
@@ -349,6 +463,7 @@ Examples:
   const clientAssetsDir = path.join(clientPath, 'assets');
   const clientThemeDir = path.join(clientPath, 'theme');
   const clientFontsDir = path.join(clientPath, 'Fonts');
+  const clientAssetsFontsDir = path.join(clientPath, 'assets', 'fonts');
   const outputAssetsDir = path.join(localTestingDir, 'client-assets');
 
   // Clean previous client assets
@@ -363,6 +478,35 @@ Examples:
     console.log('  ✅ Copied client assets');
   }
 
+  // Allow overriding colors via CLI (--colorsFile or --primaryColor)
+  if (args.colorsFile) {
+    const source = path.resolve(args.colorsFile);
+    if (fs.existsSync(source)) {
+      try {
+        fs.mkdirSync(clientThemeDir, {recursive: true});
+        fs.copyFileSync(source, path.join(clientThemeDir, 'colors.json'));
+        console.log('  ✅ Applied colors file to client theme');
+      } catch (e) {
+        console.warn('  ⚠️ Failed to apply colors file:', e.message);
+      }
+    } else {
+      console.warn('  ⚠️ colors file not found:', source);
+    }
+  } else if (args.primaryColor) {
+    const colorsPath = path.join(clientThemeDir, 'colors.json');
+    try {
+      let colors = {};
+      if (fs.existsSync(colorsPath)) colors = JSON.parse(fs.readFileSync(colorsPath,'utf8'));
+      colors.primary = colors.primary || {};
+      colors.primary['500'] = args.primaryColor;
+      fs.mkdirSync(clientThemeDir, {recursive:true});
+      fs.writeFileSync(colorsPath, JSON.stringify(colors, null, 2));
+      console.log('  ✅ Updated client primary color to', args.primaryColor);
+    } catch (e) {
+      console.warn('  ⚠️ Failed to update colors.json', e.message);
+    }
+  }
+
   // Copy theme files
   if (fs.existsSync(clientThemeDir)) {
     copyDirSync(clientThemeDir, path.join(outputAssetsDir, 'theme'));
@@ -372,17 +516,28 @@ Examples:
   // Copy font files for client-specific font families
   if (fs.existsSync(clientFontsDir)) {
     copyDirSync(clientFontsDir, path.join(outputAssetsDir, 'Fonts'));
+  }
+  if (fs.existsSync(clientAssetsFontsDir)) {
+    copyDirSync(clientAssetsFontsDir, path.join(outputAssetsDir, 'Fonts'));
+  }
+  if (fs.existsSync(clientFontsDir) || fs.existsSync(clientAssetsFontsDir)) {
     console.log('  ✅ Copied font assets');
   }
 
-  const fontFiles = getClientFontFiles(clientFontsDir);
+  const fontFiles = getClientFontFiles(clientPath);
+  let resolvedFontFamily = getResolvedFontFamily(config.widget.fontFamily, fontFiles, clientPath);
+
+  config.widget.fontFamily = resolvedFontFamily;
+  console.log('  🔎 Detected font files:', fontFiles.length);
+  console.log('  🔎 Font file samples:', fontFiles.slice(0, 4).map(file => file.relativePath).join(', '));
+  console.log('  🔎 Resolved font family:', resolvedFontFamily);
 
   // Generate configuration files
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
 
   const logoUrl = getClientLogoUrl(clientPath);
-  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl);
-  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles);
+  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl, fontFiles, resolvedFontFamily);
+  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles, resolvedFontFamily);
   const envStateFile = path.join(__dirname, '..', '.client-env');
   fs.writeFileSync(envStateFile, JSON.stringify({client: clientName, env: envName}, null, 2));
   console.log('  ✅ Saved current client/env state');
