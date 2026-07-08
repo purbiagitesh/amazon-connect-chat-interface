@@ -376,18 +376,43 @@ function getClientFontFiles(clientPath) {
   return files;
 }
 
-function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null) {
-  const primaryColor = widgetConfig.primaryColor || '#3F51B5';
+// Reads clients/<brand>/theme/colors.json - the single source of truth for
+// brand color tokens (Primary500/Primary800, matching the design spec's
+// naming) - and falls back to widget.primaryColor / a hardcoded default so
+// brands that haven't set up colors.json yet still render something sane.
+function getClientColorPalette(clientThemeDir, widgetConfig = {}) {
+  const colorsPath = path.join(clientThemeDir, 'colors.json');
+  let colors = {};
+  if (fs.existsSync(colorsPath)) {
+    try {
+      colors = JSON.parse(fs.readFileSync(colorsPath, 'utf8'));
+    } catch (e) {
+      console.warn('  ⚠️ Failed to parse colors.json:', e.message);
+    }
+  }
+  const primary = colors.primary || {};
+  const primary500 = primary['500'] || widgetConfig.primaryColor || '#3F5773';
+  const primary800 = primary['800'] || primary500;
+  return {primary500, primary800};
+}
+
+function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
+  const primaryColor = colorPalette.primary500 || widgetConfig.primaryColor || '#3F51B5';
+  const primary800 = colorPalette.primary800 || primaryColor;
   const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
   const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
   const fontFamily = resolvedFontFamily || getResolvedFontFamily(widgetConfig.fontFamily, fontFiles);
 
-  const headerBg = (headerConfig && headerConfig.backgroundColor) || '#1a2340';
+  // Header background is driven entirely by the brand's Primary500 token so
+  // it can never drift out of sync with the rest of the brand's theme.
+  const headerBg = primaryColor;
   const headerTitleColor = (headerConfig && headerConfig.textColor) || headerTextColor;
   const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor) || 'rgba(255,255,255,0.70)';
 
   const fontFaceCss = generateFontFaceCss(fontFamily, fontFiles, fontFamily);
   const content = fontFaceCss + ':root {\n' +
+    '  --ac-widget-color-primary-500: ' + primaryColor + ';\n' +
+    '  --ac-widget-color-primary-800: ' + primary800 + ';\n' +
     '  --ac-widget-header-backgroundcolor: ' + primaryColor + ';\n' +
     '  --ac-widget-header-textcolor: ' + headerTextColor + ';\n' +
     '  --ac-widget-footer-backgroundcolor: ' + secondaryColor + ';\n' +
@@ -416,12 +441,15 @@ function generateClientThemeCss(widgetConfig, headerConfig, outputPath, fontFile
   console.log('  ✅ Generated client-theme.css');
 }
 
+// Looks inside clients/<brand>/assets - the same folder copyDirSync() publishes
+// to local-testing/client-assets - so the returned URL always matches where the
+// file actually lands. images/logo.svg is checked first since brand marks are
+// supplied as SVG; logo.png stays supported as a fallback for older clients.
 function getClientLogoUrl(clientPath) {
-  const logos = ['logo.png', 'logo.svg', 'assets/logo.png', 'assets/images/logo.png'];
-  for (const fileName of logos) {
-    const logoPath = path.join(clientPath, fileName);
-    if (fs.existsSync(logoPath)) {
-      const relativePath = path.relative(clientPath, logoPath).replace(/\\/g, '/');
+  const assetsDir = path.join(clientPath, 'assets');
+  const candidates = ['images/logo.svg', 'images/logo.png', 'logo.svg', 'logo.png'];
+  for (const relativePath of candidates) {
+    if (fs.existsSync(path.join(assetsDir, relativePath))) {
       return `./client-assets/${relativePath}`;
     }
   }
@@ -429,7 +457,7 @@ function getClientLogoUrl(clientPath) {
 }
 
 // Generate client info file for runtime reference
-function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null) {
+function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
   const finalFontFamily = resolvedFontFamily || getResolvedFontFamily(config.widget?.fontFamily, fontFiles);
   const info = {
     client: clientName,
@@ -440,6 +468,7 @@ function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fo
       fontFamily: finalFontFamily,
       fontFaces:           getFontFaceDescriptors(fontFiles, finalFontFamily),
       header:              config.header || {},
+      colors:              colorPalette,
       apiGatewayEndpoint:  config.aws?.apiGatewayEndpoint || '',
       instanceId:          config.aws?.instanceId || '',
       contactFlowId:       config.aws?.contactFlowId || '',
@@ -595,8 +624,10 @@ Examples:
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
 
   const logoUrl = getClientLogoUrl(clientPath);
-  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl, fontFiles, resolvedFontFamily);
-  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles, resolvedFontFamily);
+  const colorPalette = getClientColorPalette(clientThemeDir, config.widget);
+  console.log('  🔎 Resolved color palette:', colorPalette);
+  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette);
+  generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles, resolvedFontFamily, colorPalette);
   const envStateFile = path.join(__dirname, '..', '.client-env');
   fs.writeFileSync(envStateFile, JSON.stringify({client: clientName, env: envName}, null, 2));
   console.log('  ✅ Saved current client/env state');

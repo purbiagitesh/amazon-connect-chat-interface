@@ -3,7 +3,6 @@ import {FormattedMessage} from "react-intl";
 import {CONTACT_STATUS} from "../../constants/global";
 import ChatTranscriptor from "./ChatTranscriptor";
 import ChatComposer from "./ChatComposer";
-import ChatActionBar from "./ChatActionBar";
 import React, {Component} from "react";
 import {Text} from "connect-core";
 import styled from "styled-components";
@@ -29,7 +28,8 @@ const ParentHeaderWrapper = styled.div`
   margin: 0;
   padding: 0;
   order: 1;
-  height: var(--ac-widget-global-headerheight, min(115px, 21.2%));
+  height: var(--ac-widget-global-headerheight, auto);
+  max-height: min(115px, 21.2%);
   border-radius: 12px 12px 0 0;
   overflow: hidden;
   @media (max-width: 640px) {
@@ -46,11 +46,12 @@ const ChatComposerWrapper = styled.div`
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: 340px;
+  flex: 1 1 auto;
+  min-height: 0;
   @media (max-width:640px) {
     position: absolute;
     left: 0;
-    bottom: 85px;
+    bottom: 0;
     right: 0;
     top: ${props => props.parentHeaderWrapperHeight}px;
     min-height: auto;
@@ -63,7 +64,14 @@ const HeaderWrapper = styled.div`
   overflow: hidden;
 `;
 
-const LogoBanner = styled.img`
+const BrandIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 4px;
+  flex-shrink: 0;
+`;
+
+const BrandIcon = styled.img`
   max-height: var(--ac-widget-logo-max-height, 61px);
   max-width: var(--ac-widget-logo-max-width, 99%);
 `;
@@ -81,9 +89,12 @@ const defaultHeaderConfig = {
       {}
     );
     const hc = clientInfo.header || {};
+    const colors = clientInfo.colors || {};
 
-    // Use inline styles for colors since CSS vars don't cross iframe boundary
-    const bgColor = hc.backgroundColor || '#3F5773';
+    // Use inline styles for colors since CSS vars don't cross iframe boundary.
+    // Header background is the brand's Primary500 token - same source the
+    // launcher icon uses - so it can't drift out of sync with the brand theme.
+    const bgColor = colors.primary500 || hc.backgroundColor || '#3F5773';
     const textColor = hc.textColor || '#ffffff';
     const subtitleColor = hc.subtitleColor || 'rgba(255,255,255,0.70)';
 
@@ -218,7 +229,7 @@ export default class Chat extends Component {
     this.logger && this.logger.info("Component mounted.")
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.chatSession !== this.props.chatSession) {
       this.cleanUp(prevProps.chatSession);
       this.init(this.props.chatSession);
@@ -226,6 +237,13 @@ export default class Chat extends Component {
     if (prevProps.language !== this.props.language &&
       typeof this.props.changeLanguage === "function") {
       this.props.changeLanguage(this.props.language);
+    }
+    if (prevState.contactStatus !== this.state.contactStatus) {
+      // The header is gated behind contactStatus, so its rendered height
+      // (and the ref this measures) only exists once status flips to
+      // CONNECTED/CONNECTING/ENDED - re-measure now instead of relying on
+      // the componentDidMount reading, which ran before the header existed.
+      this.resetChatHeight();
     }
   }
 
@@ -251,11 +269,6 @@ export default class Chat extends Component {
     this.props.onEnded();
   }
 
-  closeChat() {
-    this.props.chatSession.closeChat();
-    this.props.onEnded();
-  }
-
   /*
     Note: For Mobile layout: divided into 3 sections
     1. Header - Positon: absolute; top: 0, left: 0, right: 0 - height is dynamic!
@@ -264,7 +277,7 @@ export default class Chat extends Component {
     -- this prevents overlay from overflowing in mobile browser.
   */
   render() {
-    const {chatSession, headerConfig, transcriptConfig, composerConfig, footerConfig, logoConfig} = this.props;
+    const {chatSession, headerConfig, transcriptConfig, composerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
@@ -275,6 +288,13 @@ export default class Chat extends Component {
           </ParentHeaderWrapper>
         }
         <ChatComposerWrapper parentHeaderWrapperHeight={this.state.parentHeaderWrapperHeight}>
+          {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
+            this.state.contactStatus === CONTACT_STATUS.ACW ||
+            this.state.contactStatus === CONTACT_STATUS.ENDED) && logoConfig && logoConfig.sourceUrl &&
+            <BrandIconWrapper>
+              <BrandIcon src={logoConfig.sourceUrl} alt={logoConfig.altText || ''}/>
+            </BrandIconWrapper>
+          }
           <ChatTranscriptor
             loadPreviousTranscript={() => chatSession.loadPreviousTranscript()}
             addMessage={(data) => chatSession.addOutgoingMessage(data)}
@@ -297,13 +317,6 @@ export default class Chat extends Component {
             textInputRef={textInputRef}
           />
         </ChatComposerWrapper>
-        {<ChatActionBar
-          onEndChat={() => this.endChat()}
-          onClose ={() => this.closeChat()}
-          contactStatus={this.state.contactStatus}
-          footerConfig={footerConfig}
-        />
-        }
       </ChatWrapper>
     );
   }
