@@ -4,7 +4,7 @@
   * 
   * Client: demo-client
   * Environment: dev
-  * Generated: 2026-07-07T13:36:28.997Z
+  * Generated: 2026-07-08T05:17:31.313Z
   * 
   * DO NOT EDIT MANUALLY - Changes will be overwritten
   * Edit the source config at: clients/demo-client/config/env.dev.json
