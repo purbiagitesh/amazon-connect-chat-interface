@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "e5bdc53b1631b96134ce";
+/******/ 	var hotCurrentHash = "cac37447fa917e2ce47d";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136241,7 +136241,7 @@ function extend() {
 /*! exports provided: name, version, homepage, author, license, repository, engines, browserslist, scripts, jest, dependencies, devDependencies, overrides, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"@amzn/connect-chat-interface\",\"version\":\"1.0.0\",\"homepage\":\"https://github.com/amazon-connect/amazon-connect-chat-interface\",\"author\":\"Amazon Web Services\",\"license\":\"MIT-0\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/amazon-connect/amazon-connect-chat-interface.git\"},\"engines\":{\"node\":\">=15.0.0\"},\"browserslist\":[\">0.2%\",\"not dead\",\"not ie <= 11\",\"not op_mini all\"],\"scripts\":{\"build\":\"npm run coverage && node scripts/build.js\",\"release\":\"npm run build\",\"debug\":\"npm run dev-build && node scripts/copyToOutput.js\",\"dev-build\":\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js\",\"dev-watch\":\"nodemon --watch src -x \\\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js && node scripts/copyToOutput.js\\\"\",\"clean\":\"rm -rf build/ node_modules build\",\"test\":\"node scripts/test.js\",\"coverage\":\"node scripts/test.js --coverage\",\"test:watch\":\"node scripts/test.js --watchAll\",\"preinstall\":\"npx npm-force-resolutions\",\"prepare-client\":\"node scripts/prepare-client.js\",\"create-client\":\"node scripts/create-client.js\",\"dev\":\"node scripts/dev-server.js\",\"dev:client\":\"node scripts/dev-server.js\",\"start\":\"npm run dev\",\"list-clients\":\"node scripts/prepare-client.js --list\"},\"jest\":{\"setupFilesAfterEnv\":[\"<rootDir>/configuration/jest/setup.js\"],\"collectCoverage\":true,\"collectCoverageFrom\":[\"src/**/*.{js,jsx,ts,tsx}\",\"!src/**/*.d.ts\"],\"resolver\":\"jest-pnp-resolver\",\"setupFiles\":[\"react-app-polyfill/jsdom\"],\"testMatch\":[\"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}\",\"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}\"],\"testEnvironment\":\"jsdom\",\"testURL\":\"http://localhost\",\"transform\":{\"\\\\.[jt]sx?$\":\"babel-jest\",\".+\\\\.(css|styl|less|sass|scss)$\":\"jest-css-modules-transform\",\"\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/configuration/jest/fileTransform.js\"},\"transformIgnorePatterns\":[\"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|ts|tsx)$\",\"^.+\\\\.module\\\\.(css|sass|scss)$\"],\"moduleNameMapper\":{\"^react-native$\":\"react-native-web\",\"^connect-components/(.*)$\":\"<rootDir>/src/components/$1\",\"^connect-core$\":\"<rootDir>/src/components/core/\",\"^connect-services/(.*)$\":\"<rootDir>/src/services/$1\",\"^connect-chat$\":\"<rootDir>/src/components/Chat\",\"^connect-chat/(.*)$\":\"<rootDir>/src/components/Chat/$1\",\"^connect-constants$\":\"<rootDir>/src/constants/global\",\"^connect-hooks$\":\"<rootDir>/src/hooks\",\"^connect-images$\":\"<rootDir>/src/assets/images\",\"^connect-prop-types$\":\"<rootDir>/src/propTypes\",\"^connect-theme$\":\"<rootDir>/src/theme\",\"^connect-theme/(.*)$\":\"<rootDir>/src/theme/$1\",\"^connect-app-context/(.*)$\":\"<rootDir>/src/context/$1\",\"^.+\\\\.module\\\\.(css|sass|scss)$\":\"identity-obj-proxy\"},\"moduleFileExtensions\":[\"web.js\",\"js\",\"web.ts\",\"ts\",\"web.tsx\",\"tsx\",\"json\",\"web.jsx\",\"jsx\",\"node\"],\"globalSetup\":\"./global-setup.js\"},\"dependencies\":{\"@babel/runtime\":\"7.9.2\",\"@emotion/core\":\"^10.0.35\",\"@svgr/webpack\":\"^6.2.1\",\"@types/jest\":\"^28.0.0\",\"amazon-connect-chatjs\":\"^3.0.3\",\"braces\":\"^3.0.3\",\"core-js\":\"^3.8.3\",\"dompurify\":\"^3.1.3\",\"draft-js\":\"^0.11.7\",\"emoji-mart\":\"^3.0.1\",\"http-proxy-middleware\":\"^2.0.7\",\"is-json\":\"^2.0.1\",\"markdown-draft-js\":\"^2.4.0\",\"react\":\"^16.6.3\",\"react-app-polyfill\":\"^3.0.0\",\"react-dom\":\"^16.6.3\",\"react-error-boundary\":\"^5.0.0\",\"react-intersection-observer\":\"8.33.1\",\"react-linkify\":\"0.2.2\",\"react-markdown\":\"^6.0.3\",\"react-router-dom\":\"^4.3.1\",\"react-spinners\":\"^0.10.4\",\"react-textarea-autosize\":\"8.4.0\",\"styled-components\":\"^4.1.1\",\"webpack\":\"^4.46.0\",\"whatwg-fetch\":\"^3.2.0\",\"workbox-webpack-plugin\":\"^7.0.0\"},\"devDependencies\":{\"@babel/core\":\"^7.23.2\",\"@babel/plugin-proposal-class-properties\":\"^7.18.6\",\"@babel/plugin-proposal-optional-chaining\":\"^7.21.0\",\"@babel/preset-env\":\"^7.23.2\",\"@emotion/babel-plugin\":\"^11.11.0\",\"@testing-library/dom\":\"7.29.4\",\"@testing-library/jest-dom\":\"^6.6.3\",\"@testing-library/react\":\"^12.1.5\",\"@testing-library/user-event\":\"13.0.7\",\"@types/react\":\"^16.14.35\",\"acorn\":\"^8.8.2\",\"babel-core\":\"7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.0\",\"babel-jest\":\"27.2.0\",\"babel-loader\":\"^8.3.0\",\"babel-plugin-named-asset-import\":\"^0.2.3\",\"babel-preset-react-app\":\"^8.0.0\",\"bfj\":\"6.1.1\",\"case-sensitive-paths-webpack-plugin\":\"2.1.2\",\"chalk\":\"2.4.1\",\"cross-env\":\"^7.0.3\",\"css-loader\":\"^7.1.2\",\"dotenv\":\"6.0.0\",\"dotenv-expand\":\"12.0.1\",\"enzyme\":\"^3.7.0\",\"enzyme-adapter-react-16\":\"^1.7.0\",\"eslint\":\"^7.32.0\",\"eslint-config-react-app\":\"^6.0.0\",\"eslint-loader\":\"4.0.2\",\"eslint-plugin-flowtype\":\"5.10.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-jsx-a11y\":\"6.4.1\",\"eslint-plugin-react\":\"7.27.0\",\"file-loader\":\"2.0.0\",\"fork-ts-checker-webpack-plugin\":\"6.3.3\",\"fs-extra\":\"7.0.0\",\"html-webpack-plugin\":\"4.0.0-alpha.2\",\"husky\":\"^4.3.8\",\"identity-obj-proxy\":\"3.0.0\",\"jest\":\"^28.0.0\",\"jest-css-modules-transform\":\"^4.4.2\",\"jest-environment-jsdom\":\"^29.7.0\",\"jest-location-mock\":\"^1.0.9\",\"jest-pnp-resolver\":\"1.0.1\",\"jest-resolve\":\"^23.6.0\",\"jest-styled-components\":\"^6.3.1\",\"lodash\":\"^4.17.21\",\"mini-css-extract-plugin\":\"^0.9.0\",\"nodemon\":\"^3.1.0\",\"optimize-css-assets-webpack-plugin\":\"^6.0.0\",\"pnp-webpack-plugin\":\"1.7.0\",\"postcss-flexbugs-fixes\":\"^5.0.2\",\"postcss-loader\":\"4.2.0\",\"postcss-preset-env\":\"^9.5.2\",\"postcss-safe-parser\":\"^7.0.0\",\"prop-types\":\"^15.8.1\",\"react-dev-utils\":\"^12.0.0\",\"react-intl\":\"^6.3.2\",\"react-render-html\":\"^0.6.0\",\"react-test-renderer\":\"^16.6.3\",\"resolve\":\"1.8.1\",\"sass-loader\":\"^10.1.1\",\"shallow\":\"^1.0.0\",\"style-loader\":\"0.23.0\",\"terser-webpack-plugin\":\"4.2.3\",\"typescript\":\"^4.9.4\",\"typescript-formatter\":\"^7.2.2\",\"universal-cookie\":\"^7.2.1\",\"url-loader\":\"1.1.1\",\"webpack-cli\":\"^4.8.0\",\"webpack-dev-server\":\"^4.1.1\",\"webpack-manifest-plugin\":\"2.0.4\"},\"overrides\":{\"glob-parent\":\"^5.1.2\",\"css-loader\":{\"webpack\":\"^4.46.0\"}}}");
+module.exports = JSON.parse("{\"name\":\"@amzn/connect-chat-interface\",\"version\":\"1.0.0\",\"homepage\":\"https://github.com/amazon-connect/amazon-connect-chat-interface\",\"author\":\"Amazon Web Services\",\"license\":\"MIT-0\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/amazon-connect/amazon-connect-chat-interface.git\"},\"engines\":{\"node\":\">=15.0.0\"},\"browserslist\":[\">0.2%\",\"not dead\",\"not ie <= 11\",\"not op_mini all\"],\"scripts\":{\"build\":\"npm run coverage && node scripts/build.js\",\"release\":\"npm run build\",\"debug\":\"npm run dev-build && node scripts/copyToOutput.js\",\"dev-build\":\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js\",\"dev-watch\":\"nodemon --watch src -x \\\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js && node scripts/copyToOutput.js\\\"\",\"clean\":\"rm -rf build/ node_modules build\",\"test\":\"node scripts/test.js\",\"coverage\":\"node scripts/test.js --coverage\",\"test:watch\":\"node scripts/test.js --watchAll\",\"preinstall\":\"npx npm-force-resolutions\",\"prepare-brand\":\"node scripts/prepare-brand.js\",\"create-brand\":\"node scripts/create-brand.js\",\"dev\":\"node scripts/dev-server.js\",\"dev:brand\":\"node scripts/dev-server.js\",\"start\":\"npm run dev\",\"list-brands\":\"node scripts/prepare-brand.js --list\"},\"jest\":{\"setupFilesAfterEnv\":[\"<rootDir>/configuration/jest/setup.js\"],\"collectCoverage\":true,\"collectCoverageFrom\":[\"src/**/*.{js,jsx,ts,tsx}\",\"!src/**/*.d.ts\"],\"resolver\":\"jest-pnp-resolver\",\"setupFiles\":[\"react-app-polyfill/jsdom\"],\"testMatch\":[\"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}\",\"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}\"],\"testEnvironment\":\"jsdom\",\"testURL\":\"http://localhost\",\"transform\":{\"\\\\.[jt]sx?$\":\"babel-jest\",\".+\\\\.(css|styl|less|sass|scss)$\":\"jest-css-modules-transform\",\"\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/configuration/jest/fileTransform.js\"},\"transformIgnorePatterns\":[\"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|ts|tsx)$\",\"^.+\\\\.module\\\\.(css|sass|scss)$\"],\"moduleNameMapper\":{\"^react-native$\":\"react-native-web\",\"^connect-components/(.*)$\":\"<rootDir>/src/components/$1\",\"^connect-core$\":\"<rootDir>/src/components/core/\",\"^connect-services/(.*)$\":\"<rootDir>/src/services/$1\",\"^connect-chat$\":\"<rootDir>/src/components/Chat\",\"^connect-chat/(.*)$\":\"<rootDir>/src/components/Chat/$1\",\"^connect-constants$\":\"<rootDir>/src/constants/global\",\"^connect-hooks$\":\"<rootDir>/src/hooks\",\"^connect-images$\":\"<rootDir>/src/assets/images\",\"^connect-prop-types$\":\"<rootDir>/src/propTypes\",\"^connect-theme$\":\"<rootDir>/src/theme\",\"^connect-theme/(.*)$\":\"<rootDir>/src/theme/$1\",\"^connect-app-context/(.*)$\":\"<rootDir>/src/context/$1\",\"^.+\\\\.module\\\\.(css|sass|scss)$\":\"identity-obj-proxy\"},\"moduleFileExtensions\":[\"web.js\",\"js\",\"web.ts\",\"ts\",\"web.tsx\",\"tsx\",\"json\",\"web.jsx\",\"jsx\",\"node\"],\"globalSetup\":\"./global-setup.js\"},\"dependencies\":{\"@babel/runtime\":\"7.9.2\",\"@emotion/core\":\"^10.0.35\",\"@svgr/webpack\":\"^6.2.1\",\"@types/jest\":\"^28.0.0\",\"amazon-connect-chatjs\":\"^3.0.3\",\"braces\":\"^3.0.3\",\"core-js\":\"^3.8.3\",\"dompurify\":\"^3.1.3\",\"draft-js\":\"^0.11.7\",\"emoji-mart\":\"^3.0.1\",\"http-proxy-middleware\":\"^2.0.7\",\"is-json\":\"^2.0.1\",\"markdown-draft-js\":\"^2.4.0\",\"react\":\"^16.6.3\",\"react-app-polyfill\":\"^3.0.0\",\"react-dom\":\"^16.6.3\",\"react-error-boundary\":\"^5.0.0\",\"react-intersection-observer\":\"8.33.1\",\"react-linkify\":\"0.2.2\",\"react-markdown\":\"^6.0.3\",\"react-router-dom\":\"^4.3.1\",\"react-spinners\":\"^0.10.4\",\"react-textarea-autosize\":\"8.4.0\",\"styled-components\":\"^4.1.1\",\"webpack\":\"^4.46.0\",\"whatwg-fetch\":\"^3.2.0\",\"workbox-webpack-plugin\":\"^7.0.0\"},\"devDependencies\":{\"@babel/core\":\"^7.23.2\",\"@babel/plugin-proposal-class-properties\":\"^7.18.6\",\"@babel/plugin-proposal-optional-chaining\":\"^7.21.0\",\"@babel/preset-env\":\"^7.23.2\",\"@emotion/babel-plugin\":\"^11.11.0\",\"@testing-library/dom\":\"7.29.4\",\"@testing-library/jest-dom\":\"^6.6.3\",\"@testing-library/react\":\"^12.1.5\",\"@testing-library/user-event\":\"13.0.7\",\"@types/react\":\"^16.14.35\",\"acorn\":\"^8.8.2\",\"babel-core\":\"7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.0\",\"babel-jest\":\"27.2.0\",\"babel-loader\":\"^8.3.0\",\"babel-plugin-named-asset-import\":\"^0.2.3\",\"babel-preset-react-app\":\"^8.0.0\",\"bfj\":\"6.1.1\",\"case-sensitive-paths-webpack-plugin\":\"2.1.2\",\"chalk\":\"2.4.1\",\"cross-env\":\"^7.0.3\",\"css-loader\":\"^7.1.2\",\"dotenv\":\"6.0.0\",\"dotenv-expand\":\"12.0.1\",\"enzyme\":\"^3.7.0\",\"enzyme-adapter-react-16\":\"^1.7.0\",\"eslint\":\"^7.32.0\",\"eslint-config-react-app\":\"^6.0.0\",\"eslint-loader\":\"4.0.2\",\"eslint-plugin-flowtype\":\"5.10.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-jsx-a11y\":\"6.4.1\",\"eslint-plugin-react\":\"7.27.0\",\"file-loader\":\"2.0.0\",\"fork-ts-checker-webpack-plugin\":\"6.3.3\",\"fs-extra\":\"7.0.0\",\"html-webpack-plugin\":\"4.0.0-alpha.2\",\"husky\":\"^4.3.8\",\"identity-obj-proxy\":\"3.0.0\",\"jest\":\"^28.0.0\",\"jest-css-modules-transform\":\"^4.4.2\",\"jest-environment-jsdom\":\"^29.7.0\",\"jest-location-mock\":\"^1.0.9\",\"jest-pnp-resolver\":\"1.0.1\",\"jest-resolve\":\"^23.6.0\",\"jest-styled-components\":\"^6.3.1\",\"lodash\":\"^4.17.21\",\"mini-css-extract-plugin\":\"^0.9.0\",\"nodemon\":\"^3.1.0\",\"optimize-css-assets-webpack-plugin\":\"^6.0.0\",\"pnp-webpack-plugin\":\"1.7.0\",\"postcss-flexbugs-fixes\":\"^5.0.2\",\"postcss-loader\":\"4.2.0\",\"postcss-preset-env\":\"^9.5.2\",\"postcss-safe-parser\":\"^7.0.0\",\"prop-types\":\"^15.8.1\",\"react-dev-utils\":\"^12.0.0\",\"react-intl\":\"^6.3.2\",\"react-render-html\":\"^0.6.0\",\"react-test-renderer\":\"^16.6.3\",\"resolve\":\"1.8.1\",\"sass-loader\":\"^10.1.1\",\"shallow\":\"^1.0.0\",\"style-loader\":\"0.23.0\",\"terser-webpack-plugin\":\"4.2.3\",\"typescript\":\"^4.9.4\",\"typescript-formatter\":\"^7.2.2\",\"universal-cookie\":\"^7.2.1\",\"url-loader\":\"1.1.1\",\"webpack-cli\":\"^4.8.0\",\"webpack-dev-server\":\"^4.1.1\",\"webpack-manifest-plugin\":\"2.0.4\"},\"overrides\":{\"glob-parent\":\"^5.1.2\",\"css-loader\":{\"webpack\":\"^4.46.0\"}}}");
 
 /***/ }),
 
@@ -136360,11 +136360,11 @@ var _templateObject;
 var FONT_FORMAT_PRIORITY = ['woff2', 'woff', 'opentype', 'truetype'];
 
 /**
- * Builds @font-face rules from the client's font descriptors
- * (clients/<brand>/assets/fonts/..., resolved by scripts/prepare-client.js).
+ * Builds @font-face rules from the brand's font descriptors
+ * (brands/<brand>/assets/fonts/..., resolved by scripts/prepare-brand.js).
  * Rendered via styled-components so the rules land in whichever document
  * the widget is mounted in, since the widget's iframe never loads the host
- * page's client-theme.css.
+ * page's brand-theme.css.
  */
 function buildFontFaceCss(fontFaces) {
   if (!Array.isArray(fontFaces) || !fontFaces.length) {
@@ -136506,9 +136506,9 @@ var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["defaul
 var defaultHeaderConfig = {
   isHTML: false,
   render: function render(config) {
-    var clientInfo = window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config || window.parent && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.config || {};
-    var hc = clientInfo.header || {};
-    var colors = clientInfo.colors || {};
+    var brandInfo = window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config || window.parent && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.config || {};
+    var hc = brandInfo.header || {};
+    var colors = brandInfo.colors || {};
 
     // Use inline styles for colors since CSS vars don't cross iframe boundary.
     // Header background is the brand's Primary500 token - same source the
@@ -145381,27 +145381,27 @@ var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface
 
 
 
-function getClientInfo() {
+function getBrandInfo() {
   if (typeof window === 'undefined') {
     return null;
   }
-  if (window.__CHAT_CLIENT_INFO__) {
-    return window.__CHAT_CLIENT_INFO__;
+  if (window.__CHAT_BRAND_INFO__) {
+    return window.__CHAT_BRAND_INFO__;
   }
   // The widget is typically rendered inside the vendor's iframe, which never
-  // loads clientInfo.js itself - only the host page does. Fall back to the
+  // loads brandInfo.js itself - only the host page does. Fall back to the
   // parent window's copy (same pattern Chat.js uses for header colors).
   try {
-    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__) {
-      return window.parent.__CHAT_CLIENT_INFO__;
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__) {
+      return window.parent.__CHAT_BRAND_INFO__;
     }
   } catch (e) {
-    // window.parent is cross-origin; client info isn't reachable
+    // window.parent is cross-origin; brand info isn't reachable
   }
   return null;
 }
-function resolveFontFaces(clientConfig) {
-  var fontFaces = clientConfig.fontFaces;
+function resolveFontFaces(brandConfig) {
+  var fontFaces = brandConfig.fontFaces;
   if (!Array.isArray(fontFaces) || !fontFaces.length) {
     return [];
   }
@@ -145420,44 +145420,44 @@ function resolveFontFaces(clientConfig) {
   });
 }
 function buildThemeConfig() {
-  var clientConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var brandConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var themeConfig = {};
-  if (clientConfig.primaryColor || clientConfig.secondaryColor) {
+  if (brandConfig.primaryColor || brandConfig.secondaryColor) {
     themeConfig.color = {};
-    if (clientConfig.primaryColor) {
-      themeConfig.color.primary = clientConfig.primaryColor;
+    if (brandConfig.primaryColor) {
+      themeConfig.color.primary = brandConfig.primaryColor;
     }
-    if (clientConfig.secondaryColor) {
-      themeConfig.color.secondary = clientConfig.secondaryColor;
+    if (brandConfig.secondaryColor) {
+      themeConfig.color.secondary = brandConfig.secondaryColor;
     }
   }
-  if (clientConfig.fontFamily) {
+  if (brandConfig.fontFamily) {
     themeConfig.globals = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
-      bodyFontFamily: clientConfig.fontFamily
+      bodyFontFamily: brandConfig.fontFamily
     });
     themeConfig.fonts = Object.keys(_theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].fonts).reduce(function (fonts, key) {
-      fonts[key] = clientConfig.fontFamily;
+      fonts[key] = brandConfig.fontFamily;
       return fonts;
     }, {});
   }
   return themeConfig;
 }
 function buildHeaderConfig() {
-  var clientConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var brandConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var headerConfig = {};
-  if (clientConfig.title) {
-    headerConfig.title = clientConfig.title;
+  if (brandConfig.title) {
+    headerConfig.title = brandConfig.title;
   }
-  if (clientConfig.subtitle) {
-    headerConfig.subtitle = clientConfig.subtitle;
+  if (brandConfig.subtitle) {
+    headerConfig.subtitle = brandConfig.subtitle;
   }
   return headerConfig;
 }
-function buildLogoConfig(clientInfo) {
-  if (clientInfo && clientInfo.assets && clientInfo.assets.logo) {
+function buildLogoConfig(brandInfo) {
+  if (brandInfo && brandInfo.assets && brandInfo.assets.logo) {
     return {
-      sourceUrl: clientInfo.assets.logo,
-      altText: "".concat(clientInfo.client || 'Client', " logo")
+      sourceUrl: brandInfo.assets.logo,
+      altText: "".concat(brandInfo.brand || 'Brand', " logo")
     };
   }
   return {};
@@ -145469,12 +145469,12 @@ function buildLogoConfig(clientInfo) {
   connect.ChatInterface.init = function (_ref) {
     var containerId = _ref.containerId,
       props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__["default"])(_ref, ["containerId"]);
-    var clientInfo = getClientInfo();
-    var clientConfig = (clientInfo === null || clientInfo === void 0 ? void 0 : clientInfo.config) || {};
-    var themeConfig = Object.assign({}, buildThemeConfig(clientConfig), props.themeConfig || {});
-    var headerConfig = Object.assign({}, buildHeaderConfig(clientConfig), props.headerConfig || {});
-    var logoConfig = Object.assign({}, buildLogoConfig(clientInfo), props.logoConfig || {});
-    var fontFaces = resolveFontFaces(clientConfig);
+    var brandInfo = getBrandInfo();
+    var brandConfig = (brandInfo === null || brandInfo === void 0 ? void 0 : brandInfo.config) || {};
+    var themeConfig = Object.assign({}, buildThemeConfig(brandConfig), props.themeConfig || {});
+    var headerConfig = Object.assign({}, buildHeaderConfig(brandConfig), props.headerConfig || {});
+    var logoConfig = Object.assign({}, buildLogoConfig(brandInfo), props.logoConfig || {});
+    var fontFaces = resolveFontFaces(brandConfig);
     if (props.widgetType) {
       _utils_log__WEBPACK_IMPORTED_MODULE_111__["config"].csmConfig = {
         widgetType: props.widgetType
@@ -145512,8 +145512,8 @@ function buildLogoConfig(clientInfo) {
     }))), document.getElementById(containerId) || document.getElementById("root"));
   };
   connect.ChatInterface.getCurrentTheme = function () {
-    var clientInfo = getClientInfo();
-    return Object.assign({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"], buildThemeConfig((clientInfo === null || clientInfo === void 0 ? void 0 : clientInfo.config) || {}));
+    var brandInfo = getBrandInfo();
+    return Object.assign({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"], buildThemeConfig((brandInfo === null || brandInfo === void 0 ? void 0 : brandInfo.config) || {}));
   };
   window.connect = connect;
 })(window.connect || {});
@@ -145824,7 +145824,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Palette__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Palette */ "./src/theme/Palette.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _loadClientTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./loadClientTheme */ "./src/theme/loadClientTheme.js");
+/* harmony import */ var _loadBrandTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./loadBrandTheme */ "./src/theme/loadBrandTheme.js");
 
 
 
@@ -145870,7 +145870,7 @@ var ThemeProvider = /*#__PURE__*/function (_Component) {
             case 3:
               _context.prev = 3;
               _context.next = 6;
-              return Object(_loadClientTheme__WEBPACK_IMPORTED_MODULE_12__["loadClientThemeBrowser"])(_defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"]);
+              return Object(_loadBrandTheme__WEBPACK_IMPORTED_MODULE_12__["loadBrandThemeBrowser"])(_defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"]);
             case 6:
               merged = _context.sent;
               this.setState({
@@ -146322,18 +146322,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/theme/loadClientTheme.js":
-/*!**************************************!*\
-  !*** ./src/theme/loadClientTheme.js ***!
-  \**************************************/
-/*! exports provided: mergeClientColors, loadClientThemeSync, loadClientThemeBrowser */
+/***/ "./src/theme/loadBrandTheme.js":
+/*!*************************************!*\
+  !*** ./src/theme/loadBrandTheme.js ***!
+  \*************************************/
+/*! exports provided: mergeBrandColors, loadBrandThemeSync, loadBrandThemeBrowser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeClientColors", function() { return mergeClientColors; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadClientThemeSync", function() { return loadClientThemeSync; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadClientThemeBrowser", function() { return loadClientThemeBrowser; });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeBrandColors", function() { return mergeBrandColors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBrandThemeSync", function() { return loadBrandThemeSync; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBrandThemeBrowser", function() { return loadBrandThemeBrowser; });
 /* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "./node_modules/node-libs-browser/mock/empty.js");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
@@ -146346,7 +146346,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 
 
 
-function mergeClientColors(defaultTheme, colors) {
+function mergeBrandColors(defaultTheme, colors) {
   var theme = lodash_merge__WEBPACK_IMPORTED_MODULE_3___default()({}, defaultTheme, {
     colors: colors
   });
@@ -146369,14 +146369,14 @@ function mergeClientColors(defaultTheme, colors) {
   return theme;
 }
 
-// Try to load a client's colors synchronously at build-time (Node).
-function loadClientThemeSync(defaultTheme, clientName) {
-  if (!clientName) return defaultTheme;
+// Try to load a brand's colors synchronously at build-time (Node).
+function loadBrandThemeSync(defaultTheme, brandName) {
+  if (!brandName) return defaultTheme;
   try {
-    var colorsPath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(process.cwd(), 'clients', clientName, 'theme', 'colors.json');
+    var colorsPath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(process.cwd(), 'brands', brandName, 'theme', 'colors.json');
     if (fs__WEBPACK_IMPORTED_MODULE_1___default.a.existsSync(colorsPath)) {
       var colors = JSON.parse(fs__WEBPACK_IMPORTED_MODULE_1___default.a.readFileSync(colorsPath, 'utf8'));
-      return mergeClientColors(defaultTheme, colors);
+      return mergeBrandColors(defaultTheme, colors);
     }
   } catch (e) {
     // swallow errors and return default
@@ -146384,12 +146384,12 @@ function loadClientThemeSync(defaultTheme, clientName) {
   return defaultTheme;
 }
 
-// Browser runtime helper: fetch colors from prepared client assets (if present)
-function loadClientThemeBrowser(_x) {
-  return _loadClientThemeBrowser.apply(this, arguments);
+// Browser runtime helper: fetch colors from prepared brand assets (if present)
+function loadBrandThemeBrowser(_x) {
+  return _loadBrandThemeBrowser.apply(this, arguments);
 }
-function _loadClientThemeBrowser() {
-  _loadClientThemeBrowser = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(defaultTheme) {
+function _loadBrandThemeBrowser() {
+  _loadBrandThemeBrowser = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(defaultTheme) {
     var url,
       res,
       colors,
@@ -146397,7 +146397,7 @@ function _loadClientThemeBrowser() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          url = _args.length > 1 && _args[1] !== undefined ? _args[1] : '/client-assets/theme/colors.json';
+          url = _args.length > 1 && _args[1] !== undefined ? _args[1] : '/brand-assets/theme/colors.json';
           _context.prev = 1;
           if (!(typeof window === 'undefined' || typeof fetch === 'undefined')) {
             _context.next = 4;
@@ -146421,7 +146421,7 @@ function _loadClientThemeBrowser() {
           return res.json();
         case 11:
           colors = _context.sent;
-          return _context.abrupt("return", mergeClientColors(defaultTheme, colors));
+          return _context.abrupt("return", mergeBrandColors(defaultTheme, colors));
         case 15:
           _context.prev = 15;
           _context.t0 = _context["catch"](1);
@@ -146432,7 +146432,7 @@ function _loadClientThemeBrowser() {
       }
     }, _callee, null, [[1, 15]]);
   }));
-  return _loadClientThemeBrowser.apply(this, arguments);
+  return _loadBrandThemeBrowser.apply(this, arguments);
 }
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))

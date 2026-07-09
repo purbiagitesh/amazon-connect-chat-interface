@@ -1,0 +1,69 @@
+/**
+ * Client Theme Variables
+ * These variables override the default chat widget styles
+ */
+
+:root {
+  /* Primary Brand Colors */
+  --chat-primary-color: #3F51B5;
+  --chat-primary-hover: #303F9F;
+  --chat-secondary-color: #FF4081;
+  
+  /* Header */
+  --chat-header-bg: var(--chat-primary-color);
+  --chat-header-text: #FFFFFF;
+  --chat-header-height: 60px;
+  
+  /* Chat Container */
+  --chat-widget-width: 380px;
+  --chat-widget-height: 600px;
+  --chat-widget-border-radius: 12px;
+  --chat-widget-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Messages */
+  --chat-agent-bubble-bg: #F5F5F5;
+  --chat-agent-bubble-text: #333333;
+  --chat-customer-bubble-bg: var(--chat-primary-color);
+  --chat-customer-bubble-text: #FFFFFF;
+  --chat-bubble-border-radius: 18px;
+  
+  /* Input Area */
+  --chat-input-bg: #FFFFFF;
+  --chat-input-border: #E0E0E0;
+  --chat-input-focus-border: var(--chat-primary-color);
+  --chat-send-button-bg: var(--chat-primary-color);
+  --chat-send-button-hover: var(--chat-primary-hover);
+  
+  /* Typography */
+  --chat-font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  --chat-font-size-base: 14px;
+  --chat-font-size-small: 12px;
+  --chat-font-size-header: 16px;
+  
+  /* Launcher Button */
+  --chat-launcher-size: 60px;
+  --chat-launcher-bg: var(--chat-primary-color);
+  --chat-launcher-hover: var(--chat-primary-hover);
+  --chat-launcher-icon-color: #FFFFFF;
+  
+  /* Status Colors */
+  --chat-online-color: #4CAF50;
+  --chat-offline-color: #9E9E9E;
+  --chat-typing-color: #757575;
+  
+  /* Misc */
+  --chat-timestamp-color: #9E9E9E;
+  --chat-divider-color: #E0E0E0;
+
+  --header-bg:               #1a2340;
+  --header-text-color:       #ffffff;
+  --header-subtitle-color:   rgba(255, 255, 255, 0.70);
+  --header-padding:          14px 16px;
+  --header-logo-size:        40px;
+  --header-title-size:       14px;
+  --header-title-weight:     600;
+  --header-title-spacing:    0.08em;
+  --header-subtitle-size:    11px;
+  --header-subtitle-width:   260px;
+  --header-close-size:       22px;
+}

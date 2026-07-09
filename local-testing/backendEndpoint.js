@@ -4,7 +4,7 @@
   * 
   * Client: estee-lauder
   * Environment: dev
-  * Generated: 2026-07-09T11:39:28.456Z
+  * Generated: 2026-07-09T11:51:54.317Z
   * 
   * DO NOT EDIT MANUALLY - Changes will be overwritten
   * Edit the source config at: clients/estee-lauder/config/env.dev.json

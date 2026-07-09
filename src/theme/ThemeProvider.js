@@ -3,7 +3,7 @@ import {ThemeProvider as StyledThemeProvider} from 'styled-components';
 import defaultTheme from './defaultTheme';
 import Palette from './Palette';
 import PT from 'prop-types';
-import {loadClientThemeBrowser} from './loadClientTheme';
+import {loadBrandThemeBrowser} from './loadBrandTheme';
 
 export default class ThemeProvider extends Component {
 
@@ -33,7 +33,7 @@ export default class ThemeProvider extends Component {
     }
 
     try {
-      const merged = await loadClientThemeBrowser(defaultTheme);
+      const merged = await loadBrandThemeBrowser(defaultTheme);
       this.setState({theme: merged});
       Palette.setTheme(merged);
     } catch (e) {

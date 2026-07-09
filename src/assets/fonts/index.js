@@ -5,11 +5,11 @@ import {createGlobalStyle} from 'styled-components'
 const FONT_FORMAT_PRIORITY = ['woff2', 'woff', 'opentype', 'truetype'];
 
 /**
- * Builds @font-face rules from the client's font descriptors
- * (clients/<brand>/assets/fonts/..., resolved by scripts/prepare-client.js).
+ * Builds @font-face rules from the brand's font descriptors
+ * (brands/<brand>/assets/fonts/..., resolved by scripts/prepare-brand.js).
  * Rendered via styled-components so the rules land in whichever document
  * the widget is mounted in, since the widget's iframe never loads the host
- * page's client-theme.css.
+ * page's brand-theme.css.
  */
 export function buildFontFaceCss(fontFaces) {
   if (!Array.isArray(fontFaces) || !fontFaces.length) {

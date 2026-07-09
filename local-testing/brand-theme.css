@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova_Light.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova_Semibold.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Proxima Nova/WOFF/Recoleta/Recoleta SemiBold.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Semibold.otf') format('opentype'),
+       url('./brand-assets/Fonts/Proxima Nova/OTF/Recoleta/Recoleta SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+:root {
+  --ac-widget-color-primary-500: #040A2B;
+  --ac-widget-color-primary-800: #01040D;
+  --ac-widget-header-backgroundcolor: #040A2B;
+  --ac-widget-header-textcolor: #FFFFFF;
+  --ac-widget-footer-backgroundcolor: #FF4081;
+  --ac-widget-footer-button-backgroundcolor: #FF4081;
+  --ac-widget-footer-button-textcolor: #FFFFFF;
+  --ac-widget-global-typeface: Optima LT Std Display;
+  --ac-widget-transcript-customer-bubble-color: #040A2B;
+  --ac-widget-transcript-customer-textcolor: #FFFFFF;
+  --ac-widget-transcript-agent-bubble-color: #F5F5F5;
+  --ac-widget-transcript-agent-textcolor: #333333;
+
+  /* ── Chat Header ── */
+  --header-bg:             #040A2B;
+  --header-text-color:     #ffffff;
+  --header-subtitle-color: rgba(255,255,255,0.70);
+  --header-padding:        14px 16px;
+  --header-logo-size:      40px;
+  --header-title-size:     13px;
+  --header-title-weight:   600;
+  --header-title-spacing:  0.08em;
+  --header-subtitle-size:  11px;
+  --header-subtitle-maxw:  260px;
+  --header-close-size:     22px;
+}

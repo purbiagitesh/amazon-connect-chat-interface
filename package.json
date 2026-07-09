@@ -28,12 +28,12 @@
     "coverage": "node scripts/test.js --coverage",
     "test:watch": "node scripts/test.js --watchAll",
     "preinstall": "npx npm-force-resolutions",
-    "prepare-client": "node scripts/prepare-client.js",
-    "create-client": "node scripts/create-client.js",
+    "prepare-brand": "node scripts/prepare-brand.js",
+    "create-brand": "node scripts/create-brand.js",
     "dev": "node scripts/dev-server.js",
-    "dev:client": "node scripts/dev-server.js",
+    "dev:brand": "node scripts/dev-server.js",
     "start": "npm run dev",
-    "list-clients": "node scripts/prepare-client.js --list"
+    "list-brands": "node scripts/prepare-brand.js --list"
   },
   "jest": {
     "setupFilesAfterEnv": [
