@@ -22,6 +22,23 @@ import {modelUtils} from "../../datamodel/Utils";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import {formatCarouselInteractiveSelection, isCarouselSelectionMessage} from "./InteractiveMessages/Carousel";
 
+// The widget is typically rendered inside the vendor's iframe, which never
+// loads clientInfo.js itself - only the host page does. Fall back to the
+// parent window's copy (same pattern used in index.js and Chat.js).
+function getClientAvatarUrl() {
+  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
+    return window.__CHAT_CLIENT_INFO__.assets.avatar;
+  }
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
+      return window.parent.__CHAT_CLIENT_INFO__.assets.avatar;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
+
 export const MessageBox = styled.div`
   padding: ${({ theme}) => theme.globals.basePadding} ${({ theme}) => theme.spacing.base};
   word-break: break-word;
@@ -34,13 +51,16 @@ const Header = styled.div`
 `;
 Header.Sender = styled.div`
   float: left;
-  max-width: 150px;
+  max-width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 13px;
+  color: ${({ theme}) => theme.palette.mediumGray};
 `;
 Header.Status = styled.div`
   ${({ theme}) => theme.typography.supportingText};
+  font-size: 13px;
   float: right;
 `;
 const Footer = styled.div`
@@ -79,34 +99,10 @@ const Body = styled.div`
 
   ${({ theme}) => theme.typography.body};
 
-  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.base)};
+  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.medium)};
   margin-top: ${(props) => props.theme.spacing.mini};
-  border-radius: 5px;
+  border-radius: 18px;
   position: relative;
-  &:after {
-    display: ${(props) => (props.hideDirectionArrow ? "none" : "block")};
-    ${(props) =>
-      props.direction === Direction.Outgoing
-        ? `
-      content: " ";
-      position: absolute;
-      right: -6px;
-      bottom: 4px;
-      border-radius: 2px;
-      border-left: 12px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 9px solid var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));
-    `
-        : `
-      content: " ";
-      position: absolute;
-      left: -6px;
-      bottom: 4px;
-      border-radius: 2px;
-      border-left: 10px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 9px solid var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));`}
-  }
 `;
 const ErrorText = styled.div`
   ${({ theme}) => theme.typography.supportingText};
@@ -115,6 +111,27 @@ const ErrorText = styled.div`
   > img {
     margin-right: ${({ theme}) => theme.spacing.mini};
   }
+`;
+
+// Only rendered when a client has an avatar asset configured (see
+// window.__CHAT_CLIENT_INFO__.assets.avatar, populated by
+// scripts/prepare-client.js). Clients without one keep the original
+// single-column message layout untouched.
+const MessageRow = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: ${({ theme}) => theme.spacing.mini};
+`;
+const AvatarImg = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+`;
+const MessageContent = styled.div`
+  flex: 1;
+  min-width: 0;
 `;
 const StatusText = styled.span`
   ${({ theme}) => theme.typography.supportingText};
@@ -327,6 +344,7 @@ export class ParticipantMessage extends PureComponent {
       direction === Direction.Outgoing
         ? this.props.outgoingMsgStyle
         : this.props.incomingMsgStyle;
+    const avatarUrl = direction === Direction.Incoming && getClientAvatarUrl();
 
     //Hack to simulate ChatJS response with attachment content types
     const bodyStyleConfig = {};
@@ -373,7 +391,7 @@ export class ParticipantMessage extends PureComponent {
       }
     }
 
-    return (
+    const mainMessage = (
       <div data-testid="main-message">
         <Header data-testid="message-header">{this.renderHeader()}</Header>
         <InView onChange={(inView) => this.setState({ inView})}>
@@ -394,6 +412,17 @@ export class ParticipantMessage extends PureComponent {
         </Footer>
         {error && this.renderTransportError(error)}
       </div>
+    );
+
+    if (!avatarUrl) {
+      return mainMessage;
+    }
+
+    return (
+      <MessageRow data-testid="main-message-row">
+        <AvatarImg src={avatarUrl} alt="" data-testid="customer-chat-avatar" />
+        <MessageContent>{mainMessage}</MessageContent>
+      </MessageRow>
     );
   }
   

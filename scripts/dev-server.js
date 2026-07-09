@@ -146,7 +146,7 @@ function createServer() {
       const content = fs.readFileSync(filePath);
       res.writeHead(200, {
         'Content-Type': mimeType,
-        'Cache-Control': 'no-cache',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
         'Access-Control-Allow-Origin': '*'
       });
       res.end(content);

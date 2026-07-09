@@ -3,8 +3,27 @@ import styled from 'styled-components';
 import defaultTheme from '../../../theme/defaultTheme';
 import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 
-const ACTIVE_COLOR = defaultTheme.palette.secondaryBlack;
+const ACTIVE_COLOR = '#CFD7FF';
 const INACTIVE_COLOR = defaultTheme.palette.whisper;
+const ACTIVE_ICON_COLOR = defaultTheme.palette.secondaryBlack;
+const INACTIVE_ICON_COLOR = defaultTheme.palette.white;
+
+// The widget is typically rendered inside the vendor's iframe, which never
+// loads clientInfo.js itself - only the host page does. Fall back to the
+// parent window's copy (same pattern used in ChatMessage.js and index.js).
+function getClientSendIconUrl() {
+  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
+    return window.__CHAT_CLIENT_INFO__.assets.sendIcon;
+  }
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
+      return window.parent.__CHAT_CLIENT_INFO__.assets.sendIcon;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
 
 const SendButton = styled.div`
   display: flex;
@@ -23,7 +42,15 @@ const SendButton = styled.div`
   &>svg {
     width: var(--ac-widget-send-button-icon-size, 16px);
     height: var(--ac-widget-send-button-icon-size, 16px);
-    fill: var(--ac-widget-send-button-icon-color, ${defaultTheme.palette.white});
+    fill: ${props => props.isActive
+      ? `var(--ac-widget-send-button-active-icon-color, ${ACTIVE_ICON_COLOR})`
+      : `var(--ac-widget-send-button-icon-color, ${INACTIVE_ICON_COLOR})`};
+  }
+
+  &>img {
+    width: var(--ac-widget-send-button-icon-size, 16px);
+    height: var(--ac-widget-send-button-icon-size, 16px);
+    object-fit: contain;
   }
 `;
 
@@ -35,8 +62,10 @@ const SendButton = styled.div`
  * @param {Function} props.sendMessage
  */
 function SendMessageButton({isActive, sendMessage}) {
+  const sendIconUrl = getClientSendIconUrl();
+
   return (
-    <SendButton 
+    <SendButton
       isActive={isActive}
       onClick={sendMessage}
       data-testid="customer-chat-send-message-button"
@@ -49,7 +78,10 @@ function SendMessageButton({isActive, sendMessage}) {
         }
       }}
       >
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      {sendIconUrl
+        ? <img src={sendIconUrl} alt="" />
+        : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"/></svg>
+      }
     </SendButton>
   );
 };

@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "ddfbcf038e521a4c6acb";
+/******/ 	var hotCurrentHash = "e5bdc53b1631b96134ce";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -67548,6 +67548,178 @@ module.exports = function (opts) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_Hash.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_Hash.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var hashClear = __webpack_require__(/*! ./_hashClear */ "./node_modules/lodash/_hashClear.js"),
+  hashDelete = __webpack_require__(/*! ./_hashDelete */ "./node_modules/lodash/_hashDelete.js"),
+  hashGet = __webpack_require__(/*! ./_hashGet */ "./node_modules/lodash/_hashGet.js"),
+  hashHas = __webpack_require__(/*! ./_hashHas */ "./node_modules/lodash/_hashHas.js"),
+  hashSet = __webpack_require__(/*! ./_hashSet */ "./node_modules/lodash/_hashSet.js");
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+    length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+module.exports = Hash;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_ListCache.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_ListCache.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "./node_modules/lodash/_listCacheClear.js"),
+  listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "./node_modules/lodash/_listCacheDelete.js"),
+  listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "./node_modules/lodash/_listCacheGet.js"),
+  listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "./node_modules/lodash/_listCacheHas.js"),
+  listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "./node_modules/lodash/_listCacheSet.js");
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+    length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+module.exports = ListCache;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Map.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Map.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+  root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map');
+module.exports = Map;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_MapCache.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_MapCache.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "./node_modules/lodash/_mapCacheClear.js"),
+  mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "./node_modules/lodash/_mapCacheDelete.js"),
+  mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "./node_modules/lodash/_mapCacheGet.js"),
+  mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "./node_modules/lodash/_mapCacheHas.js"),
+  mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "./node_modules/lodash/_mapCacheSet.js");
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+    length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+module.exports = MapCache;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Stack.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_Stack.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+  stackClear = __webpack_require__(/*! ./_stackClear */ "./node_modules/lodash/_stackClear.js"),
+  stackDelete = __webpack_require__(/*! ./_stackDelete */ "./node_modules/lodash/_stackDelete.js"),
+  stackGet = __webpack_require__(/*! ./_stackGet */ "./node_modules/lodash/_stackGet.js"),
+  stackHas = __webpack_require__(/*! ./_stackHas */ "./node_modules/lodash/_stackHas.js"),
+  stackSet = __webpack_require__(/*! ./_stackSet */ "./node_modules/lodash/_stackSet.js");
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+module.exports = Stack;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_Symbol.js":
 /*!****************************************!*\
   !*** ./node_modules/lodash/_Symbol.js ***!
@@ -67560,6 +67732,302 @@ var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
 /** Built-in value references. */
 var Symbol = root.Symbol;
 module.exports = Symbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Uint8Array.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_Uint8Array.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Uint8Array = root.Uint8Array;
+module.exports = Uint8Array;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_apply.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/_apply.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0:
+      return func.call(thisArg);
+    case 1:
+      return func.call(thisArg, args[0]);
+    case 2:
+      return func.call(thisArg, args[0], args[1]);
+    case 3:
+      return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+module.exports = apply;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayLikeKeys.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_arrayLikeKeys.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseTimes = __webpack_require__(/*! ./_baseTimes */ "./node_modules/lodash/_baseTimes.js"),
+  isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+  isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+  isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+  isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+  isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+    isArg = !isArr && isArguments(value),
+    isBuff = !isArr && !isArg && isBuffer(value),
+    isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+    skipIndexes = isArr || isArg || isBuff || isType,
+    result = skipIndexes ? baseTimes(value.length, String) : [],
+    length = result.length;
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && (
+    // Safari 9 has enumerable `arguments.length` in strict mode.
+    key == 'length' ||
+    // Node.js 0.10 has enumerable non-index properties on buffers.
+    isBuff && (key == 'offset' || key == 'parent') ||
+    // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') ||
+    // Skip index properties.
+    isIndex(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+module.exports = arrayLikeKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assignMergeValue.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_assignMergeValue.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+  eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if (value !== undefined && !eq(object[key], value) || value === undefined && !(key in object)) {
+    baseAssignValue(object, key, value);
+  }
+}
+module.exports = assignMergeValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assignValue.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_assignValue.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
+  eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) || value === undefined && !(key in object)) {
+    baseAssignValue(object, key, value);
+  }
+}
+module.exports = assignValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_assocIndexOf.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_assocIndexOf.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+module.exports = assocIndexOf;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAssignValue.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseAssignValue.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+module.exports = baseAssignValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseCreate.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseCreate.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/** Built-in value references. */
+var objectCreate = Object.create;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = function () {
+  function object() {}
+  return function (proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object();
+    object.prototype = undefined;
+    return result;
+  };
+}();
+module.exports = baseCreate;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFor.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseFor.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+module.exports = baseFor;
 
 /***/ }),
 
@@ -67598,6 +68066,405 @@ module.exports = baseGetTag;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_baseIsArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseIsArguments.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+  isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]';
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+module.exports = baseIsArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNative.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIsNative.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+  isMasked = __webpack_require__(/*! ./_isMasked */ "./node_modules/lodash/_isMasked.js"),
+  isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+  toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+  objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+module.exports = baseIsNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsTypedArray.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_baseIsTypedArray.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+  isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
+  isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+  arrayTag = '[object Array]',
+  boolTag = '[object Boolean]',
+  dateTag = '[object Date]',
+  errorTag = '[object Error]',
+  funcTag = '[object Function]',
+  mapTag = '[object Map]',
+  numberTag = '[object Number]',
+  objectTag = '[object Object]',
+  regexpTag = '[object RegExp]',
+  setTag = '[object Set]',
+  stringTag = '[object String]',
+  weakMapTag = '[object WeakMap]';
+var arrayBufferTag = '[object ArrayBuffer]',
+  dataViewTag = '[object DataView]',
+  float32Tag = '[object Float32Array]',
+  float64Tag = '[object Float64Array]',
+  int8Tag = '[object Int8Array]',
+  int16Tag = '[object Int16Array]',
+  int32Tag = '[object Int32Array]',
+  uint8Tag = '[object Uint8Array]',
+  uint8ClampedTag = '[object Uint8ClampedArray]',
+  uint16Tag = '[object Uint16Array]',
+  uint32Tag = '[object Uint32Array]';
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+module.exports = baseIsTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseKeysIn.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseKeysIn.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+  isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+  nativeKeysIn = __webpack_require__(/*! ./_nativeKeysIn */ "./node_modules/lodash/_nativeKeysIn.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+    result = [];
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+module.exports = baseKeysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMerge.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseMerge.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
+  assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
+  baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
+  baseMergeDeep = __webpack_require__(/*! ./_baseMergeDeep */ "./node_modules/lodash/_baseMergeDeep.js"),
+  isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+  keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js"),
+  safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js");
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  baseFor(source, function (srcValue, key) {
+    stack || (stack = new Stack());
+    if (isObject(srcValue)) {
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    } else {
+      var newValue = customizer ? customizer(safeGet(object, key), srcValue, key + '', object, source, stack) : undefined;
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  }, keysIn);
+}
+module.exports = baseMerge;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseMergeDeep.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_baseMergeDeep.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
+  cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "./node_modules/lodash/_cloneBuffer.js"),
+  cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "./node_modules/lodash/_cloneTypedArray.js"),
+  copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
+  initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "./node_modules/lodash/_initCloneObject.js"),
+  isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+  isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+  isArrayLikeObject = __webpack_require__(/*! ./isArrayLikeObject */ "./node_modules/lodash/isArrayLikeObject.js"),
+  isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+  isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+  isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+  isPlainObject = __webpack_require__(/*! ./isPlainObject */ "./node_modules/lodash/isPlainObject.js"),
+  isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js"),
+  safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js"),
+  toPlainObject = __webpack_require__(/*! ./toPlainObject */ "./node_modules/lodash/toPlainObject.js");
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = safeGet(object, key),
+    srcValue = safeGet(source, key),
+    stacked = stack.get(srcValue);
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer ? customizer(objValue, srcValue, key + '', object, source, stack) : undefined;
+  var isCommon = newValue === undefined;
+  if (isCommon) {
+    var isArr = isArray(srcValue),
+      isBuff = !isArr && isBuffer(srcValue),
+      isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+    newValue = srcValue;
+    if (isArr || isBuff || isTyped) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      } else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      } else if (isBuff) {
+        isCommon = false;
+        newValue = cloneBuffer(srcValue, true);
+      } else if (isTyped) {
+        isCommon = false;
+        newValue = cloneTypedArray(srcValue, true);
+      } else {
+        newValue = [];
+      }
+    } else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      newValue = objValue;
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      } else if (!isObject(objValue) || isFunction(objValue)) {
+        newValue = initCloneObject(srcValue);
+      }
+    } else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+module.exports = baseMergeDeep;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseRest.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseRest.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
+  overRest = __webpack_require__(/*! ./_overRest */ "./node_modules/lodash/_overRest.js"),
+  setToString = __webpack_require__(/*! ./_setToString */ "./node_modules/lodash/_setToString.js");
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return setToString(overRest(func, start, identity), func + '');
+}
+module.exports = baseRest;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseSetToString.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseSetToString.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var constant = __webpack_require__(/*! ./constant */ "./node_modules/lodash/constant.js"),
+  defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js"),
+  identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js");
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !defineProperty ? identity : function (func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+module.exports = baseSetToString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseTimes.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseTimes.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+    result = Array(n);
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+module.exports = baseTimes;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_baseTrim.js":
 /*!******************************************!*\
   !*** ./node_modules/lodash/_baseTrim.js ***!
@@ -67624,6 +68491,303 @@ module.exports = baseTrim;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_baseUnary.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseUnary.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function (value) {
+    return func(value);
+  };
+}
+module.exports = baseUnary;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneArrayBuffer.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_cloneArrayBuffer.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js");
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+module.exports = cloneArrayBuffer;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneBuffer.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_cloneBuffer.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+  allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length,
+    result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+  buffer.copy(result);
+  return result;
+}
+module.exports = cloneBuffer;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_cloneTypedArray.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_cloneTypedArray.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+module.exports = cloneTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyArray.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_copyArray.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+    length = source.length;
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+module.exports = copyArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_copyObject.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_copyObject.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
+  baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js");
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+  var index = -1,
+    length = props.length;
+  while (++index < length) {
+    var key = props[index];
+    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : undefined;
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+module.exports = copyObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_coreJsData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_coreJsData.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+module.exports = coreJsData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createAssigner.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_createAssigner.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseRest = __webpack_require__(/*! ./_baseRest */ "./node_modules/lodash/_baseRest.js"),
+  isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ "./node_modules/lodash/_isIterateeCall.js");
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function (object, sources) {
+    var index = -1,
+      length = sources.length,
+      customizer = length > 1 ? sources[length - 1] : undefined,
+      guard = length > 2 ? sources[2] : undefined;
+    customizer = assigner.length > 3 && typeof customizer == 'function' ? (length--, customizer) : undefined;
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+module.exports = createAssigner;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createBaseFor.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_createBaseFor.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function (object, iteratee, keysFunc) {
+    var index = -1,
+      iterable = Object(object),
+      props = keysFunc(object),
+      length = props.length;
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+module.exports = createBaseFor;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_defineProperty.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_defineProperty.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+var defineProperty = function () {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}();
+module.exports = defineProperty;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_freeGlobal.js":
 /*!********************************************!*\
   !*** ./node_modules/lodash/_freeGlobal.js ***!
@@ -67635,6 +68799,72 @@ module.exports = baseTrim;
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
 module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getMapData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_getMapData.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isKeyable = __webpack_require__(/*! ./_isKeyable */ "./node_modules/lodash/_isKeyable.js");
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
+}
+module.exports = getMapData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getNative.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getNative.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./node_modules/lodash/_baseIsNative.js"),
+  getValue = __webpack_require__(/*! ./_getValue */ "./node_modules/lodash/_getValue.js");
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+module.exports = getNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getPrototype.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getPrototype.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
+
+/** Built-in value references. */
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+module.exports = getPrototype;
 
 /***/ }),
 
@@ -67691,6 +68921,720 @@ module.exports = getRawTag;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_getValue.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_getValue.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+module.exports = getValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashClear.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_hashClear.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+module.exports = hashClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashDelete.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_hashDelete.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+module.exports = hashDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashGet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+module.exports = hashGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashHas.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashHas.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+module.exports = hashHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_hashSet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_hashSet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  return this;
+}
+module.exports = hashSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_initCloneObject.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_initCloneObject.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseCreate = __webpack_require__(/*! ./_baseCreate */ "./node_modules/lodash/_baseCreate.js"),
+  getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+  isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js");
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return typeof object.constructor == 'function' && !isPrototype(object) ? baseCreate(getPrototype(object)) : {};
+}
+module.exports = initCloneObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isIndex.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_isIndex.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
+}
+module.exports = isIndex;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isIterateeCall.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_isIterateeCall.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
+  isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
+  isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
+  isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number' ? isArrayLike(object) && isIndex(index, object.length) : type == 'string' && index in object) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+module.exports = isIterateeCall;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isKeyable.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_isKeyable.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
+}
+module.exports = isKeyable;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isMasked.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_isMasked.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./node_modules/lodash/_coreJsData.js");
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = function () {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+module.exports = isMasked;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isPrototype.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_isPrototype.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+    proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+  return value === proto;
+}
+module.exports = isPrototype;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheClear.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_listCacheClear.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+module.exports = listCacheClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheDelete.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_listCacheDelete.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+    index = assocIndexOf(data, key);
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+module.exports = listCacheDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheGet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheGet.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+    index = assocIndexOf(data, key);
+  return index < 0 ? undefined : data[index][1];
+}
+module.exports = listCacheGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheHas.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheHas.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+module.exports = listCacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_listCacheSet.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_listCacheSet.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+    index = assocIndexOf(data, key);
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+module.exports = listCacheSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheClear.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheClear.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Hash = __webpack_require__(/*! ./_Hash */ "./node_modules/lodash/_Hash.js"),
+  ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+  Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js");
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash(),
+    'map': new (Map || ListCache)(),
+    'string': new Hash()
+  };
+}
+module.exports = mapCacheClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheDelete.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_mapCacheDelete.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+module.exports = mapCacheDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheGet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheGet.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+module.exports = mapCacheGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheHas.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheHas.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+module.exports = mapCacheHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_mapCacheSet.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_mapCacheSet.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+    size = data.size;
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+module.exports = mapCacheSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeCreate.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeCreate.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = getNative(Object, 'create');
+module.exports = nativeCreate;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeKeysIn.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_nativeKeysIn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+module.exports = nativeKeysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nodeUtil.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_nodeUtil.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = function () {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}();
+module.exports = nodeUtil;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_objectToString.js":
 /*!************************************************!*\
   !*** ./node_modules/lodash/_objectToString.js ***!
@@ -67722,6 +69666,74 @@ module.exports = objectToString;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_overArg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_overArg.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
+  };
+}
+module.exports = overArg;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_overRest.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_overRest.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = __webpack_require__(/*! ./_apply */ "./node_modules/lodash/_apply.js");
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
+  return function () {
+    var args = arguments,
+      index = -1,
+      length = nativeMax(args.length - start, 0),
+      array = Array(length);
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+module.exports = overRest;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_root.js":
 /*!**************************************!*\
   !*** ./node_modules/lodash/_root.js ***!
@@ -67737,6 +69749,275 @@ var freeSelf = typeof self == 'object' && self && self.Object === Object && self
 /** Used as a reference to the global object. */
 var root = freeGlobal || freeSelf || Function('return this')();
 module.exports = root;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_safeGet.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_safeGet.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+  if (key == '__proto__') {
+    return;
+  }
+  return object[key];
+}
+module.exports = safeGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_setToString.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_setToString.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseSetToString = __webpack_require__(/*! ./_baseSetToString */ "./node_modules/lodash/_baseSetToString.js"),
+  shortOut = __webpack_require__(/*! ./_shortOut */ "./node_modules/lodash/_shortOut.js");
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = shortOut(baseSetToString);
+module.exports = setToString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_shortOut.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_shortOut.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+  HOT_SPAN = 16;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeNow = Date.now;
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+    lastCalled = 0;
+  return function () {
+    var stamp = nativeNow(),
+      remaining = HOT_SPAN - (stamp - lastCalled);
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+module.exports = shortOut;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackClear.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_stackClear.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js");
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache();
+  this.size = 0;
+}
+module.exports = stackClear;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackDelete.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_stackDelete.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+    result = data['delete'](key);
+  this.size = data.size;
+  return result;
+}
+module.exports = stackDelete;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackGet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackGet.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+module.exports = stackGet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackHas.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackHas.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+module.exports = stackHas;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_stackSet.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_stackSet.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
+  Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
+  MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+    if (!Map || pairs.length < LARGE_ARRAY_SIZE - 1) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+module.exports = stackSet;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_toSource.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_toSource.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return func + '';
+    } catch (e) {}
+  }
+  return '';
+}
+module.exports = toSource;
 
 /***/ }),
 
@@ -67764,6 +70045,41 @@ function trimmedEndIndex(string) {
   return index;
 }
 module.exports = trimmedEndIndex;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/constant.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/constant.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function () {
+    return value;
+  };
+}
+module.exports = constant;
 
 /***/ }),
 
@@ -67950,6 +70266,384 @@ module.exports = debounce;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/eq.js":
+/*!***********************************!*\
+  !*** ./node_modules/lodash/eq.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+module.exports = eq;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/identity.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/identity.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+module.exports = identity;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArguments.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArguments.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "./node_modules/lodash/_baseIsArguments.js"),
+  isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function () {
+  return arguments;
+}()) ? baseIsArguments : function (value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+};
+module.exports = isArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArray.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/isArray.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+module.exports = isArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLike.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArrayLike.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+  isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js");
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+module.exports = isArrayLike;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLikeObject.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/isArrayLikeObject.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
+  isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+module.exports = isArrayLikeObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isBuffer.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isBuffer.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js"),
+  stubFalse = __webpack_require__(/*! ./stubFalse */ "./node_modules/lodash/stubFalse.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+module.exports = isBuffer;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isFunction.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/isFunction.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+  isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/** `Object#toString` result references. */
+var asyncTag = '[object AsyncFunction]',
+  funcTag = '[object Function]',
+  genTag = '[object GeneratorFunction]',
+  proxyTag = '[object Proxy]';
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+module.exports = isFunction;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isLength.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isLength.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+module.exports = isLength;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/isObject.js":
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isObject.js ***!
@@ -68028,6 +70722,76 @@ module.exports = isObjectLike;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/isPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/isPlainObject.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+  getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+  isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+  objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
+}
+module.exports = isPlainObject;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/isSymbol.js":
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isSymbol.js ***!
@@ -68065,6 +70829,131 @@ module.exports = isSymbol;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/isTypedArray.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isTypedArray.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "./node_modules/lodash/_baseIsTypedArray.js"),
+  baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+  nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+module.exports = isTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/keysIn.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/keysIn.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
+  baseKeysIn = __webpack_require__(/*! ./_baseKeysIn */ "./node_modules/lodash/_baseKeysIn.js"),
+  isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+module.exports = keysIn;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/merge.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/merge.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseMerge = __webpack_require__(/*! ./_baseMerge */ "./node_modules/lodash/_baseMerge.js"),
+  createAssigner = __webpack_require__(/*! ./_createAssigner */ "./node_modules/lodash/_createAssigner.js");
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function (object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+module.exports = merge;
+
+/***/ }),
+
 /***/ "./node_modules/lodash/now.js":
 /*!************************************!*\
   !*** ./node_modules/lodash/now.js ***!
@@ -68094,6 +70983,33 @@ var now = function now() {
   return root.Date.now();
 };
 module.exports = now;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/stubFalse.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/stubFalse.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+module.exports = stubFalse;
 
 /***/ }),
 
@@ -68242,6 +71158,47 @@ function toNumber(value) {
   return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
 }
 module.exports = toNumber;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/toPlainObject.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
+  keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+module.exports = toPlainObject;
 
 /***/ }),
 
@@ -75241,6 +78198,17 @@ module.exports = subtokenize;
 
 /***/ }),
 
+/***/ "./node_modules/node-libs-browser/mock/empty.js":
+/*!******************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/empty.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./node_modules/node-libs-browser/node_modules/punycode/punycode.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/node-libs-browser/node_modules/punycode/punycode.js ***!
@@ -76404,6 +79372,290 @@ function decodeEntity(characters) {
   // If the decoded string is equal to the input, the entity was not valid
   return char === entity ? false : char;
 }
+
+/***/ }),
+
+/***/ "./node_modules/path-browserify/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function () {
+  var resolvedPath = '',
+    resolvedAbsolute = false;
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = i >= 0 ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function (p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+  return (resolvedAbsolute ? '/' : '') + resolvedPath || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function (path) {
+  var isAbsolute = exports.isAbsolute(path),
+    trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function (p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function (path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function () {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function (p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+// path.relative(from, to)
+// posix version
+exports.relative = function (from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+  return outputParts.join('/');
+};
+exports.sep = '/';
+exports.delimiter = ':';
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+      if (!matchedSlash) {
+        end = i;
+        break;
+      }
+    } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+      // If we reached a path separator that was not part of a set of path
+      // separators at the end of the string, stop now
+      if (!matchedSlash) {
+        start = i + 1;
+        break;
+      }
+    } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+      // If we reached a path separator that was not part of a set of path
+      // separators at the end of the string, stop now
+      if (!matchedSlash) {
+        startPart = i + 1;
+        break;
+      }
+      continue;
+    }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+      // If this is our first dot, mark it as the start of our extension
+      if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+  if (startDot === -1 || end === -1 ||
+  // We saw a non-dot character immediately before the dot
+  preDotState === 0 ||
+  // The (right-most) trimmed path component is exactly '..'
+  preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+function filter(xs, f) {
+  if (xs.filter) return xs.filter(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    if (f(xs[i], i, xs)) res.push(xs[i]);
+  }
+  return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b' ? function (str, start, len) {
+  return str.substr(start, len);
+} : function (str, start, len) {
+  if (start < 0) start = str.length + start;
+  return str.substr(start, len);
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -133009,12 +136261,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme */ "./src/theme/index.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _components_Chat_ChatContainer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Chat/ChatContainer */ "./src/components/Chat/ChatContainer.js");
-/* harmony import */ var _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme/defaultTheme */ "./src/theme/defaultTheme.js");
+/* harmony import */ var _assets_fonts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./assets/fonts */ "./src/assets/fonts/index.js");
+/* harmony import */ var _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme/defaultTheme */ "./src/theme/defaultTheme.js");
 
 
 var _templateObject,
   _this = undefined,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\App.js";
+
 
 
 
@@ -133028,12 +136282,13 @@ var Page = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templa
   return props.theme.palette.alto;
 });
 var AppProvider = function AppProvider(props) {
+  var theme = props.themeConfig && Object.keys(props.themeConfig).length ? Object.assign({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_7__["default"], props.themeConfig) : undefined;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_theme__WEBPACK_IMPORTED_MODULE_3__["ThemeProvider"], {
-    theme: Object.assign({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_6__["default"], props.themeConfig),
+    theme: theme,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27,
+      lineNumber: 32,
       columnNumber: 5
     }
   }, props.children);
@@ -133043,33 +136298,116 @@ App.defaultProps = {
 };
 function App(_ref) {
   var baseCssClass = _ref.baseCssClass,
-    props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, ["baseCssClass"]);
+    fontFaces = _ref.fontFaces,
+    props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, ["baseCssClass", "fontFaces"]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(AppProvider, {
     themeConfig: props.themeConfig || {},
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 39,
+      lineNumber: 44,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Page, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_assets_fonts__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    fontFaces: fontFaces,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 45,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Page, {
     className: baseCssClass,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 40,
+      lineNumber: 46,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_Chat_ChatContainer__WEBPACK_IMPORTED_MODULE_5__["default"], Object.assign({}, props, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 41,
+      lineNumber: 47,
       columnNumber: 9
     }
   }))));
 }
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./src/assets/fonts/index.js":
+/*!***********************************!*\
+  !*** ./src/assets/fonts/index.js ***!
+  \***********************************/
+/*! exports provided: buildFontFaceCss, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildFontFaceCss", function() { return buildFontFaceCss; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var _templateObject;
+
+
+// Browsers use the first src they can load, not the smallest, so list
+// formats in size-preference order regardless of the order they arrive in.
+var FONT_FORMAT_PRIORITY = ['woff2', 'woff', 'opentype', 'truetype'];
+
+/**
+ * Builds @font-face rules from the client's font descriptors
+ * (clients/<brand>/assets/fonts/..., resolved by scripts/prepare-client.js).
+ * Rendered via styled-components so the rules land in whichever document
+ * the widget is mounted in, since the widget's iframe never loads the host
+ * page's client-theme.css.
+ */
+function buildFontFaceCss(fontFaces) {
+  if (!Array.isArray(fontFaces) || !fontFaces.length) {
+    return '';
+  }
+
+  // Group by family + weight + style so each distinct font file (Bold,
+  // Light, Medium, ...) gets its own @font-face rule. Squashing every weight
+  // into one rule makes the browser silently pick just one file for all text.
+  var byGroup = fontFaces.reduce(function (acc, face) {
+    if (!face || !face.family || !face.url) {
+      return acc;
+    }
+    var weight = face.weight || 'normal';
+    var style = face.style || 'normal';
+    var key = "".concat(face.family, "|").concat(weight, "|").concat(style);
+    acc[key] = acc[key] || {
+      family: face.family,
+      weight: weight,
+      style: style,
+      faces: []
+    };
+    acc[key].faces.push(face);
+    return acc;
+  }, {});
+  return Object.keys(byGroup).map(function (key) {
+    var _byGroup$key = byGroup[key],
+      family = _byGroup$key.family,
+      weight = _byGroup$key.weight,
+      style = _byGroup$key.style,
+      faces = _byGroup$key.faces;
+    var sources = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(faces).sort(function (a, b) {
+      return FONT_FORMAT_PRIORITY.indexOf(a.format) - FONT_FORMAT_PRIORITY.indexOf(b.format);
+    }).map(function (face) {
+      return "url('".concat(face.url, "') format('").concat(face.format || 'truetype', "')");
+    }).join(',\n       ');
+    return "@font-face {\n  font-family: '".concat(family, "';\n  src: ").concat(sources, ";\n  font-weight: ").concat(weight, ";\n  font-style: ").concat(style, ";\n}");
+  }).join('\n\n');
+}
+var Fonts = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalStyle"])(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", "\n"])), function (props) {
+  return buildFontFaceCss(props.fontFaces);
+});
+/* harmony default export */ __webpack_exports__["default"] = (Fonts);
 
 /***/ }),
 
@@ -133144,6 +136482,7 @@ var _templateObject,
   _templateObject4,
   _templateObject5,
   _templateObject6,
+  _templateObject7,
   _this = undefined,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\Chat.js";
 
@@ -133155,22 +136494,26 @@ var _templateObject,
 
 
 
-var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px;\n  overflow: hidden;\n  @media (max-width:640px) {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 0;\n    left: 0;\n  }\n"])));
-var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, min(115px, 21.2%));\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  @media (max-width: 640px) {\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n  }\n"])));
-var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  height: 340px;\n  @media (max-width:640px) {\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    top: ", "px;\n    height: auto;\n    min-height: auto;\n  }\n"])), function (props) {
+var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px; // to match the border with figma frame\n  overflow: hidden;\n  @media (max-width:640px) {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 0;\n    left: 0;\n  }\n"])));
+var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, auto);\n  max-height: min(115px, 21.2%);\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  @media (max-width: 640px) {\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n  }\n"])));
+var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n  @media (max-width:640px) {\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    top: ", "px;\n    height: auto;\n    min-height: auto;\n  }\n"])), function (props) {
   return props.parentHeaderWrapperHeight;
 });
 var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding: 0;\n  border-radius: 24px 24px 0 0;\n  overflow: hidden;\n"])));
-var LogoBanner = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].img(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
-var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_14__["Text"])(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
+var BrandIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  display: flex;\n  justify-content: center;\n  padding: 20px 0 4px;\n  flex-shrink: 0;\n"])));
+var BrandIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].img(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
+var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_14__["Text"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
 var defaultHeaderConfig = {
   isHTML: false,
   render: function render(config) {
     var clientInfo = window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config || window.parent && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.config || {};
     var hc = clientInfo.header || {};
+    var colors = clientInfo.colors || {};
 
-    // Use inline styles for colors since CSS vars don't cross iframe boundary
-    var bgColor = hc.backgroundColor || '#3F5773';
+    // Use inline styles for colors since CSS vars don't cross iframe boundary.
+    // Header background is the brand's Primary500 token - same source the
+    // launcher icon uses - so it can't drift out of sync with the brand theme.
+    var bgColor = colors.primary500 || hc.backgroundColor || '#3F5773';
     var textColor = hc.textColor || '#ffffff';
     var subtitleColor = hc.subtitleColor || 'rgba(255,255,255,0.70)';
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(HeaderWrapper, {
@@ -133180,7 +136523,7 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 91,
+        lineNumber: 103,
         columnNumber: 7
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
@@ -133193,7 +136536,7 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 92,
+        lineNumber: 104,
         columnNumber: 9
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
@@ -133205,7 +136548,7 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 98,
+        lineNumber: 110,
         columnNumber: 11
       }
     }, hc.logoUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("img", {
@@ -133221,42 +136564,43 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 100,
+        lineNumber: 112,
         columnNumber: 15
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 112,
+        lineNumber: 124,
         columnNumber: 13
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
       style: {
         color: textColor,
-        fontSize: '13px',
-        fontWeight: '600',
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase'
+        fontSize: '16px',
+        lineHeight: '20px',
+        fontWeight: 700,
+        letterSpacing: 'normal'
       },
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 113,
+        lineNumber: 125,
         columnNumber: 15
       }
     }, hc.title || ''), hc.subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
       style: {
         color: subtitleColor,
-        fontSize: '11px',
+        fontSize: '10px',
+        lineHeight: '12px',
+        fontWeight: 'normal',
         marginTop: '4px',
-        lineHeight: 1.35,
         maxWidth: '260px'
       },
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 123,
+        lineNumber: 135,
         columnNumber: 17
       }
     }, hc.subtitle))), hc.showCloseButton && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("button", {
@@ -133277,7 +136621,7 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 136,
+        lineNumber: 149,
         columnNumber: 13
       }
     }, "\xD7")));
@@ -133356,13 +136700,20 @@ var Chat = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
+    value: function componentDidUpdate(prevProps, prevState) {
       if (prevProps.chatSession !== this.props.chatSession) {
         this.cleanUp(prevProps.chatSession);
         this.init(this.props.chatSession);
       }
       if (prevProps.language !== this.props.language && typeof this.props.changeLanguage === "function") {
         this.props.changeLanguage(this.props.language);
+      }
+      if (prevState.contactStatus !== this.state.contactStatus) {
+        // The header is gated behind contactStatus, so its rendered height
+        // (and the ref this measures) only exists once status flips to
+        // CONNECTED/CONNECTING/ENDED - re-measure now instead of relying on
+        // the componentDidMount reading, which ran before the header existed.
+        this.resetChatHeight();
       }
     }
   }, {
@@ -133393,12 +136744,6 @@ var Chat = /*#__PURE__*/function (_Component) {
       this.props.chatSession.endChat();
       this.props.onEnded();
     }
-  }, {
-    key: "closeChat",
-    value: function closeChat() {
-      this.props.chatSession.closeChat();
-      this.props.onEnded();
-    }
     /*
       Note: For Mobile layout: divided into 3 sections
       1. Header - Positon: absolute; top: 0, left: 0, right: 0 - height is dynamic!
@@ -133422,7 +136767,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 270,
+          lineNumber: 285,
           columnNumber: 7
         }
       }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTING || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(ParentHeaderWrapper, {
@@ -133431,7 +136776,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 273,
+          lineNumber: 288,
           columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Header, {
@@ -133443,7 +136788,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 274,
+          lineNumber: 289,
           columnNumber: 13
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(ChatComposerWrapper, {
@@ -133451,10 +136796,26 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 277,
+          lineNumber: 292,
           columnNumber: 9
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ACW || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && logoConfig && logoConfig.sourceUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(BrandIconWrapper, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 296,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(BrandIcon, {
+        src: logoConfig.sourceUrl,
+        alt: logoConfig.altText || '',
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 297,
+          columnNumber: 15
+        }
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__["default"], {
         loadPreviousTranscript: function loadPreviousTranscript() {
           return chatSession.loadPreviousTranscript();
         },
@@ -133476,7 +136837,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 278,
+          lineNumber: 300,
           columnNumber: 11
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_ChatComposer__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -133496,7 +136857,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 290,
+          lineNumber: 312,
           columnNumber: 11
         }
       })));
@@ -133605,7 +136966,8 @@ var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_t
 });
 var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
   return props.theme.palette.mediumGray;
-});
+}); //Text value to add in footer
+
 ChatComposer.propTypes = {
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
   addAttachment: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
@@ -134008,13 +137370,34 @@ var _templateObject,
 
 
 
-var ACTIVE_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.secondaryBlack;
+var ACTIVE_COLOR = '#CFD7FF';
 var INACTIVE_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.whisper;
-var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: var(--ac-widget-send-button-size, 32px);\n  height: var(--ac-widget-send-button-size, 32px);\n  border-radius: 50%;\n  cursor: ", ";\n  transition: background-color 0.15s ease;\n  background-color: ", ";\n\n  &>svg {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    fill: var(--ac-widget-send-button-icon-color, ", ");\n  }\n"])), function (props) {
+var ACTIVE_ICON_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.secondaryBlack;
+var INACTIVE_ICON_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.white;
+
+// The widget is typically rendered inside the vendor's iframe, which never
+// loads clientInfo.js itself - only the host page does. Fall back to the
+// parent window's copy (same pattern used in ChatMessage.js and index.js).
+function getClientSendIconUrl() {
+  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
+    return window.__CHAT_CLIENT_INFO__.assets.sendIcon;
+  }
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
+      return window.parent.__CHAT_CLIENT_INFO__.assets.sendIcon;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
+var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: var(--ac-widget-send-button-size, 32px);\n  height: var(--ac-widget-send-button-size, 32px);\n  border-radius: 50%;\n  cursor: ", ";\n  transition: background-color 0.15s ease;\n  background-color: ", ";\n\n  &>svg {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    fill: ", ";\n  }\n\n  &>img {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    object-fit: contain;\n  }\n"])), function (props) {
   return props.isActive ? 'pointer' : 'default';
 }, function (props) {
   return props.isActive ? "var(--ac-widget-send-button-active-bg, ".concat(ACTIVE_COLOR, ")") : "var(--ac-widget-send-button-bg, ".concat(INACTIVE_COLOR, ")");
-}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.white);
+}, function (props) {
+  return props.isActive ? "var(--ac-widget-send-button-active-icon-color, ".concat(ACTIVE_ICON_COLOR, ")") : "var(--ac-widget-send-button-icon-color, ".concat(INACTIVE_ICON_COLOR, ")");
+});
 
 /**
  * Send message button for the Chat Composer.
@@ -134026,6 +137409,7 @@ var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_
 function SendMessageButton(_ref) {
   var isActive = _ref.isActive,
     sendMessage = _ref.sendMessage;
+  var sendIconUrl = getClientSendIconUrl();
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(SendButton, {
     isActive: isActive,
     onClick: sendMessage,
@@ -134041,10 +137425,19 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 39,
+      lineNumber: 68,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("svg", {
+  }, sendIconUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+    src: sendIconUrl,
+    alt: "",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 82,
+      columnNumber: 11
+    }
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     height: "24px",
     viewBox: "0 0 24 24",
@@ -134052,8 +137445,8 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
-      columnNumber: 7
+      lineNumber: 83,
+      columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
     d: "M0 0h24v24H0z",
@@ -134061,16 +137454,16 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
-      columnNumber: 94
+      lineNumber: 83,
+      columnNumber: 98
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
-    d: "M2.01 21L23 12 2.01 3 2 10l15 2-15 2z",
+    d: "M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
-      columnNumber: 131
+      lineNumber: 83,
+      columnNumber: 135
     }
   })));
 }
@@ -136231,9 +139624,12 @@ var _templateObject,
   _templateObject9,
   _templateObject10,
   _templateObject11,
+  _templateObject12,
+  _templateObject13,
+  _templateObject14,
   _this = undefined,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
-  _templateObject12;
+  _templateObject15;
 
 
 
@@ -136250,6 +139646,23 @@ var _templateObject,
 
 
 
+
+// The widget is typically rendered inside the vendor's iframe, which never
+// loads clientInfo.js itself - only the host page does. Fall back to the
+// parent window's copy (same pattern used in index.js and Chat.js).
+function getClientAvatarUrl() {
+  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
+    return window.__CHAT_CLIENT_INFO__.assets.avatar;
+  }
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
+      return window.parent.__CHAT_CLIENT_INFO__.assets.avatar;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
 var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", " ", ";\n  word-break: break-word;\n  white-space: pre-line;\n  overflow: auto;\n  text-align: ", ";\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.basePadding;
@@ -136260,17 +139673,26 @@ var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(
   return props.textAlign;
 });
 var Header = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  overflow: auto;\n"])));
-Header.Sender = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: left;\n  max-width: 150px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n"])));
-Header.Status = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: right;\n"])));
-var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  overflow: auto;\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref3) {
+Header.Sender = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: left;\n  max-width: 75%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 13px;\n  color: ", ";\n"])), function (_ref3) {
   var theme = _ref3.theme;
-  return theme.globals.textSecondaryColor;
-}, function (_ref4) {
+  return theme.palette.mediumGray;
+});
+Header.Status = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  font-size: 13px;\n  float: right;\n"])), function (_ref4) {
   var theme = _ref4.theme;
+  return theme.typography.supportingText;
+});
+var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  overflow: auto;\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.typography.supportingText;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.globals.textSecondaryColor;
+}, function (_ref7) {
+  var theme = _ref7.theme;
   return theme.spacing.mini;
 });
 Footer.MessageReceipt = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: right;\n"])));
-var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 5px;\n  position: relative;\n  &:after {\n    display: ", ";\n    ", "\n  }\n"])), function (props) {
+var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  ", ";\n\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 18px;\n  position: relative;\n"])), function (props) {
   return props.theme.chatTranscriptor.incomingMsgBg;
 }, function (props) {
   return props.theme.chatTranscriptor.outgoingMsgBg;
@@ -136282,52 +139704,74 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
   return props.messageStyle ? props.messageStyle : "";
 }, function (props) {
   return props.childWillAddBackground ? "background: none" : "";
-}, function (props) {
-  return props.removePadding ? 0 : props.theme.spacing.base;
-}, function (props) {
-  return props.theme.spacing.mini;
-}, function (props) {
-  return props.hideDirectionArrow ? "none" : "block";
-}, function (props) {
-  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "\n      content: \" \";\n      position: absolute;\n      right: -6px;\n      bottom: 4px;\n      border-radius: 2px;\n      border-left: 12px solid transparent;\n      border-right: 10px solid transparent;\n      border-bottom: 9px solid var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n    " : "\n      content: \" \";\n      position: absolute;\n      left: -6px;\n      bottom: 4px;\n      border-radius: 2px;\n      border-left: 10px solid transparent;\n      border-right: 12px solid transparent;\n      border-bottom: 9px solid var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));";
-});
-var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref5) {
-  var theme = _ref5.theme;
-  return theme.palette.red;
-}, function (_ref6) {
-  var theme = _ref6.theme;
-  return theme.spacing.mini;
-});
-var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref7) {
-  var theme = _ref7.theme;
-  return theme.globals.textSecondaryColor;
 }, function (_ref8) {
   var theme = _ref8.theme;
-  return theme.spacing.mini;
+  return theme.typography.body;
+}, function (props) {
+  return props.removePadding ? 0 : props.theme.spacing.medium;
+}, function (props) {
+  return props.theme.spacing.mini;
 });
-var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (props) {
-  return props.theme.chatTranscriptor.msgStatusWidth;
-}, function (_ref9) {
+var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
-  return theme.spacing.small;
+  return theme.typography.supportingText;
 }, function (_ref10) {
   var theme = _ref10.theme;
-  return theme.spacing.small;
+  return theme.palette.red;
 }, function (_ref11) {
   var theme = _ref11.theme;
-  return theme.spacing.micro;
-}, function (_ref12) {
+  return theme.spacing.mini;
+});
+
+// Only rendered when a client has an avatar asset configured (see
+// window.__CHAT_CLIENT_INFO__.assets.avatar, populated by
+// scripts/prepare-client.js). Clients without one keep the original
+// single-column message layout untouched.
+var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
   var theme = _ref12.theme;
+  return theme.spacing.mini;
+});
+var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
+var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
+var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.typography.supportingText;
+}, function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.globals.textSecondaryColor;
+}, function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.spacing.mini;
+});
+var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.typography.supportingText;
+}, function (props) {
+  return props.theme.chatTranscriptor.msgStatusWidth;
+}, function (_ref17) {
+  var theme = _ref17.theme;
+  return theme.spacing.small;
+}, function (_ref18) {
+  var theme = _ref18.theme;
+  return theme.spacing.small;
+}, function (_ref19) {
+  var theme = _ref19.theme;
+  return theme.spacing.micro;
+}, function (_ref20) {
+  var theme = _ref20.theme;
   return theme.palette.red;
 });
-TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  margin-left: ", ";\n"])), function (_ref13) {
-  var theme = _ref13.theme;
+TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref21) {
+  var theme = _ref21.theme;
+  return theme.typography.inlineButton;
+}, function (_ref22) {
+  var theme = _ref22.theme;
   return theme.spacing.micro;
 });
-var ErrorFallback = function ErrorFallback(_ref14) {
-  var error = _ref14.error,
-    resetErrorBoundary = _ref14.resetErrorBoundary,
-    InteractiveMessageType = _ref14.InteractiveMessageType;
+var ErrorFallback = function ErrorFallback(_ref23) {
+  var error = _ref23.error,
+    resetErrorBoundary = _ref23.resetErrorBoundary,
+    InteractiveMessageType = _ref23.InteractiveMessageType;
   var metricName = InteractiveMessageType + "_ERROR";
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, _constants_global__WEBPACK_IMPORTED_MODULE_19__["CSM_CATEGORY"].UI, false);
@@ -136338,14 +139782,14 @@ var ErrorFallback = function ErrorFallback(_ref14) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 164,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 165,
       columnNumber: 7
     }
   }, "Something went wrong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
@@ -136353,7 +139797,7 @@ var ErrorFallback = function ErrorFallback(_ref14) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 166,
       columnNumber: 7
     }
   }, "Reload Editor"));
@@ -136409,7 +139853,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 196,
+          lineNumber: 221,
           columnNumber: 34
         }
       });
@@ -136419,21 +139863,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 200,
+              lineNumber: 225,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(StatusText, {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 201,
+              lineNumber: 226,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 202,
+              lineNumber: 227,
               columnNumber: 15
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -136442,7 +139886,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 203,
+              lineNumber: 228,
               columnNumber: 17
             }
           }))));
@@ -136452,7 +139896,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 213,
+              lineNumber: 238,
               columnNumber: 34
             }
           }, this.timestampToDisplayable(transportDetails.sentTime, isOutgoingMsg));
@@ -136462,21 +139906,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 217,
+              lineNumber: 242,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 218,
+              lineNumber: 243,
               columnNumber: 13
             }
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 219,
+              lineNumber: 244,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -136485,7 +139929,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 220,
+              lineNumber: 245,
               columnNumber: 15
             }
           })));
@@ -136495,7 +139939,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 229,
+              lineNumber: 254,
               columnNumber: 34
             }
           });
@@ -136504,14 +139948,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 232,
+          lineNumber: 257,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 233,
+          lineNumber: 258,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -136520,14 +139964,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 234,
+          lineNumber: 259,
           columnNumber: 11
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 239,
+          lineNumber: 264,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -136551,14 +139995,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 256,
+          lineNumber: 281,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 257,
+          lineNumber: 282,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -136568,7 +140012,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 258,
+          lineNumber: 283,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -136578,7 +140022,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 263,
+          lineNumber: 288,
           columnNumber: 36
         }
       })));
@@ -136625,6 +140069,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         direction = _this$props$messageDe7.direction,
         error = _this$props$messageDe7.error;
       var messageStyle = direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? this.props.outgoingMsgStyle : this.props.incomingMsgStyle;
+      var avatarUrl = direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Incoming && getClientAvatarUrl();
 
       //Hack to simulate ChatJS response with attachment content types
       var bodyStyleConfig = {};
@@ -136662,12 +140107,12 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           return null;
         }
       }
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+      var mainMessage = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
         "data-testid": "main-message",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 369,
+          lineNumber: 395,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -136675,7 +140120,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 370,
+          lineNumber: 396,
           columnNumber: 9
         }
       }, this.renderHeader()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
@@ -136687,11 +140132,11 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 371,
+          lineNumber: 397,
           columnNumber: 9
         }
-      }, function (_ref15) {
-        var ref = _ref15.ref;
+      }, function (_ref24) {
+        var ref = _ref24.ref;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, Object.assign({
           "data-testid": "message-body",
           direction: direction,
@@ -136701,7 +140146,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 373,
+            lineNumber: 399,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -136709,10 +140154,39 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 384,
+          lineNumber: 410,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
+      if (!avatarUrl) {
+        return mainMessage;
+      }
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageRow, {
+        "data-testid": "main-message-row",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 422,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
+        src: avatarUrl,
+        alt: "",
+        "data-testid": "customer-chat-avatar",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 423,
+          columnNumber: 9
+        }
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 424,
+          columnNumber: 9
+        }
+      }, mainMessage));
     }
   }, {
     key: "triggerCountMetric",
@@ -136731,7 +140205,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 401,
+            lineNumber: 438,
             columnNumber: 9
           }
         });
@@ -136748,14 +140222,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 413,
+                lineNumber: 450,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 413,
+              lineNumber: 450,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -136766,7 +140240,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 414,
+              lineNumber: 451,
               columnNumber: 13
             }
           }));
@@ -136777,7 +140251,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 424,
+            lineNumber: 461,
             columnNumber: 14
           }
         });
@@ -136793,7 +140267,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 432,
+            lineNumber: 469,
             columnNumber: 14
           }
         });
@@ -136805,7 +140279,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 437,
+            lineNumber: 474,
             columnNumber: 14
           }
         });
@@ -136818,7 +140292,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 442,
+            lineNumber: 479,
             columnNumber: 14
           }
         });
@@ -136828,7 +140302,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 445,
+          lineNumber: 482,
           columnNumber: 12
         }
       });
@@ -136843,14 +140317,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 453,
+          lineNumber: 490,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 454,
+          lineNumber: 491,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -136870,7 +140344,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 467,
+          lineNumber: 504,
           columnNumber: 7
         }
       }, "Retry");
@@ -136903,7 +140377,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 482,
+          lineNumber: 519,
           columnNumber: 7
         }
       }, this.props.content);
@@ -136911,7 +140385,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
   }]);
   return PlainTextMessage;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
+var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "right" : "left";
 });
 var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
@@ -136928,7 +140402,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 497,
+          lineNumber: 534,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -136936,7 +140410,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 498,
+          lineNumber: 535,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -136944,7 +140418,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 499,
+          lineNumber: 536,
           columnNumber: 11
         }
       })));
@@ -136987,7 +140461,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 529,
+            lineNumber: 566,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -137004,7 +140478,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 546,
+          lineNumber: 583,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -137091,59 +140565,68 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  font-weight: bold !important;\n"])));
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  color: ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
+  return theme.typography.title;
+});
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.typography.body;
+}, function (_ref7) {
+  var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
 var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref6) {
-  var theme = _ref6.theme;
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+  var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref7) {
-  var theme = _ref7.theme;
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+  var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  font-size: ", ";\n  line-height: 1.465;\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a: {\n    text-decoration: none !important;\n    font-weight: bold !important;\n  }\n\n  svg: {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref8) {
-  var theme = _ref8.theme;
-  return theme.globals.baseBorder;
-}, function (_ref9) {
-  var theme = _ref9.theme;
-  return theme.palette.white;
-}, function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
-  return theme.spacing.small;
+  return theme.globals.baseBorder;
 }, function (_ref11) {
   var theme = _ref11.theme;
-  return theme.spacing.small;
+  return theme.palette.white;
 }, function (_ref12) {
   var theme = _ref12.theme;
-  return theme.button.normal.padding;
+  return theme.spacing.small;
 }, function (_ref13) {
   var theme = _ref13.theme;
-  return theme.button.normal.padding;
+  return theme.spacing.small;
 }, function (_ref14) {
   var theme = _ref14.theme;
-  return theme.button.normal.fontSize;
+  return theme.button.normal.padding;
 }, function (_ref15) {
   var theme = _ref15.theme;
-  return theme.spacing.mini;
+  return theme.button.normal.padding;
 }, function (_ref16) {
   var theme = _ref16.theme;
-  return theme.spacing.mini;
+  return theme.typography.label;
 }, function (_ref17) {
   var theme = _ref17.theme;
-  return theme.globals.textSecondaryColor;
+  return theme.spacing.mini;
 }, function (_ref18) {
   var theme = _ref18.theme;
+  return theme.spacing.mini;
+}, function (_ref19) {
+  var theme = _ref19.theme;
+  return theme.globals.textSecondaryColor;
+}, function (_ref20) {
+  var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  font-weight: bold;\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (props) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+  var theme = _ref21.theme;
+  return theme.typography.label;
+}, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
 //#endregion Styled Components
@@ -137155,13 +140638,13 @@ InteractiveMessage.propTypes = {
   isCarouselElem: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
   templateIdentifier: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
 };
-function InteractiveMessage(_ref19) {
-  var content = _ref19.content,
-    templateType = _ref19.templateType,
-    addMessage = _ref19.addMessage,
-    textInputRef = _ref19.textInputRef,
-    isCarouselElem = _ref19.isCarouselElem,
-    templateIdentifier = _ref19.templateIdentifier;
+function InteractiveMessage(_ref22) {
+  var content = _ref22.content,
+    templateType = _ref22.templateType,
+    addMessage = _ref22.addMessage,
+    textInputRef = _ref22.textInputRef,
+    isCarouselElem = _ref22.isCarouselElem,
+    templateIdentifier = _ref22.templateIdentifier;
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
     _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     responseSelected = _useState2[0],
@@ -137216,7 +140699,7 @@ function InteractiveMessage(_ref19) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 198,
+          lineNumber: 197,
           columnNumber: 14
         }
       });
@@ -137230,7 +140713,7 @@ function InteractiveMessage(_ref19) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 200,
+          lineNumber: 199,
           columnNumber: 14
         }
       });
@@ -137241,7 +140724,7 @@ function InteractiveMessage(_ref19) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 202,
+          lineNumber: 201,
           columnNumber: 14
         }
       });
@@ -137256,7 +140739,7 @@ function InteractiveMessage(_ref19) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 208,
+        lineNumber: 207,
         columnNumber: 12
       }
     });
@@ -137267,7 +140750,7 @@ function InteractiveMessage(_ref19) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 210,
+        lineNumber: 209,
         columnNumber: 12
       }
     });
@@ -137278,7 +140761,7 @@ function InteractiveMessage(_ref19) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 212,
+        lineNumber: 211,
         columnNumber: 12
       }
     });
@@ -137289,7 +140772,7 @@ function InteractiveMessage(_ref19) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 216,
+      lineNumber: 215,
       columnNumber: 5
     }
   }, renderTemplate());
@@ -137298,10 +140781,10 @@ ReactiveImage.propTypes = {
   imageSrc: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
   imageDescription: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
 };
-function ReactiveImage(_ref20) {
-  var imageSrc = _ref20.imageSrc,
-    imageDescription = _ref20.imageDescription,
-    onImageLoad = _ref20.onImageLoad;
+function ReactiveImage(_ref23) {
+  var imageSrc = _ref23.imageSrc,
+    imageDescription = _ref23.imageDescription,
+    onImageLoad = _ref23.onImageLoad;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ElementImage, {
     src: imageSrc,
     alt: imageDescription,
@@ -137312,7 +140795,7 @@ function ReactiveImage(_ref20) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 228,
+      lineNumber: 227,
       columnNumber: 10
     }
   });
@@ -137321,14 +140804,14 @@ HeaderText.propTypes = {
   title: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,
   subtitle: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
 };
-function HeaderText(_ref21) {
-  var title = _ref21.title,
-    subtitle = _ref21.subtitle;
+function HeaderText(_ref24) {
+  var title = _ref24.title,
+    subtitle = _ref24.subtitle;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextSection, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 238,
+      lineNumber: 237,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_11__["RichMessageRenderer"], {
@@ -137337,7 +140820,7 @@ function HeaderText(_ref21) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 238,
       columnNumber: 7
     }
   }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_11__["RichMessageRenderer"], {
@@ -137346,7 +140829,7 @@ function HeaderText(_ref21) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 240,
+      lineNumber: 239,
       columnNumber: 21
     }
   }));
@@ -137362,7 +140845,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 247,
+      lineNumber: 246,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -137371,7 +140854,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 255,
+      lineNumber: 254,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -137379,22 +140862,22 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 256,
+      lineNumber: 255,
       columnNumber: 7
     }
   }));
 }
-function PickerElementLinkOption(_ref22) {
-  var url = _ref22.url,
-    title = _ref22.title,
-    target = _ref22.target,
-    testId = _ref22.testId;
+function PickerElementLinkOption(_ref25) {
+  var url = _ref25.url,
+    title = _ref25.title,
+    target = _ref25.target,
+    testId = _ref25.testId;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerElementLink, {
     "data-testid": testId,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 263,
+      lineNumber: 262,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerOptionTitle, {
@@ -137402,7 +140885,7 @@ function PickerElementLinkOption(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 264,
+      lineNumber: 263,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
@@ -137411,14 +140894,14 @@ function PickerElementLinkOption(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 265,
+      lineNumber: 264,
       columnNumber: 9
     }
   }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ExternalLinkIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 268,
+      lineNumber: 267,
       columnNumber: 9
     }
   })));
@@ -138176,10 +141659,13 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: #D6D6FA;\n  color: #1A1A1A;\n  font-size: 15px;\n  font-weight: 500;\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: #C4C4F8;\n  }\n"])));
-function ReplyElement(_ref3) {
-  var element = _ref3.element,
-    handleSelection = _ref3.handleSelection;
+var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: #D6D6FA;\n  color: #1A1A1A;\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: #C4C4F8;\n  }\n"])), function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.typography.label;
+});
+function ReplyElement(_ref4) {
+  var element = _ref4.element,
+    handleSelection = _ref4.handleSelection;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "replyOptionCharLimit");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyOption, {
     onClick: function onClick() {
@@ -138190,7 +141676,7 @@ function ReplyElement(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 48,
+      lineNumber: 47,
       columnNumber: 5
     }
   }, title);
@@ -138199,10 +141685,10 @@ QuickReply.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
-function QuickReply(_ref4) {
+function QuickReply(_ref5) {
   var _this = this;
-  var content = _ref4.content,
-    addMessage = _ref4.addMessage;
+  var content = _ref5.content,
+    addMessage = _ref5.addMessage;
   var inputTitle = content.title,
     elements = content.elements;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
@@ -138213,7 +141699,7 @@ function QuickReply(_ref4) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65,
+      lineNumber: 64,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -138221,7 +141707,7 @@ function QuickReply(_ref4) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66,
+      lineNumber: 65,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ResponsesSection, {
@@ -138229,7 +141715,7 @@ function QuickReply(_ref4) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68,
+      lineNumber: 67,
       columnNumber: 7
     }
   }, elements.map(function (element, index) {
@@ -138240,7 +141726,7 @@ function QuickReply(_ref4) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 70,
+        lineNumber: 69,
         columnNumber: 11
       }
     });
@@ -138336,26 +141822,29 @@ var TimeslotControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 var PrevTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-start;\n"])));
 var NextTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-end;\n"])));
-var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #3F5773;\n  color: #fff !important;\n"])));
-var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
-var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref11) {
+var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  ", ";\n  background-color: #3F5773;\n  color: #fff !important;\n"])), function (_ref11) {
   var theme = _ref11.theme;
-  return theme.spacing.mini;
-}, function (_ref12) {
+  return theme.typography.label;
+});
+var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
+var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref12) {
   var theme = _ref12.theme;
-  return theme.fontsSize.small;
+  return theme.spacing.mini;
 }, function (_ref13) {
   var theme = _ref13.theme;
+  return theme.fontsSize.small;
+}, function (_ref14) {
+  var theme = _ref14.theme;
   return theme.fontsSize.small;
 });
 function getLocale() {
   return (navigator.languages && navigator.languages.length > 0 ? navigator.languages[0] : navigator.language) || 'en-US';
 }
-function TimeslotButton(_ref14) {
-  var timeslot = _ref14.timeslot,
-    onClick = _ref14.onClick,
-    onKeyPress = _ref14.onKeyPress,
-    selected = _ref14.selected;
+function TimeslotButton(_ref15) {
+  var timeslot = _ref15.timeslot,
+    onClick = _ref15.onClick,
+    onKeyPress = _ref15.onKeyPress,
+    selected = _ref15.selected;
   var date = timeslot.date;
   var parsedDate = new Date(date);
   var start = parsedDate.toLocaleTimeString("".concat(getLocale()), {
@@ -138371,7 +141860,7 @@ function TimeslotButton(_ref14) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 136,
+      lineNumber: 137,
       columnNumber: 9
     }
   }, "".concat(start));
@@ -138380,14 +141869,14 @@ TimePicker.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
 };
-function Chevron(_ref15) {
-  var direction = _ref15.direction;
+function Chevron(_ref16) {
+  var direction = _ref16.direction;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(ChevronIcon, {
     direction: direction,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149,
+      lineNumber: 150,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("svg", {
@@ -138398,14 +141887,14 @@ function Chevron(_ref15) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 150,
+      lineNumber: 151,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("title", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 151,
+      lineNumber: 152,
       columnNumber: 9
     }
   }, "Path"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("g", {
@@ -138417,7 +141906,7 @@ function Chevron(_ref15) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 152,
+      lineNumber: 153,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("polygon", {
@@ -138428,14 +141917,14 @@ function Chevron(_ref15) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 153,
+      lineNumber: 154,
       columnNumber: 11
     }
   }))));
 }
-function TimePicker(_ref16) {
-  var content = _ref16.content,
-    addMessage = _ref16.addMessage;
+function TimePicker(_ref17) {
+  var content = _ref17.content,
+    addMessage = _ref17.addMessage;
   var inputTitle = content.title,
     inputSubtitle = content.subtitle,
     timeZoneOffset = content.timeZoneOffset,
@@ -138501,7 +141990,7 @@ function TimePicker(_ref16) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 215,
+        lineNumber: 216,
         columnNumber: 12
       }
     });
@@ -138519,21 +142008,21 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 228,
+      lineNumber: 229,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_7__["ResponsesSection"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 229,
+      lineNumber: 230,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(DatePicker, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 230,
+      lineNumber: 231,
       columnNumber: 9
     }
   }, showDateControls && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(DatePicker.PrevDateButton, {
@@ -138544,7 +142033,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 232,
+      lineNumber: 233,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Chevron, {
@@ -138552,14 +142041,14 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 233,
+      lineNumber: 234,
       columnNumber: 13
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 235,
+      lineNumber: 236,
       columnNumber: 11
     }
   }, dateString), showDateControls && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(DatePicker.NextDateButton, {
@@ -138569,7 +142058,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 237,
+      lineNumber: 238,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Chevron, {
@@ -138577,21 +142066,21 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 238,
+      lineNumber: 239,
       columnNumber: 13
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(TimeslotsList, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 241,
+      lineNumber: 242,
       columnNumber: 9
     }
   }, visibleTimeslotsForSelectedDate.map(renderTimeslot)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(TimeslotControls, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 244,
+      lineNumber: 245,
       columnNumber: 9
     }
   }, selectedTimeslot != null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(ResetSelectionButton, {
@@ -138600,7 +142089,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 247,
+      lineNumber: 248,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("svg", {
@@ -138610,7 +142099,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 248,
+      lineNumber: 249,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("path", {
@@ -138619,7 +142108,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 249,
+      lineNumber: 250,
       columnNumber: 17
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(ConfirmSelectionButton, {
@@ -138629,7 +142118,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 252,
+      lineNumber: 253,
       columnNumber: 13
     }
   }, "Confirm")), showTimeslotPaginationButtons && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(PrevTimeslotsButton, {
@@ -138638,7 +142127,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 256,
+      lineNumber: 257,
       columnNumber: 13
     }
   }, "Earlier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(NextTimeslotsButton, {
@@ -138647,7 +142136,7 @@ function TimePicker(_ref16) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 258,
+      lineNumber: 259,
       columnNumber: 13
     }
   }, "Later")))));
@@ -138916,7 +142405,10 @@ var _templateObject,
 var ScrollContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  overflow: auto;\n"])));
 var SCROLL_BOTTOM_MARGIN = 20;
 var SCROLL_TOP_MARGIN = 0;
-var LoaderWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_11__["MessageBox"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 80%;\n  text-align: center;\n  transition: 100ms;\n  font-size: 0.8em;\n  margin: 0 auto;\n"])));
+var LoaderWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_11__["MessageBox"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  width: 80%;\n  text-align: center;\n  transition: 100ms;\n  margin: 0 auto;\n"])), function (_ref) {
+  var theme = _ref.theme;
+  return theme.typography.supportingText;
+});
 ChatTranscriptScroller.propTypes = {
   contactId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
   loadPreviousTranscript: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
@@ -138928,12 +142420,12 @@ ChatTranscriptScroller.defaultProps = {
   },
   lastSentMessageId: ''
 };
-function ChatTranscriptScroller(_ref) {
-  var contactId = _ref.contactId,
-    lastSentMessageId = _ref.lastSentMessageId,
-    loadPreviousTranscript = _ref.loadPreviousTranscript,
-    className = _ref.className,
-    children = _ref.children;
+function ChatTranscriptScroller(_ref2) {
+  var contactId = _ref2.contactId,
+    lastSentMessageId = _ref2.lastSentMessageId,
+    loadPreviousTranscript = _ref2.loadPreviousTranscript,
+    className = _ref2.className,
+    children = _ref2.children;
   var ref = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
   var prevChildren = Object(connect_hooks__WEBPACK_IMPORTED_MODULE_10__["usePrevious"])(children);
   var prevLastSentMessageId = Object(connect_hooks__WEBPACK_IMPORTED_MODULE_10__["usePrevious"])(lastSentMessageId);
@@ -140554,11 +144046,11 @@ var globalStyles = function globalStyles(_ref) {
 };
 var normalStyles = function normalStyles(_ref2) {
   var button = _ref2.button;
-  return "\n  padding-top: ".concat(button.normal.padding, ";\n  padding-bottom: ").concat(button.normal.padding, ";\n  font-size: ").concat(button.normal.fontSize, ";\n  box-shadow:  ").concat(button.normal.boxShadow, ";\n");
+  return "\n  padding-top: ".concat(button.normal.padding, ";\n  padding-bottom: ").concat(button.normal.padding, ";\n  box-shadow:  ").concat(button.normal.boxShadow, ";\n");
 };
 var smallStyles = function smallStyles(_ref3) {
   var button = _ref3.button;
-  return "\n  padding-top: ".concat(button.small.padding, ";\n  padding-bottom: ").concat(button.small.padding, ";\n  font-size: ").concat(button.small.fontSize, ";\n");
+  return "\n  padding-top: ".concat(button.small.padding, ";\n  padding-bottom: ").concat(button.small.padding, ";\n");
 };
 var defaultStyles = function defaultStyles(_ref4) {
   var button = _ref4.button,
@@ -140573,7 +144065,7 @@ var applyButtonStyles = function applyButtonStyles(_ref5, type) {
 };
 var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].button(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
-  return theme.typography.base;
+  return theme.typography.label;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return globalStyles(theme);
@@ -140588,7 +144080,7 @@ var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].but
 StyledButton.displayName = 'StyledButton';
 var StyledLink = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].a(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  display: inline-block;\n  line-height: normal;\n  &:visited,\n  &:active,\n  &:link {\n    text-decoration: none;\n    ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
-  return theme.typography.base;
+  return theme.typography.label;
 }, function (props) {
   return props.type && applyButtonStyles(props.theme, props.type);
 }, function (props) {
@@ -140614,7 +144106,7 @@ var Button = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 149,
+            lineNumber: 147,
             columnNumber: 9
           }
         }));
@@ -140625,7 +144117,7 @@ var Button = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 153,
+          lineNumber: 151,
           columnNumber: 7
         }
       }), this.props.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_10__["Loader"], {
@@ -140633,7 +144125,7 @@ var Button = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 154,
+          lineNumber: 152,
           columnNumber: 32
         }
       }), this.props.icon && !this.props.loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_10__["Icon"], {
@@ -140642,7 +144134,7 @@ var Button = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 155,
+          lineNumber: 153,
           columnNumber: 52
         }
       }), this.props.children);
@@ -141890,7 +145382,42 @@ var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface
 
 
 function getClientInfo() {
-  return typeof window !== 'undefined' && window.__CHAT_CLIENT_INFO__ ? window.__CHAT_CLIENT_INFO__ : null;
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  if (window.__CHAT_CLIENT_INFO__) {
+    return window.__CHAT_CLIENT_INFO__;
+  }
+  // The widget is typically rendered inside the vendor's iframe, which never
+  // loads clientInfo.js itself - only the host page does. Fall back to the
+  // parent window's copy (same pattern Chat.js uses for header colors).
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__) {
+      return window.parent.__CHAT_CLIENT_INFO__;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
+function resolveFontFaces(clientConfig) {
+  var fontFaces = clientConfig.fontFaces;
+  if (!Array.isArray(fontFaces) || !fontFaces.length) {
+    return [];
+  }
+  var baseHref = window.location.href;
+  try {
+    if (window.parent && window.parent !== window) {
+      baseHref = window.parent.location.href;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; resolve font URLs against our own document instead
+  }
+  return fontFaces.map(function (face) {
+    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, face, {
+      url: new URL(face.url, baseHref).href
+    });
+  });
 }
 function buildThemeConfig() {
   var clientConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -141947,6 +145474,7 @@ function buildLogoConfig(clientInfo) {
     var themeConfig = Object.assign({}, buildThemeConfig(clientConfig), props.themeConfig || {});
     var headerConfig = Object.assign({}, buildHeaderConfig(clientConfig), props.headerConfig || {});
     var logoConfig = Object.assign({}, buildLogoConfig(clientInfo), props.logoConfig || {});
+    var fontFaces = resolveFontFaces(clientConfig);
     if (props.widgetType) {
       _utils_log__WEBPACK_IMPORTED_MODULE_111__["config"].csmConfig = {
         widgetType: props.widgetType
@@ -141967,17 +145495,18 @@ function buildLogoConfig(clientInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 93,
+        lineNumber: 128,
         columnNumber: 7
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_107___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_110__["default"], Object.assign({}, props, {
       themeConfig: themeConfig,
       headerConfig: headerConfig,
       logoConfig: logoConfig,
+      fontFaces: fontFaces,
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 93,
+        lineNumber: 128,
         columnNumber: 22
       }
     }))), document.getElementById(containerId) || document.getElementById("root"));
@@ -142222,6 +145751,55 @@ var HiddenLevelOneHeading = styled_components__WEBPACK_IMPORTED_MODULE_1__["defa
 
 /***/ }),
 
+/***/ "./src/theme/Palette.js":
+/*!******************************!*\
+  !*** ./src/theme/Palette.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _defaultTheme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultTheme */ "./src/theme/defaultTheme.js");
+
+var Palette = {
+  colors: {},
+  palette: {},
+  globals: {},
+  color: {},
+  theme: {},
+  setTheme: function setTheme(nextTheme) {
+    var _this = this;
+    var theme = Object.assign({}, _defaultTheme__WEBPACK_IMPORTED_MODULE_0__["default"], nextTheme || {});
+
+    // Preserve references for imported usage
+    Object.keys(this.colors).forEach(function (key) {
+      return delete _this.colors[key];
+    });
+    Object.keys(this.palette).forEach(function (key) {
+      return delete _this.palette[key];
+    });
+    Object.keys(this.globals).forEach(function (key) {
+      return delete _this.globals[key];
+    });
+    Object.keys(this.color).forEach(function (key) {
+      return delete _this.color[key];
+    });
+    Object.keys(this.theme).forEach(function (key) {
+      return delete _this.theme[key];
+    });
+    Object.assign(this.colors, theme.colors || {});
+    Object.assign(this.palette, theme.palette || {});
+    Object.assign(this.globals, theme.globals || {});
+    Object.assign(this.color, theme.color || {});
+    Object.assign(this.theme, theme);
+  }
+};
+Palette.setTheme(_defaultTheme__WEBPACK_IMPORTED_MODULE_0__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (Palette);
+
+/***/ }),
+
 /***/ "./src/theme/ThemeProvider.js":
 /*!************************************!*\
   !*** ./src/theme/ThemeProvider.js ***!
@@ -142232,18 +145810,22 @@ var HiddenLevelOneHeading = styled_components__WEBPACK_IMPORTED_MODULE_1__["defa
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ThemeProvider; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _defaultTheme__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./defaultTheme */ "./src/theme/defaultTheme.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _defaultTheme__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./defaultTheme */ "./src/theme/defaultTheme.js");
+/* harmony import */ var _Palette__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Palette */ "./src/theme/Palette.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _loadClientTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./loadClientTheme */ "./src/theme/loadClientTheme.js");
+
 
 
 
@@ -142251,41 +145833,97 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\theme\\ThemeProvider.js";
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(typeof e + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+
+
 
 
 
 
 var ThemeProvider = /*#__PURE__*/function (_Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(ThemeProvider, _Component);
-  function ThemeProvider() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ThemeProvider);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(ThemeProvider).apply(this, arguments));
+  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(ThemeProvider, _Component);
+  function ThemeProvider(props) {
+    var _this;
+    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ThemeProvider);
+    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ThemeProvider).call(this, props));
+    var initialTheme = props.theme || _defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"];
+    _this.state = {
+      theme: initialTheme
+    };
+    _Palette__WEBPACK_IMPORTED_MODULE_10__["default"].setTheme(initialTheme);
+    return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ThemeProvider, [{
+  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ThemeProvider, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var merged;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (!this.props.theme) {
+                _context.next = 3;
+                break;
+              }
+              _Palette__WEBPACK_IMPORTED_MODULE_10__["default"].setTheme(this.props.theme);
+              return _context.abrupt("return");
+            case 3:
+              _context.prev = 3;
+              _context.next = 6;
+              return Object(_loadClientTheme__WEBPACK_IMPORTED_MODULE_12__["loadClientThemeBrowser"])(_defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"]);
+            case 6:
+              merged = _context.sent;
+              this.setState({
+                theme: merged
+              });
+              _Palette__WEBPACK_IMPORTED_MODULE_10__["default"].setTheme(merged);
+              _context.next = 13;
+              break;
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](3);
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this, [[3, 11]]);
+      }));
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+      return componentDidMount;
+    }()
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.theme && this.props.theme !== prevProps.theme) {
+        _Palette__WEBPACK_IMPORTED_MODULE_10__["default"].setTheme(this.props.theme);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-        theme = _this$props.theme,
-        children = _this$props.children;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(styled_components__WEBPACK_IMPORTED_MODULE_7__["ThemeProvider"], {
+      var children = this.props.children;
+      var theme = this.props.theme || this.state.theme;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(styled_components__WEBPACK_IMPORTED_MODULE_8__["ThemeProvider"], {
         theme: theme,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20,
+          lineNumber: 54,
           columnNumber: 7
         }
       }, children);
     }
   }]);
   return ThemeProvider;
-}(react__WEBPACK_IMPORTED_MODULE_6__["Component"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(ThemeProvider, "propTypes", {
-  children: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.node.isRequired,
-  theme: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.objectOf(prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object)
+}(react__WEBPACK_IMPORTED_MODULE_7__["Component"]);
+Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "propTypes", {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.node.isRequired,
+  theme: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.objectOf(prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.object)
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(ThemeProvider, "defaultProps", {
-  theme: _defaultTheme__WEBPACK_IMPORTED_MODULE_8__["default"]
+Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "defaultProps", {
+  theme: _defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"]
 });
 
 
@@ -142350,8 +145988,8 @@ var palette = {
   // rust brown
   green: '#109B2B',
   // green
-  lightGreen: '#AADFB4',
-  // light green
+  lightPeriwinkle: '#D8DFFF',
+  // customer message bubble
   red: '#D0021B',
   // red
   yellow: '#F5A623',
@@ -142509,7 +146147,22 @@ var defaultTheme = {
     h6Margin: '2.33em 0 1.17em 0',
     base: "\n      font-size: ".concat(globals.bodyFontSize, ";\n      line-height: 1.465;\n      font-weight: normal;\n      font-family: ").concat(globals.bodyFontFamily, ";\n      padding: 0;\n    "),
     baseMargin: '1em 0 0.5em 0',
-    a: "\n      font-size: ".concat(globals.link.base, ";\n      color: ").concat(globals.link.color, ";\n      text-decoration: ").concat(globals.link.decoration, ";\n\n      &:hover{\n        color: ").concat(globals.link.hoverColor, ";\n        text-decoration: ").concat(globals.link.hoverDecoration, ";\n      }\n    ")
+    a: "\n      font-size: ".concat(globals.link.base, ";\n      color: ").concat(globals.link.color, ";\n      text-decoration: ").concat(globals.link.decoration, ";\n\n      &:hover{\n        color: ").concat(globals.link.hoverColor, ";\n        text-decoration: ").concat(globals.link.hoverDecoration, ";\n      }\n    "),
+    // Canonical widget text styles. Sizing/line-height/weight/spacing are
+    // fixed across every brand - font-family is intentionally NOT set here,
+    // so these inherit --ac-widget-global-typeface from the Page wrapper
+    // (App.js) instead of overriding it with a hardcoded family.
+    title: "\n      font-size: 14px;\n      line-height: 14px;\n      font-weight: normal;\n      padding: 0;\n    ",
+    body: "\n      font-size: 15px;\n      line-height: 22px;\n      font-weight: normal;\n      padding: 0;\n    ",
+    bodyMargin: '0 0 10px 0',
+    emphasis: "\n      font-weight: bold;\n    ",
+    label: "\n      font-size: 12px;\n      line-height: 16px;\n      font-weight: normal;\n      padding: 0;\n    ",
+    supportingText: "\n      font-size: 10px;\n      line-height: 12px;\n      font-weight: normal;\n      padding: 0;\n    ",
+    supportingTextMargin: '0 0 10px 0',
+    inlineButton: "\n      text-decoration: underline;\n      font-weight: bold;\n    ",
+    disclaimer: "\n      font-size: 10px;\n      line-height: 16px;\n      font-weight: normal;\n      padding: 0;\n    ",
+    disclaimerMargin: '0 0 10px 0',
+    disclaimerLink: "\n      text-decoration: underline;\n    "
   },
   // Button
   button: {
@@ -142633,9 +146286,9 @@ var defaultTheme = {
   },
   chatTranscriptor: {
     loading: color.primary,
-    outgoingMsgBg: palette.lightGreen,
+    outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
-    outgoingMsg: "\n      color: ".concat(palette.secondaryBlack, ";\n      background: ").concat(palette.lightGreen, ";\n      font-family: \"").concat(fonts.regular, "\";\n      "),
+    outgoingMsg: "\n      color: ".concat(palette.secondaryBlack, ";\n      background: ").concat(palette.lightPeriwinkle, ";\n      font-family: \"").concat(fonts.regular, "\";\n      "),
     incomingMsg: "\n      color: ".concat(palette.secondaryBlack, ";\n      background: ").concat(palette.whisper, ";\n      font-family: \"").concat(fonts.regular, "\";\n      ")
   }
 };
@@ -142649,7 +146302,7 @@ var defaultTheme = {
 /*!****************************!*\
   !*** ./src/theme/index.js ***!
   \****************************/
-/*! exports provided: ThemeProvider, defaultTheme */
+/*! exports provided: ThemeProvider, defaultTheme, Palette */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -142660,8 +146313,129 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _defaultTheme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultTheme */ "./src/theme/defaultTheme.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultTheme", function() { return _defaultTheme__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
+/* harmony import */ var _Palette__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Palette */ "./src/theme/Palette.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Palette", function() { return _Palette__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
 
+
+
+
+/***/ }),
+
+/***/ "./src/theme/loadClientTheme.js":
+/*!**************************************!*\
+  !*** ./src/theme/loadClientTheme.js ***!
+  \**************************************/
+/*! exports provided: mergeClientColors, loadClientThemeSync, loadClientThemeBrowser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeClientColors", function() { return mergeClientColors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadClientThemeSync", function() { return loadClientThemeSync; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadClientThemeBrowser", function() { return loadClientThemeBrowser; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "./node_modules/node-libs-browser/mock/empty.js");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_3__);
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(typeof e + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+
+
+
+function mergeClientColors(defaultTheme, colors) {
+  var theme = lodash_merge__WEBPACK_IMPORTED_MODULE_3___default()({}, defaultTheme, {
+    colors: colors
+  });
+
+  // Map useful aliases into theme.color for convenient access (shallow)
+  try {
+    if (colors && colors.primary && colors.primary['500']) {
+      theme.color = Object.assign({}, defaultTheme.color, {
+        primary: colors.primary['500']
+      });
+    }
+    if (colors && colors.secondary && colors.secondary['500']) {
+      theme.color = Object.assign({}, theme.color || defaultTheme.color, {
+        secondary: colors.secondary['500']
+      });
+    }
+  } catch (e) {
+    // ignore mapping errors
+  }
+  return theme;
+}
+
+// Try to load a client's colors synchronously at build-time (Node).
+function loadClientThemeSync(defaultTheme, clientName) {
+  if (!clientName) return defaultTheme;
+  try {
+    var colorsPath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(process.cwd(), 'clients', clientName, 'theme', 'colors.json');
+    if (fs__WEBPACK_IMPORTED_MODULE_1___default.a.existsSync(colorsPath)) {
+      var colors = JSON.parse(fs__WEBPACK_IMPORTED_MODULE_1___default.a.readFileSync(colorsPath, 'utf8'));
+      return mergeClientColors(defaultTheme, colors);
+    }
+  } catch (e) {
+    // swallow errors and return default
+  }
+  return defaultTheme;
+}
+
+// Browser runtime helper: fetch colors from prepared client assets (if present)
+function loadClientThemeBrowser(_x) {
+  return _loadClientThemeBrowser.apply(this, arguments);
+}
+function _loadClientThemeBrowser() {
+  _loadClientThemeBrowser = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(defaultTheme) {
+    var url,
+      res,
+      colors,
+      _args = arguments;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          url = _args.length > 1 && _args[1] !== undefined ? _args[1] : '/client-assets/theme/colors.json';
+          _context.prev = 1;
+          if (!(typeof window === 'undefined' || typeof fetch === 'undefined')) {
+            _context.next = 4;
+            break;
+          }
+          return _context.abrupt("return", defaultTheme);
+        case 4:
+          _context.next = 6;
+          return fetch(url, {
+            cache: 'no-store'
+          });
+        case 6:
+          res = _context.sent;
+          if (res.ok) {
+            _context.next = 9;
+            break;
+          }
+          return _context.abrupt("return", defaultTheme);
+        case 9:
+          _context.next = 11;
+          return res.json();
+        case 11:
+          colors = _context.sent;
+          return _context.abrupt("return", mergeClientColors(defaultTheme, colors));
+        case 15:
+          _context.prev = 15;
+          _context.t0 = _context["catch"](1);
+          return _context.abrupt("return", defaultTheme);
+        case 18:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[1, 15]]);
+  }));
+  return _loadClientThemeBrowser.apply(this, arguments);
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

@@ -124,9 +124,10 @@ const defaultHeaderConfig = {
             <div>
               <div style={{
                 color: textColor,
-                fontSize: '14px',
-                lineHeight: '14px',
-                fontWeight: 'normal',
+                fontSize: '16px',
+                lineHeight: '20px',
+                fontWeight: 700,
+                letterSpacing: 'normal',
               }}>
                 {hc.title || ''}
               </div>

@@ -456,8 +456,40 @@ function getClientLogoUrl(clientPath) {
   return null;
 }
 
+// Same resolution strategy as getClientLogoUrl(), but for the small
+// virtual-assistant avatar shown next to incoming chat messages. Kept as a
+// distinct asset (not a fallback to the header logo) so brands opt in
+// explicitly by dropping an avatar file in - clients without one render no
+// avatar at all, leaving their transcript UI unchanged.
+function getClientAvatarUrl(clientPath) {
+  const assetsDir = path.join(clientPath, 'assets');
+  const candidates = ['images/avatar.svg', 'images/avatar.png', 'avatar.svg', 'avatar.png'];
+  for (const relativePath of candidates) {
+    if (fs.existsSync(path.join(assetsDir, relativePath))) {
+      return `./client-assets/${relativePath}`;
+    }
+  }
+  return null;
+}
+
+// Same resolution strategy as getClientAvatarUrl(), but for the composer's
+// send-message button icon. Brands that don't supply one keep the default
+// inline SVG (which supports CSS-driven active/inactive recoloring); a
+// supplied file's own color is used as-is since external images can't be
+// recolored via CSS fill.
+function getClientSendIconUrl(clientPath) {
+  const assetsDir = path.join(clientPath, 'assets');
+  const candidates = ['images/send-icon.svg', 'images/send-icon.png', 'send-icon.svg', 'send-icon.png'];
+  for (const relativePath of candidates) {
+    if (fs.existsSync(path.join(assetsDir, relativePath))) {
+      return `./client-assets/${relativePath}`;
+    }
+  }
+  return null;
+}
+
 // Generate client info file for runtime reference
-function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
+function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, avatarUrl = null, sendIconUrl = null) {
   const finalFontFamily = resolvedFontFamily || getResolvedFontFamily(config.widget?.fontFamily, fontFiles);
   const info = {
     client: clientName,
@@ -475,8 +507,11 @@ function generateClientInfo(clientName, envName, config, outputPath, logoUrl, fo
     },
   };
 
-  if (logoUrl) {
-    info.assets = {logo: logoUrl};
+  if (logoUrl || avatarUrl || sendIconUrl) {
+    info.assets = {};
+    if (logoUrl) info.assets.logo = logoUrl;
+    if (avatarUrl) info.assets.avatar = avatarUrl;
+    if (sendIconUrl) info.assets.sendIcon = sendIconUrl;
   }
 
   const content = `/**
@@ -624,9 +659,11 @@ Examples:
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
 
   const logoUrl = getClientLogoUrl(clientPath);
+  const avatarUrl = getClientAvatarUrl(clientPath);
+  const sendIconUrl = getClientSendIconUrl(clientPath);
   const colorPalette = getClientColorPalette(clientThemeDir, config.widget);
   console.log('  🔎 Resolved color palette:', colorPalette);
-  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette);
+  generateClientInfo(clientName, envName, config, path.join(localTestingDir, 'clientInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette, avatarUrl, sendIconUrl);
   generateClientThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'client-theme.css'), fontFiles, resolvedFontFamily, colorPalette);
   const envStateFile = path.join(__dirname, '..', '.client-env');
   fs.writeFileSync(envStateFile, JSON.stringify({client: clientName, env: envName}, null, 2));
