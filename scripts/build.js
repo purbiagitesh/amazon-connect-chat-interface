@@ -40,22 +40,22 @@ const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
 const isInteractive = process.stdout.isTTY;
 
-function prepareClientForBuild() {
-  const stateFile = path.join(__dirname, '..', '.client-env');
+function prepareBrandForBuild() {
+  const stateFile = path.join(__dirname, '..', '.brand-env');
   if (!fs.existsSync(stateFile)) {
     return;
   }
 
   try {
     const state = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
-    if (!state.client || !state.env) {
+    if (!state.brand || !state.env) {
       return;
     }
 
-    console.log(`Preparing client assets for build: ${state.client} (${state.env})`);
+    console.log(`Preparing brand assets for build: ${state.brand} (${state.env})`);
     const result = spawnSync(
       process.execPath,
-      [path.join(__dirname, 'prepare-client.js'), `--client=${state.client}`, `--env=${state.env}`],
+      [path.join(__dirname, 'prepare-brand.js'), `--brand=${state.brand}`, `--env=${state.env}`],
       {stdio: 'inherit'}
     );
 
@@ -63,11 +63,11 @@ function prepareClientForBuild() {
       process.exit(result.status || 1);
     }
   } catch (error) {
-    console.warn('Unable to prepare client assets before build:', error.message);
+    console.warn('Unable to prepare brand assets before build:', error.message);
   }
 }
 
-prepareClientForBuild();
+prepareBrandForBuild();
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appIndexJs])) {

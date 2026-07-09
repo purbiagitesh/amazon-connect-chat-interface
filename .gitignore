@@ -21,8 +21,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Client environment state
-.client-env
-# Generated client assets in local-testing
-local-testing/client-assets/
-local-testing/clientInfo.js
+# Brand environment state
+.brand-env
+# Generated brand assets in local-testing
+local-testing/brand-assets/
+local-testing/brandInfo.js

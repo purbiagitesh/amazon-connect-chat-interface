@@ -83,13 +83,13 @@ const WelcomeText = styled(Text)`
 const defaultHeaderConfig = {
   isHTML: false,
   render: (config) => {
-    const clientInfo = (
-      (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.config) ||
-      (window.parent && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.config) ||
+    const brandInfo = (
+      (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config) ||
+      (window.parent && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.config) ||
       {}
     );
-    const hc = clientInfo.header || {};
-    const colors = clientInfo.colors || {};
+    const hc = brandInfo.header || {};
+    const colors = brandInfo.colors || {};
 
     // Use inline styles for colors since CSS vars don't cross iframe boundary.
     // Header background is the brand's Primary500 token - same source the
