@@ -1,32 +1,14 @@
 @font-face {
-  font-family: 'Proxima Nova';
-  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova_Light.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Regular.otf') format('opentype');
+  font-family: 'Optima LT Std Display';
+  src: url('./brand-assets/Fonts/Optima LT Std Display/WOFF2/OptimaDisplay-Roman.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Optima LT Std Display/TTF/OPTIMADISPLAY-ROMAN.TTF') format('truetype');
   font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url('./brand-assets/Fonts/Proxima Nova/WOFF/Proxima Nova/Proxima_Nova_Semibold.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Proxima Nova/WOFF/Recoleta/Recoleta SemiBold.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Proxima Nova/OTF/Proxima Nova/Mark Simonson - Proxima Nova Semibold.otf') format('opentype'),
-       url('./brand-assets/Fonts/Proxima Nova/OTF/Recoleta/Recoleta SemiBold.otf') format('opentype');
-  font-weight: 600;
   font-style: normal;
 }
 
 :root {
   --ac-widget-color-primary-500: #040A2B;
-  --ac-widget-color-primary-800: #01040D;
+  --ac-widget-color-primary-800: #020411;
   --ac-widget-header-backgroundcolor: #040A2B;
   --ac-widget-header-textcolor: #FFFFFF;
   --ac-widget-footer-backgroundcolor: #FF4081;

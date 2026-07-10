@@ -26,12 +26,12 @@ import {formatCarouselInteractiveSelection, isCarouselSelectionMessage} from "./
 // loads clientInfo.js itself - only the host page does. Fall back to the
 // parent window's copy (same pattern used in index.js and Chat.js).
 function getClientAvatarUrl() {
-  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
-    return window.__CHAT_CLIENT_INFO__.assets.avatar;
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.assets) {
+    return window.__CHAT_BRAND_INFO__.assets.avatar;
   }
   try {
-    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
-      return window.parent.__CHAT_CLIENT_INFO__.assets.avatar;
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.assets) {
+      return window.parent.__CHAT_BRAND_INFO__.assets.avatar;
     }
   } catch (e) {
     // window.parent is cross-origin; client info isn't reachable
@@ -114,7 +114,7 @@ const ErrorText = styled.div`
 `;
 
 // Only rendered when a client has an avatar asset configured (see
-// window.__CHAT_CLIENT_INFO__.assets.avatar, populated by
+// window.__CHAT_BRAND_INFO__.assets.avatar, populated by
 // scripts/prepare-client.js). Clients without one keep the original
 // single-column message layout untouched.
 const MessageRow = styled.div`

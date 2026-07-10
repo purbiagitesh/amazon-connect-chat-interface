@@ -12,12 +12,12 @@ const INACTIVE_ICON_COLOR = defaultTheme.palette.white;
 // loads clientInfo.js itself - only the host page does. Fall back to the
 // parent window's copy (same pattern used in ChatMessage.js and index.js).
 function getClientSendIconUrl() {
-  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
-    return window.__CHAT_CLIENT_INFO__.assets.sendIcon;
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.assets) {
+    return window.__CHAT_BRAND_INFO__.assets.sendIcon;
   }
   try {
-    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
-      return window.parent.__CHAT_CLIENT_INFO__.assets.sendIcon;
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.assets) {
+      return window.parent.__CHAT_BRAND_INFO__.assets.sendIcon;
     }
   } catch (e) {
     // window.parent is cross-origin; client info isn't reachable

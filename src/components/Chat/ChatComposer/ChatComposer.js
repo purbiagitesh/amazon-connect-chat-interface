@@ -10,6 +10,26 @@ import {RichTextEditor} from "../RichMessageComponents";
 
 import {ATTACHMENT_ACCEPT_CONTENT_TYPES, ContentType} from "../datamodel/Model";
 
+// Defaults for the "Standard" and "With Character Counter" Input Field variants (Figma spec).
+const DEFAULT_COMPOSER_MAX_LENGTH = 200;
+const DEFAULT_CHARACTER_COUNTER_THRESHOLD = 150;
+const DEFAULT_COMPOSER_MAX_ROWS = 5;
+
+// "With Character Counter" variant: hidden below the threshold, then tracks length live;
+// switches to the error copy once the consumer hits maxLength.
+function getCharacterCounterText(intl, count, maxLength, hasError) {
+  if (hasError) {
+    return intl.formatMessage(
+      { id: "chatComposer.characterLimitReached", defaultMessage: "You have reached the character limit of {max}." },
+      { max: maxLength }
+    );
+  }
+  return intl.formatMessage(
+    { id: "chatComposer.characterLimit", defaultMessage: "Character limit: {count}/{max}" },
+    { count, max: maxLength }
+  );
+}
+
 const ChatComposerWrapper = styled.div`
   margin: 0;
   padding: 0;
@@ -21,7 +41,9 @@ const DefaultChatComposerWrapper = styled.div`
   align-items: center;
   box-sizing: border-box;
   background: var(--ac-widget-composer-background, ${(props) => props.theme.palette.white});
-  border: var(--ac-widget-composer-border, 1px solid ${(props) => props.theme.palette.lightGray});
+  border: ${(props) => props.hasError
+    ? `var(--ac-widget-composer-error-border, 1px solid ${props.theme.palette.red})`
+    : `var(--ac-widget-composer-border, 1px solid ${props.theme.palette.lightGray})`};
   border-radius: var(--ac-widget-composer-border-radius, 24px);
   margin: var(--ac-widget-composer-margin, 8px 16px 16px);
 
@@ -116,15 +138,23 @@ const TextInput = styled(TextareaAutosize)`
   padding-right: var(--ac-widget-composer-send-button-clearance, ${(props) => props.theme.spacing.xxlarge});
   margin-left: ${(props) => props.theme.spacing.base};
   background: transparent;
-  max-height: 80px;
   line-height: 1.5rem;
-  overflow: auto;
+  overflow-y: auto;
   min-height: 39px;
   z-index: 2;
   resize: none;
   letter-spacing: ${(props) => props.theme.globals.letterSpacing};
   font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));
-  border: none
+  border: none;
+
+  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable
+     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &::placeholder {
     color: ${(props) => props.theme.palette.mediumGray};
@@ -152,6 +182,15 @@ const CloseIcon = styled.div`
     width: ${({ theme}) => theme.fontsSize.mini};
     height: ${({ theme}) => theme.fontsSize.mini};
   }
+`;
+
+const CharacterCounter = styled.div`
+  text-align: center;
+  color: ${(props) => props.hasError
+    ? `var(--ac-widget-composer-error-color, ${props.theme.palette.red})`
+    : `var(--ac-widget-composer-counter-color, ${props.theme.palette.mediumGray})`};
+  font-size: var(--ac-widget-composer-counter-fontsize, 12px);
+  margin: 4px 16px;
 `;
 
 const DisclaimerText = styled.div`
@@ -324,11 +363,18 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   }
 
   const intl = useIntl();
+  // "Standard" variant: placeholder shown until the consumer starts typing.
   const ariaLabel = intl.formatMessage({
     id: "chatComposer.placeholder",
     defaultMessage: "Type a message"
   });
   const placeholder = attachment == null ? ariaLabel : "";
+
+  const maxLength = (composerConfig && composerConfig.maxLength) || DEFAULT_COMPOSER_MAX_LENGTH;
+  const characterCounterThreshold = (composerConfig && composerConfig.characterCounterThreshold) || DEFAULT_CHARACTER_COUNTER_THRESHOLD;
+  const isAtCharacterLimit = message.length >= maxLength;
+  const showCharacterCounter = isAtCharacterLimit || message.length >= characterCounterThreshold;
+  const characterCounterText = getCharacterCounterText(intl, message.length, maxLength, isAtCharacterLimit);
 
   const richMessagingComposer = (
     <RichTextEditor
@@ -342,7 +388,8 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   );
 
   const defaultComposer = (
-    <DefaultChatComposerWrapper>
+    <>
+    <DefaultChatComposerWrapper hasError={isAtCharacterLimit}>
           {composerConfig && composerConfig.attachmentsEnabled && (
             <PaperClipContainer
               tabIndex={0}
@@ -403,11 +450,19 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             placeholder={placeholder}
             tabIndex="0"
             spellCheck="true"
+            maxLength={maxLength}
+            maxRows={DEFAULT_COMPOSER_MAX_ROWS}
           />
           <SendMessageButtonContainer>
             <SendMessageButton isActive={!!message || attachment} sendMessage={sendMessage.bind(this)} />
           </SendMessageButtonContainer>
     </DefaultChatComposerWrapper>
+    {showCharacterCounter && (
+      <CharacterCounter data-testid="customer-chat-character-counter" hasError={isAtCharacterLimit}>
+        {characterCounterText}
+      </CharacterCounter>
+    )}
+    </>
   );
 
   // Figma spec calls for a plain single-line composer with no Bold/Italic/list/link/emoji

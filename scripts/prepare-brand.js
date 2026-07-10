@@ -465,7 +465,7 @@ function getClientAvatarUrl(clientPath) {
   const candidates = ['images/avatar.svg', 'images/avatar.png', 'avatar.svg', 'avatar.png'];
   for (const relativePath of candidates) {
     if (fs.existsSync(path.join(assetsDir, relativePath))) {
-      return `./client-assets/${relativePath}`;
+      return `./brand-assets/${relativePath}`;
     }
   }
   return null;
@@ -488,7 +488,7 @@ function getClientSendIconUrl(clientPath) {
 }
 
 // Generate brand info file for runtime reference
-function generateBrandInfo(brandName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
+function generateBrandInfo(brandName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, avatarUrl = null, sendIconUrl = null) {
   const finalFontFamily = resolvedFontFamily || getResolvedFontFamily(config.widget?.fontFamily, fontFiles);
   const info = {
     brand: brandName,
@@ -658,9 +658,11 @@ Examples:
   generateBackendEndpoint(config, path.join(localTestingDir, 'backendEndpoint.js'));
 
   const logoUrl = getBrandLogoUrl(brandPath);
+  const avatarUrl = getClientAvatarUrl(brandPath);
+  const sendIconUrl = getClientSendIconUrl(brandPath);
   const colorPalette = getBrandColorPalette(brandThemeDir, config.widget);
   console.log('  🔎 Resolved color palette:', colorPalette);
-  generateBrandInfo(brandName, envName, config, path.join(localTestingDir, 'brandInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette);
+  generateBrandInfo(brandName, envName, config, path.join(localTestingDir, 'brandInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette, avatarUrl, sendIconUrl);
   generateBrandThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'brand-theme.css'), fontFiles, resolvedFontFamily, colorPalette);
   const envStateFile = path.join(__dirname, '..', '.brand-env');
   fs.writeFileSync(envStateFile, JSON.stringify({brand: brandName, env: envName}, null, 2));

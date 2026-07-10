@@ -33,6 +33,12 @@ Object {
   fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
+.c7>img {
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  object-fit: contain;
+}
+
 .c0 {
   margin: 0;
   padding: 0;
@@ -125,14 +131,22 @@ Object {
   padding-right: var(--ac-widget-composer-send-button-clearance,44px);
   margin-left: 14px;
   background: transparent;
-  max-height: 80px;
   line-height: 1.5rem;
-  overflow: auto;
+  overflow-y: auto;
   min-height: 39px;
   z-index: 2;
   resize: none;
   font-size: var(--ac-widget-composer-fontsize,var(--ac-widget-global-fontsize,16px));
   border: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.c5::-webkit-scrollbar {
+  display: none;
 }
 
 .c5::-webkit-input-placeholder {
@@ -178,6 +192,13 @@ Object {
 .c4 svg {
   width: 24px;
   height: 24px;
+}
+
+.c8 {
+  text-align: center;
+  color: var(--ac-widget-composer-disclaimer-color,#666666);
+  font-size: var(--ac-widget-composer-disclaimer-fontsize,12px);
+  margin: 0 16px 8px;
 }
 
 @media (max-width:360px) {
@@ -238,6 +259,7 @@ Object {
             aria-label="Type a message"
             class="c5"
             data-testid="customer-chat-text-input"
+            maxlength="200"
             placeholder="Type a message"
             spellcheck="true"
             tabindex="0"
@@ -262,11 +284,16 @@ Object {
                   fill="none"
                 />
                 <path
-                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                  d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
                 />
               </svg>
             </div>
           </div>
+        </div>
+        <div
+          class="c8"
+        >
+          Virtual Assistant is AI and can make mistakes.
         </div>
       </div>
     </div>
@@ -321,8 +348,9 @@ Object {
         </div>
         <textarea
           aria-label="Type a message"
-          class="sc-hMqMXs iMgfus"
+          class="sc-hMqMXs fKvdMo"
           data-testid="customer-chat-text-input"
+          maxlength="200"
           placeholder="Type a message"
           spellcheck="true"
           tabindex="0"
@@ -332,7 +360,7 @@ Object {
         >
           <div
             aria-label="Send Message"
-            class="sc-bdVaJa dJQglV"
+            class="sc-bdVaJa iOYBrR"
             data-testid="customer-chat-send-message-button"
             tabindex="0"
           >
@@ -347,11 +375,16 @@ Object {
                 fill="none"
               />
               <path
-                d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
               />
             </svg>
           </div>
         </div>
+      </div>
+      <div
+        class="sc-hSdWYo hSMhHv"
+      >
+        Virtual Assistant is AI and can make mistakes.
       </div>
     </div>
   </div>,
@@ -441,6 +474,12 @@ Object {
   fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
+.c7>img {
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  object-fit: contain;
+}
+
 .c0 {
   margin: 0;
   padding: 0;
@@ -533,14 +572,22 @@ Object {
   padding-right: var(--ac-widget-composer-send-button-clearance,44px);
   margin-left: 14px;
   background: transparent;
-  max-height: 80px;
   line-height: 1.5rem;
-  overflow: auto;
+  overflow-y: auto;
   min-height: 39px;
   z-index: 2;
   resize: none;
   font-size: var(--ac-widget-composer-fontsize,var(--ac-widget-global-fontsize,16px));
   border: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.c5::-webkit-scrollbar {
+  display: none;
 }
 
 .c5::-webkit-input-placeholder {
@@ -586,6 +633,13 @@ Object {
 .c4 svg {
   width: 24px;
   height: 24px;
+}
+
+.c8 {
+  text-align: center;
+  color: var(--ac-widget-composer-disclaimer-color,#666666);
+  font-size: var(--ac-widget-composer-disclaimer-fontsize,12px);
+  margin: 0 16px 8px;
 }
 
 @media (max-width:360px) {
@@ -647,6 +701,7 @@ Object {
             aria-label="Type a message"
             class="c5"
             data-testid="customer-chat-text-input"
+            maxlength="200"
             placeholder="Type a message"
             spellcheck="true"
             tabindex="0"
@@ -671,11 +726,16 @@ Object {
                   fill="none"
                 />
                 <path
-                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                  d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
                 />
               </svg>
             </div>
           </div>
+        </div>
+        <div
+          class="c8"
+        >
+          Virtual Assistant is AI and can make mistakes.
         </div>
       </div>
     </div>
@@ -730,8 +790,9 @@ Object {
         </div>
         <textarea
           aria-label="Type a message"
-          class="sc-hMqMXs iMgfus"
+          class="sc-hMqMXs fKvdMo"
           data-testid="customer-chat-text-input"
+          maxlength="200"
           placeholder="Type a message"
           spellcheck="true"
           tabindex="0"
@@ -741,7 +802,7 @@ Object {
         >
           <div
             aria-label="Send Message"
-            class="sc-bdVaJa dJQglV"
+            class="sc-bdVaJa iOYBrR"
             data-testid="customer-chat-send-message-button"
             tabindex="0"
           >
@@ -756,11 +817,16 @@ Object {
                 fill="none"
               />
               <path
-                d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
               />
             </svg>
           </div>
         </div>
+      </div>
+      <div
+        class="sc-hSdWYo hSMhHv"
+      >
+        Virtual Assistant is AI and can make mistakes.
       </div>
     </div>
   </div>,

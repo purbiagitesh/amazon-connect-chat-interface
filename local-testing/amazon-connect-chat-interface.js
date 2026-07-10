@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "cac37447fa917e2ce47d";
+/******/ 	var hotCurrentHash = "5831a9346a820dfcb469";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136914,6 +136914,7 @@ var _templateObject,
   _templateObject8,
   _templateObject9,
   _templateObject10,
+  _templateObject11,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\ChatComposer.js";
 
 
@@ -136925,11 +136926,36 @@ var _templateObject,
 
 
 
+
+// Defaults for the "Standard" and "With Character Counter" Input Field variants (Figma spec).
+var DEFAULT_COMPOSER_MAX_LENGTH = 200;
+var DEFAULT_CHARACTER_COUNTER_THRESHOLD = 150;
+var DEFAULT_COMPOSER_MAX_ROWS = 5;
+
+// "With Character Counter" variant: hidden below the threshold, then tracks length live;
+// switches to the error copy once the consumer hits maxLength.
+function getCharacterCounterText(intl, count, maxLength, hasError) {
+  if (hasError) {
+    return intl.formatMessage({
+      id: "chatComposer.characterLimitReached",
+      defaultMessage: "You have reached the character limit of {max}."
+    }, {
+      max: maxLength
+    });
+  }
+  return intl.formatMessage({
+    id: "chatComposer.characterLimit",
+    defaultMessage: "Character limit: {count}/{max}"
+  }, {
+    count: count,
+    max: maxLength
+  });
+}
 var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
-var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: var(--ac-widget-composer-border, 1px solid ", ");\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
+var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
   return props.theme.palette.white;
 }, function (props) {
-  return props.theme.palette.lightGray;
+  return props.hasError ? "var(--ac-widget-composer-error-border, 1px solid ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-border, 1px solid ".concat(props.theme.palette.lightGray, ")");
 });
 var SendMessageButtonContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: absolute;\n  top: 50%;\n  right: var(--ac-widget-composer-send-button-offset, ", ");\n  transform: translateY(-50%);\n  z-index: 2;\n"])), function (props) {
   return props.theme.spacing.small;
@@ -136945,7 +136971,7 @@ var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__["defaul
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_8__["default"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: 0;\n  padding-right: var(--ac-widget-composer-send-button-clearance, ", ");\n  margin-left: ", ";\n  background: transparent;\n  max-height: 80px;\n  line-height: 1.5rem;\n  overflow: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
+var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_8__["default"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: 0;\n  padding-right: var(--ac-widget-composer-send-button-clearance, ", ");\n  margin-left: ", ";\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
   return props.theme.spacing.small;
 }, function (props) {
   return props.theme.spacing.xxlarge;
@@ -136964,7 +136990,10 @@ var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_t
   var theme = _ref2.theme;
   return theme.fontsSize.mini;
 });
-var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
+var CharacterCounter = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: ", ";\n  font-size: var(--ac-widget-composer-counter-fontsize, 12px);\n  margin: 4px 16px;\n"])), function (props) {
+  return props.hasError ? "var(--ac-widget-composer-error-color, ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-counter-color, ".concat(props.theme.palette.mediumGray, ")");
+});
+var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
   return props.theme.palette.mediumGray;
 }); //Text value to add in footer
 
@@ -137123,11 +137152,17 @@ function ChatComposer(_ref3) {
     addAttachment(contactId, file);
   }
   var intl = Object(react_intl__WEBPACK_IMPORTED_MODULE_3__["useIntl"])();
+  // "Standard" variant: placeholder shown until the consumer starts typing.
   var ariaLabel = intl.formatMessage({
     id: "chatComposer.placeholder",
     defaultMessage: "Type a message"
   });
   var placeholder = attachment == null ? ariaLabel : "";
+  var maxLength = composerConfig && composerConfig.maxLength || DEFAULT_COMPOSER_MAX_LENGTH;
+  var characterCounterThreshold = composerConfig && composerConfig.characterCounterThreshold || DEFAULT_CHARACTER_COUNTER_THRESHOLD;
+  var isAtCharacterLimit = message.length >= maxLength;
+  var showCharacterCounter = isAtCharacterLimit || message.length >= characterCounterThreshold;
+  var characterCounterText = getCharacterCounterText(intl, message.length, maxLength, isAtCharacterLimit);
   var richMessagingComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_10__["RichTextEditor"], {
     allowedFileContentTypes: _datamodel_Model__WEBPACK_IMPORTED_MODULE_11__["ATTACHMENT_ACCEPT_CONTENT_TYPES"],
     attachmentsEnabled: composerConfig && composerConfig.attachmentsEnabled,
@@ -137138,15 +137173,16 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 334,
+      lineNumber: 380,
       columnNumber: 5
     }
   });
-  var defaultComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DefaultChatComposerWrapper, {
+  var defaultComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DefaultChatComposerWrapper, {
+    hasError: isAtCharacterLimit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 345,
+      lineNumber: 392,
       columnNumber: 5
     }
   }, composerConfig && composerConfig.attachmentsEnabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PaperClipContainer, {
@@ -137162,7 +137198,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 347,
+      lineNumber: 394,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(IconButton, {
@@ -137170,7 +137206,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 358,
+      lineNumber: 405,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
@@ -137178,14 +137214,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 359,
+      lineNumber: 406,
       columnNumber: 17
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PaperClipIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 360,
+      lineNumber: 407,
       columnNumber: 19
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
@@ -137196,7 +137232,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 361,
+      lineNumber: 408,
       columnNumber: 21
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -137205,7 +137241,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 362,
+      lineNumber: 409,
       columnNumber: 23
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -137213,7 +137249,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 363,
+      lineNumber: 410,
       columnNumber: 23
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
@@ -137228,28 +137264,28 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 366,
+      lineNumber: 413,
       columnNumber: 19
     }
   })))), attachment != null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(AttachmentContainer, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 381,
+      lineNumber: 428,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 382,
+      lineNumber: 429,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 383,
+      lineNumber: 430,
       columnNumber: 17
     }
   }, attachment.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(IconButton, {
@@ -137258,14 +137294,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 384,
+      lineNumber: 431,
       columnNumber: 17
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CloseIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 385,
+      lineNumber: 432,
       columnNumber: 19
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
@@ -137275,7 +137311,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 386,
+      lineNumber: 433,
       columnNumber: 21
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -137284,7 +137320,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 387,
+      lineNumber: 434,
       columnNumber: 23
     }
   })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextInput, {
@@ -137299,17 +137335,19 @@ function ChatComposer(_ref3) {
     placeholder: placeholder,
     tabIndex: "0",
     spellCheck: "true",
+    maxLength: maxLength,
+    maxRows: DEFAULT_COMPOSER_MAX_ROWS,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 394,
+      lineNumber: 441,
       columnNumber: 11
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(SendMessageButtonContainer, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 407,
+      lineNumber: 456,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -137318,10 +137356,19 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 408,
+      lineNumber: 457,
       columnNumber: 13
     }
-  })));
+  }))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CharacterCounter, {
+    "data-testid": "customer-chat-character-counter",
+    hasError: isAtCharacterLimit,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 461,
+      columnNumber: 7
+    }
+  }, characterCounterText));
 
   // Figma spec calls for a plain single-line composer with no Bold/Italic/list/link/emoji
   // toolbar, so the rich-text composer is force-disabled here regardless of
@@ -137333,14 +137380,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 420,
+      lineNumber: 475,
       columnNumber: 5
     }
   }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DisclaimerText, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 427,
+      lineNumber: 482,
       columnNumber: 9
     }
   }, "Virtual Assistant is AI and can make mistakes."));
@@ -137379,12 +137426,12 @@ var INACTIVE_ICON_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["defa
 // loads clientInfo.js itself - only the host page does. Fall back to the
 // parent window's copy (same pattern used in ChatMessage.js and index.js).
 function getClientSendIconUrl() {
-  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
-    return window.__CHAT_CLIENT_INFO__.assets.sendIcon;
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.assets) {
+    return window.__CHAT_BRAND_INFO__.assets.sendIcon;
   }
   try {
-    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
-      return window.parent.__CHAT_CLIENT_INFO__.assets.sendIcon;
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.assets) {
+      return window.parent.__CHAT_BRAND_INFO__.assets.sendIcon;
     }
   } catch (e) {
     // window.parent is cross-origin; client info isn't reachable
@@ -139651,12 +139698,12 @@ var _templateObject,
 // loads clientInfo.js itself - only the host page does. Fall back to the
 // parent window's copy (same pattern used in index.js and Chat.js).
 function getClientAvatarUrl() {
-  if (window.__CHAT_CLIENT_INFO__ && window.__CHAT_CLIENT_INFO__.assets) {
-    return window.__CHAT_CLIENT_INFO__.assets.avatar;
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.assets) {
+    return window.__CHAT_BRAND_INFO__.assets.avatar;
   }
   try {
-    if (window.parent && window.parent !== window && window.parent.__CHAT_CLIENT_INFO__ && window.parent.__CHAT_CLIENT_INFO__.assets) {
-      return window.parent.__CHAT_CLIENT_INFO__.assets.avatar;
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.assets) {
+      return window.parent.__CHAT_BRAND_INFO__.assets.avatar;
     }
   } catch (e) {
     // window.parent is cross-origin; client info isn't reachable
@@ -139724,7 +139771,7 @@ var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_
 });
 
 // Only rendered when a client has an avatar asset configured (see
-// window.__CHAT_CLIENT_INFO__.assets.avatar, populated by
+// window.__CHAT_BRAND_INFO__.assets.avatar, populated by
 // scripts/prepare-client.js). Clients without one keep the original
 // single-column message layout untouched.
 var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
