@@ -49,7 +49,6 @@ npm run prepare-brand -- --brand=my-brand --env=dev
 ```
 
 This copies the brand's assets/theme into `local-testing/brand-assets/` and generates:
-- `local-testing/backendEndpoint.js`
 - `local-testing/brandInfo.js` (sets `window.__CHAT_BRAND_INFO__`)
 - `local-testing/brand-theme.css`
 - `.brand-env` (remembers the last-prepared brand/env at the repo root)

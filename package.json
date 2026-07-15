@@ -29,6 +29,7 @@
     "test:watch": "node scripts/test.js --watchAll",
     "preinstall": "npx npm-force-resolutions",
     "prepare-brand": "node scripts/prepare-brand.js",
+    "prepare-brand:all": "node scripts/prepare-brand.js --all",
     "create-brand": "node scripts/create-brand.js",
     "dev": "node scripts/dev-server.js",
     "dev:brand": "node scripts/dev-server.js",
