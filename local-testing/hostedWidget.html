@@ -96,12 +96,12 @@
   <script type="text/javascript">
     (function (w, d, x, id) {
       s = d.createElement('script');
-       s.src='https://lc7-instance.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+       s.src='https://elc-connect-sandbox.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
       s.async = 1;
       s.id = id;
       d.getElementsByTagName('head')[0].appendChild(s);
       w[x] = w[x] || function () { (w[x].ac = w[x].ac || []).push(arguments) };
-    })(window, document, 'amazon_connect', '9243be80-32f2-41bf-a28c-9ce6cc99689d');
+    })(window, document, 'amazon_connect', '01f66d6e-2817-4aee-9071-b897dd6dbf23');
 
     const brandConfig = window.__CHAT_BRAND_INFO__?.config || {};
     const brandColors = brandConfig.colors || {};
@@ -134,7 +134,7 @@
       openChat: { color: openColor, backgroundColor: openBg },
       closeChat: { color: openColor, backgroundColor: closeBg }
     });
-    amazon_connect('snippetId', 'QVFJREFIaFQ5MHpFSUtITkw4aWhjVFRTQ2xYNVRrZzZSNS9hc1gwdVNKbzBYYmJUUWdHaVB1YnNOblh3TzM3MWloYVlGdURIQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNS2dWODNiUkNWNThlS2tHWEFnRVFnQ3RkdjQ0d2xVSlRaeVRZNXBwL1BIK0xxQjlPTElQNVFhYm5Bbi9rMytOOWVoLytyS2R3ZGVIYWJTbFc6OitZcUxFREZrL1o2bm9zYmJxcTlBL0JHN0ZvdDZOQUpjMFl2ZjdBNnN0SVB5OXUwLzFoVGFHK3JpUmViVDlEbGNELzNwcHRKMWxUam1EcFU1NWZTMTU5eGtWV1ErS1BsQ2hDS2pyRERnM1p4bWpkODdUNlFTZUtad0RSMTB5UHIxOVJIUkFpaC90MFJ3UEM3MFZTKzhxYVdOcEJnWi9Hcz0=');
+    amazon_connect('snippetId', 'QVFJREFIaUYzWWsrMWRnRDlkczNlcXlOOW53N0RzaVdJdlpUUXhxcmxDcHgzM0xWdXdFOWd4ZzBPek1jclQ5Sm1RbU1SdFZFQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZmdNS0ZTeDRkazY1cllaY0FnRVFnQ3VTZng5N2xUM1Z3bFYrQkNyUjRLZmdGTmYwdkhaSVAvaHJOVGErTENlOUVzNGhiQnkyWVNZSURpVW06Om15L01OMThVc0RkTXF0VENZbk1FUEh0UGduMDZIb0J4aFF2T2l3dVN3elZHSEtQNU4wZGVkMjNPUnNXYW9vU2lSY1JKb0NtS3BqTWN4c0JkVGhLQWJDSTlpYmdaVFdKREREcitjeUdnTFhsOHAzZXd0RHluMFNMTU1hdk0zM2NwZnlONTBkSWYyRmd2TG9pUTB1UHRneWRyelR2N2JDOD0=');
     amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response']);
     amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
     amazon_connect('customizationObject', {

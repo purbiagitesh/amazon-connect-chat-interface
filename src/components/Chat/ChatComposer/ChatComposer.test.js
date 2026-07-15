@@ -157,12 +157,21 @@ describe("when window.connect is not defined", () => {
     expect(mockProps.addAttachment).toHaveBeenCalledTimes(0);
   });
 
+  // Figma pins the attach icon immediately to the left of send (both on the
+  // right edge of the pill), so DOM/tab order is: text input -> attach icon
+  // container -> attach icon's inner <button> -> send button. (The
+  // attachment control has two nested focusable nodes - the outer container
+  // owns the Space/Enter handler under test, the inner <button> is an
+  // incidental extra stop from being a native button - both pre-date this
+  // reorder and are out of scope here.)
   test("Should be able to click send button using Tab and Space", () => {
     renderElement(mockProps);
     const textInput = document.querySelector('[aria-label="Type a message"]');
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
-    userEvent.tab();
+    userEvent.tab(); // attachment icon container
+    userEvent.tab(); // attachment icon's inner button
+    userEvent.tab(); // send button
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     expect(sendMessageButton).toHaveFocus();
     fireEvent.keyDown(sendMessageButton, {key: KEYBOARD_KEY_CONSTANTS.SPACE});
@@ -174,7 +183,9 @@ describe("when window.connect is not defined", () => {
     const textInput = document.querySelector('[aria-label="Type a message"]');
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
-    userEvent.tab();
+    userEvent.tab(); // attachment icon container
+    userEvent.tab(); // attachment icon's inner button
+    userEvent.tab(); // send button
     const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
     expect(sendMessageButton).toHaveFocus();
     fireEvent.keyDown(sendMessageButton, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
@@ -186,10 +197,10 @@ describe("when window.connect is not defined", () => {
     const textInput = document.querySelector('[aria-label="Type a message"]');
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
-    // focus on the attachment icon
-    userEvent.tab({shift: true});
-    expect(document.querySelector('[aria-label="Attach a file"]')).toHaveFocus();
+    // focus on the attachment icon container (owns the keyboard handler)
+    userEvent.tab();
     const attachmentIcon = mockComposer.getByTestId("customer-chat-attachment-icon");
+    expect(attachmentIcon).toHaveFocus();
     // TODO: add test for verifying the click event
     fireEvent.keyDown(attachmentIcon, {key: KEYBOARD_KEY_CONSTANTS.SPACE});
   });
@@ -199,10 +210,10 @@ describe("when window.connect is not defined", () => {
     const textInput = document.querySelector('[aria-label="Type a message"]');
     const testMessage = "Hello, World!";
     userEvent.type(textInput, testMessage);
-    // focus on the attachment icon
-    userEvent.tab({shift: true});
-    expect(document.querySelector('[aria-label="Attach a file"]')).toHaveFocus();
+    // focus on the attachment icon container (owns the keyboard handler)
+    userEvent.tab();
     const attachmentIcon = mockComposer.getByTestId("customer-chat-attachment-icon");
+    expect(attachmentIcon).toHaveFocus();
     // TODO: add test for verifying the click event
     fireEvent.keyDown(attachmentIcon, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
   });

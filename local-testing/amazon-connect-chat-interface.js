@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "5831a9346a820dfcb469";
+/******/ 	var hotCurrentHash = "2dbc71432efee54ecdfb";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136887,21 +136887,25 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChatComposer; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
-/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var connect_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! connect-constants */ "./src/constants/global.js");
-/* harmony import */ var react_textarea_autosize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-textarea-autosize */ "./node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js");
-/* harmony import */ var _SendMessageButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SendMessageButton */ "./src/components/Chat/ChatComposer/SendMessageButton.js");
-/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
-/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var connect_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! connect-constants */ "./src/constants/global.js");
+/* harmony import */ var react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-textarea-autosize */ "./node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js");
+/* harmony import */ var _SendMessageButton__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./SendMessageButton */ "./src/components/Chat/ChatComposer/SendMessageButton.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+
+
 
 
 var _templateObject,
@@ -136915,7 +136919,14 @@ var _templateObject,
   _templateObject9,
   _templateObject10,
   _templateObject11,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\ChatComposer.js";
+  _templateObject12,
+  _templateObject13,
+  _templateObject14,
+  _templateObject15,
+  _templateObject16,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\ChatComposer.js",
+  _templateObject17,
+  _templateObject18;
 
 
 
@@ -136931,6 +136942,45 @@ var _templateObject,
 var DEFAULT_COMPOSER_MAX_LENGTH = 200;
 var DEFAULT_CHARACTER_COUNTER_THRESHOLD = 150;
 var DEFAULT_COMPOSER_MAX_ROWS = 5;
+
+// ---------------------------------------------------------------------------
+// MOCK ATTACHMENT BACKEND ("With Media Attached" Figma variant)
+// ---------------------------------------------------------------------------
+// AWS Connect chat does not currently expose a multi-attachment upload API -
+// the real SDK just sends one raw file per message with no upload-status
+// payload. Until that backend contract exists, `mockAttachmentUploadResponse`
+// simulates it locally so each media chip has a real async `status` to react
+// to (see the `status` field on attachment entries in `addFiles` below).
+// The resolved shape here is only a guess at what a future response may look
+// like - it is NOT on the critical path for actually sending an attachment
+// (that still goes through the real `addAttachment` prop / chatSession).
+//
+// TO WIRE UP THE REAL API LATER:
+//   Swap the body of this function for the real backend/chatSession call,
+//   keeping the same resolved shape ({ attachmentId, status }), or update
+//   the single call site in `addFiles` if the real response differs.
+// ---------------------------------------------------------------------------
+var MOCK_ATTACHMENT_UPLOAD_LATENCY_MS = 600;
+function mockAttachmentUploadResponse(file) {
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      resolve({
+        attachmentId: "mock-".concat(file.name, "-").concat(file.lastModified, "-").concat(Math.random().toString(36).slice(2)),
+        // A real backend may resolve AttachmentStatus.REJECTED (oversized file,
+        // disallowed type, etc.) - the mock always approves.
+        status: _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__["AttachmentStatus"].APPROVED
+      });
+    }, MOCK_ATTACHMENT_UPLOAD_LATENCY_MS);
+  });
+}
+function isMediaFile(file) {
+  return file.type.startsWith("image/") || file.type.startsWith("video/");
+}
+var attachmentIdSeed = 0;
+function nextAttachmentId() {
+  attachmentIdSeed += 1;
+  return "attachment-".concat(Date.now(), "-").concat(attachmentIdSeed);
+}
 
 // "With Character Counter" variant: hidden below the threshold, then tracks length live;
 // switches to the error copy once the consumer hits maxLength.
@@ -136951,30 +137001,37 @@ function getCharacterCounterText(intl, count, maxLength, hasError) {
     max: maxLength
   });
 }
-var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
-var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
+var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
+var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
   return props.theme.palette.white;
 }, function (props) {
   return props.hasError ? "var(--ac-widget-composer-error-border, 1px solid ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-border, 1px solid ".concat(props.theme.palette.lightGray, ")");
 });
-var SendMessageButtonContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: absolute;\n  top: 50%;\n  right: var(--ac-widget-composer-send-button-offset, ", ");\n  transform: translateY(-50%);\n  z-index: 2;\n"])), function (props) {
+
+// Holds the text input and the right-aligned icon cluster (attach + send) on
+// one line. Kept as its own `position: relative` row (rather than putting
+// that on DefaultChatComposerWrapper) so the icon cluster stays vertically
+// centered on this row even when the media chips row above it changes the
+// wrapper's total height.
+var ComposerInputRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n"])));
+
+// Figma places the attach icon directly to the left of the send button, both
+// pinned to the right edge of the pill - grouped together here rather than
+// the attach icon living on the opposite side of the input.
+var ComposerRightIcons = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: 50%;\n  right: var(--ac-widget-composer-send-button-offset, ", ");\n  transform: translateY(-50%);\n  display: flex;\n  align-items: center;\n  gap: var(--ac-widget-composer-icons-gap, ", ");\n  z-index: 2;\n"])), function (props) {
   return props.theme.spacing.small;
-});
-var PaperClipContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  cursor: pointer;\n  height: auto;\n  vertical-align: top;\n\n  button {\n    height: 100%;\n    width: 100%;\n  }\n\n  label {\n    align-items: center;\n    display: flex;\n    cursor: pointer;\n    font-size: 0;\n    height: 100%;\n    padding-left: ", ";\n    padding-right: ", ";\n    margin-bottom: 0;\n  }\n\n  input {\n    display: none;\n  }\n\n  & + [role=\"textbox\"] {\n    padding-left: 0;\n  }\n"])), function (props) {
-  return props.theme.spacing.mini;
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n"])));
-var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  --outgoingMsgBg-background-color: ", ";\n  display: flex;\n  background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n  border-radius: 5px;\n  margin: 5px;\n  padding: ", ";\n  min-width: 0;\n\n  & > div {\n    width: 100%;\n\n    span {\n      overflow-wrap: break-word;\n    }\n\n    button {\n      align-items: center;\n      display: inline-flex;\n      cursor: pointer;\n      margin-left: 5px;\n    }\n  }\n\n  & + div {\n    padding-left: 0;\n  }\n"])), function (props) {
+var PaperClipContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  cursor: pointer;\n  height: auto;\n  vertical-align: top;\n\n  button {\n    height: 100%;\n    width: 100%;\n  }\n\n  label {\n    align-items: center;\n    display: flex;\n    cursor: pointer;\n    font-size: 0;\n    height: 100%;\n    margin-bottom: 0;\n  }\n\n  input {\n    display: none;\n  }\n"])));
+var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n"])));
+var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  --outgoingMsgBg-background-color: ", ";\n  display: flex;\n  background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n  border-radius: 5px;\n  margin: 5px;\n  padding: ", ";\n  min-width: 0;\n\n  & > div {\n    width: 100%;\n\n    span {\n      overflow-wrap: break-word;\n    }\n\n    button {\n      align-items: center;\n      display: inline-flex;\n      cursor: pointer;\n      margin-left: 5px;\n    }\n  }\n\n  & + div {\n    padding-left: 0;\n  }\n"])), function (props) {
   return props.theme.chatTranscriptor.outgoingMsgBg;
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_8__["default"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: 0;\n  padding-right: var(--ac-widget-composer-send-button-clearance, ", ");\n  margin-left: ", ";\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
+var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: ", ";\n  /* Reserves room for the right-aligned attach + send icon cluster\n     (ComposerRightIcons) so typed text never runs underneath it. */\n  padding-right: var(--ac-widget-composer-icons-clearance, 84px);\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
   return props.theme.spacing.small;
-}, function (props) {
-  return props.theme.spacing.xxlarge;
 }, function (props) {
   return props.theme.spacing.base;
 }, function (props) {
@@ -136982,34 +137039,290 @@ var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, function (props) {
   return props.theme.palette.mediumGray;
 });
-var PaperClipIcon = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  font-size: 0;\n\n  svg {\n    width: 24px;\n    height: 24px;\n  }\n"])));
-var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  font-size: 0;\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref) {
+var PaperClipIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n\n  svg {\n    width: 24px;\n    height: 24px;\n  }\n"])));
+var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.fontsSize.mini;
 }, function (_ref2) {
   var theme = _ref2.theme;
   return theme.fontsSize.mini;
 });
-var CharacterCounter = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: ", ";\n  font-size: var(--ac-widget-composer-counter-fontsize, 12px);\n  margin: 4px 16px;\n"])), function (props) {
+
+// ---------------------------------------------------------------------------
+// "With Media Attached" chip carousel (Figma spec)
+// ---------------------------------------------------------------------------
+var MediaAttachmentsRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: ", ";\n  padding: ", " ", " 0;\n"])), function (props) {
+  return props.theme.spacing.micro;
+}, function (props) {
+  return props.theme.spacing.mini;
+}, function (props) {
+  return props.theme.spacing.mini;
+});
+var MediaChipScrollArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: ", ";\n  overflow-x: auto;\n  scroll-behavior: smooth;\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n"])), function (props) {
+  return props.theme.spacing.mini;
+});
+var MEDIA_CHIP_SIZE_PX = 56;
+var MediaChip = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  flex: 0 0 auto;\n  width: var(--ac-widget-composer-media-chip-size, ", "px);\n  height: var(--ac-widget-composer-media-chip-size, ", "px);\n"])), MEDIA_CHIP_SIZE_PX, MEDIA_CHIP_SIZE_PX);
+var MediaChipVisual = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 100%;\n  height: 100%;\n  border-radius: var(--ac-widget-composer-media-chip-radius, 12px);\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-media-chip-background, ", ");\n  color: var(--ac-widget-composer-media-chip-icon-color, ", ");\n  border: ", ";\n  /* Mock upload is purely local bookkeeping today (see mockAttachmentUploadResponse) -\n     dim the chip slightly while it's \"in flight\" so there is somewhere for a\n     real pending/loading state to hook in later. */\n  opacity: ", ";\n  transition: opacity 0.15s ease;\n\n  img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n\n  svg {\n    width: 60%;\n    height: 60%;\n  }\n"])), function (props) {
+  return props.theme.palette.whisper;
+}, function (props) {
+  return props.theme.palette.silver;
+}, function (props) {
+  return props.status === "rejected" ? "1px solid var(--ac-widget-composer-media-chip-error-border, ".concat(props.theme.palette.red, ")") : "1px solid transparent";
+}, function (props) {
+  return props.status === "uploading" ? 0.6 : 1;
+});
+var MediaChipRemoveButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: -6px;\n  right: -6px;\n  width: 20px;\n  height: 20px;\n  padding: 0;\n  border: none;\n  border-radius: 50%;\n  cursor: pointer;\n  background: transparent;\n  line-height: 0;\n\n  svg {\n    width: 20px;\n    height: 20px;\n  }\n"])));
+var ScrollArrowButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  padding: 0;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  color: var(--ac-widget-composer-media-scroll-arrow-color, ", ");\n\n  svg {\n    width: 18px;\n    height: 18px;\n  }\n"])), function (props) {
+  return props.theme.palette.mediumGray;
+});
+function ChevronLeftIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 344,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M15 6l-6 6 6 6",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 345,
+      columnNumber: 7
+    }
+  }));
+}
+function ChevronRightIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 352,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M9 6l6 6-6 6",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 353,
+      columnNumber: 7
+    }
+  }));
+}
+
+// Generic placeholder glyph shown until a real thumbnail/preview is
+// available for a chip (see previewUrl usage in ChatComposer). Mirrors the
+// Figma reference icon: a rounded square with a picture glyph.
+function ImagePlaceholderIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 363,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M14 8v10H6V8h8Zm0-1H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM9.83 12.9 7.83 15.4 6.5 13.83 4.5 16.33h9l-2.86-3.43-.81.99Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 364,
+      columnNumber: 7
+    }
+  }));
+}
+
+// Video attachments always use this placeholder (no real thumbnail) since
+// grabbing a genuine poster frame needs canvas work that isn't built yet -
+// matches the 3rd chip in the Figma reference.
+function VideoPlaceholderIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 374,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
+    cx: "10",
+    cy: "10",
+    r: "6.5",
+    fill: "currentColor",
+    fillOpacity: "0.4",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 375,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M8.5 7.3v5.4l4.5-2.7-4.5-2.7Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 376,
+      columnNumber: 7
+    }
+  }));
+}
+
+// Circular "x" remove badge overlapping the top-right corner of a chip -
+// mirrors the reference icon's badge.
+function RemoveBadgeIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 385,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
+    cx: "10",
+    cy: "10",
+    r: "9",
+    fill: "var(--ac-widget-composer-media-chip-badge-bg, #232F3E)",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 386,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M7 7l6 6M13 7l-6 6",
+    stroke: "white",
+    strokeWidth: "1.6",
+    strokeLinecap: "round",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 387,
+      columnNumber: 7
+    }
+  }));
+}
+
+// Attach-media trigger icon (picture glyph + solid "+" badge), replacing the
+// previous plain paperclip per the exported Figma "With Media Attached" icon.
+function AttachMediaIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    width: "24",
+    height: "24",
+    fill: "none",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 396,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("rect", {
+    x: "2",
+    y: "4",
+    width: "16",
+    height: "14",
+    rx: "2.5",
+    stroke: "currentColor",
+    strokeWidth: "1.4",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 397,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
+    cx: "7",
+    cy: "9",
+    r: "1.3",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 398,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M3.5 15.5 8 11l2.5 2.5L15 9l3.5 5v1a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1v-.5Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 399,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
+    cx: "18.5",
+    cy: "17.5",
+    r: "4.5",
+    fill: "var(--ac-widget-composer-attach-badge-bg, #232F3E)",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 400,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+    d: "M18.5 15.7v3.6M16.7 17.5h3.6",
+    stroke: "white",
+    strokeWidth: "1.4",
+    strokeLinecap: "round",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 401,
+      columnNumber: 7
+    }
+  }));
+}
+var CharacterCounter = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: ", ";\n  font-size: var(--ac-widget-composer-counter-fontsize, 12px);\n  margin: 4px 16px;\n"])), function (props) {
   return props.hasError ? "var(--ac-widget-composer-error-color, ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-counter-color, ".concat(props.theme.palette.mediumGray, ")");
 });
-var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
+var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject18 || (_templateObject18 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
   return props.theme.palette.mediumGray;
 }); //Text value to add in footer
 
 ChatComposer.propTypes = {
-  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
-  addAttachment: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
-  onTyping: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func,
-  contactId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
-  contactStatus: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
-  onTypingValidityTime: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.number,
-  composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.object
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.func,
+  addAttachment: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.func,
+  onTyping: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.func,
+  contactId: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.string.isRequired,
+  contactStatus: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.string.isRequired,
+  onTypingValidityTime: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.number,
+  composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object
 };
 ChatComposer.defaultProps = {
   onTypingValidityTime: 10 * 1000
 };
 function ChatComposer(_ref3) {
+  var _this = this;
   var addMessage = _ref3.addMessage,
     addAttachment = _ref3.addAttachment,
     onTyping = _ref3.onTyping,
@@ -137025,29 +137338,51 @@ function ChatComposer(_ref3) {
       prefix: "ChatInterface-ChatComposer"
     });
   }
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(""),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(""),
+    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     message = _useState2[0],
-    setMessage = _useState2[1];
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(null),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
-    attachment = _useState4[0],
-    setAttachment = _useState4[1];
-  var fileInputRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])(null);
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    setMessage = _useState2[1]; // Multiple staged attachments: [{ id, file, isMedia, isVideo, previewUrl, status }].
+  // `status` is "uploading" | "ready" | "rejected" and is only ever set by
+  // the mock in mockAttachmentUploadResponse() today - see the comment there
+  // for how to wire in the real backend response later.
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])([]),
+    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
+    attachments = _useState4[0],
+    setAttachments = _useState4[1];
+  var fileInputRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
+  var mediaScrollRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
+    _useState6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+    canScrollMediaLeft = _useState6[0],
+    setCanScrollMediaLeft = _useState6[1];
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
+    _useState8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
+    canScrollMediaRight = _useState8[0],
+    setCanScrollMediaRight = _useState8[1]; // Mirrors `attachments` for use in the unmount cleanup effect below without
+  // making that effect re-run (and re-subscribe) on every attachment change.
+  var attachmentsRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(attachments);
+  attachmentsRef.current = attachments;
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
     logger && logger.info("Component mounted.");
   }, [logger]);
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useLayoutEffect"])(function () {
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
+    return function () {
+      attachmentsRef.current.forEach(function (entry) {
+        return entry.previewUrl && URL.revokeObjectURL(entry.previewUrl);
+      });
+    };
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useLayoutEffect"])(function () {
     if (!textInputRef || !textInputRef.current || !textInputRef.current.focus) {
       return;
     }
     textInputRef.current.focus();
-  }, [attachment, textInputRef]);
+  }, [attachments.length, textInputRef]);
   function hasSameContent(event) {
     return event.target.innerText === message;
   }
   function onInput(event) {
-    if (!event.shiftKey && event.key === connect_constants__WEBPACK_IMPORTED_MODULE_7__["KEYBOARD_KEY_CONSTANTS"].ENTER) {
+    if (!event.shiftKey && event.key === connect_constants__WEBPACK_IMPORTED_MODULE_9__["KEYBOARD_KEY_CONSTANTS"].ENTER) {
       event.preventDefault();
       sendMessage();
       return false;
@@ -137057,10 +137392,12 @@ function ChatComposer(_ref3) {
       }
       setMessage(event.target.value);
     }
-    if (event.key === connect_constants__WEBPACK_IMPORTED_MODULE_7__["KEYBOARD_KEY_CONSTANTS"].DELETE || event.key === connect_constants__WEBPACK_IMPORTED_MODULE_7__["KEYBOARD_KEY_CONSTANTS"].BACKSPACE) {
-      if (attachment && message === "") {
+    if (event.key === connect_constants__WEBPACK_IMPORTED_MODULE_9__["KEYBOARD_KEY_CONSTANTS"].DELETE || event.key === connect_constants__WEBPACK_IMPORTED_MODULE_9__["KEYBOARD_KEY_CONSTANTS"].BACKSPACE) {
+      if (attachments.length > 0 && message === "") {
         event.preventDefault();
-        clearFileInput();
+        // Removes the most recently attached chip first, like clearing
+        // tokens in a normal text field.
+        removeAttachment(attachments[attachments.length - 1].id);
         return;
       }
     }
@@ -137101,19 +137438,19 @@ function ChatComposer(_ref3) {
     throttledOnTyping.cancel();
     sendTextMessage(message);
     setMessage("");
-    if (attachment) {
-      sendAttachment();
+    if (attachments.length > 0) {
+      sendAttachments();
       clearFileInput();
     }
   }
-  var throttleOptions = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(function () {
+  var throttleOptions = Object(react__WEBPACK_IMPORTED_MODULE_4__["useMemo"])(function () {
     return {
       trailing: false,
       leading: true
     };
   }, []);
-  var throttledOnTyping = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(function () {
-    return lodash_throttle__WEBPACK_IMPORTED_MODULE_5___default()(function () {
+  var throttledOnTyping = Object(react__WEBPACK_IMPORTED_MODULE_4__["useMemo"])(function () {
+    return lodash_throttle__WEBPACK_IMPORTED_MODULE_7___default()(function () {
       onTyping().then(function () {
         console.log("On typing event");
       });
@@ -137131,40 +137468,136 @@ function ChatComposer(_ref3) {
     if (markdownMessage.trim()) {
       addMessage(contactId, {
         text: markdownMessage,
-        type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_11__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
+        type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
       });
     }
   }
+  function updateAttachment(id, changes) {
+    setAttachments(function (current) {
+      return current.map(function (entry) {
+        return entry.id === id ? Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, entry, changes) : entry;
+      });
+    });
+  }
+  function addFiles(fileList) {
+    var files = Array.from(fileList || []);
+    if (!files.length) {
+      return;
+    }
+    var newEntries = files.map(function (file) {
+      var media = isMediaFile(file);
+      var isVideo = file.type.startsWith("video/");
+      return {
+        id: nextAttachmentId(),
+        file: file,
+        isMedia: media,
+        isVideo: isVideo,
+        // Images get a real local preview since we already have the file in
+        // the browser; videos fall back to the placeholder glyph (matches
+        // the Figma reference) since grabbing a genuine poster frame needs
+        // canvas work that isn't built yet.
+        previewUrl: media && !isVideo ? URL.createObjectURL(file) : null,
+        status: "uploading"
+      };
+    });
+    setAttachments(function (current) {
+      return [].concat(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(current), Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(newEntries));
+    });
+    logger && logger.info("".concat(newEntries.length, " file(s) added."));
+
+    // MOCK: see mockAttachmentUploadResponse() above - this is where a real
+    // backend upload-status response would be consumed once available.
+    newEntries.forEach(function (entry) {
+      mockAttachmentUploadResponse(entry.file).then(function (response) {
+        updateAttachment(entry.id, {
+          status: response.status === _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__["AttachmentStatus"].APPROVED ? "ready" : "rejected"
+        });
+      });
+    });
+  }
+  function removeAttachment(id) {
+    setAttachments(function (current) {
+      var entry = current.find(function (item) {
+        return item.id === id;
+      });
+      if (entry && entry.previewUrl) {
+        URL.revokeObjectURL(entry.previewUrl);
+      }
+      return current.filter(function (item) {
+        return item.id !== id;
+      });
+    });
+    logger && logger.info("Attachment removed.");
+  }
   function onFileInput(e) {
-    var file = e.target.files[0];
-    setAttachment(file);
-    logger && logger.info("File added.");
+    addFiles(e.target.files);
   }
   function clearFileInput() {
-    setAttachment(null);
+    attachments.forEach(function (entry) {
+      return entry.previewUrl && URL.revokeObjectURL(entry.previewUrl);
+    });
+    setAttachments([]);
     fileInputRef.current.value = null;
-    logger && logger.info("File is removed.");
+    logger && logger.info("Attachments cleared.");
   }
-  function sendAttachment() {
-    addAttachment(contactId, attachment);
+  function sendAttachments() {
+    // AWS Connect chat sends one attachment per message, so a multi-file
+    // composer selection is fanned out into one addAttachment call per file,
+    // in the order they were attached. Anything the mock (or a future real
+    // check) has flagged "rejected" is skipped.
+    attachments.filter(function (entry) {
+      return entry.status !== "rejected";
+    }).forEach(function (entry) {
+      return addAttachment(contactId, entry.file);
+    });
   }
   function sendAttachmentGivenFile(file) {
     addAttachment(contactId, file);
   }
-  var intl = Object(react_intl__WEBPACK_IMPORTED_MODULE_3__["useIntl"])();
+
+  // "With Media Attached" variant only applies to images/videos; other file
+  // types (pdf, doc, etc.) keep the pre-existing filename-row treatment.
+  var mediaAttachments = attachments.filter(function (entry) {
+    return entry.isMedia;
+  });
+  var documentAttachments = attachments.filter(function (entry) {
+    return !entry.isMedia;
+  });
+  var updateMediaScrollState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useCallback"])(function () {
+    var el = mediaScrollRef.current;
+    if (!el) {
+      return;
+    }
+    setCanScrollMediaLeft(el.scrollLeft > 0);
+    setCanScrollMediaRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
+    updateMediaScrollState();
+  }, [mediaAttachments.length, updateMediaScrollState]);
+  function scrollMediaBy(direction) {
+    var el = mediaScrollRef.current;
+    if (!el) {
+      return;
+    }
+    el.scrollBy({
+      left: direction * MEDIA_CHIP_SIZE_PX * 2,
+      behavior: "smooth"
+    });
+  }
+  var intl = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["useIntl"])();
   // "Standard" variant: placeholder shown until the consumer starts typing.
   var ariaLabel = intl.formatMessage({
     id: "chatComposer.placeholder",
     defaultMessage: "Type a message"
   });
-  var placeholder = attachment == null ? ariaLabel : "";
+  var placeholder = attachments.length === 0 ? ariaLabel : "";
   var maxLength = composerConfig && composerConfig.maxLength || DEFAULT_COMPOSER_MAX_LENGTH;
   var characterCounterThreshold = composerConfig && composerConfig.characterCounterThreshold || DEFAULT_CHARACTER_COUNTER_THRESHOLD;
   var isAtCharacterLimit = message.length >= maxLength;
   var showCharacterCounter = isAtCharacterLimit || message.length >= characterCounterThreshold;
   var characterCounterText = getCharacterCounterText(intl, message.length, maxLength, isAtCharacterLimit);
-  var richMessagingComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_10__["RichTextEditor"], {
-    allowedFileContentTypes: _datamodel_Model__WEBPACK_IMPORTED_MODULE_11__["ATTACHMENT_ACCEPT_CONTENT_TYPES"],
+  var richMessagingComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_12__["RichTextEditor"], {
+    allowedFileContentTypes: _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__["ATTACHMENT_ACCEPT_CONTENT_TYPES"],
     attachmentsEnabled: composerConfig && composerConfig.attachmentsEnabled,
     sendMessage: sendMarkdownMessage,
     sendAttachment: sendAttachmentGivenFile,
@@ -137173,157 +137606,202 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 380,
+      lineNumber: 701,
       columnNumber: 5
     }
   });
-  var defaultComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DefaultChatComposerWrapper, {
+  var defaultComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(DefaultChatComposerWrapper, {
     hasError: isAtCharacterLimit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 392,
+      lineNumber: 713,
       columnNumber: 5
     }
-  }, composerConfig && composerConfig.attachmentsEnabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PaperClipContainer, {
-    tabIndex: 0,
-    "data-testid": "customer-chat-attachment-icon",
-    onKeyDown: function onKeyDown(e) {
-      // if space or enter is pressed
-      if (e.key === connect_constants__WEBPACK_IMPORTED_MODULE_7__["KEYBOARD_KEY_CONSTANTS"].SPACE || e.key === connect_constants__WEBPACK_IMPORTED_MODULE_7__["KEYBOARD_KEY_CONSTANTS"].ENTER) {
-        e.preventDefault();
-        document.getElementById("customer-chat-file-select-".concat(contactId)).click();
-      }
+  }, composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaAttachmentsRow, {
+    "data-testid": "customer-chat-media-attachments",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 715,
+      columnNumber: 9
+    }
+  }, canScrollMediaLeft && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ScrollArrowButton, {
+    type: "button",
+    "aria-label": "Show previous attachment",
+    onClick: function onClick() {
+      return scrollMediaBy(-1);
     },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 394,
+      lineNumber: 717,
       columnNumber: 13
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(IconButton, {
-    "aria-label": "Attach a file",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronLeftIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 405,
+      lineNumber: 718,
       columnNumber: 15
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
-    htmlFor: "customer-chat-file-select-".concat(contactId),
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipScrollArea, {
+    ref: mediaScrollRef,
+    onScroll: updateMediaScrollState,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 406,
-      columnNumber: 17
+      lineNumber: 721,
+      columnNumber: 11
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PaperClipIcon, {
+  }, mediaAttachments.map(function (entry) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChip, {
+      key: entry.id,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 723,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipVisual, {
+      status: entry.status,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 724,
+        columnNumber: 17
+      }
+    }, entry.previewUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
+      src: entry.previewUrl,
+      alt: entry.file.name,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 726,
+        columnNumber: 21
+      }
+    }) : entry.isVideo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(VideoPlaceholderIcon, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 728,
+        columnNumber: 21
+      }
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ImagePlaceholderIcon, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 730,
+        columnNumber: 21
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipRemoveButton, {
+      type: "button",
+      "aria-label": "Remove ".concat(entry.file.name),
+      onClick: function onClick() {
+        return removeAttachment(entry.id);
+      },
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 733,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RemoveBadgeIcon, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 738,
+        columnNumber: 19
+      }
+    })));
+  })), canScrollMediaRight && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ScrollArrowButton, {
+    type: "button",
+    "aria-label": "Show more attachments",
+    onClick: function onClick() {
+      return scrollMediaBy(1);
+    },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 407,
-      columnNumber: 19
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    height: "24",
-    viewBox: "0 0 24 24",
-    width: "24",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 408,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
-    d: "M0 0h24v24H0z",
-    fill: "none",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 409,
-      columnNumber: 23
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
-    d: "M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 410,
-      columnNumber: 23
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
-    ref: fileInputRef,
-    type: "file",
-    id: "customer-chat-file-select-".concat(contactId),
-    "data-testid": "customer-chat-file-select",
-    accept: _datamodel_Model__WEBPACK_IMPORTED_MODULE_11__["ATTACHMENT_ACCEPT_CONTENT_TYPES"].join(","),
-    onChange: onFileInput,
-    "aria-label": "Attach a file",
-    tabIndex: -1,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 413,
-      columnNumber: 19
-    }
-  })))), attachment != null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(AttachmentContainer, {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 428,
+      lineNumber: 744,
       columnNumber: 13
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronRightIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 429,
+      lineNumber: 745,
       columnNumber: 15
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerInputRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 430,
-      columnNumber: 17
+      lineNumber: 750,
+      columnNumber: 7
     }
-  }, attachment.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(IconButton, {
-    onClick: clearFileInput,
-    "aria-label": "Remove attachment",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 431,
-      columnNumber: 17
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CloseIcon, {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 432,
-      columnNumber: 19
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
-    viewBox: "0 0 13 13",
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "currentColor",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 433,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
-    d: "M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z",
-    fillRule: "evenodd",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 434,
-      columnNumber: 23
-    }
-  })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TextInput, {
+  }, documentAttachments.map(function (entry) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachmentContainer, {
+      key: entry.id,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 752,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 753,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 754,
+        columnNumber: 17
+      }
+    }, entry.file.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
+      onClick: function onClick() {
+        return removeAttachment(entry.id);
+      },
+      "aria-label": "Remove attachment",
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 755,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CloseIcon, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 756,
+        columnNumber: 19
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+      viewBox: "0 0 13 13",
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "currentColor",
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 757,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
+      d: "M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z",
+      fillRule: "evenodd",
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 758,
+        columnNumber: 23
+      }
+    }))))));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(TextInput, {
     "data-testid": "customer-chat-text-input",
     ref: textInputRef,
     value: message,
@@ -137340,32 +137818,94 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 441,
+      lineNumber: 765,
       columnNumber: 11
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(SendMessageButtonContainer, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerRightIcons, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 456,
+      lineNumber: 783,
       columnNumber: 11
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    isActive: !!message || attachment,
+  }, composerConfig && composerConfig.attachmentsEnabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipContainer, {
+    tabIndex: 0,
+    "data-testid": "customer-chat-attachment-icon",
+    onKeyDown: function onKeyDown(e) {
+      // if space or enter is pressed
+      if (e.key === connect_constants__WEBPACK_IMPORTED_MODULE_9__["KEYBOARD_KEY_CONSTANTS"].SPACE || e.key === connect_constants__WEBPACK_IMPORTED_MODULE_9__["KEYBOARD_KEY_CONSTANTS"].ENTER) {
+        e.preventDefault();
+        document.getElementById("customer-chat-file-select-".concat(contactId)).click();
+      }
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 785,
+      columnNumber: 15
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
+    "aria-label": "Attach a file",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 796,
+      columnNumber: 17
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
+    htmlFor: "customer-chat-file-select-".concat(contactId),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 797,
+      columnNumber: 19
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipIcon, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 798,
+      columnNumber: 21
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachMediaIcon, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 799,
+      columnNumber: 23
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
+    ref: fileInputRef,
+    type: "file",
+    multiple: true,
+    id: "customer-chat-file-select-".concat(contactId),
+    "data-testid": "customer-chat-file-select",
+    accept: _datamodel_Model__WEBPACK_IMPORTED_MODULE_13__["ATTACHMENT_ACCEPT_CONTENT_TYPES"].join(","),
+    onChange: onFileInput,
+    "aria-label": "Attach a file",
+    tabIndex: -1,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 801,
+      columnNumber: 21
+    }
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    isActive: !!message || attachments.length > 0,
     sendMessage: sendMessage.bind(this),
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 457,
+      lineNumber: 816,
       columnNumber: 13
     }
-  }))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CharacterCounter, {
+  })))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CharacterCounter, {
     "data-testid": "customer-chat-character-counter",
     hasError: isAtCharacterLimit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 461,
+      lineNumber: 821,
       columnNumber: 7
     }
   }, characterCounterText));
@@ -137375,19 +137915,19 @@ function ChatComposer(_ref3) {
   // composerConfig.richMessagingEnabled. To restore rich text formatting (e.g. if the design
   // changes back), set FORCE_DISABLE_RICH_MESSAGING to false.
   var FORCE_DISABLE_RICH_MESSAGING = true;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ChatComposerWrapper, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChatComposerWrapper, {
     className: "composer",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 475,
+      lineNumber: 835,
       columnNumber: 5
     }
-  }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DisclaimerText, {
+  }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(DisclaimerText, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 482,
+      lineNumber: 842,
       columnNumber: 9
     }
   }, "Virtual Assistant is AI and can make mistakes."));
