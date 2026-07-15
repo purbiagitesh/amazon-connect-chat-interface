@@ -245,7 +245,7 @@ $ npm run release
 ### Development Build
 
 To make local modifications to this package and test them on your webpage, simply make your edits and run `npm install && npm run dev-build` to produce the
-Webpack built file and the sourcemaps. This generates the `amazon-connect-chat-interface.js` bundle file, which can be imported in `local-testing/index.html`.
+Webpack built file and the sourcemaps. This generates the `amazon-connect-chat-interface.js` bundle file, which can be imported in `local-testing/hostedWidget.html`.
 
 > Optionally, run `npm run dev-watch` to auto-rebuild the bundle file during development.
 

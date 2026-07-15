@@ -1,28 +1,51 @@
 @font-face {
-  font-family: 'Futura ELC';
-  src: url('./brand-assets/Fonts/Futura ELC/WOFF/Futura.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Futura ELC/WOFF/FuturaDem.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Futura ELC/WOFF/FuturaMed.woff2') format('woff2');
+  font-family: 'Helvetica Neue LT Pro';
+  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Bd.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Bd.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue LT Pro';
+  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Lt.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Lt.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue LT Pro';
+  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Md.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Md.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue LT Pro';
+  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Roman.woff2') format('woff2'),
+       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Roman.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 :root {
-  --ac-widget-color-primary-500: #36563D;
-  --ac-widget-color-primary-800: #101A12;
-  --ac-widget-header-backgroundcolor: #36563D;
+  --ac-widget-color-primary-500: #000000;
+  --ac-widget-color-primary-800: #000000;
+  --ac-widget-header-backgroundcolor: #000000;
   --ac-widget-header-textcolor: #FFFFFF;
   --ac-widget-footer-backgroundcolor: #FF4081;
   --ac-widget-footer-button-backgroundcolor: #FF4081;
   --ac-widget-footer-button-textcolor: #FFFFFF;
-  --ac-widget-global-typeface: Futura ELC;
-  --ac-widget-transcript-customer-bubble-color: #36563D;
+  --ac-widget-global-typeface: Helvetica Neue LT Pro;
+  --ac-widget-transcript-customer-bubble-color: #000000;
   --ac-widget-transcript-customer-textcolor: #FFFFFF;
   --ac-widget-transcript-agent-bubble-color: #F5F5F5;
   --ac-widget-transcript-agent-textcolor: #333333;
 
   /* ── Chat Header ── */
-  --header-bg:             #36563D;
+  --header-bg:             #000000;
   --header-text-color:     #ffffff;
   --header-subtitle-color: rgba(255,255,255,0.70);
   --header-padding:        14px 16px;

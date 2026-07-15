@@ -15,7 +15,6 @@ dist
 .env.development.local
 .env.test.local
 .env.production.local
-/local-testing/backendEndpoints.js
 
 npm-debug.log*
 yarn-debug.log*

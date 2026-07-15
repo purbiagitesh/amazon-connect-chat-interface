@@ -5,11 +5,14 @@
   <title>Hosted Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" href="./brand-theme.css">
-  <script src="./brandInfo.js"></script>
   <style>
-    /* ─── Custom "Chat now" pill launcher button ─── */
+    /* ─── Custom "Chat now" pill launcher button ───
+       Hidden by default: the launcher itself carries brand styling (color,
+       icon), so it must not render until window.utag_data has resolved a
+       brand and that brand's theme has loaded. See the bootstrap script
+       below - #chat-now-btn.ready is what reveals it. */
     #chat-now-btn {
+      display: none;
       position: fixed;
       bottom: 24px;
       right: 24px;
@@ -21,13 +24,16 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
       align-items: center;
       gap: 10px;
       box-shadow: var(--launcher-shadow, 0 4px 16px rgba(139, 0, 93, 0.4));
       z-index: 9999;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    #chat-now-btn.ready {
+      display: flex;
     }
 
     #chat-now-btn:hover {
@@ -58,6 +64,12 @@
       fill: #ffffff;
     }
 
+    #chat-now-btn .btn-icon img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+    }
+
     #chat-now-btn.widget-open {
       display: none !important;
     }
@@ -80,147 +92,262 @@
 <body>
   <button id="chat-now-btn" aria-label="Open chat">
     <span class="btn-icon">
-      <!-- 4-point sparkle matching your design image -->
+      <!-- Default sparkle icon - brand-neutral (white), swapped out by
+           applyLauncherIcon() below if the resolved brand supplies its own
+           launcherIconUrl/assets.icon. -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M28 13.4826C28.0054 15.5762 27.5163 17.6414 26.5724 19.5102C25.4532 21.7495 23.7327 23.6329 21.6036 24.9496C19.4744 26.2663 17.0207 26.9643 14.5174 26.9652C12.4238 26.9707 10.3586 26.4816 8.48984 25.5377L1.25432 27.9495C0.510306 28.1975 -0.197519 27.4897 0.0504845 26.7457L2.46233 19.5102C1.51843 17.6414 1.0293 15.5762 1.03476 13.4826C1.03572 10.9793 1.73365 8.52557 3.05036 6.39643C4.36706 4.26729 6.25055 2.54678 8.48984 1.42761C10.3586 0.483724 12.4238 -0.00541329 14.5174 4.51875e-05H15.3104C18.6166 0.182444 21.7393 1.57792 24.0807 3.91929C26.4221 6.26066 27.8176 9.38338 28 12.6896V13.4826Z"
           fill="white" />
         <path
           d="M13.625 5.5846C13.9316 4.75602 15.1036 4.75602 15.4102 5.5846L17.1504 10.2876C17.2468 10.5481 17.4522 10.7535 17.7127 10.8499L22.4157 12.5901C23.2443 12.8967 23.2443 14.0687 22.4157 14.3753L17.7127 16.1155C17.4522 16.2119 17.2468 16.4173 17.1504 16.6778L15.4102 21.3808C15.1036 22.2094 13.9316 22.2094 13.625 21.3808L11.8848 16.6778C11.7884 16.4173 11.583 16.2119 11.3225 16.1155L6.61949 14.3753C5.79091 14.0687 5.79092 12.8967 6.61949 12.5901L11.3225 10.8499C11.583 10.7535 11.7884 10.5481 11.8848 10.2876L13.625 5.5846Z"
-          fill="#36563D" />
+          fill="white" />
       </svg>
     </span>
     Chat now
   </button>
 
   <script type="text/javascript">
-    (function (w, d, x, id) {
-      s = d.createElement('script');
-      s.src = 'https://lc7-instance.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
-      s.async = 1;
-      s.id = id;
-      d.getElementsByTagName('head')[0].appendChild(s);
-      w[x] = w[x] || function () { (w[x].ac = w[x].ac || []).push(arguments) };
-    })(window, document, 'amazon_connect', '9243be80-32f2-41bf-a28c-9ce6cc99689d');
+    // ─── Runtime brand resolution (single build, all brands) ───
+    // Brand is no longer baked in at build time. Instead we wait for
+    // window.utag_data (Tealium's data-layer global, set on every brand's
+    // site), resolve which brand/env it points to, fetch that brand's
+    // brandInfo.json (generated for every brand by
+    // `npm run prepare-brand -- --all`, see scripts/prepare-brand.js), and
+    // only then apply theming and reveal the launcher. The launcher and the
+    // chat window both carry brand styling, so nothing brand-specific may
+    // render before this resolves.
+    (function () {
+      window.utag_data = {brand: 'too-faced', ELC_ENV: 'dev'};
+      var UTAG_POLL_INTERVAL_MS = 100;
+      var UTAG_TIMEOUT_MS = 10000;
 
-    const brandConfig = window.__CHAT_BRAND_INFO__?.config || {};
-    const brandColors = brandConfig.colors || {};
-    const openColor = brandConfig.headerTextColor || '#ffffff';
-    const openBg = brandColors.primary500 || brandConfig.primaryColor || '#123456';
-    const closeBg = brandColors.primary800 || brandConfig.secondaryColor || openBg;
+      // Maps utag_data.ELC_ENV -> our brands/<brand>/config/env.<env>.json
+      // naming. Unrecognized values fall back to "prod".
+      var ENV_MAP = {
+        PROD: 'prod', PRODUCTION: 'prod',
+        QA: 'qa', STAGE: 'qa', STAGING: 'qa',
+        DEV: 'dev', DEVELOPMENT: 'dev'
+      };
 
-    // Launcher icon (Default/Hover/Pressed) is driven by the brand's
-    // Primary500/Primary800 tokens - same source the header background uses -
-    // so switching brands updates it with no code changes.
-    function hexToRgba(hex, alpha) {
-      const match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
-      if (!match) return null;
-      const [r, g, b] = match.slice(1).map(c => parseInt(c, 16));
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-    const launcherDefault = brandColors.primary500 || brandConfig.primaryColor;
-    const launcherActive = brandColors.primary800 || launcherDefault;
-    if (launcherDefault) {
-      document.documentElement.style.setProperty('--launcher-color-default', launcherDefault);
-      const shadow = hexToRgba(launcherDefault, 0.4);
-      if (shadow) document.documentElement.style.setProperty('--launcher-shadow', `0 4px 16px ${shadow}`);
-    }
-    if (launcherActive) {
-      document.documentElement.style.setProperty('--launcher-color-active', launcherActive);
-    }
+      // Patch here if a brand's utag_data.brand value doesn't match its
+      // brands/<brand>/ folder name (needs verifying per brand against live
+      // utag_data - only "kilian" has been confirmed so far).
+      var BRAND_ALIAS_MAP = {};
 
-    amazon_connect('styles', {
-      iconType: 'CHAT_VOICE',
-      openChat: { color: openColor, backgroundColor: openBg },
-      closeChat: { color: openColor, backgroundColor: closeBg }
-    });
-    amazon_connect('snippetId', 'QVFJREFIaFQ5MHpFSUtITkw4aWhjVFRTQ2xYNVRrZzZSNS9hc1gwdVNKbzBYYmJUUWdHaVB1YnNOblh3TzM3MWloYVlGdURIQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNS2dWODNiUkNWNThlS2tHWEFnRVFnQ3RkdjQ0d2xVSlRaeVRZNXBwL1BIK0xxQjlPTElQNVFhYm5Bbi9rMytOOWVoLytyS2R3ZGVIYWJTbFc6OitZcUxFREZrL1o2bm9zYmJxcTlBL0JHN0ZvdDZOQUpjMFl2ZjdBNnN0SVB5OXUwLzFoVGFHK3JpUmViVDlEbGNELzNwcHRKMWxUam1EcFU1NWZTMTU5eGtWV1ErS1BsQ2hDS2pyRERnM1p4bWpkODdUNlFTZUtad0RSMTB5UHIxOVJIUkFpaC90MFJ3UEM3MFZTKzhxYVdOcEJnWi9Hcz0=');
-    amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response']);
-    amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
-    amazon_connect('customizationObject', {
-      headerConfig: brandConfig.header,
-      composer: {
-        disableEmojiPicker: true,
-        disableCustomerAttachment: true,
-      },
-    });
-
-    amazon_connect('customStartChat', async function (callback) {
-      try {
-        const response = await fetch(brandConfig.apiGatewayEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            customerName: 'Guest',
-            customerId: '',
-            pageUrl: window.location.href,
-            brand: brandConfig.brand || 'demo-brand',
-          })
-        });
-
-        const data = await response.json();
-        console.log('Raw API response:', data);
-
-        // Parse the body since Lambda returns it as a string
-        const body = typeof data.body === 'string'
-          ? JSON.parse(data.body)
-          : data;
-
-        console.log('Parsed body:', body);
-
-        // Pass in exact format widget expects
-        callback({
-          startChatResult: body.startChatResult,
-          featurePermissions: body.featurePermissions
-        });
-
-      } catch (error) {
-        console.error('Failed to start chat:', error);
-      }
-    });
-
-    amazon_connect('customLaunchBehavior', {
-      skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
-      alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
-
-      programmaticLaunch: function (launchCallback) {
-        // ✅ Store launchCallback globally so button click can use it
-        //    regardless of when this function runs vs when DOM is ready
-        window._connectLaunchCallback = launchCallback;
-
-        var btn = document.getElementById('chat-now-btn');
-        if (btn) {
-          // Button already in DOM — attach directly
-          btn.addEventListener('click', launchCallback);
-        }
-        // If btn is null here, the DOMContentLoaded handler below covers it
-      }
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      var btn = document.getElementById('chat-now-btn');
-      if (btn && window._connectLaunchCallback) {
-        // Avoid double-binding — remove any existing listener first
-        btn.removeEventListener('click', window._connectLaunchCallback);
-        btn.addEventListener('click', window._connectLaunchCallback);
-      }
-      setTimeout(() => {
-        const widgetContainer = document.querySelector('div[class*="acWidgetContainer"]');
-        if (widgetContainer) {
-          widgetContainer.style.overflow = 'visible';
-          widgetContainer.style.borderRadius = '24px 24px 0 0';
-        }
-
-        const frameContainer = document.querySelector('div[class*="acFrameContainer"]');
-        if (frameContainer) {
-          frameContainer.style.borderRadius = '24px 24px 0 0';
-          // Apply radius on iframe to handle white corner bleed
-          const iframe = frameContainer.querySelector('iframe');
-          if (iframe) {
-            iframe.style.borderRadius = '24px 24px 0 0';
+      function waitForUtagData(onReady, onTimeout) {
+        var waited = 0;
+        var timer = setInterval(function () {
+          if (window.utag_data) {
+            clearInterval(timer);
+            onReady(window.utag_data);
+            return;
           }
+          waited += UTAG_POLL_INTERVAL_MS;
+          if (waited >= UTAG_TIMEOUT_MS) {
+            clearInterval(timer);
+            onTimeout();
+          }
+        }, UTAG_POLL_INTERVAL_MS);
+      }
+
+      function resolveBrand(utagData) {
+        var rawBrand = (utagData.brand || '').toLowerCase().trim();
+        var brand = BRAND_ALIAS_MAP[rawBrand] || rawBrand;
+        var rawEnv = (utagData.ELC_ENV || '').toUpperCase().trim();
+        var env = ENV_MAP[rawEnv] || 'prod';
+        return { brand: brand, env: env };
+      }
+
+      function hexToRgba(hex, alpha) {
+        var match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
+        if (!match) return null;
+        var r = parseInt(match[1], 16), g = parseInt(match[2], 16), b = parseInt(match[3], 16);
+        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+      }
+
+      // Launcher color (Default/Hover/Pressed) is driven by the brand's
+      // Primary500/Primary800 tokens - same source the header background
+      // uses - so switching brands updates it with no code changes.
+      function applyBrandColors(brandConfig) {
+        var brandColors = brandConfig.colors || {};
+        var launcherDefault = brandColors.primary500 || brandConfig.primaryColor;
+        var launcherActive = brandColors.primary800 || launcherDefault;
+        if (launcherDefault) {
+          document.documentElement.style.setProperty('--launcher-color-default', launcherDefault);
+          var shadow = hexToRgba(launcherDefault, 0.4);
+          if (shadow) document.documentElement.style.setProperty('--launcher-shadow', '0 4px 16px ' + shadow);
         }
-      }, 1000);
-    });
+        if (launcherActive) {
+          document.documentElement.style.setProperty('--launcher-color-active', launcherActive);
+        }
+      }
+
+      // Swaps the launcher icon if the resolved brand supplies its own
+      // (config.launcherIconUrl or assets.icon) - otherwise the default
+      // brand-neutral sparkle already in the DOM is left in place.
+      function applyLauncherIcon(brandInfo) {
+        var brandConfig = (brandInfo && brandInfo.config) || {};
+        var iconUrl = brandConfig.launcherIconUrl || (brandInfo.assets && brandInfo.assets.icon);
+        if (!iconUrl) return;
+        var iconSlot = document.querySelector('#chat-now-btn .btn-icon');
+        if (!iconSlot) return;
+        iconSlot.innerHTML = '';
+        var img = document.createElement('img');
+        img.src = iconUrl;
+        img.alt = '';
+        iconSlot.appendChild(img);
+      }
+
+      function revealLauncher() {
+        var btn = document.getElementById('chat-now-btn');
+        if (btn) btn.classList.add('ready');
+      }
+
+      // NOTE: this Connect instance script URL + snippetId are still
+      // hardcoded (unchanged from before this change) - if different brands
+      // are actually backed by different Connect instances, this needs to
+      // become brand-driven too. Flagged as an open item, not guessed at
+      // here since the instance topology per brand hasn't been confirmed.
+      function loadConnectWidgetScript() {
+        (function (w, d, x, id) {
+          var s = d.createElement('script');
+          s.src = 'https://elc-connect-sandbox.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+          s.async = 1;
+          s.id = id;
+          d.getElementsByTagName('head')[0].appendChild(s);
+          w[x] = w[x] || function () { (w[x].ac = w[x].ac || []).push(arguments); };
+        })(window, document, 'amazon_connect', '');
+      }
+
+      function setupWidget(brandInfo) {
+        window.__CHAT_BRAND_INFO__ = brandInfo;
+        var brandConfig = brandInfo.config || {};
+        var brandColors = brandConfig.colors || {};
+
+        applyBrandColors(brandConfig);
+        applyLauncherIcon(brandInfo);
+
+        var openColor = brandConfig.headerTextColor || '#ffffff';
+        var openBg = brandColors.primary500 || brandConfig.primaryColor || '#123456';
+        var closeBg = brandColors.primary800 || brandConfig.secondaryColor || openBg;
+
+        amazon_connect('styles', {
+          iconType: 'CHAT_VOICE',
+          openChat: { color: openColor, backgroundColor: openBg },
+          closeChat: { color: openColor, backgroundColor: closeBg }
+        });
+        amazon_connect('snippetId', '');
+        amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response']);
+        amazon_connect('customerChatInterfaceUrl', './amazon-connect-chat-interface.js');
+        amazon_connect('customizationObject', {
+          headerConfig: brandConfig.header,
+          composer: {
+            disableEmojiPicker: true,
+            disableCustomerAttachment: true,
+          },
+        });
+
+        amazon_connect('customStartChat', async function (callback) {
+          try {
+            const response = await fetch(brandConfig.apiGatewayEndpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                customerName: 'Guest',
+                customerId: '',
+                pageUrl: window.location.href,
+                brand: brandInfo.brand || 'demo-brand',
+              })
+            });
+
+            const data = await response.json();
+            console.log('Raw API response:', data);
+
+            // Parse the body since Lambda returns it as a string
+            const body = typeof data.body === 'string'
+              ? JSON.parse(data.body)
+              : data;
+
+            console.log('Parsed body:', body);
+
+            // Pass in exact format widget expects
+            callback({
+              startChatResult: body.startChatResult,
+              featurePermissions: body.featurePermissions
+            });
+
+          } catch (error) {
+            console.error('Failed to start chat:', error);
+          }
+        });
+
+        amazon_connect('customLaunchBehavior', {
+          skipIconButtonAndAutoLaunch: true,   // ✅ MUST be true
+          alwaysHideWidgetButton: true,        // ✅ hides Amazon's default button
+
+          programmaticLaunch: function (launchCallback) {
+            // ✅ Store launchCallback globally so button click can use it
+            //    regardless of when this function runs vs when DOM is ready
+            window._connectLaunchCallback = launchCallback;
+
+            var btn = document.getElementById('chat-now-btn');
+            if (btn) {
+              // Button already in DOM — attach directly
+              btn.addEventListener('click', launchCallback);
+            }
+            // If btn is null here, the DOMContentLoaded handler below covers it
+          }
+        });
+
+        revealLauncher();
+      }
+
+      function bootstrap() {
+        loadConnectWidgetScript();
+
+        waitForUtagData(function (utagData) {
+          var resolved = resolveBrand(utagData);
+          if (!resolved.brand) {
+            console.warn('[chat-widget] utag_data.brand is missing/empty - launcher will remain hidden.');
+            return;
+          }
+          fetch('./brand-assets/' + resolved.brand + '/' + resolved.env + '/brandInfo.json', { cache: 'no-store' })
+            .then(function (res) {
+              if (!res.ok) throw new Error('brandInfo fetch failed with status ' + res.status);
+              return res.json();
+            })
+            .then(setupWidget)
+            .catch(function (err) {
+              console.warn('[chat-widget] failed to load brand data for "' + resolved.brand + '/' + resolved.env + '" - launcher will remain hidden.', err);
+            });
+        }, function () {
+          console.warn('[chat-widget] window.utag_data was not available after ' + UTAG_TIMEOUT_MS + 'ms - launcher will remain hidden.');
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        bootstrap();
+
+        setTimeout(() => {
+          const widgetContainer = document.querySelector('div[class*="acWidgetContainer"]');
+          if (widgetContainer) {
+            widgetContainer.style.overflow = 'visible';
+            widgetContainer.style.borderRadius = '24px 24px 0 0';
+          }
+
+          const frameContainer = document.querySelector('div[class*="acFrameContainer"]');
+          if (frameContainer) {
+            frameContainer.style.borderRadius = '24px 24px 0 0';
+            // Apply radius on iframe to handle white corner bleed
+            const iframe = frameContainer.querySelector('iframe');
+            if (iframe) {
+              iframe.style.borderRadius = '24px 24px 0 0';
+            }
+          }
+        }, 1000);
+      });
+    })();
   </script>
 
 </body>
