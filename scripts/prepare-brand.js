@@ -413,12 +413,28 @@ function getBrandLogoUrl(brandPath, assetsBasePath = './brand-assets') {
   return null;
 }
 
+// Same lookup pattern as getBrandLogoUrl, but for the launcher button's icon
+// (brands/<brand>/assets/images/launcher-icon.svg). SVG is checked first so
+// the widget can fetch+inline it and let CSS drive its internal colors
+// (see hostedWidget.html's applyLauncherIcon) - a raster fallback is kept
+// for brands that only supply a PNG.
+function getBrandLauncherIconUrl(brandPath, assetsBasePath = './brand-assets') {
+  const assetsDir = path.join(brandPath, 'assets');
+  const candidates = ['images/launcher-icon.svg', 'images/launcher-icon.png'];
+  for (const relativePath of candidates) {
+    if (fs.existsSync(path.join(assetsDir, relativePath))) {
+      return `${assetsBasePath}/${relativePath}`;
+    }
+  }
+  return null;
+}
+
 // Builds the plain brand-info object shared by both output modes: the
 // single-brand mode below serializes this into a `window.X = {...}` script,
 // while --all mode (prepareAllBrands) writes it straight to a fetchable
 // brandInfo.json - same shape either way, so src/index.js's getBrandInfo()
 // consumer doesn't need to care which mode produced it.
-function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, assetsBasePath = './brand-assets') {
+function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, assetsBasePath = './brand-assets', iconUrl = null) {
   const finalFontFamily = resolvedFontFamily || getResolvedFontFamily(config.widget?.fontFamily, fontFiles);
   const info = {
     brand: brandName,
@@ -436,16 +452,19 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
     },
   };
 
-  if (logoUrl) {
-    info.assets = {logo: logoUrl};
+  const assets = {};
+  if (logoUrl) assets.logo = logoUrl;
+  if (iconUrl) assets.icon = iconUrl;
+  if (Object.keys(assets).length) {
+    info.assets = assets;
   }
 
   return info;
 }
 
 // Generate brand info file for runtime reference (single-brand mode)
-function generateBrandInfo(brandName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
-  const info = buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles, resolvedFontFamily, colorPalette);
+function generateBrandInfo(brandName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, iconUrl = null) {
+  const info = buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles, resolvedFontFamily, colorPalette, './brand-assets', iconUrl);
 
   const content = `/**
  * Current Brand Configuration
@@ -523,6 +542,7 @@ function prepareAllBrands() {
 
     const fontFiles = getBrandFontFiles(brandPath);
     const logoUrl = getBrandLogoUrl(brandPath, assetsBasePath);
+    const iconUrl = getBrandLauncherIconUrl(brandPath, assetsBasePath);
     const colorPalette = getBrandColorPalette(brandThemeSrcDir, {});
 
     envNames.forEach(envName => {
@@ -535,7 +555,7 @@ function prepareAllBrands() {
       const envOutDir = path.join(brandOutDir, envName);
       fs.mkdirSync(envOutDir, {recursive: true});
 
-      const info = buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles, resolvedFontFamily, colorPalette, assetsBasePath);
+      const info = buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles, resolvedFontFamily, colorPalette, assetsBasePath, iconUrl);
       fs.writeFileSync(path.join(envOutDir, 'brandInfo.json'), JSON.stringify(info, null, 2));
       envCount += 1;
     });
@@ -696,9 +716,10 @@ Examples:
 
   // Generate configuration files
   const logoUrl = getBrandLogoUrl(brandPath);
+  const iconUrl = getBrandLauncherIconUrl(brandPath);
   const colorPalette = getBrandColorPalette(brandThemeDir, config.widget);
   console.log('  🔎 Resolved color palette:', colorPalette);
-  generateBrandInfo(brandName, envName, config, path.join(localTestingDir, 'brandInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette);
+  generateBrandInfo(brandName, envName, config, path.join(localTestingDir, 'brandInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette, iconUrl);
   generateBrandThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'brand-theme.css'), fontFiles, resolvedFontFamily, colorPalette);
   const envStateFile = path.join(__dirname, '..', '.brand-env');
   fs.writeFileSync(envStateFile, JSON.stringify({brand: brandName, env: envName}, null, 2));
