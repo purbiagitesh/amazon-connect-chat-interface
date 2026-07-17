@@ -333,10 +333,15 @@ function getBrandFontFiles(brandPath) {
   return files;
 }
 
-// Reads brands/<brand>/theme/colors.json - the single source of truth for
-// brand color tokens (Primary500/Primary800, matching the design spec's
-// naming) - and falls back to widget.primaryColor / a hardcoded default so
-// brands that haven't set up colors.json yet still render something sane.
+// Reads brands/<brand>/theme/colors.json - the SINGLE source of truth for
+// brand color tokens - and returns it in full (every scale: primary/
+// secondary/featured, text, background) so any consumer (React theme,
+// header, launcher) can reach any value, not just the two flattened fields
+// below. primary500/primary800 are kept alongside the full object purely
+// for the older consumers (Chat.js header, hostedWidget.html launcher,
+// generateBrandThemeCss) that only ever needed those two - falls back to
+// widget.primaryColor / a hardcoded default so brands without colors.json
+// yet still render something sane.
 function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   const colorsPath = path.join(brandThemeDir, 'colors.json');
   let colors = {};
@@ -350,7 +355,7 @@ function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   const primary = colors.primary || {};
   const primary500 = primary['500'] || widgetConfig.primaryColor || '#3F5773';
   const primary800 = primary['800'] || primary500;
-  return {primary500, primary800};
+  return {...colors, primary500, primary800};
 }
 
 function generateBrandThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {

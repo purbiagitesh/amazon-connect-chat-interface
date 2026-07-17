@@ -7,11 +7,6 @@ import {MessageBody} from "../InteractiveMessage";
 import {truncateStrFromCharLimit} from "../../../../../utils/helper";
 import {InteractiveMessageType} from "../../../datamodel/Model";
 
-const customerQuickReplyStyles = {
-  color: "#FFEA00",
-  background: '#D2042D'
-}
-
 const ResponsesSection = styled.div`
   padding: ${({ theme}) => theme.spacing.base} 0;
   display: flex;
@@ -28,15 +23,15 @@ const QuickReplyOption = styled.button`
   margin-bottom: 10px;
   border: none;
   border-radius: 24px;
-  background-color: #D6D6FA;
-  color: #1A1A1A;
+  background-color: ${({theme}) => theme.componentPalette.quickReply.backgroundColor};
+  color: ${({theme}) => theme.componentPalette.quickReply.textColor};
   ${({ theme}) => theme.typography.label};
   text-align: center;
   cursor: pointer;
   transition: background-color 0.15s ease;
 
   &:hover {
-    background-color: #C4C4F8;
+    background-color: ${({theme}) => theme.componentPalette.quickReply.hoverBackgroundColor};
   }
 `;
 

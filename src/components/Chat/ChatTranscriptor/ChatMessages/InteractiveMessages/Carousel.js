@@ -57,11 +57,11 @@ const ScrollButton = styled(Button)`
 
   width: 32px;
   height: 32px;
-  border: 2px solid #fff;
+  border: 2px solid ${({theme}) => theme.componentPalette.carousel.arrowBackgroundColor};
   border-radius: 50%;
 
   background-size: 14px auto;
-  background: white;
+  background: ${({theme}) => theme.componentPalette.carousel.arrowBackgroundColor};
   -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);

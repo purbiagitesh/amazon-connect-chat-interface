@@ -7,6 +7,7 @@ import {config} from "./utils/log";
 import {setupGuidesRenderer} from './utils/helper';
 
 import defaultTheme from './theme/defaultTheme';
+import buildComponentPalette from './theme/componentPalette';
 import packageJson from '../package.json';
 
 function getBrandInfo() {
@@ -49,15 +50,26 @@ function resolveFontFaces(brandConfig) {
 
 function buildThemeConfig(brandConfig = {}) {
   const themeConfig = {};
+  const colors = brandConfig.colors || {};
 
-  if (brandConfig.primaryColor || brandConfig.secondaryColor) {
+  // colors.primary500 already carries prepare-brand.js's own fallback chain
+  // (colors.json -> widget.primaryColor -> hardcoded default), so reading
+  // it here is safe even for brands that haven't set up colors.json yet.
+  const primary = colors.primary500;
+  const secondary = (colors.secondary && colors.secondary['500']) || brandConfig.secondaryColor;
+
+  if (primary || secondary) {
     themeConfig.color = {};
-    if (brandConfig.primaryColor) {
-      themeConfig.color.primary = brandConfig.primaryColor;
+    if (primary) {
+      themeConfig.color.primary = primary;
     }
-    if (brandConfig.secondaryColor) {
-      themeConfig.color.secondary = brandConfig.secondaryColor;
+    if (secondary) {
+      themeConfig.color.secondary = secondary;
     }
+    // Full colors.json scale, plus the readable per-UI-area tokens built
+    // from it - the single place every component's color should come from.
+    themeConfig.colors = colors;
+    themeConfig.componentPalette = buildComponentPalette(colors);
   }
 
   if (brandConfig.fontFamily) {

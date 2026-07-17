@@ -100,8 +100,8 @@ const NextTimeslotsButton = styled.button`
 
 const ConfirmControlsButton = styled.button`
   ${({ theme}) => theme.typography.label};
-  background-color: #3F5773;
-  color: #fff !important;
+  background-color: ${({theme}) => theme.componentPalette.timePicker.confirmBackgroundColor};
+  color: ${({theme}) => theme.componentPalette.timePicker.confirmTextColor} !important;
 `;
 
 const ConfirmSelectionButton = styled(ConfirmControlsButton)`

@@ -117,6 +117,44 @@ const color = {
   highlightColor: "#398ADA"
 }
 
+// Default, brand-agnostic values for every semantic/component color token -
+// only used until a brand is resolved (src/index.js's buildThemeConfig()
+// replaces this wholesale with brand-driven values built from that brand's
+// colors.json via src/theme/componentPalette.js). Kept here, matching the
+// exact colors each component previously hardcoded, so tests and any
+// no-brand render look identical to before this token layer existed.
+const componentPalette = {
+  launcher: {
+    color: color.primary,
+    hoverColor: color.secondary,
+    text: {
+      color: palette.white,
+    },
+  },
+  header: {
+    backgroundColor: color.primary,
+    textColor: palette.white,
+  },
+  button: {
+    primary: {
+      backgroundColor: color.primary,
+      hoverBackgroundColor: color.secondary,
+    },
+  },
+  quickReply: {
+    backgroundColor: "#D6D6FA",
+    hoverBackgroundColor: "#C4C4F8",
+    textColor: "#1A1A1A",
+  },
+  timePicker: {
+    confirmBackgroundColor: "#3F5773",
+    confirmTextColor: palette.white,
+  },
+  carousel: {
+    arrowBackgroundColor: palette.white,
+  },
+}
+
 const globals = {
   bodyBackground: palette.dustyGray,
   bodyFontColor: palette.black,
@@ -156,6 +194,7 @@ const defaultTheme = {
   fontsSize,
   screen,
   color,
+  componentPalette,
 
   // Typography
   // -------------
