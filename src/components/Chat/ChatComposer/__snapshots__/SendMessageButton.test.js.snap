@@ -4,11 +4,38 @@ exports[`Style should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--ac-widget-send-button-size,32px);
+  height: var(--ac-widget-send-button-size,32px);
+  border-radius: 50%;
   cursor: default;
+  -webkit-transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease;
+  background-color: var(--ac-widget-send-button-bg,#EDEDED);
 }
 
 .c0>svg {
-  fill: #EDEDED;
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
+}
+
+.c0>img {
+  width: var(--ac-widget-send-button-icon-size,16px);
+  height: var(--ac-widget-send-button-icon-size,16px);
+  object-fit: contain;
 }
 
 <body>
@@ -30,7 +57,7 @@ Object {
             fill="none"
           />
           <path
-            d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+            d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
           />
         </svg>
       </div>
@@ -39,7 +66,7 @@ Object {
   "container": <div>
     <div
       aria-label="Send Message"
-      class="sc-bdVaJa iDYuWj"
+      class="sc-bdVaJa iOYBrR"
       data-testid="customer-chat-send-message-button"
       tabindex="0"
     >
@@ -54,7 +81,7 @@ Object {
           fill="none"
         />
         <path
-          d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+          d="M4.01 6.03L11.52 9.25L4 8.25L4.01 6.03ZM11.51 14.75L4 17.97V15.75L11.51 14.75ZM2.01 3L2 10L17 12L2 14L2.01 21L23 12L2.01 3Z"
         />
       </svg>
     </div>
