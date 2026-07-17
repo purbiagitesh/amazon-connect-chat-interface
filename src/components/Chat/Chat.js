@@ -7,14 +7,13 @@ import React, {Component} from "react";
 import {Text} from "connect-core";
 import styled from "styled-components";
 import renderHTML from 'react-render-html';
-import Palette from '../../theme/Palette';
 
 const ChatWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border-radius: 24px 24px 0 0;
+  border-radius: 24px; // to match the border with figma frame
   overflow: hidden;
   @media (max-width:640px) {
     position: absolute;
@@ -55,6 +54,7 @@ const ChatComposerWrapper = styled.div`
     bottom: 0;
     right: 0;
     top: ${props => props.parentHeaderWrapperHeight}px;
+    height: auto;
     min-height: auto;
   }
 `;
@@ -63,56 +63,6 @@ const HeaderWrapper = styled.div`
   padding: 0;
   border-radius: 24px 24px 0 0;
   overflow: hidden;
-  background: ${props => props.bgColor};
-`;
-
-const HeaderContentRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 16px;
-`;
-
-const HeaderBrandGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-const HeaderLogo = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-`;
-
-const HeaderTitle = styled.div`
-  color: ${props => props.color};
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 700;
-  letter-spacing: normal;
-`;
-
-const HeaderSubtitle = styled.div`
-  color: ${props => props.color};
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: normal;
-  margin-top: 4px;
-  max-width: 260px;
-`;
-
-const HeaderCloseButton = styled.button`
-  background: transparent;
-  border: none;
-  color: ${props => props.color};
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0 0 0 8px;
-  flex-shrink: 0;
 `;
 
 const BrandIconWrapper = styled.div`
@@ -146,37 +96,74 @@ const defaultHeaderConfig = {
     // Header background is the brand's Primary500 token - same source the
     // launcher icon uses - so it can't drift out of sync with the brand theme.
     const bgColor = colors.primary500 || hc.backgroundColor || '#3F5773';
-    const textColor = hc.textColor || Palette.palette.white;
+    const textColor = hc.textColor || '#ffffff';
     const subtitleColor = hc.subtitleColor || 'rgba(255,255,255,0.70)';
 
     return (
-      <HeaderWrapper bgColor={bgColor}>
-        <HeaderContentRow>
-          <HeaderBrandGroup>
+      <HeaderWrapper style={{ background: bgColor}}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 16px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
             {hc.logoUrl && (
-              <HeaderLogo src={hc.logoUrl} alt="" />
+              <img
+                src={hc.logoUrl}
+                alt=""
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  flexShrink: 0,
+                }}
+              />
             )}
             <div>
-              <HeaderTitle color={textColor}>
+              <div style={{
+                color: textColor,
+                fontSize: '16px',
+                lineHeight: '20px',
+                fontWeight: 700,
+                letterSpacing: 'normal',
+              }}>
                 {hc.title || ''}
-              </HeaderTitle>
+              </div>
               {hc.subtitle && (
-                <HeaderSubtitle color={subtitleColor}>
+                <div style={{
+                  color: subtitleColor,
+                  fontSize: '10px',
+                  lineHeight: '12px',
+                  fontWeight: 'normal',
+                  marginTop: '4px',
+                  maxWidth: '260px',
+                }}>
                   {hc.subtitle}
-                </HeaderSubtitle>
+                </div>
               )}
             </div>
-          </HeaderBrandGroup>
+          </div>
           {hc.showCloseButton && (
-            <HeaderCloseButton
+            <button
               onClick={() => config.onEndChat && config.onEndChat()}
-              color={textColor}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: textColor,
+                fontSize: '22px',
+                lineHeight: 1,
+                cursor: 'pointer',
+                padding: '0 0 0 8px',
+                flexShrink: 0,
+              }}
               aria-label="Close chat"
             >
               ×
-            </HeaderCloseButton>
+            </button>
           )}
-        </HeaderContentRow>
+        </div>
       </HeaderWrapper>
     );
   }

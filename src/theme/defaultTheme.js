@@ -28,7 +28,7 @@ const palette = {
   whisper: '#EDEDED', // whisper / Gray93
   rust: '#C45500', // rust brown
   green: '#109B2B', // green
-  lightGreen: '#AADFB4', // light green
+  lightPeriwinkle: '#D8DFFF', // customer message bubble
   red: '#D0021B', // red
   yellow: '#F5A623',
   lightYellow: '#FDDF93',
@@ -258,8 +258,8 @@ const defaultTheme = {
     `,
 
     body: `
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 15px;
+      line-height: 22px;
       font-weight: normal;
       padding: 0;
     `,
@@ -434,11 +434,11 @@ button: {
 
   chatTranscriptor: {
     loading: color.primary,
-    outgoingMsgBg: palette.lightGreen,
+    outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
     outgoingMsg: `
       color: ${palette.secondaryBlack};
-      background: ${palette.lightGreen};
+      background: ${palette.lightPeriwinkle};
       font-family: "${fonts.regular}";
       `,
 
