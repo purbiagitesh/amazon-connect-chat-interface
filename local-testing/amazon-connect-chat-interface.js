@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "e9fc3b400633dd0ecdf2";
+/******/ 	var hotCurrentHash = "73d1e1ce7cfb0cd19fc3";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136282,13 +136282,17 @@ var Page = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templa
   return props.theme.palette.alto;
 });
 var AppProvider = function AppProvider(props) {
+  var _theme$chatTranscript;
   var theme = props.themeConfig && Object.keys(props.themeConfig).length ? Object.assign({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_7__["default"], props.themeConfig) : undefined;
+  console.log("AppProvider themeConfig:", props.themeConfig);
+  console.log("AppProvider final theme:", theme);
+  console.log("Outgoing BG:", theme === null || theme === void 0 ? void 0 : (_theme$chatTranscript = theme.chatTranscriptor) === null || _theme$chatTranscript === void 0 ? void 0 : _theme$chatTranscript.outgoingMsgBg);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_theme__WEBPACK_IMPORTED_MODULE_3__["ThemeProvider"], {
     theme: theme,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 32,
+      lineNumber: 34,
       columnNumber: 5
     }
   }, props.children);
@@ -136305,7 +136309,7 @@ function App(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 44,
+      lineNumber: 46,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_assets_fonts__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -136313,7 +136317,7 @@ function App(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 45,
+      lineNumber: 47,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Page, {
@@ -136321,14 +136325,14 @@ function App(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 46,
+      lineNumber: 48,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_Chat_ChatContainer__WEBPACK_IMPORTED_MODULE_5__["default"], Object.assign({}, props, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 47,
+      lineNumber: 49,
       columnNumber: 9
     }
   }))));
@@ -139896,6 +139900,22 @@ var ChatSession = /*#__PURE__*/function () {
       }
       return _handleAuthenticationLifecycleEvent;
     }() // TYPING PARTICIPANTS
+    //
+    // Real-time lifecycle of the "participant is composing" bubble
+    // (rendered by ChatMessage.js's ParticipantTyping):
+    //  1. Each onTyping event received from the other side re-arms a fresh
+    //     12s timer for that participant (below) - the SDK doesn't send an
+    //     explicit "stopped typing" event, so this timer is the only thing
+    //     that clears a stale indicator if the other participant goes idle,
+    //     closes their tab, or drops connection mid-type.
+    //  2. If another onTyping event for the same participant arrives before
+    //     the timer fires, the old timer is cleared and replaced - so the
+    //     bubble stays visible continuously while they keep typing, instead
+    //     of flickering off every 12s.
+    //  3. The instant a real PARTICIPANT_MESSAGE lands in the transcript
+    //     (_updateTypingParticipantsUsingIncoming, called from
+    //     _handleIncomingData), the typing bubble is removed - this is what
+    //     makes the indicator get replaced by the actual message bubble.
   }, {
     key: "_handleTypingEvent",
     value: function _handleTypingEvent(dataInput) {
@@ -139928,7 +139948,11 @@ var ChatSession = /*#__PURE__*/function () {
       if (item.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["PARTICIPANT_MESSAGE"]) {
         this._removeTypingParticipant(item.participantId);
       }
-    }
+    } // NOTE: despite taking a participantId, this clears the ENTIRE typing
+    // list (not just that participant) - in today's 1:1 chat model there's
+    // only ever one other typing participant at a time, so this has been
+    // equivalent in practice to a per-participant removal. Revisit if this
+    // widget ever supports multi-party chat.
   }, {
     key: "_removeTypingParticipant",
     value: function _removeTypingParticipant(participantId) {
@@ -140214,9 +140238,10 @@ var _templateObject,
   _templateObject12,
   _templateObject13,
   _templateObject14,
+  _templateObject15,
   _this = undefined,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
-  _templateObject15;
+  _templateObject16;
 
 
 
@@ -140286,7 +140311,7 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
 }, function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? props.theme.chatTranscriptor.outgoingMsg : props.theme.chatTranscriptor.incomingMsg;
 }, function (props) {
-  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "\n        background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n        color: var(--ac-widget-transcript-customer-textcolor);\n      " : "\n        background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));\n        color: var(--ac-widget-transcript-agent-textcolor);\n      ";
+  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "\n       background-color: var(\n  --ac-widget-transcript-customer-bubble-color,\n  var(--outgoingMsgBg-background-color)\n);\n        color: var(--ac-widget-transcript-customer-textcolor);\n      " : "\n        background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));\n        color: var(--ac-widget-transcript-agent-textcolor);\n      ";
 }, function (props) {
   return props.messageStyle ? props.messageStyle : "";
 }, function (props) {
@@ -140299,7 +140324,16 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
+
+// Wraps Header/Body/Footer as one unit so the bubble hugs its content
+// instead of stretching across the full transcript width. Only the
+// customer (outgoing) side is capped - width is a fixed layout concern
+// (theme.chatTranscriptor.customerBubbleMaxWidth), not a per-brand token,
+// so every brand gets the same proportions per the widget spec.
+var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n  ", "\n"])), function (props) {
+  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "max-width: ".concat(props.theme.chatTranscriptor.customerBubbleMaxWidth, ";") : "";
+});
+var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.typography.supportingText;
 }, function (_ref10) {
@@ -140314,13 +140348,13 @@ var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_
 // window.__CHAT_BRAND_INFO__.assets.avatar, populated by
 // scripts/prepare-client.js). Clients without one keep the original
 // single-column message layout untouched.
-var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
+var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
   var theme = _ref12.theme;
   return theme.spacing.mini;
 });
-var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
-var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
-var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref13) {
+var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
+var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
+var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref13) {
   var theme = _ref13.theme;
   return theme.typography.supportingText;
 }, function (_ref14) {
@@ -140330,7 +140364,7 @@ var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span
   var theme = _ref15.theme;
   return theme.spacing.mini;
 });
-var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref16) {
+var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref16) {
   var theme = _ref16.theme;
   return theme.typography.supportingText;
 }, function (props) {
@@ -140348,7 +140382,7 @@ var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["def
   var theme = _ref20.theme;
   return theme.palette.red;
 });
-TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref21) {
+TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.inlineButton;
 }, function (_ref22) {
@@ -140369,14 +140403,14 @@ var ErrorFallback = function ErrorFallback(_ref23) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 164,
+      lineNumber: 182,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 165,
+      lineNumber: 183,
       columnNumber: 7
     }
   }, "Something went wrong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
@@ -140384,7 +140418,7 @@ var ErrorFallback = function ErrorFallback(_ref23) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 166,
+      lineNumber: 184,
       columnNumber: 7
     }
   }, "Reload Editor"));
@@ -140440,7 +140474,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 221,
+          lineNumber: 239,
           columnNumber: 34
         }
       });
@@ -140450,21 +140484,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 225,
+              lineNumber: 243,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(StatusText, {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 226,
+              lineNumber: 244,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 227,
+              lineNumber: 245,
               columnNumber: 15
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140473,7 +140507,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 228,
+              lineNumber: 246,
               columnNumber: 17
             }
           }))));
@@ -140483,7 +140517,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 238,
+              lineNumber: 256,
               columnNumber: 34
             }
           }, this.timestampToDisplayable(transportDetails.sentTime, isOutgoingMsg));
@@ -140493,21 +140527,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 242,
+              lineNumber: 260,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 243,
+              lineNumber: 261,
               columnNumber: 13
             }
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 244,
+              lineNumber: 262,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140516,7 +140550,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 245,
+              lineNumber: 263,
               columnNumber: 15
             }
           })));
@@ -140526,7 +140560,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 254,
+              lineNumber: 272,
               columnNumber: 34
             }
           });
@@ -140535,14 +140569,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 257,
+          lineNumber: 275,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 258,
+          lineNumber: 276,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140551,14 +140585,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 259,
+          lineNumber: 277,
           columnNumber: 11
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 264,
+          lineNumber: 282,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -140582,14 +140616,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 281,
+          lineNumber: 299,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 282,
+          lineNumber: 300,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140599,7 +140633,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 283,
+          lineNumber: 301,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140609,7 +140643,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 288,
+          lineNumber: 306,
           columnNumber: 36
         }
       })));
@@ -140694,12 +140728,13 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           return null;
         }
       }
-      var mainMessage = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+      var mainMessage = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContainer, {
+        direction: direction,
         "data-testid": "main-message",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 395,
+          lineNumber: 413,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -140707,7 +140742,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 396,
+          lineNumber: 414,
           columnNumber: 9
         }
       }, this.renderHeader()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
@@ -140719,7 +140754,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 397,
+          lineNumber: 415,
           columnNumber: 9
         }
       }, function (_ref24) {
@@ -140733,7 +140768,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 399,
+            lineNumber: 417,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -140741,7 +140776,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 410,
+          lineNumber: 428,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
@@ -140753,7 +140788,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 422,
+          lineNumber: 440,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
@@ -140763,14 +140798,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 423,
+          lineNumber: 441,
           columnNumber: 9
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 424,
+          lineNumber: 442,
           columnNumber: 9
         }
       }, mainMessage));
@@ -140792,7 +140827,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 438,
+            lineNumber: 456,
             columnNumber: 9
           }
         });
@@ -140809,14 +140844,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 450,
+                lineNumber: 468,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 450,
+              lineNumber: 468,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -140827,7 +140862,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 451,
+              lineNumber: 469,
               columnNumber: 13
             }
           }));
@@ -140838,7 +140873,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 461,
+            lineNumber: 479,
             columnNumber: 14
           }
         });
@@ -140854,7 +140889,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 469,
+            lineNumber: 487,
             columnNumber: 14
           }
         });
@@ -140866,7 +140901,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 474,
+            lineNumber: 492,
             columnNumber: 14
           }
         });
@@ -140879,7 +140914,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 479,
+            lineNumber: 497,
             columnNumber: 14
           }
         });
@@ -140889,7 +140924,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 482,
+          lineNumber: 500,
           columnNumber: 12
         }
       });
@@ -140904,14 +140939,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 490,
+          lineNumber: 508,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 491,
+          lineNumber: 509,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -140931,7 +140966,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 504,
+          lineNumber: 522,
           columnNumber: 7
         }
       }, "Retry");
@@ -140964,7 +140999,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 519,
+          lineNumber: 537,
           columnNumber: 7
         }
       }, this.props.content);
@@ -140972,9 +141007,22 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
   }]);
   return PlainTextMessage;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
+var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "right" : "left";
 });
+
+// Renders the "participant is composing" bubble (see ChatSession.js's
+// _handleTypingEvent/_removeTypingParticipant for the real-time lifecycle:
+// shown on an onTyping event, auto-expires after 12s if no follow-up
+// signal arrives, and is cleared the instant a real message lands in the
+// transcript so this bubble is replaced by the actual one).
+// Reuses the same Body styled-component as a real message, so the bubble
+// background is already brand-driven for free via
+// theme.chatTranscriptor.outgoingMsgBg/incomingMsgBg - no extra theming
+// needed here. The dot color below is NOT brand-driven though (hardcoded
+// white/black) - it happens to contrast against every brand's bubble
+// today only because outgoing text/agent text defaults are white/near-black;
+// a brand with a light customer-bubble color would need this revisited.
 var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
   Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantTyping, _PureComponent3);
   function ParticipantTyping() {
@@ -140989,7 +141037,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 534,
+          lineNumber: 564,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -140997,7 +141045,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 535,
+          lineNumber: 565,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -141005,7 +141053,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 536,
+          lineNumber: 566,
           columnNumber: 11
         }
       })));
@@ -141048,7 +141096,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 566,
+            lineNumber: 596,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141065,7 +141113,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 583,
+          lineNumber: 613,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -141561,16 +141609,22 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var ScrollButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_6__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  display: block;\n  --offset-x: 0;\n  z-index: 99;\n  ", "\n\n  width: 32px;\n  height: 32px;\n  border: 2px solid #fff;\n  border-radius: 50%;\n\n  background-size: 14px auto;\n  background: white;\n  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n"])), function (props) {
+var ScrollButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_6__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  display: block;\n  --offset-x: 0;\n  z-index: 99;\n  ", "\n\n  width: 32px;\n  height: 32px;\n  border: 2px solid ", ";\n  border-radius: 50%;\n\n  background-size: 14px auto;\n  background: ", ";\n  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n"])), function (props) {
   return props.direction === "right" ? "right: 0;" : "";
+}, function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.componentPalette.carousel.arrowBackgroundColor;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.componentPalette.carousel.arrowBackgroundColor;
 });
 var ChevronIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n\n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
   return props.direction === "left" ? "180" : "0";
 });
-function NestedInteractiveMessages(_ref3) {
+function NestedInteractiveMessages(_ref5) {
   var _this = this;
-  var elements = _ref3.elements,
-    addMessage = _ref3.addMessage;
+  var elements = _ref5.elements,
+    addMessage = _ref5.addMessage;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, elements.map(function (element, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessage"], {
       key: index,
@@ -141588,8 +141642,8 @@ function NestedInteractiveMessages(_ref3) {
     });
   }));
 }
-function ChevronIcon(_ref4) {
-  var direction = _ref4.direction;
+function ChevronIcon(_ref6) {
+  var direction = _ref6.direction;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChevronIconWrapper, {
     direction: direction,
     __self: this,
@@ -141644,9 +141698,9 @@ Carousel.propTypes = {
  *  - Supported templates: Panel, ListPicker
  *  - Render maximum of 5 elements
  */
-function Carousel(_ref5) {
-  var content = _ref5.content,
-    addMessage = _ref5.addMessage;
+function Carousel(_ref7) {
+  var content = _ref7.content,
+    addMessage = _ref7.addMessage;
   // assumptions: version 1. Guaranteed title exists, at least 2 elements.
   var inputTitle = content.title,
     inputElems = content.elements;
@@ -142235,10 +142289,6 @@ var _templateObject,
 
 
 
-var customerQuickReplyStyles = {
-  color: "#FFEA00",
-  background: '#D2042D'
-};
 var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", " 0;\n  display: flex;\n  flex-wrap: wrap;\n  flex-direction: row;\n  gap: ", ";\n  justify-content: flex-end;\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.spacing.base;
@@ -142246,13 +142296,22 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: #D6D6FA;\n  color: #1A1A1A;\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: #C4C4F8;\n  }\n"])), function (_ref3) {
+var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: ", ";\n  color: ", ";\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: ", ";\n  }\n"])), function (_ref3) {
   var theme = _ref3.theme;
+  return theme.componentPalette.quickReply.backgroundColor;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.componentPalette.quickReply.textColor;
+}, function (_ref5) {
+  var theme = _ref5.theme;
   return theme.typography.label;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.componentPalette.quickReply.hoverBackgroundColor;
 });
-function ReplyElement(_ref4) {
-  var element = _ref4.element,
-    handleSelection = _ref4.handleSelection;
+function ReplyElement(_ref7) {
+  var element = _ref7.element,
+    handleSelection = _ref7.handleSelection;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "replyOptionCharLimit");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyOption, {
     onClick: function onClick() {
@@ -142263,7 +142322,7 @@ function ReplyElement(_ref4) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 47,
+      lineNumber: 42,
       columnNumber: 5
     }
   }, title);
@@ -142272,10 +142331,10 @@ QuickReply.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
-function QuickReply(_ref5) {
+function QuickReply(_ref8) {
   var _this = this;
-  var content = _ref5.content,
-    addMessage = _ref5.addMessage;
+  var content = _ref8.content,
+    addMessage = _ref8.addMessage;
   var inputTitle = content.title,
     elements = content.elements;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
@@ -142286,7 +142345,7 @@ function QuickReply(_ref5) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64,
+      lineNumber: 59,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -142294,7 +142353,7 @@ function QuickReply(_ref5) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65,
+      lineNumber: 60,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ResponsesSection, {
@@ -142302,7 +142361,7 @@ function QuickReply(_ref5) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67,
+      lineNumber: 62,
       columnNumber: 7
     }
   }, elements.map(function (element, index) {
@@ -142313,7 +142372,7 @@ function QuickReply(_ref5) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 69,
+        lineNumber: 64,
         columnNumber: 11
       }
     });
@@ -142409,29 +142468,35 @@ var TimeslotControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 var PrevTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-start;\n"])));
 var NextTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-end;\n"])));
-var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  ", ";\n  background-color: #3F5773;\n  color: #fff !important;\n"])), function (_ref11) {
+var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  ", ";\n  background-color: ", ";\n  color: ", " !important;\n"])), function (_ref11) {
   var theme = _ref11.theme;
   return theme.typography.label;
-});
-var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
-var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref12) {
+}, function (_ref12) {
   var theme = _ref12.theme;
-  return theme.spacing.mini;
+  return theme.componentPalette.timePicker.confirmBackgroundColor;
 }, function (_ref13) {
   var theme = _ref13.theme;
-  return theme.fontsSize.small;
-}, function (_ref14) {
+  return theme.componentPalette.timePicker.confirmTextColor;
+});
+var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
+var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref14) {
   var theme = _ref14.theme;
+  return theme.spacing.mini;
+}, function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.fontsSize.small;
+}, function (_ref16) {
+  var theme = _ref16.theme;
   return theme.fontsSize.small;
 });
 function getLocale() {
   return (navigator.languages && navigator.languages.length > 0 ? navigator.languages[0] : navigator.language) || 'en-US';
 }
-function TimeslotButton(_ref15) {
-  var timeslot = _ref15.timeslot,
-    onClick = _ref15.onClick,
-    onKeyPress = _ref15.onKeyPress,
-    selected = _ref15.selected;
+function TimeslotButton(_ref17) {
+  var timeslot = _ref17.timeslot,
+    onClick = _ref17.onClick,
+    onKeyPress = _ref17.onKeyPress,
+    selected = _ref17.selected;
   var date = timeslot.date;
   var parsedDate = new Date(date);
   var start = parsedDate.toLocaleTimeString("".concat(getLocale()), {
@@ -142456,8 +142521,8 @@ TimePicker.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
 };
-function Chevron(_ref16) {
-  var direction = _ref16.direction;
+function Chevron(_ref18) {
+  var direction = _ref18.direction;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(ChevronIcon, {
     direction: direction,
     __self: this,
@@ -142509,9 +142574,9 @@ function Chevron(_ref16) {
     }
   }))));
 }
-function TimePicker(_ref17) {
-  var content = _ref17.content,
-    addMessage = _ref17.addMessage;
+function TimePicker(_ref19) {
+  var content = _ref19.content,
+    addMessage = _ref19.addMessage;
   var inputTitle = content.title,
     inputSubtitle = content.subtitle,
     timeZoneOffset = content.timeZoneOffset,
@@ -142989,7 +143054,7 @@ var _templateObject,
 
 
 
-var ScrollContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  overflow: auto;\n"])));
+var ScrollContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  overflow: auto;\n\n  /* Hide scrollbar while preserving scroll behavior */\n  ::-webkit-scrollbar {\n    display: none; /* Chrome, Safari and Opera */\n  }\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n"])));
 var SCROLL_BOTTOM_MARGIN = 20;
 var SCROLL_TOP_MARGIN = 0;
 var LoaderWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_11__["MessageBox"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  width: 80%;\n  text-align: center;\n  transition: 100ms;\n  margin: 0 auto;\n"])), function (_ref) {
@@ -143094,14 +143159,14 @@ function ChatTranscriptScroller(_ref2) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122,
+      lineNumber: 129,
       columnNumber: 5
     }
   }, loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(LoaderWrapper, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124,
+      lineNumber: 131,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_9__["Loader"], {
@@ -143110,21 +143175,21 @@ function ChatTranscriptScroller(_ref2) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 125,
+      lineNumber: 132,
       columnNumber: 11
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_9__["Text"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 126,
+      lineNumber: 133,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127,
+      lineNumber: 134,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
@@ -143133,7 +143198,7 @@ function ChatTranscriptScroller(_ref2) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128,
+      lineNumber: 135,
       columnNumber: 15
     }
   })))), children);
@@ -145850,8 +145915,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_log__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./utils/log */ "./src/utils/log.js");
 /* harmony import */ var _utils_helper__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./utils/helper */ "./src/utils/helper.js");
 /* harmony import */ var _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./theme/defaultTheme */ "./src/theme/defaultTheme.js");
-/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ../package.json */ "./package.json");
-var _package_json__WEBPACK_IMPORTED_MODULE_114___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
+/* harmony import */ var _theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./theme/componentPalette */ "./src/theme/componentPalette.js");
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ../package.json */ "./package.json");
+var _package_json__WEBPACK_IMPORTED_MODULE_115___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
 
 
 
@@ -145968,6 +146034,7 @@ var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface
 
 
 
+
 function getBrandInfo() {
   if (typeof window === 'undefined') {
     return null;
@@ -146009,14 +146076,32 @@ function resolveFontFaces(brandConfig) {
 function buildThemeConfig() {
   var brandConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var themeConfig = {};
-  if (brandConfig.primaryColor || brandConfig.secondaryColor) {
+  var colors = brandConfig.colors || {};
+  console.log("Brand colors:", colors);
+  console.log("Chat palette:", Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
+
+  // colors.primary500 already carries prepare-brand.js's own fallback chain
+  // (colors.json -> widget.primaryColor -> hardcoded default), so reading
+  // it here is safe even for brands that haven't set up colors.json yet.
+  var primary = colors.primary500;
+  var secondary = colors.secondary && colors.secondary['500'] || brandConfig.secondaryColor;
+  if (primary || secondary) {
     themeConfig.color = {};
-    if (brandConfig.primaryColor) {
-      themeConfig.color.primary = brandConfig.primaryColor;
+    if (primary) {
+      themeConfig.color.primary = primary;
     }
-    if (brandConfig.secondaryColor) {
-      themeConfig.color.secondary = brandConfig.secondaryColor;
+    if (secondary) {
+      themeConfig.color.secondary = secondary;
     }
+    // Full colors.json scale, plus the readable per-UI-area tokens built
+    // from it - the single place every component's color should come from.
+    themeConfig.colors = colors;
+    themeConfig.componentPalette = Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["default"])(colors);
+    // Keeps the direct-embed render path (theme.chatTranscriptor) in sync
+    // with the hosted-widget iframe path (brand-theme.css's CSS vars) -
+    // both now resolve from the same colors.json bubbles.* keys instead of
+    // this path silently falling back to defaultTheme's hardcoded colors.
+    themeConfig.chatTranscriptor = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor, Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
   }
   if (brandConfig.fontFamily) {
     themeConfig.globals = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
@@ -146054,11 +146139,24 @@ function buildLogoConfig(brandInfo) {
   connect.LogManager && connect.LogManager.updateLoggerConfig(_utils_log__WEBPACK_IMPORTED_MODULE_111__["config"]);
   connect.ChatInterface = connect.ChatInterface || {};
   connect.ChatInterface.init = function (_ref) {
+    var _props$themeConfig, _themeConfig$chatTran;
     var containerId = _ref.containerId,
       props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__["default"])(_ref, ["containerId"]);
     var brandInfo = getBrandInfo();
     var brandConfig = (brandInfo === null || brandInfo === void 0 ? void 0 : brandInfo.config) || {};
-    var themeConfig = Object.assign({}, buildThemeConfig(brandConfig), props.themeConfig || {});
+
+    // Build brand theme
+    var brandThemeConfig = buildThemeConfig(brandConfig);
+    console.log("========== THEME DEBUG ==========");
+    console.log("Brand Theme:", brandThemeConfig.chatTranscriptor);
+    console.log("Caller Theme Override:", (_props$themeConfig = props.themeConfig) === null || _props$themeConfig === void 0 ? void 0 : _props$themeConfig.chatTranscriptor);
+    var themeConfig = Object.assign({}, brandThemeConfig, props.themeConfig || {});
+
+    // Use the default chatTranscriptor
+    themeConfig.chatTranscriptor = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor;
+    console.log("Merged Theme:", themeConfig.chatTranscriptor);
+    console.log("Final outgoingMsgBg:", (_themeConfig$chatTran = themeConfig.chatTranscriptor) === null || _themeConfig$chatTran === void 0 ? void 0 : _themeConfig$chatTran.outgoingMsgBg);
+    console.log("=================================");
     var headerConfig = Object.assign({}, buildHeaderConfig(brandConfig), props.headerConfig || {});
     var logoConfig = Object.assign({}, buildLogoConfig(brandInfo), props.logoConfig || {});
     var fontFaces = resolveFontFaces(brandConfig);
@@ -146073,16 +146171,14 @@ function buildLogoConfig(brandInfo) {
         throttleTime: 5000
       }
     };
-    _utils_log__WEBPACK_IMPORTED_MODULE_111__["config"].customUserAgentSuffix = "AmazonConnect-ChatInterface/".concat(_package_json__WEBPACK_IMPORTED_MODULE_114__.version);
+    _utils_log__WEBPACK_IMPORTED_MODULE_111__["config"].customUserAgentSuffix = "AmazonConnect-ChatInterface/".concat(_package_json__WEBPACK_IMPORTED_MODULE_115__.version);
     connect.ChatSession.setGlobalConfig(_utils_log__WEBPACK_IMPORTED_MODULE_111__["config"]);
-
-    // Guides in Chat
     Object(_utils_helper__WEBPACK_IMPORTED_MODULE_112__["setupGuidesRenderer"])(props);
     react_dom__WEBPACK_IMPORTED_MODULE_108___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_107___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_109__["BrowserRouter"], {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 128,
+        lineNumber: 188,
         columnNumber: 7
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_107___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_110__["default"], Object.assign({}, props, {
@@ -146093,8 +146189,8 @@ function buildLogoConfig(brandInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 128,
-        columnNumber: 22
+        lineNumber: 189,
+        columnNumber: 9
       }
     }))), document.getElementById(containerId) || document.getElementById("root"));
   };
@@ -146516,6 +146612,104 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
 
 /***/ }),
 
+/***/ "./src/theme/componentPalette.js":
+/*!***************************************!*\
+  !*** ./src/theme/componentPalette.js ***!
+  \***************************************/
+/*! exports provided: default, buildChatTranscriptorPalette */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildChatTranscriptorPalette", function() { return buildChatTranscriptorPalette; });
+// Semantic, per-UI-area color tokens built from a brand's raw colors.json
+// scale (brands/<brand>/theme/colors.json - primary/secondary/featured,
+// text, background). This is the ONLY place that decides "which shade of
+// the brand's palette does the QuickReply chip use" - components never
+// read colors.json/raw hex directly, they read
+// theme.componentPalette.<area>.<token> instead (see defaultTheme.js for
+// the brand-agnostic fallback shape this replaces once a brand resolves).
+//
+// `colors` here is brandInfo.config.colors, generated by
+// scripts/prepare-brand.js's getBrandColorPalette() - it always has
+// primary500/primary800 populated (with prepare-brand.js's own fallback
+// chain baked in), plus the full colors.json scale when a brand has set
+// one up.
+function buildComponentPalette() {
+  var colors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var primary = colors.primary || {};
+  var text = colors.text || {};
+  var primary500 = colors.primary500 || primary['500'] || '#3F5773';
+  var primary800 = colors.primary800 || primary['800'] || primary500;
+  var textDefault = text.default || '#1A1A1A';
+  return {
+    launcher: {
+      color: primary500,
+      hoverColor: primary800,
+      text: {
+        color: '#ffffff'
+      }
+    },
+    header: {
+      backgroundColor: primary500,
+      textColor: '#ffffff'
+    },
+    button: {
+      primary: {
+        backgroundColor: primary500,
+        hoverBackgroundColor: primary800
+      }
+    },
+    quickReply: {
+      // A light tint of the brand color (not solid primary500) to keep the
+      // original "pastel chip" look - only the hue now follows the brand
+      // instead of a fixed, brand-unrelated lavender.
+      backgroundColor: primary['100'] || primary500,
+      hoverBackgroundColor: primary['200'] || primary800,
+      textColor: textDefault
+    },
+    timePicker: {
+      confirmBackgroundColor: primary500,
+      confirmTextColor: '#ffffff'
+    },
+    carousel: {
+      // Kept neutral white (not brand-colored) to preserve the existing
+      // look of the round scroll-arrow control - named here so it can
+      // become brand-driven later with a one-line change if ever wanted.
+      arrowBackgroundColor: '#ffffff'
+    }
+  };
+}
+
+// Mirrors scripts/prepare-brand.js's getBubbleColors() so the direct-embed
+// path (theme.chatTranscriptor, read by ChatMessage.js/ChatComposer.js/
+// InteractiveMessage.js) and the hosted-widget iframe path (the
+// --ac-widget-transcript-*-bubble-color CSS vars written into
+// brand-theme.css) resolve bubble colors from the same colors.json
+// `bubbles.customer` / `bubbles.agent` keys instead of drifting apart.
+// Brands without a `bubbles` key keep the original hardcoded look.
+function buildChatTranscriptorPalette() {
+  var colors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var bubbles = colors.bubbles || {};
+  var customer = bubbles.customer || {};
+  var agent = bubbles.agent || {};
+  var primary500 = colors.primary500 || colors.primary && colors.primary['500'] || '#3F5773';
+  var customerBg = customer.background || primary500;
+  var customerText = customer.text || '#FFFFFF';
+  var agentBg = agent.background || '#F5F5F5';
+  var agentText = agent.text || '#333333';
+  return {
+    outgoingMsgBg: customerBg,
+    incomingMsgBg: agentBg,
+    outgoingMsg: "\n      color: ".concat(customerText, ";\n      background: ").concat(customerBg, ";\n      "),
+    incomingMsg: "\n      color: ".concat(agentText, ";\n      background: ").concat(agentBg, ";\n      ")
+  };
+}
+/* harmony default export */ __webpack_exports__["default"] = (buildComponentPalette);
+
+
+/***/ }),
+
 /***/ "./src/theme/defaultTheme.js":
 /*!***********************************!*\
   !*** ./src/theme/defaultTheme.js ***!
@@ -146678,6 +146872,44 @@ var color = {
   borderColor: palette.dustyGray,
   highlightColor: "#398ADA"
 };
+
+// Default, brand-agnostic values for every semantic/component color token -
+// only used until a brand is resolved (src/index.js's buildThemeConfig()
+// replaces this wholesale with brand-driven values built from that brand's
+// colors.json via src/theme/componentPalette.js). Kept here, matching the
+// exact colors each component previously hardcoded, so tests and any
+// no-brand render look identical to before this token layer existed.
+var componentPalette = {
+  launcher: {
+    color: color.primary,
+    hoverColor: color.secondary,
+    text: {
+      color: palette.white
+    }
+  },
+  header: {
+    backgroundColor: color.primary,
+    textColor: palette.white
+  },
+  button: {
+    primary: {
+      backgroundColor: color.primary,
+      hoverBackgroundColor: color.secondary
+    }
+  },
+  quickReply: {
+    backgroundColor: "#D6D6FA",
+    hoverBackgroundColor: "#C4C4F8",
+    textColor: "#1A1A1A"
+  },
+  timePicker: {
+    confirmBackgroundColor: "#3F5773",
+    confirmTextColor: palette.white
+  },
+  carousel: {
+    arrowBackgroundColor: palette.white
+  }
+};
 var globals = {
   bodyBackground: palette.dustyGray,
   bodyFontColor: palette.black,
@@ -146712,6 +146944,7 @@ var defaultTheme = {
   fontsSize: fontsSize,
   screen: screen,
   color: color,
+  componentPalette: componentPalette,
   // Typography
   // -------------
   typography: {
@@ -146875,6 +147108,11 @@ var defaultTheme = {
     loading: color.primary,
     outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
+    // Fixed layout constant, not a brand color - every brand gets the same
+    // bubble proportions (see MessageContainer in ChatMessage.js). Kept
+    // here rather than componentPalette.js so brand colors.json can never
+    // accidentally override layout.
+    customerBubbleMaxWidth: '60%',
     outgoingMsg: "\n      color: ".concat(palette.secondaryBlack, ";\n      background: ").concat(palette.lightPeriwinkle, ";\n      font-family: \"").concat(fonts.regular, "\";\n      "),
     incomingMsg: "\n      color: ".concat(palette.secondaryBlack, ";\n      background: ").concat(palette.whisper, ";\n      font-family: \"").concat(fonts.regular, "\";\n      ")
   }

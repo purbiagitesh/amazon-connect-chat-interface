@@ -58,4 +58,37 @@ function buildComponentPalette(colors = {}) {
   };
 }
 
+// Mirrors scripts/prepare-brand.js's getBubbleColors() so the direct-embed
+// path (theme.chatTranscriptor, read by ChatMessage.js/ChatComposer.js/
+// InteractiveMessage.js) and the hosted-widget iframe path (the
+// --ac-widget-transcript-*-bubble-color CSS vars written into
+// brand-theme.css) resolve bubble colors from the same colors.json
+// `bubbles.customer` / `bubbles.agent` keys instead of drifting apart.
+// Brands without a `bubbles` key keep the original hardcoded look.
+function buildChatTranscriptorPalette(colors = {}) {
+  const bubbles = colors.bubbles || {};
+  const customer = bubbles.customer || {};
+  const agent = bubbles.agent || {};
+
+  const primary500 = colors.primary500 || (colors.primary && colors.primary['500']) || '#3F5773';
+  const customerBg = customer.background || primary500;
+  const customerText = customer.text || '#FFFFFF';
+  const agentBg = agent.background || '#F5F5F5';
+  const agentText = agent.text || '#333333';
+
+  return {
+    outgoingMsgBg: customerBg,
+    incomingMsgBg: agentBg,
+    outgoingMsg: `
+      color: ${customerText};
+      background: ${customerBg};
+      `,
+    incomingMsg: `
+      color: ${agentText};
+      background: ${agentBg};
+      `,
+  };
+}
+
 export default buildComponentPalette;
+export {buildChatTranscriptorPalette};

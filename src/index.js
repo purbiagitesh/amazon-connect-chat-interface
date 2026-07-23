@@ -7,7 +7,7 @@ import {config} from "./utils/log";
 import {setupGuidesRenderer} from './utils/helper';
 
 import defaultTheme from './theme/defaultTheme';
-import buildComponentPalette from './theme/componentPalette';
+import buildComponentPalette, {buildChatTranscriptorPalette} from './theme/componentPalette';
 import packageJson from '../package.json';
 
 function getBrandInfo() {
@@ -51,6 +51,8 @@ function resolveFontFaces(brandConfig) {
 function buildThemeConfig(brandConfig = {}) {
   const themeConfig = {};
   const colors = brandConfig.colors || {};
+  console.log("Brand colors:", colors);
+  console.log("Chat palette:", buildChatTranscriptorPalette(colors));
 
   // colors.primary500 already carries prepare-brand.js's own fallback chain
   // (colors.json -> widget.primaryColor -> hardcoded default), so reading
@@ -70,6 +72,14 @@ function buildThemeConfig(brandConfig = {}) {
     // from it - the single place every component's color should come from.
     themeConfig.colors = colors;
     themeConfig.componentPalette = buildComponentPalette(colors);
+    // Keeps the direct-embed render path (theme.chatTranscriptor) in sync
+    // with the hosted-widget iframe path (brand-theme.css's CSS vars) -
+    // both now resolve from the same colors.json bubbles.* keys instead of
+    // this path silently falling back to defaultTheme's hardcoded colors.
+    themeConfig.chatTranscriptor = {
+      ...defaultTheme.chatTranscriptor,
+      ...buildChatTranscriptorPalette(colors),
+    };
   }
 
   if (brandConfig.fontFamily) {
@@ -114,9 +124,42 @@ function buildLogoConfig(brandInfo) {
   connect.ChatInterface.init = ({containerId, ...props}) => {
     const brandInfo = getBrandInfo();
     const brandConfig = brandInfo?.config || {};
-    const themeConfig = Object.assign({}, buildThemeConfig(brandConfig), props.themeConfig || {});
-    const headerConfig = Object.assign({}, buildHeaderConfig(brandConfig), props.headerConfig || {});
-    const logoConfig = Object.assign({}, buildLogoConfig(brandInfo), props.logoConfig || {});
+
+    // Build brand theme
+    const brandThemeConfig = buildThemeConfig(brandConfig);
+
+    console.log("========== THEME DEBUG ==========");
+    console.log("Brand Theme:", brandThemeConfig.chatTranscriptor);
+    console.log("Caller Theme Override:", props.themeConfig?.chatTranscriptor);
+
+    const themeConfig = Object.assign(
+  {},
+  brandThemeConfig,
+  props.themeConfig || {}
+);
+
+// Use the default chatTranscriptor
+themeConfig.chatTranscriptor = defaultTheme.chatTranscriptor;
+
+    console.log("Merged Theme:", themeConfig.chatTranscriptor);
+    console.log(
+      "Final outgoingMsgBg:",
+      themeConfig.chatTranscriptor?.outgoingMsgBg
+    );
+    console.log("=================================");
+
+    const headerConfig = Object.assign(
+      {},
+      buildHeaderConfig(brandConfig),
+      props.headerConfig || {}
+    );
+
+    const logoConfig = Object.assign(
+      {},
+      buildLogoConfig(brandInfo),
+      props.logoConfig || {}
+    );
+
     const fontFaces = resolveFontFaces(brandConfig);
 
     if (props.widgetType) {
@@ -133,16 +176,30 @@ function buildLogoConfig(brandInfo) {
     config.customUserAgentSuffix = `AmazonConnect-ChatInterface/${packageJson.version}`;
     connect.ChatSession.setGlobalConfig(config);
 
-    // Guides in Chat
     setupGuidesRenderer(props);
 
     ReactDOM.render(
-      <BrowserRouter><App {...props} themeConfig={themeConfig} headerConfig={headerConfig} logoConfig={logoConfig} fontFaces={fontFaces} /></BrowserRouter>, document.getElementById(containerId) || document.getElementById("root"));
+      <BrowserRouter>
+        <App
+          {...props}
+          themeConfig={themeConfig}
+          headerConfig={headerConfig}
+          logoConfig={logoConfig}
+          fontFaces={fontFaces}
+        />
+      </BrowserRouter>,
+      document.getElementById(containerId) ||
+        document.getElementById("root")
+    );
   };
 
   connect.ChatInterface.getCurrentTheme = () => {
     const brandInfo = getBrandInfo();
-    return Object.assign({}, defaultTheme, buildThemeConfig(brandInfo?.config || {}));
+    return Object.assign(
+      {},
+      defaultTheme,
+      buildThemeConfig(brandInfo?.config || {})
+    );
   };
 
   window.connect = connect;
