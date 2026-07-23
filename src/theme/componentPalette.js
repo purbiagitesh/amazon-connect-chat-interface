@@ -69,12 +69,24 @@ function buildChatTranscriptorPalette(colors = {}) {
   const bubbles = colors.bubbles || {};
   const customer = bubbles.customer || {};
   const agent = bubbles.agent || {};
+  const featured = colors.featured || {};
 
-  const primary500 = colors.primary500 || (colors.primary && colors.primary['500']) || '#3F5773';
-  const customerBg = customer.background || primary500;
-  const customerText = customer.text || '#FFFFFF';
-  const agentBg = agent.background || '#F5F5F5';
-  const agentText = agent.text || '#333333';
+  const primary500 =
+    colors.primary500 ||
+    (colors.primary && colors.primary["500"]) ||
+    "#3F5773";
+
+  const customerBg =
+    customer.background ||
+    featured["300"] ||
+    primary500;
+
+  const customerText = customer.text || "#FFFFFF";
+  const agentBg = agent.background || "#F5F5F5";
+  const agentText = agent.text || "#333333";
+
+  console.log("featured.300:", featured["300"]);
+  console.log("customerBg:", customerBg);
 
   return {
     outgoingMsgBg: customerBg,
@@ -82,11 +94,11 @@ function buildChatTranscriptorPalette(colors = {}) {
     outgoingMsg: `
       color: ${customerText};
       background: ${customerBg};
-      `,
+    `,
     incomingMsg: `
       color: ${agentText};
       background: ${agentBg};
-      `,
+    `,
   };
 }
 

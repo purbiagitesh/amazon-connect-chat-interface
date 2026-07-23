@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "73d1e1ce7cfb0cd19fc3";
+/******/ 	var hotCurrentHash = "b2b202617e073765a5e9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -146102,6 +146102,7 @@ function buildThemeConfig() {
     // both now resolve from the same colors.json bubbles.* keys instead of
     // this path silently falling back to defaultTheme's hardcoded colors.
     themeConfig.chatTranscriptor = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor, Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
+    console.log("themeConfig.chatTranscriptor:", themeConfig.chatTranscriptor);
   }
   if (brandConfig.fontFamily) {
     themeConfig.globals = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
@@ -146150,10 +146151,13 @@ function buildLogoConfig(brandInfo) {
     console.log("========== THEME DEBUG ==========");
     console.log("Brand Theme:", brandThemeConfig.chatTranscriptor);
     console.log("Caller Theme Override:", (_props$themeConfig = props.themeConfig) === null || _props$themeConfig === void 0 ? void 0 : _props$themeConfig.chatTranscriptor);
-    var themeConfig = Object.assign({}, brandThemeConfig, props.themeConfig || {});
-
+    console.log("props.themeConfig:", props.themeConfig);
+    var themeConfig = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, brandThemeConfig, props.themeConfig, {
+      chatTranscriptor: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, brandThemeConfig.chatTranscriptor)
+    });
     // Use the default chatTranscriptor
-    themeConfig.chatTranscriptor = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor;
+    //themeConfig.chatTranscriptor = defaultTheme.chatTranscriptor;
+
     console.log("Merged Theme:", themeConfig.chatTranscriptor);
     console.log("Final outgoingMsgBg:", (_themeConfig$chatTran = themeConfig.chatTranscriptor) === null || _themeConfig$chatTran === void 0 ? void 0 : _themeConfig$chatTran.outgoingMsgBg);
     console.log("=================================");
@@ -146693,16 +146697,19 @@ function buildChatTranscriptorPalette() {
   var bubbles = colors.bubbles || {};
   var customer = bubbles.customer || {};
   var agent = bubbles.agent || {};
-  var primary500 = colors.primary500 || colors.primary && colors.primary['500'] || '#3F5773';
-  var customerBg = customer.background || primary500;
-  var customerText = customer.text || '#FFFFFF';
-  var agentBg = agent.background || '#F5F5F5';
-  var agentText = agent.text || '#333333';
+  var featured = colors.featured || {};
+  var primary500 = colors.primary500 || colors.primary && colors.primary["500"] || "#3F5773";
+  var customerBg = customer.background || featured["300"] || primary500;
+  var customerText = customer.text || "#FFFFFF";
+  var agentBg = agent.background || "#F5F5F5";
+  var agentText = agent.text || "#333333";
+  console.log("featured.300:", featured["300"]);
+  console.log("customerBg:", customerBg);
   return {
     outgoingMsgBg: customerBg,
     incomingMsgBg: agentBg,
-    outgoingMsg: "\n      color: ".concat(customerText, ";\n      background: ").concat(customerBg, ";\n      "),
-    incomingMsg: "\n      color: ".concat(agentText, ";\n      background: ").concat(agentBg, ";\n      ")
+    outgoingMsg: "\n      color: ".concat(customerText, ";\n      background: ").concat(customerBg, ";\n    "),
+    incomingMsg: "\n      color: ".concat(agentText, ";\n      background: ").concat(agentBg, ";\n    ")
   };
 }
 /* harmony default export */ __webpack_exports__["default"] = (buildComponentPalette);
