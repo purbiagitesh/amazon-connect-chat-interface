@@ -1,0 +1,421 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: MIT-0
+ *
+ * Self-mounting chat launcher - the single script Tealium injects on each
+ * brand's real website.
+ *
+ * This is the production counterpart of local-testing/hostedWidget.html's
+ * bootstrap script. hostedWidget.html was where this logic was built and
+ * tested (fast to iterate against in a browser); this file is the same
+ * logic made deployable on its own, with two differences required because
+ * a brand's real website is not a page we control:
+ *
+ *   1. It creates its OWN DOM (the "Chat now" button + its <style>) instead
+ *      of assuming that markup already exists in the page - a brand's site
+ *      has its own HTML, not ours.
+ *   2. Every asset URL (brandInfo.json, the launcher icon, the chat bundle)
+ *      is resolved as an ABSOLUTE url against THIS SCRIPT's own location,
+ *      not a relative path. A relative fetch would resolve against the
+ *      brand's website origin (where this script is merely injected),
+ *      not the CDN this script and its sibling brand-assets/ actually live
+ *      on - those are two different origins in production.
+ *
+ * Deployment: this file, amazon-connect-chat-interface.js, and brand-assets/
+ * all get served from the SAME host/CDN (see scripts/build.js, which copies
+ * all three into build/dist/). Tealium's tag on each brand's site is then
+ * just:
+ *   <script src="https://<that-host>/launcher.js"></script>
+ * Nothing brand-specific lives in the tag itself - brand is resolved here,
+ * at runtime, from window.utag_data.
+ */
+(function () {
+  'use strict';
+
+  // ─── Resolve our own base URL (see file header) ───
+  // Must be captured synchronously, at the top of the script's first
+  // execution - document.currentScript is only reliable before any async
+  // work (a Promise .then, a setTimeout, etc.) has run.
+  var LAUNCHER_BASE_URL = (function () {
+    var scriptUrl = null;
+    if (document.currentScript && document.currentScript.src) {
+      scriptUrl = document.currentScript.src;
+    } else {
+      // Fallback for environments where document.currentScript isn't
+      // available (older browsers, or this script injected some other
+      // way) - find our own <script src> tag by filename.
+      var scripts = document.getElementsByTagName('script');
+      for (var i = scripts.length - 1; i >= 0; i--) {
+        if (/launcher\.js(\?|$)/.test(scripts[i].src)) {
+          scriptUrl = scripts[i].src;
+          break;
+        }
+      }
+    }
+    return scriptUrl ? scriptUrl.replace(/\/[^\/]*(\?.*)?$/, '/') : './';
+  })();
+
+  function absoluteUrl(relativeOrAbsolute) {
+    // brandInfo.json's own fields (assets.logo, assets.icon, fontFaces[].url)
+    // are relative paths like "./brand-assets/<brand>/images/logo.svg" -
+    // resolve those (and our own fetch targets) against our base, not the
+    // host page's location.
+    return new URL(relativeOrAbsolute, LAUNCHER_BASE_URL).href;
+  }
+
+  // ─── DOM: create the launcher's CSS + markup (no pre-existing HTML assumed) ───
+
+  var LAUNCHER_CSS = ''
+    + '#chat-now-btn {'
+    + '  display: none;'
+    + '  position: fixed;'
+    + '  bottom: 24px;'
+    + '  right: 24px;'
+    + '  background-color: var(--launcher-color-default, #8B005D);'
+    + '  color: #ffffff;'
+    + '  border: none;'
+    + '  border-radius: 50px;'
+    + '  padding: 8px 15px;'
+    + '  font-size: 14px;'
+    + '  font-weight: 600;'
+    + '  cursor: pointer;'
+    + '  align-items: center;'
+    + '  gap: 10px;'
+    + '  box-shadow: var(--launcher-shadow, 0 4px 16px rgba(139, 0, 93, 0.4));'
+    + '  z-index: 9999;'
+    + '  font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;'
+    + '  transition: background-color 0.2s ease, transform 0.15s ease;'
+    + '}'
+    + '#chat-now-btn.ready { display: flex; }'
+    + '#chat-now-btn:hover { background-color: var(--launcher-color-active, #a3006e); transform: scale(1.04); }'
+    + '#chat-now-btn:active { background-color: var(--launcher-color-active, #a3006e); transform: scale(0.97); }'
+    + '#chat-now-btn .btn-icon {'
+    + '  display: flex;'
+    + '  align-items: center;'
+    + '  justify-content: center;'
+    + '  background: rgba(255, 255, 255, 0.2);'
+    + '  border-radius: 50%;'
+    + '  width: 28px;'
+    + '  height: 28px;'
+    + '  flex-shrink: 0;'
+    + '}'
+    + '#chat-now-btn .btn-icon svg { width: 15px; height: 15px; }'
+    // Icon colors are driven by CSS, not baked into each brand's SVG file -
+    // every brand's launcher-icon.svg uses these same two class names with
+    // no fill attribute of its own, so re-coloring the icon globally never
+    // requires touching per-brand assets. The inner star (.chat-icon-fg)
+    // stays in sync with the launcher button's own background color - same
+    // --launcher-color-* variables, switching on hover/active exactly like
+    // the button itself does.
+    + '#chat-now-btn .btn-icon svg .chat-icon-bg { fill: #ffffff; }'
+    + '#chat-now-btn .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-default, #8B005D); }'
+    + '#chat-now-btn:hover .btn-icon svg .chat-icon-fg,'
+    + '#chat-now-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
+    + '#chat-now-btn .btn-icon img { width: 15px; height: 15px; object-fit: contain; }'
+    + '#chat-now-btn.widget-open { display: none !important; }'
+    + '#amazon-connect-close-widget-button { display: none !important; }'
+    + 'div[class*="acWidgetContainer"] { overflow: visible !important; border-radius: 24px 24px 0 0 !important; }'
+    + 'div[class*="acFrameContainer"] { border-radius: 24px 24px 0 0 !important; }';
+
+  // Fallback icon shown only until the resolved brand's own
+  // assets/images/launcher-icon.svg has been fetched and inlined by
+  // applyLauncherIcon() below - colors come purely from the CSS rules
+  // above, not from attributes on the paths themselves.
+  var FALLBACK_ICON_SVG = ''
+    + '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    + '<path class="chat-icon-bg" d="M28 13.4826C28.0054 15.5762 27.5163 17.6414 26.5724 19.5102C25.4532 21.7495 23.7327 23.6329 21.6036 24.9496C19.4744 26.2663 17.0207 26.9643 14.5174 26.9652C12.4238 26.9707 10.3586 26.4816 8.48984 25.5377L1.25432 27.9495C0.510306 28.1975 -0.197519 27.4897 0.0504845 26.7457L2.46233 19.5102C1.51843 17.6414 1.0293 15.5762 1.03476 13.4826C1.03572 10.9793 1.73365 8.52557 3.05036 6.39643C4.36706 4.26729 6.25055 2.54678 8.48984 1.42761C10.3586 0.483724 12.4238 -0.00541329 14.5174 4.51875e-05H15.3104C18.6166 0.182444 21.7393 1.57792 24.0807 3.91929C26.4221 6.26066 27.8176 9.38338 28 12.6896V13.4826Z" />'
+    + '<path class="chat-icon-fg" d="M13.625 5.5846C13.9316 4.75602 15.1036 4.75602 15.4102 5.5846L17.1504 10.2876C17.2468 10.5481 17.4522 10.7535 17.7127 10.8499L22.4157 12.5901C23.2443 12.8967 23.2443 14.0687 22.4157 14.3753L17.7127 16.1155C17.4522 16.2119 17.2468 16.4173 17.1504 16.6778L15.4102 21.3808C15.1036 22.2094 13.9316 22.2094 13.625 21.3808L11.8848 16.6778C11.7884 16.4173 11.583 16.2119 11.3225 16.1155L6.61949 14.3753C5.79091 14.0687 5.79092 12.8967 6.61949 12.5901L11.3225 10.8499C11.583 10.7535 11.7884 10.5481 11.8848 10.2876L13.625 5.5846Z" />'
+    + '</svg>';
+
+  function createLauncherDom() {
+    var style = document.createElement('style');
+    style.setAttribute('data-source', 'amazon-connect-chat-launcher');
+    style.textContent = LAUNCHER_CSS;
+    document.head.appendChild(style);
+
+    var btn = document.createElement('button');
+    btn.id = 'chat-now-btn';
+    btn.setAttribute('aria-label', 'Open chat');
+    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span>Chat now';
+    document.body.appendChild(btn);
+
+    // If AWS's client script finished loading and called programmaticLaunch
+    // (see loadConnectWidgetScript below) before this DOM existed, the
+    // launch callback is stashed on window._connectLaunchCallback - bind it
+    // now that the button actually exists. In practice this DOM is created
+    // synchronously before that script has had a chance to load, so this is
+    // a defensive no-op, not the primary binding path.
+    if (window._connectLaunchCallback) {
+      btn.addEventListener('click', window._connectLaunchCallback);
+    }
+
+    return btn;
+  }
+
+  // ─── Runtime brand resolution (single build, all brands) ───
+  // Brand is not baked in at build/deploy time. Instead we wait for
+  // window.utag_data (Tealium's data-layer global, set on every brand's
+  // site), resolve which brand/env it points to, fetch that brand's
+  // brandInfo.json (generated for every brand by
+  // `npm run prepare-brand -- --all`, see scripts/prepare-brand.js), and
+  // only then apply theming and reveal the launcher. The launcher and the
+  // chat window both carry brand styling, so nothing brand-specific may
+  // render before this resolves.
+  var UTAG_POLL_INTERVAL_MS = 100;
+  var UTAG_TIMEOUT_MS = 10000;
+
+  // Maps utag_data.ELC_ENV -> our brands/<brand>/config/env.<env>.json
+  // naming. Unrecognized values fall back to "prod".
+  var ENV_MAP = {
+    PROD: 'prod', PRODUCTION: 'prod',
+    QA: 'qa', STAGE: 'qa', STAGING: 'qa',
+    DEV: 'dev', DEVELOPMENT: 'dev'
+  };
+
+  // Patch here if a brand's utag_data.brand value doesn't match its
+  // brands/<brand>/ folder name (needs verifying per brand against live
+  // utag_data - only "kilian" has been confirmed so far).
+  var BRAND_ALIAS_MAP = {};
+
+  function waitForUtagData(onReady, onTimeout) {
+    var waited = 0;
+    var timer = setInterval(function () {
+      if (window.utag_data) {
+        clearInterval(timer);
+        onReady(window.utag_data);
+        return;
+      }
+      waited += UTAG_POLL_INTERVAL_MS;
+      if (waited >= UTAG_TIMEOUT_MS) {
+        clearInterval(timer);
+        onTimeout();
+      }
+    }, UTAG_POLL_INTERVAL_MS);
+  }
+
+  function resolveBrand(utagData) {
+    var rawBrand = (utagData.brand || '').toLowerCase().trim();
+    var brand = BRAND_ALIAS_MAP[rawBrand] || rawBrand;
+    var rawEnv = (utagData.ELC_ENV || '').toUpperCase().trim();
+    var env = ENV_MAP[rawEnv] || 'prod';
+    return { brand: brand, env: env };
+  }
+
+  function hexToRgba(hex, alpha) {
+    var match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
+    if (!match) return null;
+    var r = parseInt(match[1], 16), g = parseInt(match[2], 16), b = parseInt(match[3], 16);
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+  }
+
+  // Launcher color (Default/Hover/Pressed) is driven by the brand's
+  // Primary500/Primary800 tokens - same source the header background
+  // uses - so switching brands updates it with no code changes.
+  function applyBrandColors(brandConfig) {
+    var brandColors = brandConfig.colors || {};
+    var launcherDefault = brandColors.primary500 || brandConfig.primaryColor;
+    var launcherActive = brandColors.primary800 || launcherDefault;
+    if (launcherDefault) {
+      document.documentElement.style.setProperty('--launcher-color-default', launcherDefault);
+      var shadow = hexToRgba(launcherDefault, 0.4);
+      if (shadow) document.documentElement.style.setProperty('--launcher-shadow', '0 4px 16px ' + shadow);
+    }
+    if (launcherActive) {
+      document.documentElement.style.setProperty('--launcher-color-active', launcherActive);
+    }
+  }
+
+  // Swaps in the resolved brand's own launcher icon
+  // (config.launcherIconUrl or assets.icon, generated from
+  // brands/<brand>/assets/images/launcher-icon.svg by prepare-brand.js).
+  // SVGs are fetched and inlined (not used as an <img src>) so their
+  // internal .chat-icon-bg/.chat-icon-fg classes stay reachable by our
+  // CSS above - an <img> would treat the SVG as an opaque image with no
+  // way to theme its colors. Returns a Promise so the caller can wait
+  // for it before revealing the launcher (no flash of the fallback icon).
+  function applyLauncherIcon(brandInfo, btn) {
+    var brandConfig = (brandInfo && brandInfo.config) || {};
+    var rawIconUrl = brandConfig.launcherIconUrl || (brandInfo.assets && brandInfo.assets.icon);
+    var iconSlot = btn.querySelector('.btn-icon');
+    if (!rawIconUrl || !iconSlot) return Promise.resolve();
+
+    var iconUrl = absoluteUrl(rawIconUrl);
+
+    if (!/\.svg(\?|$)/i.test(iconUrl)) {
+      // Non-SVG (e.g. PNG) icons can't have internal colors themed -
+      // just swap in an <img>.
+      iconSlot.innerHTML = '';
+      var img = document.createElement('img');
+      img.src = iconUrl;
+      img.alt = '';
+      iconSlot.appendChild(img);
+      return Promise.resolve();
+    }
+
+    return fetch(iconUrl, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('launcher icon fetch failed with status ' + res.status);
+        return res.text();
+      })
+      .then(function (svgMarkup) {
+        iconSlot.innerHTML = svgMarkup;
+      })
+      .catch(function (err) {
+        console.warn('[chat-widget] failed to load launcher icon, keeping default.', err);
+      });
+  }
+
+  function revealLauncher(btn) {
+    btn.classList.add('ready');
+  }
+
+  // NOTE: this Connect instance script URL + snippetId are still
+  // hardcoded (unchanged from the original hostedWidget.html prototype) -
+  // if different brands are actually backed by different Connect
+  // instances, this needs to become brand-driven too. Flagged as an open
+  // item, not guessed at here since the instance topology per brand hasn't
+  // been confirmed.
+  function loadConnectWidgetScript() {
+    (function (w, d, x, id) {
+      var s = d.createElement('script');
+      s.src = 'https://elc-connect-sandbox.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+      s.async = 1;
+      s.id = id;
+      d.getElementsByTagName('head')[0].appendChild(s);
+      w[x] = w[x] || function () { (w[x].ac = w[x].ac || []).push(arguments); };
+    })(window, document, 'amazon_connect', '01f66d6e-2817-4aee-9071-b897dd6dbf23');
+  }
+
+  function setupWidget(brandInfo, btn) {
+    window.__CHAT_BRAND_INFO__ = brandInfo;
+    var brandConfig = brandInfo.config || {};
+    var brandColors = brandConfig.colors || {};
+
+    applyBrandColors(brandConfig);
+
+    var openColor = brandConfig.headerTextColor || '#ffffff';
+    var openBg = brandColors.primary500 || brandConfig.primaryColor || '#123456';
+    var closeBg = brandColors.primary800 || brandConfig.secondaryColor || openBg;
+
+    amazon_connect('styles', {
+      iconType: 'CHAT_VOICE',
+      openChat: { color: openColor, backgroundColor: openBg },
+      closeChat: { color: openColor, backgroundColor: closeBg }
+    });
+    amazon_connect('snippetId', 'QVFJREFIaUYzWWsrMWRnRDlkczNlcXlOOW53N0RzaVdJdlpUUXhxcmxDcHgzM0xWdXdFOWd4ZzBPek1jclQ5Sm1RbU1SdFZFQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZmdNS0ZTeDRkazY1cllaY0FnRVFnQ3VTZng5N2xUM1Z3bFYrQkNyUjRLZmdGTmYwdkhaSVAvaHJOVGErTENlOUVzNGhiQnkyWVNZSURpVW06Om15L01OMThVc0RkTXF0VENZbk1FUEh0UGduMDZIb0J4aFF2T2l3dVN3elZHSEtQNU4wZGVkMjNPUnNXYW9vU2lSY1JKb0NtS3BqTWN4c0JkVGhLQWJDSTlpYmdaVFdKREREcitjeUdnTFhsOHAzZXd0RHluMFNMTU1hdk0zM2NwZnlONTBkSWYyRmd2TG9pUTB1UHRneWRyelR2N2JDOD0=');
+    amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response']);
+    amazon_connect('customerChatInterfaceUrl', absoluteUrl('./amazon-connect-chat-interface.js'));
+    amazon_connect('customizationObject', {
+      headerConfig: brandConfig.header,
+      composer: {
+        disableEmojiPicker: true,
+        disableCustomerAttachment: true,
+      },
+    });
+
+    amazon_connect('customStartChat', async function (callback) {
+      try {
+        const response = await fetch(brandConfig.apiGatewayEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customerName: 'Guest',
+            customerId: '',
+            pageUrl: window.location.href,
+            brand: brandInfo.brand || 'demo-brand',
+          })
+        });
+
+        const data = await response.json();
+
+        // Parse the body since Lambda returns it as a string
+        const body = typeof data.body === 'string'
+          ? JSON.parse(data.body)
+          : data;
+
+        // Pass in exact format widget expects
+        callback({
+          startChatResult: body.startChatResult,
+          featurePermissions: body.featurePermissions
+        });
+
+      } catch (error) {
+        console.error('[chat-widget] Failed to start chat:', error);
+      }
+    });
+
+    amazon_connect('customLaunchBehavior', {
+      skipIconButtonAndAutoLaunch: true,   // MUST be true
+      alwaysHideWidgetButton: true,        // hides Amazon's default button
+
+      programmaticLaunch: function (launchCallback) {
+        // Store launchCallback globally so button click can use it
+        // regardless of when this function runs vs when the button exists.
+        window._connectLaunchCallback = launchCallback;
+        btn.addEventListener('click', launchCallback);
+      }
+    });
+
+    return applyLauncherIcon(brandInfo, btn).then(function () {
+      revealLauncher(btn);
+    });
+  }
+
+  function bootstrap() {
+    var btn = createLauncherDom();
+
+    loadConnectWidgetScript();
+
+    waitForUtagData(function (utagData) {
+      var resolved = resolveBrand(utagData);
+      if (!resolved.brand) {
+        console.warn('[chat-widget] utag_data.brand is missing/empty - launcher will remain hidden.');
+        return;
+      }
+      var brandInfoUrl = absoluteUrl('./brand-assets/' + resolved.brand + '/' + resolved.env + '/brandInfo.json');
+      fetch(brandInfoUrl, { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('brandInfo fetch failed with status ' + res.status);
+          return res.json();
+        })
+        .then(function (brandInfo) {
+          return setupWidget(brandInfo, btn);
+        })
+        .catch(function (err) {
+          console.warn('[chat-widget] failed to load brand data for "' + resolved.brand + '/' + resolved.env + '" - launcher will remain hidden.', err);
+        });
+    }, function () {
+      console.warn('[chat-widget] window.utag_data was not available after ' + UTAG_TIMEOUT_MS + 'ms - launcher will remain hidden.');
+    });
+
+    // Cosmetic patch for AWS's own widget DOM, unrelated to brand
+    // resolution - applies regardless of which brand loads.
+    setTimeout(function () {
+      var widgetContainer = document.querySelector('div[class*="acWidgetContainer"]');
+      if (widgetContainer) {
+        widgetContainer.style.overflow = 'visible';
+        widgetContainer.style.borderRadius = '24px 24px 0 0';
+      }
+
+      var frameContainer = document.querySelector('div[class*="acFrameContainer"]');
+      if (frameContainer) {
+        frameContainer.style.borderRadius = '24px 24px 0 0';
+        // Apply radius on iframe to handle white corner bleed
+        var iframe = frameContainer.querySelector('iframe');
+        if (iframe) {
+          iframe.style.borderRadius = '24px 24px 0 0';
+        }
+      }
+    }, 1000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    // DOMContentLoaded already fired by the time this script ran (e.g. it
+    // was injected late by a tag manager) - document.body already exists,
+    // so it's safe to run immediately instead of waiting for an event that
+    // already happened.
+    bootstrap();
+  }
+})();

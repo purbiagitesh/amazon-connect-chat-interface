@@ -38,9 +38,6 @@ function buildComponentPalette(colors = {}) {
       },
     },
     quickReply: {
-      // A light tint of the brand color (not solid primary500) to keep the
-      // original "pastel chip" look - only the hue now follows the brand
-      // instead of a fixed, brand-unrelated lavender.
       backgroundColor: primary['100'] || primary500,
       hoverBackgroundColor: primary['200'] || primary800,
       textColor: textDefault,
@@ -50,9 +47,6 @@ function buildComponentPalette(colors = {}) {
       confirmTextColor: '#ffffff',
     },
     carousel: {
-      // Kept neutral white (not brand-colored) to preserve the existing
-      // look of the round scroll-arrow control - named here so it can
-      // become brand-driven later with a one-line change if ever wanted.
       arrowBackgroundColor: '#ffffff',
     },
   };

@@ -67,7 +67,45 @@ function prepareBrandForBuild() {
   }
 }
 
+// Regenerates brand-namespaced runtime data for EVERY brand/env (see
+// scripts/prepare-brand.js's --all mode) so the production build carries
+// every brand's data, not just whichever single brand/env prepareBrandForBuild()
+// above last prepared for local dev.
+function prepareAllBrandsForBuild() {
+  console.log('Preparing brand-assets for ALL brands (production build)...');
+  const result = spawnSync(
+    process.execPath,
+    [path.join(__dirname, 'prepare-brand.js'), '--all'],
+    {stdio: 'inherit'}
+  );
+
+  if (result.status !== 0) {
+    process.exit(result.status || 1);
+  }
+}
+
+// Copies the pieces that aren't produced by webpack, but still need to ship
+// alongside amazon-connect-chat-interface.js for a working deployment:
+// every brand's runtime data (brand-assets/) and the self-mounting launcher
+// script (launcher/launcher.js -> launcher.js) that Tealium actually injects
+// on a brand's site. After this, paths.appBuild is a single, complete,
+// deployable folder - upload its contents as-is.
+function copyDeployableAssets() {
+  const brandAssetsSrc = path.join(__dirname, '..', 'local-testing', 'brand-assets');
+  const brandAssetsDest = path.join(paths.appBuild, 'brand-assets');
+  if (fs.existsSync(brandAssetsSrc)) {
+    fs.copySync(brandAssetsSrc, brandAssetsDest);
+    console.log('Copied brand-assets/ into ' + path.relative(process.cwd(), brandAssetsDest));
+  }
+
+  const launcherSrc = path.join(__dirname, '..', 'launcher', 'launcher.js');
+  const launcherDest = path.join(paths.appBuild, 'launcher.js');
+  fs.copySync(launcherSrc, launcherDest);
+  console.log('Copied launcher.js into ' + path.relative(process.cwd(), launcherDest));
+}
+
 prepareBrandForBuild();
+prepareAllBrandsForBuild();
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appIndexJs])) {
@@ -112,6 +150,8 @@ checkBrowsers(paths.appPath, isInteractive)
       } else {
         console.log(chalk.green('Compiled successfully.\n'));
       }
+
+      copyDeployableAssets();
 
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(
