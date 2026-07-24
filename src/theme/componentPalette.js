@@ -85,12 +85,18 @@ function buildChatTranscriptorPalette(colors = {}) {
   const agentBg = agent.background || "#F5F5F5";
   const agentText = agent.text || "#333333";
 
+  // Send button's active fill follows the brand's featured-400 swatch,
+  // one step darker than the bubble's featured-300 - keeps it visually
+  // related to the bubble color without being identical to it.
+  const sendButtonActiveBg = featured["400"] || primary500;
+
   console.log("featured.300:", featured["300"]);
   console.log("customerBg:", customerBg);
 
   return {
     outgoingMsgBg: customerBg,
     incomingMsgBg: agentBg,
+    sendButtonActiveBg,
     outgoingMsg: `
       color: ${customerText};
       background: ${customerBg};

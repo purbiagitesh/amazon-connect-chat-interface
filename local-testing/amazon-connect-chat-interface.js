@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "b2b202617e073765a5e9";
+/******/ 	var hotCurrentHash = "c5d64b968a4cb269b34d";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -137961,7 +137961,6 @@ var _templateObject,
 
 
 
-var ACTIVE_COLOR = '#CFD7FF';
 var INACTIVE_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.whisper;
 var ACTIVE_ICON_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.secondaryBlack;
 var INACTIVE_ICON_COLOR = _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_3__["default"].palette.white;
@@ -137985,7 +137984,7 @@ function getClientSendIconUrl() {
 var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: var(--ac-widget-send-button-size, 32px);\n  height: var(--ac-widget-send-button-size, 32px);\n  border-radius: 50%;\n  cursor: ", ";\n  transition: background-color 0.15s ease;\n  background-color: ", ";\n\n  &>svg {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    fill: ", ";\n  }\n\n  &>img {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    object-fit: contain;\n  }\n"])), function (props) {
   return props.isActive ? 'pointer' : 'default';
 }, function (props) {
-  return props.isActive ? "var(--ac-widget-send-button-active-bg, ".concat(ACTIVE_COLOR, ")") : "var(--ac-widget-send-button-bg, ".concat(INACTIVE_COLOR, ")");
+  return props.isActive ? "var(--ac-widget-send-button-active-bg, ".concat(props.theme.chatTranscriptor.sendButtonActiveBg, ")") : "var(--ac-widget-send-button-bg, ".concat(INACTIVE_COLOR, ")");
 }, function (props) {
   return props.isActive ? "var(--ac-widget-send-button-active-icon-color, ".concat(ACTIVE_ICON_COLOR, ")") : "var(--ac-widget-send-button-icon-color, ".concat(INACTIVE_ICON_COLOR, ")");
 });
@@ -138016,7 +138015,7 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68,
+      lineNumber: 67,
       columnNumber: 5
     }
   }, sendIconUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
@@ -138025,7 +138024,7 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82,
+      lineNumber: 81,
       columnNumber: 11
     }
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("svg", {
@@ -138036,7 +138035,7 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83,
+      lineNumber: 82,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -138045,7 +138044,7 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83,
+      lineNumber: 82,
       columnNumber: 98
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -138053,7 +138052,7 @@ function SendMessageButton(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83,
+      lineNumber: 82,
       columnNumber: 135
     }
   })));
@@ -140326,13 +140325,10 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
 });
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
-// instead of stretching across the full transcript width. Only the
-// customer (outgoing) side is capped - width is a fixed layout concern
-// (theme.chatTranscriptor.customerBubbleMaxWidth), not a per-brand token,
-// so every brand gets the same proportions per the widget spec.
-var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n  ", "\n"])), function (props) {
-  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "max-width: ".concat(props.theme.chatTranscriptor.customerBubbleMaxWidth, ";") : "";
-});
+// instead of stretching across the full transcript width. Both customer
+// (outgoing) and VA/agent (incoming) bubbles now share the same uncapped
+// behavior - width just follows content up to the transcript's full width.
+var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n"])));
 var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.typography.supportingText;
@@ -140403,14 +140399,14 @@ var ErrorFallback = function ErrorFallback(_ref23) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 182,
+      lineNumber: 177,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 183,
+      lineNumber: 178,
       columnNumber: 7
     }
   }, "Something went wrong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
@@ -140418,7 +140414,7 @@ var ErrorFallback = function ErrorFallback(_ref23) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 184,
+      lineNumber: 179,
       columnNumber: 7
     }
   }, "Reload Editor"));
@@ -140474,7 +140470,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 239,
+          lineNumber: 234,
           columnNumber: 34
         }
       });
@@ -140484,21 +140480,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 243,
+              lineNumber: 238,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(StatusText, {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 244,
+              lineNumber: 239,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 245,
+              lineNumber: 240,
               columnNumber: 15
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140507,7 +140503,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 246,
+              lineNumber: 241,
               columnNumber: 17
             }
           }))));
@@ -140517,7 +140513,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 256,
+              lineNumber: 251,
               columnNumber: 34
             }
           }, this.timestampToDisplayable(transportDetails.sentTime, isOutgoingMsg));
@@ -140527,21 +140523,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 260,
+              lineNumber: 255,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 261,
+              lineNumber: 256,
               columnNumber: 13
             }
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 262,
+              lineNumber: 257,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140550,7 +140546,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 263,
+              lineNumber: 258,
               columnNumber: 15
             }
           })));
@@ -140560,7 +140556,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 272,
+              lineNumber: 267,
               columnNumber: 34
             }
           });
@@ -140569,14 +140565,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 275,
+          lineNumber: 270,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 276,
+          lineNumber: 271,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140585,14 +140581,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 277,
+          lineNumber: 272,
           columnNumber: 11
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 282,
+          lineNumber: 277,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -140616,14 +140612,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 299,
+          lineNumber: 294,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 300,
+          lineNumber: 295,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140633,7 +140629,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 301,
+          lineNumber: 296,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140643,7 +140639,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 306,
+          lineNumber: 301,
           columnNumber: 36
         }
       })));
@@ -140734,7 +140730,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 413,
+          lineNumber: 408,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -140742,7 +140738,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 414,
+          lineNumber: 409,
           columnNumber: 9
         }
       }, this.renderHeader()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
@@ -140754,7 +140750,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 415,
+          lineNumber: 410,
           columnNumber: 9
         }
       }, function (_ref24) {
@@ -140768,7 +140764,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 417,
+            lineNumber: 412,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -140776,7 +140772,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 428,
+          lineNumber: 423,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
@@ -140788,7 +140784,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 440,
+          lineNumber: 435,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
@@ -140798,14 +140794,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 441,
+          lineNumber: 436,
           columnNumber: 9
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 442,
+          lineNumber: 437,
           columnNumber: 9
         }
       }, mainMessage));
@@ -140827,7 +140823,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 456,
+            lineNumber: 451,
             columnNumber: 9
           }
         });
@@ -140844,14 +140840,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 468,
+                lineNumber: 463,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 468,
+              lineNumber: 463,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -140862,7 +140858,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 469,
+              lineNumber: 464,
               columnNumber: 13
             }
           }));
@@ -140873,7 +140869,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 479,
+            lineNumber: 474,
             columnNumber: 14
           }
         });
@@ -140889,7 +140885,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 487,
+            lineNumber: 482,
             columnNumber: 14
           }
         });
@@ -140901,7 +140897,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 492,
+            lineNumber: 487,
             columnNumber: 14
           }
         });
@@ -140914,7 +140910,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 497,
+            lineNumber: 492,
             columnNumber: 14
           }
         });
@@ -140924,7 +140920,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 500,
+          lineNumber: 495,
           columnNumber: 12
         }
       });
@@ -140939,14 +140935,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 508,
+          lineNumber: 503,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 509,
+          lineNumber: 504,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -140966,7 +140962,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 522,
+          lineNumber: 517,
           columnNumber: 7
         }
       }, "Retry");
@@ -140999,7 +140995,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 537,
+          lineNumber: 532,
           columnNumber: 7
         }
       }, this.props.content);
@@ -141037,7 +141033,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 564,
+          lineNumber: 559,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -141045,7 +141041,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 565,
+          lineNumber: 560,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -141053,7 +141049,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 566,
+          lineNumber: 561,
           columnNumber: 11
         }
       })));
@@ -141096,7 +141092,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 596,
+            lineNumber: 591,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141113,7 +141109,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 613,
+          lineNumber: 608,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -146703,11 +146699,17 @@ function buildChatTranscriptorPalette() {
   var customerText = customer.text || "#FFFFFF";
   var agentBg = agent.background || "#F5F5F5";
   var agentText = agent.text || "#333333";
+
+  // Send button's active fill follows the brand's featured-400 swatch,
+  // one step darker than the bubble's featured-300 - keeps it visually
+  // related to the bubble color without being identical to it.
+  var sendButtonActiveBg = featured["400"] || primary500;
   console.log("featured.300:", featured["300"]);
   console.log("customerBg:", customerBg);
   return {
     outgoingMsgBg: customerBg,
     incomingMsgBg: agentBg,
+    sendButtonActiveBg: sendButtonActiveBg,
     outgoingMsg: "\n      color: ".concat(customerText, ";\n      background: ").concat(customerBg, ";\n    "),
     incomingMsg: "\n      color: ".concat(agentText, ";\n      background: ").concat(agentBg, ";\n    ")
   };
@@ -147115,6 +147117,9 @@ var defaultTheme = {
     loading: color.primary,
     outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
+    // Non-brand default, matches the previous hardcoded ACTIVE_COLOR in
+    // SendMessageButton.js so brandless embeds keep the same look.
+    sendButtonActiveBg: '#CFD7FF',
     // Fixed layout constant, not a brand color - every brand gets the same
     // bubble proportions (see MessageContainer in ChatMessage.js). Kept
     // here rather than componentPalette.js so brand colors.json can never
