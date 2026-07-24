@@ -13,6 +13,13 @@ import {
 
 const ScrollContainer = styled.div`
   overflow: auto;
+
+  /* Hide scrollbar while preserving scroll behavior */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 
 const SCROLL_BOTTOM_MARGIN = 20;

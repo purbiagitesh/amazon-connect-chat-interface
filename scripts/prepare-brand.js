@@ -358,12 +358,30 @@ function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   return {...colors, primary500, primary800};
 }
 
+// Reads the optional colors.json `bubbles.customer` / `bubbles.agent` keys
+// (see brands/_template/theme/colors.json for the documented shape). Brands
+// that haven't set these yet fall back to the pre-existing behavior -
+// customer bubble = primary brand color, agent bubble = neutral gray - so
+// adding this feature required no changes to any brand that hasn't opted in.
+function getBubbleColors(colorPalette, primaryColor, headerTextColor) {
+  const bubbles = colorPalette.bubbles || {};
+  const customer = bubbles.customer || {};
+  const agent = bubbles.agent || {};
+  return {
+    customerBg: customer.background || primaryColor,
+    customerText: customer.text || headerTextColor,
+    agentBg: agent.background || '#F5F5F5',
+    agentText: agent.text || '#333333',
+  };
+}
+
 function generateBrandThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
   const primaryColor = colorPalette.primary500 || widgetConfig.primaryColor || '#3F51B5';
   const primary800 = colorPalette.primary800 || primaryColor;
   const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
   const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
   const fontFamily = resolvedFontFamily || getResolvedFontFamily(widgetConfig.fontFamily, fontFiles);
+  const bubbleColors = getBubbleColors(colorPalette, primaryColor, headerTextColor);
 
   // Header background is driven entirely by the brand's Primary500 token so
   // it can never drift out of sync with the rest of the brand's theme.
@@ -381,10 +399,10 @@ function generateBrandThemeCss(widgetConfig, headerConfig, outputPath, fontFiles
     '  --ac-widget-footer-button-backgroundcolor: ' + secondaryColor + ';\n' +
     '  --ac-widget-footer-button-textcolor: ' + headerTextColor + ';\n' +
     '  --ac-widget-global-typeface: ' + fontFamily + ';\n' +
-    '  --ac-widget-transcript-customer-bubble-color: ' + primaryColor + ';\n' +
-    '  --ac-widget-transcript-customer-textcolor: ' + headerTextColor + ';\n' +
-    '  --ac-widget-transcript-agent-bubble-color: #F5F5F5;\n' +
-    '  --ac-widget-transcript-agent-textcolor: #333333;\n\n' +
+    '  --ac-widget-transcript-customer-bubble-color: ' + bubbleColors.customerBg + ';\n' +
+    '  --ac-widget-transcript-customer-textcolor: ' + bubbleColors.customerText + ';\n' +
+    '  --ac-widget-transcript-agent-bubble-color: ' + bubbleColors.agentBg + ';\n' +
+    '  --ac-widget-transcript-agent-textcolor: ' + bubbleColors.agentText + ';\n\n' +
     '  /* ── Chat Header ── */\n' +
     '  --header-bg:             ' + headerBg + ';\n' +
     '  --header-text-color:     ' + headerTitleColor + ';\n' +

@@ -1,9 +1,9 @@
-import React, {PureComponent} from "react";
-import {FormattedMessage} from "react-intl";
+import React, { PureComponent } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import PT from "prop-types";
 import Linkify from "react-linkify";
-import {getCurrentChatSessionInstance} from "../../ChatSession";
+import { getCurrentChatSessionInstance } from "../../ChatSession";
 import {
   ATTACHMENT_MESSAGE,
   AttachmentStatus,
@@ -12,15 +12,15 @@ import {
   Direction,
   InteractiveMessageType,
 } from "../../datamodel/Model";
-import {ErrorBoundary} from 'react-error-boundary';
-import {Icon, TypingLoader} from "connect-core";
-import {InteractiveMessage} from "./InteractiveMessage";
-import {CSM_CONSTANTS, CSM_CATEGORY} from "../../../../constants/global";
-import {InView} from "react-intersection-observer";
-import {shouldDisplayMessageForType} from "../../../../utils/helper";
-import {modelUtils} from "../../datamodel/Utils";
-import {RichMessageRenderer} from "../../RichMessageComponents";
-import {formatCarouselInteractiveSelection, isCarouselSelectionMessage} from "./InteractiveMessages/Carousel";
+import { ErrorBoundary } from 'react-error-boundary';
+import { Icon, TypingLoader } from "connect-core";
+import { InteractiveMessage } from "./InteractiveMessage";
+import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
+import { InView } from "react-intersection-observer";
+import { shouldDisplayMessageForType } from "../../../../utils/helper";
+import { modelUtils } from "../../datamodel/Utils";
+import { RichMessageRenderer } from "../../RichMessageComponents";
+import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
 
 // The widget is typically rendered inside the vendor's iframe, which never
 // loads clientInfo.js itself - only the host page does. Fall back to the
@@ -40,7 +40,7 @@ function getClientAvatarUrl() {
 }
 
 export const MessageBox = styled.div`
-  padding: ${({ theme}) => theme.globals.basePadding} ${({ theme}) => theme.spacing.base};
+  padding: ${({ theme }) => theme.globals.basePadding} ${({ theme }) => theme.spacing.base};
   word-break: break-word;
   white-space: pre-line;
   overflow: auto;
@@ -56,18 +56,18 @@ Header.Sender = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px;
-  color: ${({ theme}) => theme.palette.mediumGray};
+  color: ${({ theme }) => theme.palette.mediumGray};
 `;
 Header.Status = styled.div`
-  ${({ theme}) => theme.typography.supportingText};
+  ${({ theme }) => theme.typography.supportingText};
   font-size: 13px;
   float: right;
 `;
 const Footer = styled.div`
-  ${({ theme}) => theme.typography.supportingText};
+  ${({ theme }) => theme.typography.supportingText};
   overflow: auto;
-  color: ${({ theme}) => theme.globals.textSecondaryColor};
-  padding-right: ${({ theme}) => theme.spacing.mini};
+  color: ${({ theme }) => theme.globals.textSecondaryColor};
+  padding-right: ${({ theme }) => theme.spacing.mini};
 `;
 Footer.MessageReceipt = styled.div`
   float: right;
@@ -85,7 +85,10 @@ const Body = styled.div`
   ${(props) =>
     props.direction === Direction.Outgoing
       ? `
-        background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));
+       background-color: var(
+  --ac-widget-transcript-customer-bubble-color,
+  var(--outgoingMsgBg-background-color)
+);
         color: var(--ac-widget-transcript-customer-textcolor);
       `
       : `
@@ -97,19 +100,34 @@ const Body = styled.div`
 
   ${(props) => props.childWillAddBackground ? "background: none" : ""}
 
-  ${({ theme}) => theme.typography.body};
+  ${({ theme }) => theme.typography.body};
 
   padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.medium)};
   margin-top: ${(props) => props.theme.spacing.mini};
   border-radius: 18px;
   position: relative;
 `;
+
+// Wraps Header/Body/Footer as one unit so the bubble hugs its content
+// instead of stretching across the full transcript width. Only the
+// customer (outgoing) side is capped - width is a fixed layout concern
+// (theme.chatTranscriptor.customerBubbleMaxWidth), not a per-brand token,
+// so every brand gets the same proportions per the widget spec.
+const MessageContainer = styled.div`
+  display: inline-block;
+  max-width: 100%;
+  ${(props) =>
+    props.direction === Direction.Outgoing
+      ? `max-width: ${props.theme.chatTranscriptor.customerBubbleMaxWidth};`
+      : ""}
+`;
+
 const ErrorText = styled.div`
-  ${({ theme}) => theme.typography.supportingText};
-  color: ${({ theme}) => theme.palette.red};
+  ${({ theme }) => theme.typography.supportingText};
+  color: ${({ theme }) => theme.palette.red};
   display: flex;
   > img {
-    margin-right: ${({ theme}) => theme.spacing.mini};
+    margin-right: ${({ theme }) => theme.spacing.mini};
   }
 `;
 
@@ -120,7 +138,7 @@ const ErrorText = styled.div`
 const MessageRow = styled.div`
   display: flex;
   align-items: flex-end;
-  gap: ${({ theme}) => theme.spacing.mini};
+  gap: ${({ theme }) => theme.spacing.mini};
 `;
 const AvatarImg = styled.img`
   width: 32px;
@@ -134,27 +152,27 @@ const MessageContent = styled.div`
   min-width: 0;
 `;
 const StatusText = styled.span`
-  ${({ theme}) => theme.typography.supportingText};
-  color: ${({ theme}) => theme.globals.textSecondaryColor};
-  padding-right: ${({ theme}) => theme.spacing.mini};
+  ${({ theme }) => theme.typography.supportingText};
+  color: ${({ theme }) => theme.globals.textSecondaryColor};
+  padding-right: ${({ theme }) => theme.spacing.mini};
 `;
 
 const TransportErrorMessage = styled.div`
-  ${({ theme}) => theme.typography.supportingText};
+  ${({ theme }) => theme.typography.supportingText};
   margin-left: ${(props) => props.theme.chatTranscriptor.msgStatusWidth};
-  padding: ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.small} ${({ theme}) => theme.spacing.micro};
+  padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.micro};
 
   span {
-    color: ${({ theme}) => theme.palette.red};
+    color: ${({ theme }) => theme.palette.red};
   }
 `;
 
 TransportErrorMessage.RetryButton = styled.a`
-  ${({ theme}) => theme.typography.inlineButton};
-  margin-left: ${({ theme}) => theme.spacing.micro};
+  ${({ theme }) => theme.typography.inlineButton};
+  margin-left: ${({ theme }) => theme.spacing.micro};
 `;
 
-export const ErrorFallback = ({error, resetErrorBoundary, InteractiveMessageType}) => {
+export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageType }) => {
   const metricName = InteractiveMessageType + "_ERROR"
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, CSM_CATEGORY.UI, false);
@@ -196,7 +214,7 @@ export class ParticipantMessage extends PureComponent {
     d.setUTCSeconds(timestamp);
     const today = new Date().toDateString();
     const thatDay = new Date(timestamp * 1000).toDateString();
-    const option = {hour: "numeric", minute: "numeric"};
+    const option = { hour: "numeric", minute: "numeric" };
     if (today === thatDay) {
       return d.toLocaleTimeString([], option);
     }
@@ -212,7 +230,7 @@ export class ParticipantMessage extends PureComponent {
     const isOutgoingMsg = this.props.messageDetails.transportDetails.direction === Direction.Outgoing;
     const authenticatedParticipantDisplayName = getCurrentChatSessionInstance().authenticatedParticipantDisplayName;
     let displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
-    if(isOutgoingMsg && authenticatedParticipantDisplayName){
+    if (isOutgoingMsg && authenticatedParticipantDisplayName) {
       displayName = authenticatedParticipantDisplayName;
     }
     const transportDetails = this.props.messageDetails.transportDetails;
@@ -226,8 +244,8 @@ export class ParticipantMessage extends PureComponent {
             <StatusText>
               <span>
                 <FormattedMessage
-                    id={statusStringPrefix + "sending"}
-                    defaultMessage="Sending"
+                  id={statusStringPrefix + "sending"}
+                  defaultMessage="Sending"
                 />
               </span>
             </StatusText>
@@ -243,8 +261,8 @@ export class ParticipantMessage extends PureComponent {
             <Icon />
             <span>
               <FormattedMessage
-                  id={statusStringPrefix + "sendFailed"}
-                  defaultMessage="Failed to send! "
+                id={statusStringPrefix + "sendFailed"}
+                defaultMessage="Failed to send! "
               />
             </span>
           </ErrorText>
@@ -257,8 +275,8 @@ export class ParticipantMessage extends PureComponent {
       <React.Fragment>
         <Header.Sender>
           <FormattedMessage
-              id={displayName || "DISPLAY_NAME_MISSING"}
-              defaultMessage={displayName}
+            id={displayName || "DISPLAY_NAME_MISSING"}
+            defaultMessage={displayName}
           />
         </Header.Sender>
         <Header.Status>{transportStatusElement}</Header.Status>
@@ -271,7 +289,7 @@ export class ParticipantMessage extends PureComponent {
       messageDetails: {
         lastReadReceipt = false,
         lastDeliveredReceipt = false,
-        transportDetails: {messageReceiptType, direction} = {},
+        transportDetails: { messageReceiptType, direction } = {},
       },
     } = this.props;
     if (direction !== Direction.Outgoing || !messageReceiptType) {
@@ -281,14 +299,14 @@ export class ParticipantMessage extends PureComponent {
       <React.Fragment>
         <Footer.MessageReceipt>
           {lastReadReceipt && <FormattedMessage
-              id="connect-chat-read-receipt"
-              defaultMessage="Read"
-              aria-live="polite"
+            id="connect-chat-read-receipt"
+            defaultMessage="Read"
+            aria-live="polite"
           />}
           {lastDeliveredReceipt && <FormattedMessage
-              id="connect-chat-delivered-receipt"
-              defaultMessage="Delivered"
-              aria-live="polite"
+            id="connect-chat-delivered-receipt"
+            defaultMessage="Delivered"
+            aria-live="polite"
           />}
         </Footer.MessageReceipt>
       </React.Fragment>
@@ -297,12 +315,12 @@ export class ParticipantMessage extends PureComponent {
 
   visibilityChangeListener() {
     const isVisible = document.visibilityState === "visible";
-    this.setState({isVisible});
+    this.setState({ isVisible });
   }
 
   componentDidUpdate() {
     const {
-      transportDetails: {direction},
+      transportDetails: { direction },
       type,
       id,
       participantRole,
@@ -317,7 +335,7 @@ export class ParticipantMessage extends PureComponent {
     ) {
       this.props.sendReadReceipt(
         id,
-        type === ATTACHMENT_MESSAGE ? {disableThrottle: true} : {},
+        type === ATTACHMENT_MESSAGE ? { disableThrottle: true } : {},
       );
     }
   }
@@ -339,7 +357,7 @@ export class ParticipantMessage extends PureComponent {
   }
 
   render() {
-    let {direction, error} = this.props.messageDetails.transportDetails;
+    let { direction, error } = this.props.messageDetails.transportDetails;
     const messageStyle =
       direction === Direction.Outgoing
         ? this.props.outgoingMsgStyle
@@ -352,12 +370,12 @@ export class ParticipantMessage extends PureComponent {
       this.props.isLatestMessage &&
       this.props.messageDetails.content &&
       this.props.messageDetails.content.type ===
-        ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE
+      ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE
     ) {
       bodyStyleConfig.hideDirectionArrow = true;
       bodyStyleConfig.removePadding = true;
 
-      const {templateType} = JSON.parse(this.props.messageDetails.content.data);
+      const { templateType } = JSON.parse(this.props.messageDetails.content.data);
       if (templateType === InteractiveMessageType.VIEW_RESOURCE || templateType === InteractiveMessageType.QUICK_REPLY || templateType === InteractiveMessageType.CAROUSEL) {
         bodyStyleConfig.childWillAddBackground = true;
       }
@@ -392,10 +410,10 @@ export class ParticipantMessage extends PureComponent {
     }
 
     const mainMessage = (
-      <div data-testid="main-message">
+      <MessageContainer direction={direction} data-testid="main-message">
         <Header data-testid="message-header">{this.renderHeader()}</Header>
-        <InView onChange={(inView) => this.setState({ inView})}>
-          {({ ref}) => (
+        <InView onChange={(inView) => this.setState({ inView })}>
+          {({ ref }) => (
             <Body
               data-testid="message-body"
               direction={direction}
@@ -411,7 +429,7 @@ export class ParticipantMessage extends PureComponent {
           {this.renderMessageReceipts()}
         </Footer>
         {error && this.renderTransportError(error)}
-      </div>
+      </MessageContainer>
     );
 
     if (!avatarUrl) {
@@ -425,7 +443,7 @@ export class ParticipantMessage extends PureComponent {
       </MessageRow>
     );
   }
-  
+
   triggerCountMetric(csmType) {
     if (this.csmService) {
       this.csmService.addCountMetric(csmType, CSM_CATEGORY.UI);
@@ -441,13 +459,13 @@ export class ParticipantMessage extends PureComponent {
         />
       );
     }
-    
+
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE) {
-      const {data, templateType} = JSON.parse(content);
+      const { data, templateType } = JSON.parse(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)
         return (
-          <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={templateType}/>} >
+          <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={templateType} />} >
             <InteractiveMessage
               content={data.content}
               templateType={templateType}
@@ -463,7 +481,7 @@ export class ParticipantMessage extends PureComponent {
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE &&
       JSON.parse(content).templateType === InteractiveMessageType.VIEW_RESOURCE) {
       // this is a view response, render accordingly
-      let {action, data} = JSON.parse(content);
+      let { action, data } = JSON.parse(content);
       if (!action.trim() && data)
         action = data.content;
       return <PlainTextMessage content={action} />
@@ -516,7 +534,7 @@ export class ParticipantMessage extends PureComponent {
 class PlainTextMessage extends PureComponent {
   render() {
     return (
-      <Linkify properties={{ target: "_blank"}}>{this.props.content}</Linkify>
+      <Linkify properties={{ target: "_blank" }}>{this.props.content}</Linkify>
     );
   }
 }
@@ -525,9 +543,21 @@ const ParticipantTypingBox = styled(MessageBox)`
   > ${Body}{
     display: inline-block;
     float: ${props =>
-      props.direction === Direction.Outgoing ? "right" : "left"}
+    props.direction === Direction.Outgoing ? "right" : "left"}
 `;
 
+// Renders the "participant is composing" bubble (see ChatSession.js's
+// _handleTypingEvent/_removeTypingParticipant for the real-time lifecycle:
+// shown on an onTyping event, auto-expires after 12s if no follow-up
+// signal arrives, and is cleared the instant a real message lands in the
+// transcript so this bubble is replaced by the actual one).
+// Reuses the same Body styled-component as a real message, so the bubble
+// background is already brand-driven for free via
+// theme.chatTranscriptor.outgoingMsgBg/incomingMsgBg - no extra theming
+// needed here. The dot color below is NOT brand-driven though (hardcoded
+// white/black) - it happens to contrast against every brand's bubble
+// today only because outgoing text/agent text defaults are white/near-black;
+// a brand with a light customer-bubble color would need this revisited.
 export class ParticipantTyping extends PureComponent {
   render() {
     return (

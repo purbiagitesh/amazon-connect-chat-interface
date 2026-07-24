@@ -475,6 +475,11 @@ button: {
     loading: color.primary,
     outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
+    // Fixed layout constant, not a brand color - every brand gets the same
+    // bubble proportions (see MessageContainer in ChatMessage.js). Kept
+    // here rather than componentPalette.js so brand colors.json can never
+    // accidentally override layout.
+    customerBubbleMaxWidth: '60%',
     outgoingMsg: `
       color: ${palette.secondaryBlack};
       background: ${palette.lightPeriwinkle};

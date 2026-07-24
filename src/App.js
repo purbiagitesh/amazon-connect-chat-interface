@@ -27,7 +27,9 @@ const AppProvider = props => {
   const theme = props.themeConfig && Object.keys(props.themeConfig).length
     ? Object.assign({}, defaultTheme, props.themeConfig)
     : undefined;
-
+console.log("AppProvider themeConfig:", props.themeConfig);
+console.log("AppProvider final theme:", theme);
+console.log("Outgoing BG:", theme?.chatTranscriptor?.outgoingMsgBg);
   return (
     <ThemeProvider theme={theme}>
       {props.children}

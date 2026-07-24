@@ -903,6 +903,22 @@ class ChatSession {
   }
 
   // TYPING PARTICIPANTS
+  //
+  // Real-time lifecycle of the "participant is composing" bubble
+  // (rendered by ChatMessage.js's ParticipantTyping):
+  //  1. Each onTyping event received from the other side re-arms a fresh
+  //     12s timer for that participant (below) - the SDK doesn't send an
+  //     explicit "stopped typing" event, so this timer is the only thing
+  //     that clears a stale indicator if the other participant goes idle,
+  //     closes their tab, or drops connection mid-type.
+  //  2. If another onTyping event for the same participant arrives before
+  //     the timer fires, the old timer is cleared and replaced - so the
+  //     bubble stays visible continuously while they keep typing, instead
+  //     of flickering off every 12s.
+  //  3. The instant a real PARTICIPANT_MESSAGE lands in the transcript
+  //     (_updateTypingParticipantsUsingIncoming, called from
+  //     _handleIncomingData), the typing bubble is removed - this is what
+  //     makes the indicator get replaced by the actual message bubble.
 
   _handleTypingEvent(dataInput) {
     var data = dataInput.data;
@@ -934,6 +950,11 @@ class ChatSession {
     }
   }
 
+  // NOTE: despite taking a participantId, this clears the ENTIRE typing
+  // list (not just that participant) - in today's 1:1 chat model there's
+  // only ever one other typing participant at a time, so this has been
+  // equivalent in practice to a per-participant removal. Revisit if this
+  // widget ever supports multi-party chat.
   _removeTypingParticipant(participantId) {
     //this.typingParticipants = this.typingParticipants.filter(
     //  tp => tp.participantDetails.participantId !== participantId
