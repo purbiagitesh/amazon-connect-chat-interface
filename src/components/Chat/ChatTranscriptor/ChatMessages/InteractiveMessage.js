@@ -7,6 +7,7 @@ import Panel from "./InteractiveMessages/Panel";
 import TimePicker from "./InteractiveMessages/TimePicker";
 import QuickReply from "./InteractiveMessages/QuickReply";
 import Carousel from "./InteractiveMessages/Carousel";
+import OrderCarousel from "./InteractiveMessages/OrderCarousel";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
@@ -207,6 +208,8 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <QuickReply content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.CAROUSEL) {
     return <Carousel content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {
+    return <OrderCarousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.VIEW_RESOURCE) {
     return <connect-view-renderer data-testid="connect-view-renderer" ref={ref} />
   }

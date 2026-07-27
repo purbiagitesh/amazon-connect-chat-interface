@@ -108,6 +108,7 @@ export const InteractiveMessageType = {
   QUICK_REPLY: "QuickReply",
   CAROUSEL: "Carousel",
   VIEW_RESOURCE: "ViewResource",
+  ORDER_CAROUSEL: "OrderCarousel",
 };
 
 export const InteractiveMessageSelectionType = {
