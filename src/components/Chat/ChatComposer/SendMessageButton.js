@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import defaultTheme from '../../../theme/defaultTheme';
 import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 
-const ACTIVE_COLOR = '#CFD7FF';
 const INACTIVE_COLOR = defaultTheme.palette.whisper;
 const ACTIVE_ICON_COLOR = defaultTheme.palette.secondaryBlack;
 const INACTIVE_ICON_COLOR = defaultTheme.palette.white;
@@ -36,7 +35,7 @@ const SendButton = styled.div`
   cursor: ${props => props.isActive ? 'pointer' : 'default'};
   transition: background-color 0.15s ease;
   background-color: ${props => props.isActive
-    ? `var(--ac-widget-send-button-active-bg, ${ACTIVE_COLOR})`
+    ? `var(--ac-widget-send-button-active-bg, ${props.theme.chatTranscriptor.sendButtonActiveBg})`
     : `var(--ac-widget-send-button-bg, ${INACTIVE_COLOR})`};
 
   &>svg {

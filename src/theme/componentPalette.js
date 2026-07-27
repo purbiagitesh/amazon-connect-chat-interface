@@ -63,24 +63,39 @@ function buildChatTranscriptorPalette(colors = {}) {
   const bubbles = colors.bubbles || {};
   const customer = bubbles.customer || {};
   const agent = bubbles.agent || {};
+  const featured = colors.featured || {};
 
-  const primary500 = colors.primary500 || (colors.primary && colors.primary['500']) || '#3F5773';
-  const customerBg = customer.background || primary500;
-  const customerText = customer.text || '#FFFFFF';
-  const agentBg = agent.background || '#F5F5F5';
-  const agentText = agent.text || '#333333';
+  const primary500 =
+    colors.primary500 ||
+    (colors.primary && colors.primary["500"]) ||
+    "#3F5773";
+
+  const customerBg =
+    customer.background ||
+    featured["300"] ||
+    primary500;
+
+  const customerText = customer.text || "#FFFFFF";
+  const agentBg = agent.background || "#F5F5F5";
+  const agentText = agent.text || "#333333";
+
+  // Send button's active fill follows the brand's featured-400 swatch,
+  // one step darker than the bubble's featured-300 - keeps it visually
+  // related to the bubble color without being identical to it.
+  const sendButtonActiveBg = featured["400"] || primary500;
 
   return {
     outgoingMsgBg: customerBg,
     incomingMsgBg: agentBg,
+    sendButtonActiveBg,
     outgoingMsg: `
       color: ${customerText};
       background: ${customerBg};
-      `,
+    `,
     incomingMsg: `
       color: ${agentText};
       background: ${agentBg};
-      `,
+    `,
   };
 }
 

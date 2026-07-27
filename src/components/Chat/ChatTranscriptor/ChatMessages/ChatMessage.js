@@ -109,17 +109,12 @@ const Body = styled.div`
 `;
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
-// instead of stretching across the full transcript width. Only the
-// customer (outgoing) side is capped - width is a fixed layout concern
-// (theme.chatTranscriptor.customerBubbleMaxWidth), not a per-brand token,
-// so every brand gets the same proportions per the widget spec.
+// instead of stretching across the full transcript width. Both customer
+// (outgoing) and VA/agent (incoming) bubbles now share the same uncapped
+// behavior - width just follows content up to the transcript's full width.
 const MessageContainer = styled.div`
   display: inline-block;
   max-width: 100%;
-  ${(props) =>
-    props.direction === Direction.Outgoing
-      ? `max-width: ${props.theme.chatTranscriptor.customerBubbleMaxWidth};`
-      : ""}
 `;
 
 const ErrorText = styled.div`

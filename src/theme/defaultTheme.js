@@ -475,6 +475,9 @@ button: {
     loading: color.primary,
     outgoingMsgBg: palette.lightPeriwinkle,
     incomingMsgBg: palette.whisper,
+    // Non-brand default, matches the previous hardcoded ACTIVE_COLOR in
+    // SendMessageButton.js so brandless embeds keep the same look.
+    sendButtonActiveBg: '#CFD7FF',
     // Fixed layout constant, not a brand color - every brand gets the same
     // bubble proportions (see MessageContainer in ChatMessage.js). Kept
     // here rather than componentPalette.js so brand colors.json can never

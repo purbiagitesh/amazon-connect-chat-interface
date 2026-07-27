@@ -1,13 +1,13 @@
 import 'core-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import {config} from "./utils/log";
-import {setupGuidesRenderer} from './utils/helper';
+import { config } from "./utils/log";
+import { setupGuidesRenderer } from './utils/helper';
 
 import defaultTheme from './theme/defaultTheme';
-import buildComponentPalette, {buildChatTranscriptorPalette} from './theme/componentPalette';
+import buildComponentPalette, { buildChatTranscriptorPalette } from './theme/componentPalette';
 import packageJson from '../package.json';
 
 function getBrandInfo() {
@@ -45,7 +45,7 @@ function resolveFontFaces(brandConfig) {
     // window.parent is cross-origin; resolve font URLs against our own document instead
   }
 
-  return fontFaces.map(face => ({...face, url: new URL(face.url, baseHref).href}));
+  return fontFaces.map(face => ({ ...face, url: new URL(face.url, baseHref).href }));
 }
 
 function buildThemeConfig(brandConfig = {}) {
@@ -79,6 +79,7 @@ function buildThemeConfig(brandConfig = {}) {
     themeConfig.chatTranscriptor = {
       ...defaultTheme.chatTranscriptor,
       ...buildChatTranscriptorPalette(colors),
+
     };
   }
 
@@ -118,10 +119,10 @@ function buildLogoConfig(brandInfo) {
   return {};
 }
 
-(function(connect) {
+(function (connect) {
   connect.LogManager && connect.LogManager.updateLoggerConfig(config);
   connect.ChatInterface = connect.ChatInterface || {};
-  connect.ChatInterface.init = ({containerId, ...props}) => {
+  connect.ChatInterface.init = ({ containerId, ...props }) => {
     const brandInfo = getBrandInfo();
     const brandConfig = brandInfo?.config || {};
 
@@ -131,15 +132,15 @@ function buildLogoConfig(brandInfo) {
     console.log("========== THEME DEBUG ==========");
     console.log("Brand Theme:", brandThemeConfig.chatTranscriptor);
     console.log("Caller Theme Override:", props.themeConfig?.chatTranscriptor);
-
-    const themeConfig = Object.assign(
-  {},
-  brandThemeConfig,
-  props.themeConfig || {}
-);
-
-// Use the default chatTranscriptor
-themeConfig.chatTranscriptor = defaultTheme.chatTranscriptor;
+    const themeConfig = {
+      ...brandThemeConfig,
+      ...props.themeConfig,
+      chatTranscriptor: {
+        ...brandThemeConfig.chatTranscriptor,
+      },
+    };
+    // Use the default chatTranscriptor
+    //themeConfig.chatTranscriptor = defaultTheme.chatTranscriptor;
 
     console.log("Merged Theme:", themeConfig.chatTranscriptor);
     console.log(
@@ -189,7 +190,7 @@ themeConfig.chatTranscriptor = defaultTheme.chatTranscriptor;
         />
       </BrowserRouter>,
       document.getElementById(containerId) ||
-        document.getElementById("root")
+      document.getElementById("root")
     );
   };
 

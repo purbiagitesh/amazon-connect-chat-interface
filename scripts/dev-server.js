@@ -187,19 +187,6 @@ async function main() {
     }
   }
 
-  // Keep local-testing/launcher.js in sync with the canonical source at
-  // launcher/launcher.js, so hostedWidget.html (which just does
-  // <script src="./launcher.js">) always tests the real, deployable script -
-  // not a separate copy of the same logic.
-  try {
-    fs.copyFileSync(
-      path.join(__dirname, '..', 'launcher', 'launcher.js'),
-      path.join(LOCAL_TESTING_DIR, 'launcher.js')
-    );
-  } catch (err) {
-    console.warn('Failed to sync launcher.js into local-testing/:', err.message);
-  }
-
   // Start server
   const server = createServer();
   
