@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "73d1e1ce7cfb0cd19fc3";
+/******/ 	var hotCurrentHash = "7367e60ba644e1285bf9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -105776,14 +105776,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorBoundaryContext", function() { return ErrorBoundaryContext; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useErrorBoundary", function() { return useErrorBoundary; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withErrorBoundary", function() { return withErrorBoundary; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 'use client';
@@ -105803,16 +105803,16 @@ var initialState = {
   error: null
 };
 var ErrorBoundary = /*#__PURE__*/function (_Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__["default"])(ErrorBoundary, _Component);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__["default"])(ErrorBoundary, _Component);
   function ErrorBoundary(props) {
     var _this;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ErrorBoundary);
-    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ErrorBoundary).call(this, props));
-    _this.resetErrorBoundary = _this.resetErrorBoundary.bind(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ErrorBoundary);
+    _this = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ErrorBoundary).call(this, props));
+    _this.resetErrorBoundary = _this.resetErrorBoundary.bind(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this));
     _this.state = initialState;
     return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ErrorBoundary, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ErrorBoundary, [{
     key: "resetErrorBoundary",
     value: function resetErrorBoundary() {
       var error = this.state.error;
@@ -105917,7 +105917,7 @@ function useErrorBoundary() {
       error: null,
       hasError: false
     }),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
     state = _useState2[0],
     setState = _useState2[1];
   var memoized = Object(react__WEBPACK_IMPORTED_MODULE_8__["useMemo"])(function () {
@@ -105944,7 +105944,7 @@ function useErrorBoundary() {
 }
 function withErrorBoundary(component, errorBoundaryProps) {
   var Wrapped = Object(react__WEBPACK_IMPORTED_MODULE_8__["forwardRef"])(function (props, ref) {
-    return Object(react__WEBPACK_IMPORTED_MODULE_8__["createElement"])(ErrorBoundary, errorBoundaryProps, Object(react__WEBPACK_IMPORTED_MODULE_8__["createElement"])(component, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+    return Object(react__WEBPACK_IMPORTED_MODULE_8__["createElement"])(ErrorBoundary, errorBoundaryProps, Object(react__WEBPACK_IMPORTED_MODULE_8__["createElement"])(component, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
       ref: ref
     })));
   });
@@ -136254,8 +136254,8 @@ module.exports = JSON.parse("{\"name\":\"@amzn/connect-chat-interface\",\"versio
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme */ "./src/theme/index.js");
@@ -136267,14 +136267,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\App.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\App.js";
 
 
 
 
 
 
-var Page = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: 300px;\n  font-family: var(--ac-widget-global-typeface, ", ");\n\n  margin: ", ";\n  border-collapse: collapse;\n  box-shadow: 0px 2px 3px ", ";\n\n  box-sizing: border-box;\n\n  *, *:before, *:after {\n    box-sizing: inherit;\n  }\n"])), function (props) {
+var Page = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: 300px;\n  font-family: var(--ac-widget-global-typeface, ", ");\n\n  margin: ", ";\n  border-collapse: collapse;\n  box-shadow: 0px 2px 3px ", ";\n\n  box-sizing: border-box;\n\n  *, *:before, *:after {\n    box-sizing: inherit;\n  }\n"])), function (props) {
   return props.theme.globals.bodyFontFamily;
 }, function (props) {
   return props.theme.spacing.base;
@@ -136303,7 +136303,7 @@ App.defaultProps = {
 function App(_ref) {
   var baseCssClass = _ref.baseCssClass,
     fontFaces = _ref.fontFaces,
-    props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, ["baseCssClass", "fontFaces"]);
+    props = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, ["baseCssClass", "fontFaces"]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(AppProvider, {
     themeConfig: props.themeConfig || {},
     __self: this,
@@ -136351,8 +136351,8 @@ function App(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildFontFaceCss", function() { return buildFontFaceCss; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 
@@ -136400,7 +136400,7 @@ function buildFontFaceCss(fontFaces) {
       weight = _byGroup$key.weight,
       style = _byGroup$key.style,
       faces = _byGroup$key.faces;
-    var sources = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(faces).sort(function (a, b) {
+    var sources = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(faces).sort(function (a, b) {
       return FONT_FORMAT_PRIORITY.indexOf(a.format) - FONT_FORMAT_PRIORITY.indexOf(b.format);
     }).map(function (face) {
       return "url('".concat(face.url, "') format('").concat(face.format || 'truetype', "')");
@@ -136408,7 +136408,7 @@ function buildFontFaceCss(fontFaces) {
     return "@font-face {\n  font-family: '".concat(family, "';\n  src: ").concat(sources, ";\n  font-weight: ").concat(weight, ";\n  font-style: ").concat(style, ";\n}");
   }).join('\n\n');
 }
-var Fonts = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalStyle"])(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", "\n"])), function (props) {
+var Fonts = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalStyle"])(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", "\n"])), function (props) {
   return buildFontFaceCss(props.fontFaces);
 });
 /* harmony default export */ __webpack_exports__["default"] = (Fonts);
@@ -136422,7 +136422,7 @@ var Fonts = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalS
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/media/ico_logo_dk.1fc21180.svg";
+module.exports = __webpack_require__.p + "static/media/ico_logo_dk.a8aea59e.svg";
 
 /***/ }),
 
@@ -136452,14 +136452,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Chat; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -136488,7 +136488,7 @@ var _templateObject,
   _templateObject6,
   _templateObject7,
   _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\Chat.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\Chat.js";
 
 
 
@@ -136498,15 +136498,15 @@ var _templateObject,
 
 
 
-var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px; // to match the border with figma frame\n  overflow: hidden;\n  @media (max-width:640px) {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 0;\n    left: 0;\n  }\n"])));
-var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, auto);\n  max-height: min(115px, 21.2%);\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  @media (max-width: 640px) {\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n  }\n"])));
-var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n  @media (max-width:640px) {\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    top: ", "px;\n    height: auto;\n    min-height: auto;\n  }\n"])), function (props) {
+var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px; // to match the border with figma frame\n  overflow: hidden;\n  @media (max-width:640px) {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 0;\n    left: 0;\n  }\n"])));
+var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, auto);\n  max-height: min(115px, 21.2%);\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  @media (max-width: 640px) {\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n  }\n"])));
+var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n  @media (max-width:640px) {\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    top: ", "px;\n    height: auto;\n    min-height: auto;\n  }\n"])), function (props) {
   return props.parentHeaderWrapperHeight;
 });
-var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding: 0;\n  border-radius: 24px 24px 0 0;\n  overflow: hidden;\n"])));
-var BrandIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  display: flex;\n  justify-content: center;\n  padding: 20px 0 4px;\n  flex-shrink: 0;\n"])));
-var BrandIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].img(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
-var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_14__["Text"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
+var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding: 0;\n  border-radius: 24px 24px 0 0;\n  overflow: hidden;\n"])));
+var BrandIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  display: flex;\n  justify-content: center;\n  padding: 20px 0 4px;\n  flex-shrink: 0;\n"])));
+var BrandIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].img(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
+var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_14__["Text"])(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
 var defaultHeaderConfig = {
   isHTML: false,
   render: function render(config) {
@@ -136651,11 +136651,11 @@ function Header(_ref) {
 var textInputRef = react__WEBPACK_IMPORTED_MODULE_13___default.a.createRef();
 var HEADER_HEIGHT = 115;
 var Chat = /*#__PURE__*/function (_Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Chat, _Component);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Chat, _Component);
   function Chat(props) {
     var _this2;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, Chat);
-    _this2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Chat).call(this, props));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, Chat);
+    _this2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Chat).call(this, props));
     _this2.state = {
       transcript: [],
       typingParticipants: [],
@@ -136665,7 +136665,7 @@ var Chat = /*#__PURE__*/function (_Component) {
     _this2.parentHeaderRef = react__WEBPACK_IMPORTED_MODULE_13___default.a.createRef();
     _this2.updateTranscript = function (transcript) {
       return _this2.setState({
-        transcript: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(transcript)
+        transcript: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(transcript)
       });
     };
     _this2.updateTypingParticipants = function (typingParticipants) {
@@ -136685,7 +136685,7 @@ var Chat = /*#__PURE__*/function (_Component) {
     }
     return _this2;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(Chat, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(Chat, [{
     key: "resetChatHeight",
     value: function resetChatHeight() {
       this.setState({
@@ -136869,12 +136869,12 @@ var Chat = /*#__PURE__*/function (_Component) {
   }]);
   return Chat;
 }(react__WEBPACK_IMPORTED_MODULE_13__["Component"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Chat, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Chat, "propTypes", {
   chatSession: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object.isRequired,
   composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
   onEnded: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.func
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Chat, "defaultProps", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Chat, "defaultProps", {
   onEnded: function onEnded() {}
 });
 
@@ -136891,10 +136891,10 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChatComposer; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -136928,7 +136928,7 @@ var _templateObject,
   _templateObject14,
   _templateObject15,
   _templateObject16,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\ChatComposer.js",
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\ChatComposer.js",
   _templateObject17,
   _templateObject18;
 
@@ -137005,8 +137005,8 @@ function getCharacterCounterText(intl, count, maxLength, hasError) {
     max: maxLength
   });
 }
-var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
-var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
+var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
+var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
   return props.theme.palette.white;
 }, function (props) {
   return props.hasError ? "var(--ac-widget-composer-error-border, 1px solid ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-border, 1px solid ".concat(props.theme.palette.lightGray, ")");
@@ -137017,24 +137017,24 @@ var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__[
 // that on DefaultChatComposerWrapper) so the icon cluster stays vertically
 // centered on this row even when the media chips row above it changes the
 // wrapper's total height.
-var ComposerInputRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n"])));
+var ComposerInputRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  display: flex;\n  align-items: center;\n"])));
 
 // Figma places the attach icon directly to the left of the send button, both
 // pinned to the right edge of the pill - grouped together here rather than
 // the attach icon living on the opposite side of the input.
-var ComposerRightIcons = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: 50%;\n  right: var(--ac-widget-composer-send-button-offset, ", ");\n  transform: translateY(-50%);\n  display: flex;\n  align-items: center;\n  gap: var(--ac-widget-composer-icons-gap, ", ");\n  z-index: 2;\n"])), function (props) {
+var ComposerRightIcons = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: 50%;\n  right: var(--ac-widget-composer-send-button-offset, ", ");\n  transform: translateY(-50%);\n  display: flex;\n  align-items: center;\n  gap: var(--ac-widget-composer-icons-gap, ", ");\n  z-index: 2;\n"])), function (props) {
   return props.theme.spacing.small;
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var PaperClipContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  cursor: pointer;\n  height: auto;\n  vertical-align: top;\n\n  button {\n    height: 100%;\n    width: 100%;\n  }\n\n  label {\n    align-items: center;\n    display: flex;\n    cursor: pointer;\n    font-size: 0;\n    height: 100%;\n    margin-bottom: 0;\n  }\n\n  input {\n    display: none;\n  }\n"])));
-var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n"])));
-var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  --outgoingMsgBg-background-color: ", ";\n  display: flex;\n  background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n  border-radius: 5px;\n  margin: 5px;\n  padding: ", ";\n  min-width: 0;\n\n  & > div {\n    width: 100%;\n\n    span {\n      overflow-wrap: break-word;\n    }\n\n    button {\n      align-items: center;\n      display: inline-flex;\n      cursor: pointer;\n      margin-left: 5px;\n    }\n  }\n\n  & + div {\n    padding-left: 0;\n  }\n"])), function (props) {
+var PaperClipContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  cursor: pointer;\n  height: auto;\n  vertical-align: top;\n\n  button {\n    height: 100%;\n    width: 100%;\n  }\n\n  label {\n    align-items: center;\n    display: flex;\n    cursor: pointer;\n    font-size: 0;\n    height: 100%;\n    margin-bottom: 0;\n  }\n\n  input {\n    display: none;\n  }\n"])));
+var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n"])));
+var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  --outgoingMsgBg-background-color: ", ";\n  display: flex;\n  background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n  border-radius: 5px;\n  margin: 5px;\n  padding: ", ";\n  min-width: 0;\n\n  & > div {\n    width: 100%;\n\n    span {\n      overflow-wrap: break-word;\n    }\n\n    button {\n      align-items: center;\n      display: inline-flex;\n      cursor: pointer;\n      margin-left: 5px;\n    }\n  }\n\n  & + div {\n    padding-left: 0;\n  }\n"])), function (props) {
   return props.theme.chatTranscriptor.outgoingMsgBg;
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: ", ";\n  /* Reserves room for the right-aligned attach + send icon cluster\n     (ComposerRightIcons) so typed text never runs underneath it. */\n  padding-right: var(--ac-widget-composer-icons-clearance, 84px);\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
+var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: ", ";\n  /* Reserves room for the right-aligned attach + send icon cluster\n     (ComposerRightIcons) so typed text never runs underneath it. */\n  padding-right: var(--ac-widget-composer-icons-clearance, 84px);\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
   return props.theme.spacing.small;
 }, function (props) {
   return props.theme.spacing.base;
@@ -137043,8 +137043,8 @@ var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, function (props) {
   return props.theme.palette.mediumGray;
 });
-var PaperClipIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n\n  svg {\n    width: 24px;\n    height: 24px;\n  }\n"])));
-var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref) {
+var PaperClipIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject9 || (_templateObject9 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n\n  svg {\n    width: 24px;\n    height: 24px;\n  }\n"])));
+var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject10 || (_templateObject10 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  font-size: 0;\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.fontsSize.mini;
 }, function (_ref2) {
@@ -137055,19 +137055,19 @@ var CloseIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_t
 // ---------------------------------------------------------------------------
 // "With Media Attached" chip carousel (Figma spec)
 // ---------------------------------------------------------------------------
-var MediaAttachmentsRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: ", ";\n  padding: ", " ", " 0;\n"])), function (props) {
+var MediaAttachmentsRow = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject11 || (_templateObject11 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: ", ";\n  padding: ", " ", " 0;\n"])), function (props) {
   return props.theme.spacing.micro;
 }, function (props) {
   return props.theme.spacing.mini;
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var MediaChipScrollArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: ", ";\n  overflow-x: auto;\n  scroll-behavior: smooth;\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n"])), function (props) {
+var MediaChipScrollArea = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject12 || (_templateObject12 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: ", ";\n  overflow-x: auto;\n  scroll-behavior: smooth;\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n"])), function (props) {
   return props.theme.spacing.mini;
 });
 var MEDIA_CHIP_SIZE_PX = 56;
-var MediaChip = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  flex: 0 0 auto;\n  width: var(--ac-widget-composer-media-chip-size, ", "px);\n  height: var(--ac-widget-composer-media-chip-size, ", "px);\n"])), MEDIA_CHIP_SIZE_PX, MEDIA_CHIP_SIZE_PX);
-var MediaChipVisual = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 100%;\n  height: 100%;\n  border-radius: var(--ac-widget-composer-media-chip-radius, 12px);\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-media-chip-background, ", ");\n  color: var(--ac-widget-composer-media-chip-icon-color, ", ");\n  border: ", ";\n  /* Mock upload is purely local bookkeeping today (see mockAttachmentUploadResponse) -\n     dim the chip slightly while it's \"in flight\" so there is somewhere for a\n     real pending/loading state to hook in later. */\n  opacity: ", ";\n  transition: opacity 0.15s ease;\n\n  img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n\n  svg {\n    width: 60%;\n    height: 60%;\n  }\n"])), function (props) {
+var MediaChip = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject13 || (_templateObject13 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: relative;\n  flex: 0 0 auto;\n  width: var(--ac-widget-composer-media-chip-size, ", "px);\n  height: var(--ac-widget-composer-media-chip-size, ", "px);\n"])), MEDIA_CHIP_SIZE_PX, MEDIA_CHIP_SIZE_PX);
+var MediaChipVisual = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject14 || (_templateObject14 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 100%;\n  height: 100%;\n  border-radius: var(--ac-widget-composer-media-chip-radius, 12px);\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-media-chip-background, ", ");\n  color: var(--ac-widget-composer-media-chip-icon-color, ", ");\n  border: ", ";\n  /* Mock upload is purely local bookkeeping today (see mockAttachmentUploadResponse) -\n     dim the chip slightly while it's \"in flight\" so there is somewhere for a\n     real pending/loading state to hook in later. */\n  opacity: ", ";\n  transition: opacity 0.15s ease;\n\n  img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n\n  svg {\n    width: 60%;\n    height: 60%;\n  }\n"])), function (props) {
   return props.theme.palette.whisper;
 }, function (props) {
   return props.theme.palette.silver;
@@ -137076,8 +137076,8 @@ var MediaChipVisual = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].
 }, function (props) {
   return props.status === "uploading" ? 0.6 : 1;
 });
-var MediaChipRemoveButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: -6px;\n  right: -6px;\n  width: 20px;\n  height: 20px;\n  padding: 0;\n  border: none;\n  border-radius: 50%;\n  cursor: pointer;\n  background: transparent;\n  line-height: 0;\n\n  svg {\n    width: 20px;\n    height: 20px;\n  }\n"])));
-var ScrollArrowButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  padding: 0;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  color: var(--ac-widget-composer-media-scroll-arrow-color, ", ");\n\n  svg {\n    width: 18px;\n    height: 18px;\n  }\n"])), function (props) {
+var MediaChipRemoveButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject15 || (_templateObject15 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  position: absolute;\n  top: -6px;\n  right: -6px;\n  width: 20px;\n  height: 20px;\n  padding: 0;\n  border: none;\n  border-radius: 50%;\n  cursor: pointer;\n  background: transparent;\n  line-height: 0;\n\n  svg {\n    width: 20px;\n    height: 20px;\n  }\n"])));
+var ScrollArrowButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject16 || (_templateObject16 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 24px;\n  height: 24px;\n  padding: 0;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  color: var(--ac-widget-composer-media-scroll-arrow-color, ", ");\n\n  svg {\n    width: 18px;\n    height: 18px;\n  }\n"])), function (props) {
   return props.theme.palette.mediumGray;
 });
 function ChevronLeftIcon() {
@@ -137306,10 +137306,10 @@ function AttachMediaIcon() {
     }
   }));
 }
-var CharacterCounter = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: ", ";\n  font-size: var(--ac-widget-composer-counter-fontsize, 12px);\n  margin: 4px 16px;\n"])), function (props) {
+var CharacterCounter = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject17 || (_templateObject17 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: ", ";\n  font-size: var(--ac-widget-composer-counter-fontsize, 12px);\n  margin: 4px 16px;\n"])), function (props) {
   return props.hasError ? "var(--ac-widget-composer-error-color, ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-counter-color, ".concat(props.theme.palette.mediumGray, ")");
 });
-var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject18 || (_templateObject18 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
+var DisclaimerText = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject18 || (_templateObject18 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  text-align: center;\n  color: var(--ac-widget-composer-disclaimer-color, ", ");\n  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);\n  margin: 0 16px 8px;\n"])), function (props) {
   return props.theme.palette.mediumGray;
 }); //Text value to add in footer
 
@@ -137343,24 +137343,24 @@ function ChatComposer(_ref3) {
     });
   }
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(""),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     message = _useState2[0],
     setMessage = _useState2[1]; // Multiple staged attachments: [{ id, file, isMedia, isVideo, previewUrl, status }].
   // `status` is "uploading" | "ready" | "rejected" and is only ever set by
   // the mock in mockAttachmentUploadResponse() today - see the comment there
   // for how to wire in the real backend response later.
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])([]),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
     attachments = _useState4[0],
     setAttachments = _useState4[1];
   var fileInputRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
   var mediaScrollRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
-    _useState6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+    _useState6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
     canScrollMediaLeft = _useState6[0],
     setCanScrollMediaLeft = _useState6[1];
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
-    _useState8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
+    _useState8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
     canScrollMediaRight = _useState8[0],
     setCanScrollMediaRight = _useState8[1]; // Mirrors `attachments` for use in the unmount cleanup effect below without
   // making that effect re-run (and re-subscribe) on every attachment change.
@@ -137479,7 +137479,7 @@ function ChatComposer(_ref3) {
   function updateAttachment(id, changes) {
     setAttachments(function (current) {
       return current.map(function (entry) {
-        return entry.id === id ? Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, entry, changes) : entry;
+        return entry.id === id ? Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, entry, changes) : entry;
       });
     });
   }
@@ -137505,7 +137505,7 @@ function ChatComposer(_ref3) {
       };
     });
     setAttachments(function (current) {
-      return [].concat(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(current), Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(newEntries));
+      return [].concat(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(current), Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(newEntries));
     });
     logger && logger.info("".concat(newEntries.length, " file(s) added."));
 
@@ -137948,7 +137948,7 @@ function ChatComposer(_ref3) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -137956,7 +137956,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var connect_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! connect-constants */ "./src/constants/global.js");
 
 var _templateObject,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\SendMessageButton.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatComposer\\SendMessageButton.js";
 
 
 
@@ -137982,7 +137982,7 @@ function getClientSendIconUrl() {
   }
   return null;
 }
-var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: var(--ac-widget-send-button-size, 32px);\n  height: var(--ac-widget-send-button-size, 32px);\n  border-radius: 50%;\n  cursor: ", ";\n  transition: background-color 0.15s ease;\n  background-color: ", ";\n\n  &>svg {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    fill: ", ";\n  }\n\n  &>img {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    object-fit: contain;\n  }\n"])), function (props) {
+var SendButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: var(--ac-widget-send-button-size, 32px);\n  height: var(--ac-widget-send-button-size, 32px);\n  border-radius: 50%;\n  cursor: ", ";\n  transition: background-color 0.15s ease;\n  background-color: ", ";\n\n  &>svg {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    fill: ", ";\n  }\n\n  &>img {\n    width: var(--ac-widget-send-button-icon-size, 16px);\n    height: var(--ac-widget-send-button-icon-size, 16px);\n    object-fit: contain;\n  }\n"])), function (props) {
   return props.isActive ? 'pointer' : 'default';
 }, function (props) {
   return props.isActive ? "var(--ac-widget-send-button-active-bg, ".concat(ACTIVE_COLOR, ")") : "var(--ac-widget-send-button-bg, ".concat(INACTIVE_COLOR, ")");
@@ -138088,15 +138088,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -138125,7 +138125,7 @@ var _templateObject,
   _templateObject2,
   _templateObject3,
   _templateObject4,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatContainer.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatContainer.js";
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(typeof e + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 
 
@@ -138141,23 +138141,23 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 
 
 
-var ButtonWrapper = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  justify-content: center;\n  margin-top: 10px;\n  > button {\n    min-width: 85px;\n  }\n"])));
-var MessageBoxFail = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: 10;\n  background-color: red;\n"])));
-var LoadingWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_10__["default"])(connect_theme_Helpers__WEBPACK_IMPORTED_MODULE_19__["FlexRowContainer"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", ";\n  height: 100%;\n"])), function (_ref) {
+var ButtonWrapper = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  justify-content: center;\n  margin-top: 10px;\n  > button {\n    min-width: 85px;\n  }\n"])));
+var MessageBoxFail = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: 10;\n  background-color: red;\n"])));
+var LoadingWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_10__["default"])(connect_theme_Helpers__WEBPACK_IMPORTED_MODULE_19__["FlexRowContainer"])(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", ";\n  height: 100%;\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.basePadding;
 });
-var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", ";\n  height: 100%;\n"])), function (_ref2) {
+var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", ";\n  height: 100%;\n"])), function (_ref2) {
   var theme = _ref2.theme;
   return theme.globals.basePadding;
 });
 var ChatContainer = /*#__PURE__*/function (_Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ChatContainer, _Component);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ChatContainer, _Component);
   function ChatContainer(props) {
     var _this;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ChatContainer);
-    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatContainer).call(this, props));
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "resetState", function () {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ChatContainer);
+    _this = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatContainer).call(this, props));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "resetState", function () {
       _this.setState({
         status: "NotInitiated",
         chatSession: null
@@ -138170,8 +138170,8 @@ var ChatContainer = /*#__PURE__*/function (_Component) {
       status: "NotInitiated",
       language: 'en_US'
     };
-    _this.submitChatInitiationHandler = _this.initiateChatSession.bind(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this));
-    _eventbus__WEBPACK_IMPORTED_MODULE_15__["default"].on("initChat", _this.initiateChatSession.bind(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this)));
+    _this.submitChatInitiationHandler = _this.initiateChatSession.bind(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this));
+    _eventbus__WEBPACK_IMPORTED_MODULE_15__["default"].on("initChat", _this.initiateChatSession.bind(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this)));
     if (window.connect && window.connect.LogManager) {
       _this.logger = window.connect.LogManager.getLogger({
         prefix: "ChatInterface-ChatContainer"
@@ -138179,7 +138179,7 @@ var ChatContainer = /*#__PURE__*/function (_Component) {
     }
     return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ChatContainer, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ChatContainer, [{
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       _eventbus__WEBPACK_IMPORTED_MODULE_15__["default"].off(this.submitChatInitiationHandler);
@@ -138218,7 +138218,7 @@ var ChatContainer = /*#__PURE__*/function (_Component) {
   }, {
     key: "submitChatInitiation",
     value: function () {
-      var _submitChatInitiation = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(input, success, failure) {
+      var _submitChatInitiation = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(input, success, failure) {
         var customizationParams, chatDetails, chatSession, attachmentsEnabled, richMessagingEnabled, language;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -138398,9 +138398,9 @@ var ChatContainer = /*#__PURE__*/function (_Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatEvents", function() { return ChatEvents; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./eventbus */ "./src/components/Chat/eventbus.js");
 
 
@@ -138411,8 +138411,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var ChatEvents = /*#__PURE__*/function () {
   function ChatEvents() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ChatEvents);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "_eventHandlers", {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ChatEvents);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "_eventHandlers", {
       'chat-disconnected': [],
       'chat-loading': [],
       'chat-start-new': [],
@@ -138429,7 +138429,7 @@ var ChatEvents = /*#__PURE__*/function () {
     _eventbus__WEBPACK_IMPORTED_MODULE_3__["default"].on('escalateToVoice', this.escalateToVoice.bind(this));
     _eventbus__WEBPACK_IMPORTED_MODULE_3__["default"].on("authenticationComplete", this.authenticationComplete.bind(this));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ChatEvents, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ChatEvents, [{
     key: "onVoiceEscalation",
     value: function onVoiceEscalation(callback) {
       this.on('voice-escalation', function () {
@@ -138633,9 +138633,9 @@ function initiateChat(input) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./eventbus */ "./src/components/Chat/eventbus.js");
 
 
@@ -138646,8 +138646,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var ChatInterface = /*#__PURE__*/function () {
   function ChatInterface() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ChatInterface);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "clientConfig", {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ChatInterface);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "clientConfig", {
       contactFlowId: "",
       instanceId: "",
       region: "",
@@ -138656,7 +138656,7 @@ var ChatInterface = /*#__PURE__*/function () {
       featurePermissions: {}
     });
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ChatInterface, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ChatInterface, [{
     key: "initiateChat",
     value: function initiateChat(input, success, failure) {
       var chatInput = Object.assign({}, this.clientConfig, input);
@@ -138686,12 +138686,12 @@ window.addEventListener("message", function (data) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCurrentChatSessionInstance", function() { return getCurrentChatSessionInstance; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentChatSessionInstance", function() { return setCurrentChatSessionInstance; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var amazon_connect_chatjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! amazon-connect-chatjs */ "./node_modules/amazon-connect-chatjs/dist/amazon-connect-chat.js");
 /* harmony import */ var amazon_connect_chatjs__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(amazon_connect_chatjs__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _constants_global__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../constants/global */ "./src/constants/global.js");
@@ -138727,8 +138727,8 @@ function setCurrentChatSessionInstance(chatSession) {
 // Low-level abstraction on top of Chat.JS
 var ChatJSClient = /*#__PURE__*/function () {
   function ChatJSClient(chatDetails, region, stage) {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ChatJSClient);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "session", null);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ChatJSClient);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "session", null);
     // Creating a chatSession object with Chat.JS
     // Other operations (connecting, sending message, ...) are then done by interacting
     // with the chatSession object (this.session)
@@ -138740,7 +138740,7 @@ var ChatJSClient = /*#__PURE__*/function () {
       }
     });
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatJSClient, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatJSClient, [{
     key: "connect",
     value: function connect() {
       // Intiate the websocket connection. After the connection is established, the customer's chat request
@@ -138865,7 +138865,7 @@ var ChatJSClient = /*#__PURE__*/function () {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return this.session.sendEvent({
         contentType: _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["ContentType"].EVENT_CONTENT_TYPE.READ_RECEIPT,
-        content: JSON.stringify(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({
+        content: JSON.stringify(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({
           messageId: messageId
         }, options))
       });
@@ -138876,7 +138876,7 @@ var ChatJSClient = /*#__PURE__*/function () {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return this.session.sendEvent({
         contentType: _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["ContentType"].EVENT_CONTENT_TYPE.DELIVERED_RECEIPT,
-        content: JSON.stringify(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({
+        content: JSON.stringify(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({
           messageId: messageId
         }, options))
       });
@@ -138925,22 +138925,22 @@ var ChatJSClient = /*#__PURE__*/function () {
 }();
 var ChatSession = /*#__PURE__*/function () {
   function ChatSession(chatDetails, displayName, region, stage, customizationParams) {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ChatSession);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "transcript", []);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "typingParticipants", []);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "thisParticipant", null);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "client", null);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "contactId", null);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "contactStatus", _constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].DISCONNECTED);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "nextToken", null);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ChatSession);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "transcript", []);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "typingParticipants", []);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "thisParticipant", null);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "client", null);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "contactId", null);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "contactStatus", _constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].DISCONNECTED);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "nextToken", null);
     /**
      * Flag set when an outgoing message from the Customer is in flight.
      * Until the request completes, we will not render a Customer message over the websocket.
      *
      * @type {boolean}
      */
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "isOutgoingMessageInFlight", false);
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_eventHandlers", {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "isOutgoingMessageInFlight", false);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_eventHandlers", {
       "transcript-changed": [],
       "typing-participants-changed": [],
       "contact-status-changed": [],
@@ -138974,7 +138974,7 @@ var ChatSession = /*#__PURE__*/function () {
   }
 
   // Callbacks
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatSession, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatSession, [{
     key: "onChatDisconnected",
     value: function onChatDisconnected(callback) {
       this.on("chat-disconnected", function () {
@@ -139029,7 +139029,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "endChat",
     value: function () {
-      var _endChat = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _endChat = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -139271,7 +139271,7 @@ var ChatSession = /*#__PURE__*/function () {
         _this4._handleIdleEvent(data);
       });
       this.client.onChatRehydrated( /*#__PURE__*/function () {
-        var _ref = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(data) {
+        var _ref = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(data) {
           return _regeneratorRuntime().wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
               case 0:
@@ -139297,7 +139297,7 @@ var ChatSession = /*#__PURE__*/function () {
         _this4._handleEndedEvent(data);
       });
       this.client.onAuthenticationInitiated( /*#__PURE__*/function () {
-        var _ref2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(data) {
+        var _ref2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(data) {
           return _regeneratorRuntime().wrap(function _callee3$(_context3) {
             while (1) switch (_context3.prev = _context3.next) {
               case 0:
@@ -139314,7 +139314,7 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onAuthenticationTimeout( /*#__PURE__*/function () {
-        var _ref3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(data) {
+        var _ref3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(data) {
           return _regeneratorRuntime().wrap(function _callee4$(_context4) {
             while (1) switch (_context4.prev = _context4.next) {
               case 0:
@@ -139331,7 +139331,7 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onAuthenticationFailed( /*#__PURE__*/function () {
-        var _ref4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(data) {
+        var _ref4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(data) {
           return _regeneratorRuntime().wrap(function _callee5$(_context5) {
             while (1) switch (_context5.prev = _context5.next) {
               case 0:
@@ -139348,7 +139348,7 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onAuthenticationSuccessful( /*#__PURE__*/function () {
-        var _ref5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(data) {
+        var _ref5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(data) {
           return _regeneratorRuntime().wrap(function _callee6$(_context6) {
             while (1) switch (_context6.prev = _context6.next) {
               case 0:
@@ -139365,7 +139365,7 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onAuthenticationCanceled( /*#__PURE__*/function () {
-        var _ref6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(data) {
+        var _ref6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(data) {
           return _regeneratorRuntime().wrap(function _callee7$(_context7) {
             while (1) switch (_context7.prev = _context7.next) {
               case 0:
@@ -139382,7 +139382,7 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onParticipantDisplayNameUpdated( /*#__PURE__*/function () {
-        var _ref7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(data) {
+        var _ref7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(data) {
           return _regeneratorRuntime().wrap(function _callee8$(_context8) {
             while (1) switch (_context8.prev = _context8.next) {
               case 0:
@@ -139397,7 +139397,7 @@ var ChatSession = /*#__PURE__*/function () {
           return _ref7.apply(this, arguments);
         };
       }());
-      this.client.onConnectionEstablished( /*#__PURE__*/Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+      this.client.onConnectionEstablished( /*#__PURE__*/Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
         return _regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
@@ -139422,7 +139422,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleChatRehydrated",
     value: function () {
-      var _handleChatRehydrated2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(data) {
+      var _handleChatRehydrated2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(data) {
         return _regeneratorRuntime().wrap(function _callee10$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
             case 0:
@@ -139481,7 +139481,7 @@ var ChatSession = /*#__PURE__*/function () {
         args["nextToken"] = this.nextToken;
       }
       return this.client.getTranscript(args).then( /*#__PURE__*/function () {
-        var _ref9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(response) {
+        var _ref9 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(response) {
           var incomingDataList, transcriptItems, lastItem;
           return _regeneratorRuntime().wrap(function _callee11$(_context11) {
             while (1) switch (_context11.prev = _context11.next) {
@@ -139558,7 +139558,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_describeAndProcessView",
     value: function () {
-      var _describeAndProcessView2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(item) {
+      var _describeAndProcessView2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(item) {
         var viewDetails, newParsedView, ViewResourceInputData, describeViewResponse, newView, Template, InputSchema;
         return _regeneratorRuntime().wrap(function _callee12$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
@@ -139582,7 +139582,7 @@ var ChatSession = /*#__PURE__*/function () {
               newView = describeViewResponse ? describeViewResponse.data.View : {};
               Template = JSON.parse(newView.Content.Template);
               InputSchema = JSON.parse(newView.Content.InputSchema);
-              newParsedView = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({}, newView, {
+              newParsedView = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({}, newView, {
                 Content: {
                   Actions: newView.Content.Actions,
                   Template: Template,
@@ -139682,13 +139682,13 @@ var ChatSession = /*#__PURE__*/function () {
         return !_this7._isRoundTripSystemEvent(item);
       });
       var newItemMap = items.reduce(function (acc, item) {
-        return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({}, acc, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])({}, item.id, item));
+        return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({}, acc, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])({}, item.id, item));
       }, {});
       var newTranscript = this.transcript.filter(function (item) {
         return newItemMap[item.id] === undefined;
       });
       self._removePreviousInteractiveMessage(newTranscript, items);
-      (_newTranscript = newTranscript).push.apply(_newTranscript, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(items));
+      (_newTranscript = newTranscript).push.apply(_newTranscript, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(items));
       newTranscript.sort(function (a, b) {
         var isASending = a.transportDetails.status === _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["Status"].Sending;
         var isBSending = b.transportDetails.status === _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["Status"].Sending;
@@ -139829,7 +139829,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleAuthenticationInitiated",
     value: function () {
-      var _handleAuthenticationInitiated2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(data) {
+      var _handleAuthenticationInitiated2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(data) {
         var eventDetails, identityProvider, content, authenticationUrl, sessionId, item, getAuthenticationUrlResponse;
         return _regeneratorRuntime().wrap(function _callee13$(_context13) {
           while (1) switch (_context13.prev = _context13.next) {
@@ -139878,7 +139878,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleAuthenticationLifecycleEvent",
     value: function () {
-      var _handleAuthenticationLifecycleEvent2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(data) {
+      var _handleAuthenticationLifecycleEvent2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(data) {
         var eventDetails, item;
         return _regeneratorRuntime().wrap(function _callee14$(_context14) {
           while (1) switch (_context14.prev = _context14.next) {
@@ -139998,9 +139998,9 @@ var ChatSession = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationMessage", function() { return AuthenticationMessage; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -140013,14 +140013,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\AuthenticationMessage.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\AuthenticationMessage.js";
 
 
 
 
 
 
-var AuthenticationEventText = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].button(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background: none;\n  border: none;\n  color: ", ";\n  text-align: center;\n  font-family: \"Amazon Ember\";\n  font-style: normal;\n  font-weight: 400;\n  line-height: 30px;\n  cursor: ", ";\n  text-decoration: ", ";\n  pointer-events: ", ";\n  &:focus {\n    outline: none;\n  }\n"])), function (props) {
+var AuthenticationEventText = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].button(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background: none;\n  border: none;\n  color: ", ";\n  text-align: center;\n  font-family: \"Amazon Ember\";\n  font-style: normal;\n  font-weight: 400;\n  line-height: 30px;\n  cursor: ", ";\n  text-decoration: ", ";\n  pointer-events: ", ";\n  &:focus {\n    outline: none;\n  }\n"])), function (props) {
   return props.disabled ? '#879596' : props.visited ? '#232F3E' : '#0972D3';
 }, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
@@ -140029,7 +140029,7 @@ var AuthenticationEventText = styled_components__WEBPACK_IMPORTED_MODULE_5__["de
 }, function (props) {
   return props.disabled ? 'none' : 'auto';
 });
-var messages = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["ContentType"].EVENT_CONTENT_TYPE.AUTHENTICATION_EXPIRED, {
+var messages = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["ContentType"].EVENT_CONTENT_TYPE.AUTHENTICATION_EXPIRED, {
   id: 'transcriptor.authenticationExpired',
   defaultMessage: 'Sign in expired'
 }), _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["ContentType"].EVENT_CONTENT_TYPE.AUTHENTICATION_FAILED, {
@@ -140052,15 +140052,15 @@ var AuthenticationMessage = function AuthenticationMessage(_ref) {
   var link = _ref.link,
     content = _ref.content;
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     linksDisabled = _useState2[0],
     setLinksDisabled = _useState2[1];
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
     authLinkVisited = _useState4[0],
     setAuthLinkVisited = _useState4[1];
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
-    _useState6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
+    _useState6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
     cancelLinkVisited = _useState6[0],
     setCancelLinkVisited = _useState6[1];
   var eventType = content.type;
@@ -140187,15 +140187,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorFallback", function() { return ErrorFallback; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParticipantMessage", function() { return ParticipantMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParticipantTyping", function() { return ParticipantTyping; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -140240,7 +140240,7 @@ var _templateObject,
   _templateObject14,
   _templateObject15,
   _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
   _templateObject16;
 
 
@@ -140275,7 +140275,7 @@ function getClientAvatarUrl() {
   }
   return null;
 }
-var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", " ", ";\n  word-break: break-word;\n  white-space: pre-line;\n  overflow: auto;\n  text-align: ", ";\n"])), function (_ref) {
+var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", " ", ";\n  word-break: break-word;\n  white-space: pre-line;\n  overflow: auto;\n  text-align: ", ";\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.basePadding;
 }, function (_ref2) {
@@ -140284,16 +140284,16 @@ var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(
 }, function (props) {
   return props.textAlign;
 });
-var Header = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  overflow: auto;\n"])));
-Header.Sender = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: left;\n  max-width: 75%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 13px;\n  color: ", ";\n"])), function (_ref3) {
+var Header = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  overflow: auto;\n"])));
+Header.Sender = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: left;\n  max-width: 75%;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  font-size: 13px;\n  color: ", ";\n"])), function (_ref3) {
   var theme = _ref3.theme;
   return theme.palette.mediumGray;
 });
-Header.Status = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  font-size: 13px;\n  float: right;\n"])), function (_ref4) {
+Header.Status = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  font-size: 13px;\n  float: right;\n"])), function (_ref4) {
   var theme = _ref4.theme;
   return theme.typography.supportingText;
 });
-var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  overflow: auto;\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref5) {
+var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  overflow: auto;\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.supportingText;
 }, function (_ref6) {
@@ -140303,8 +140303,8 @@ var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_tem
   var theme = _ref7.theme;
   return theme.spacing.mini;
 });
-Footer.MessageReceipt = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: right;\n"])));
-var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  ", ";\n\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 18px;\n  position: relative;\n"])), function (props) {
+Footer.MessageReceipt = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: right;\n"])));
+var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  ", ";\n\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 18px;\n  position: relative;\n"])), function (props) {
   return props.theme.chatTranscriptor.incomingMsgBg;
 }, function (props) {
   return props.theme.chatTranscriptor.outgoingMsgBg;
@@ -140330,10 +140330,10 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
 // customer (outgoing) side is capped - width is a fixed layout concern
 // (theme.chatTranscriptor.customerBubbleMaxWidth), not a per-brand token,
 // so every brand gets the same proportions per the widget spec.
-var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n  ", "\n"])), function (props) {
+var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n  ", "\n"])), function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "max-width: ".concat(props.theme.chatTranscriptor.customerBubbleMaxWidth, ";") : "";
 });
-var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
+var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.typography.supportingText;
 }, function (_ref10) {
@@ -140348,13 +140348,13 @@ var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_
 // window.__CHAT_BRAND_INFO__.assets.avatar, populated by
 // scripts/prepare-client.js). Clients without one keep the original
 // single-column message layout untouched.
-var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
+var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject10 || (_templateObject10 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref12) {
   var theme = _ref12.theme;
   return theme.spacing.mini;
 });
-var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
-var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
-var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref13) {
+var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject11 || (_templateObject11 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
+var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject12 || (_templateObject12 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
+var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject13 || (_templateObject13 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref13) {
   var theme = _ref13.theme;
   return theme.typography.supportingText;
 }, function (_ref14) {
@@ -140364,7 +140364,7 @@ var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span
   var theme = _ref15.theme;
   return theme.spacing.mini;
 });
-var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref16) {
+var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject14 || (_templateObject14 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref16) {
   var theme = _ref16.theme;
   return theme.typography.supportingText;
 }, function (props) {
@@ -140382,7 +140382,7 @@ var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["def
   var theme = _ref20.theme;
   return theme.palette.red;
 });
-TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref21) {
+TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject15 || (_templateObject15 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.inlineButton;
 }, function (_ref22) {
@@ -140424,11 +140424,11 @@ var ErrorFallback = function ErrorFallback(_ref23) {
   }, "Reload Editor"));
 };
 var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantMessage, _PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantMessage, _PureComponent);
   function ParticipantMessage(props) {
     var _this2;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ParticipantMessage);
-    _this2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ParticipantMessage).call(this, props));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ParticipantMessage);
+    _this2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ParticipantMessage).call(this, props));
     _this2.state = {
       inView: false,
       isVisible: false
@@ -140439,7 +140439,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
     }
     return _this2;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ParticipantMessage, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ParticipantMessage, [{
     key: "timestampToDisplayable",
     value: function timestampToDisplayable(timestamp) {
       var d = new Date(0);
@@ -140453,7 +140453,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
       if (today === thatDay) {
         return d.toLocaleTimeString([], option);
       }
-      return d.toLocaleTimeString([], Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, option, {
+      return d.toLocaleTimeString([], Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, option, {
         weekday: "short",
         month: "short",
         day: "numeric"
@@ -140974,7 +140974,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
   }]);
   return ParticipantMessage;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(ParticipantMessage, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(ParticipantMessage, "propTypes", {
   messageDetails: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object.isRequired,
   incomingMsgStyle: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object,
   outgoingMsgStyle: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.object,
@@ -140984,12 +140984,12 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
   sendReadReceipt: prop_types__WEBPACK_IMPORTED_MODULE_12___default.a.func.isRequired
 });
 var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(PlainTextMessage, _PureComponent2);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(PlainTextMessage, _PureComponent2);
   function PlainTextMessage() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, PlainTextMessage);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(PlainTextMessage).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, PlainTextMessage);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(PlainTextMessage).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(PlainTextMessage, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(PlainTextMessage, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_linkify__WEBPACK_IMPORTED_MODULE_13___default.a, {
@@ -141007,7 +141007,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
   }]);
   return PlainTextMessage;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
+var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject16 || (_templateObject16 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "right" : "left";
 });
 
@@ -141024,12 +141024,12 @@ var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11_
 // today only because outgoing text/agent text defaults are white/near-black;
 // a brand with a light customer-bubble color would need this revisited.
 var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantTyping, _PureComponent3);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantTyping, _PureComponent3);
   function ParticipantTyping() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ParticipantTyping);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ParticipantTyping).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ParticipantTyping);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(ParticipantTyping).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ParticipantTyping, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ParticipantTyping, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(ParticipantTypingBox, {
@@ -141062,16 +141062,16 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
   return ParticipantTyping;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
 var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(AttachmentMessage, _PureComponent4);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(AttachmentMessage, _PureComponent4);
   function AttachmentMessage() {
     var _getPrototypeOf2;
     var _this4;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, AttachmentMessage);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, AttachmentMessage);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, (_getPrototypeOf2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(AttachmentMessage)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__["default"])(_this4), "downloadAttachment", function (e) {
+    _this4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, (_getPrototypeOf2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(AttachmentMessage)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__["default"])(_this4), "downloadAttachment", function (e) {
       e.preventDefault();
       if (!_this4.props.content.AttachmentId) {
         return;
@@ -141085,7 +141085,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
     });
     return _this4;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(AttachmentMessage, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(AttachmentMessage, [{
     key: "renderContent",
     value: function renderContent() {
       if (this.props.content.Status === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["AttachmentStatus"].APPROVED) {
@@ -141143,8 +141143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResponsesSection", function() { return ResponsesSection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessageBody", function() { return MessageBody; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PickerOptionTitle", function() { return PickerOptionTitle; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -141168,7 +141168,7 @@ var _templateObject,
   _templateObject6,
   _templateObject7,
   _templateObject8,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessage.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessage.js";
 
 
 
@@ -141181,7 +141181,7 @@ var _templateObject,
 
 
 
-var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
+var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
@@ -141200,31 +141200,31 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.title;
 });
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.body;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
-var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].img(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
   var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141258,7 +141258,7 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default
   var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.label;
 }, function (props) {
@@ -141281,7 +141281,7 @@ function InteractiveMessage(_ref22) {
     isCarouselElem = _ref22.isCarouselElem,
     templateIdentifier = _ref22.templateIdentifier;
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     responseSelected = _useState2[0],
     setResponseSelected = _useState2[1];
   var ref = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
@@ -141557,7 +141557,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isCarouselSelectionMessage", function() { return isCarouselSelectionMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatCarouselInteractiveSelection", function() { return formatCarouselInteractiveSelection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Carousel; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -141574,7 +141574,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject,
   _templateObject2,
   _templateObject3,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\Carousel.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\Carousel.js";
 
 
 
@@ -141602,14 +141602,14 @@ function formatCarouselInteractiveSelection(messageContent) {
   var optionalColon = listTitle.slice(-1) === ":" ? "" : " -";
   return "".concat(listTitle).concat(optionalColon, " ").concat(selectionText);
 }
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", ";\n  margin: 0 ", ";\n  display: flex;\n  gap: 2%;\n  overflow-x: scroll;\n  position: relative;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n  scroll-snap-type: x proximity;\n\n  /* Hide scrollbar */\n  ::-webkit-scrollbar {\n    display: none; /* Chrome, Safari and Opera */\n  }\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n"])), function (_ref) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", ";\n  margin: 0 ", ";\n  display: flex;\n  gap: 2%;\n  overflow-x: scroll;\n  position: relative;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n  scroll-snap-type: x proximity;\n\n  /* Hide scrollbar */\n  ::-webkit-scrollbar {\n    display: none; /* Chrome, Safari and Opera */\n  }\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.spacing.base;
 }, function (_ref2) {
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var ScrollButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_6__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  display: block;\n  --offset-x: 0;\n  z-index: 99;\n  ", "\n\n  width: 32px;\n  height: 32px;\n  border: 2px solid ", ";\n  border-radius: 50%;\n\n  background-size: 14px auto;\n  background: ", ";\n  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n"])), function (props) {
+var ScrollButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_6__["Button"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  display: block;\n  --offset-x: 0;\n  z-index: 99;\n  ", "\n\n  width: 32px;\n  height: 32px;\n  border: 2px solid ", ";\n  border-radius: 50%;\n\n  background-size: 14px auto;\n  background: ", ";\n  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.75);\n"])), function (props) {
   return props.direction === "right" ? "right: 0;" : "";
 }, function (_ref3) {
   var theme = _ref3.theme;
@@ -141618,7 +141618,7 @@ var ScrollButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["defaul
   var theme = _ref4.theme;
   return theme.componentPalette.carousel.arrowBackgroundColor;
 });
-var ChevronIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n\n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
+var ChevronIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n\n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
   return props.direction === "left" ? "180" : "0";
 });
 function NestedInteractiveMessages(_ref5) {
@@ -141803,8 +141803,8 @@ function Carousel(_ref7) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListPicker; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -141820,7 +141820,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject,
   _templateObject2,
   _templateObject3,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\ListPicker.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\ListPicker.js";
 
 
 
@@ -141829,12 +141829,12 @@ var _templateObject,
 
 
 
-var ImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  max-height: calc(95vw * (9 / 16));\n  overflow: hidden;\n  display: ", ";\n\n  ", "\n"])), function (props) {
+var ImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  max-height: calc(95vw * (9 / 16));\n  overflow: hidden;\n  display: ", ";\n\n  ", "\n"])), function (props) {
   return props.showImage ? "flex" : "none";
 }, function (props) {
   return props.isCarouselElem ? "\n    img {\n      float: left;\n      height: 10rem;\n      object-fit: cover;\n    }\n  " : "";
 });
-var ListElementButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_5__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: ", ";\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  white-space: pre-line;\n\n  &:hover {\n    background: ", ";\n  }\n\n  /* Last child could be <a/>, only round last child */\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n"])), function (props) {
+var ListElementButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_5__["Button"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: ", ";\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  white-space: pre-line;\n\n  &:hover {\n    background: ", ";\n  }\n\n  /* Last child could be <a/>, only round last child */\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n"])), function (props) {
   return props.isFloatLeft ? "flex-start" : "center";
 }, function (_ref) {
   var theme = _ref.theme;
@@ -141849,7 +141849,7 @@ var ListElementButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["d
   var theme = _ref4.theme;
   return theme.spacing.mini;
 });
-var ElementImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: ", ";\n  height: ", ";\n  border: ", ";\n  border-radius: ", ";\n  flex-shrink: 0;\n  margin-right: ", ";\n  display: ", ";\n"])), function (props) {
+var ElementImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: ", ";\n  height: ", ";\n  border: ", ";\n  border-radius: ", ";\n  flex-shrink: 0;\n  margin-right: ", ";\n  display: ", ";\n"])), function (props) {
   return props.theme.spacing.xxlarge;
 }, function (props) {
   return props.theme.spacing.xxlarge;
@@ -141982,11 +141982,11 @@ function ListPicker(_ref9) {
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].LIST_PICKER, "titleCharLimit");
   var subtitle = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputSubtitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].LIST_PICKER, "subtitleCharLimit");
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     imageLoaded = _useState2[0],
     setImageLoaded = _useState2[1];
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(0),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
     elementImagesLoadedCount = _useState4[0],
     setElementImagesLoadedCount = _useState4[1];
   function onImageLoad() {
@@ -142081,8 +142081,8 @@ function ListPicker(_ref9) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Panel; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var connect_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! connect-core */ "./src/components/core/index.js");
@@ -142096,7 +142096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _templateObject2,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\Panel.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\Panel.js";
 
 
 
@@ -142104,12 +142104,12 @@ var _templateObject,
 
 
 
-var ImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  max-height: calc(95vw * (9 / 16));\n  overflow: hidden;\n  display: ", ";\n\n  ", "\n"])), function (props) {
+var ImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  max-height: calc(95vw * (9 / 16));\n  overflow: hidden;\n  display: ", ";\n\n  ", "\n"])), function (props) {
   return props.showImage ? "flex" : "none";
 }, function (props) {
   return props.isCarouselElem ? "\n    img {\n      float: left;\n      height: 10rem;\n      object-fit: cover;\n    }\n  " : "";
 });
-var PanelButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_3__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  white-space: pre-line;\n\n  &:hover {\n    background: ", ";\n  }\n\n  /* Last child could be <a/>, only round last child */\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n"])), function (_ref) {
+var PanelButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_3__["Button"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  white-space: pre-line;\n\n  &:hover {\n    background: ", ";\n  }\n\n  /* Last child could be <a/>, only round last child */\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
@@ -142183,7 +142183,7 @@ function Panel(_ref6) {
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_8__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["InteractiveMessageType"].PANEL, "titleCharLimit");
   var subtitle = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_8__["truncateStrFromCharLimit"])(inputSubtitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["InteractiveMessageType"].PANEL, "subtitleCharLimit");
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     imageLoaded = _useState2[0],
     setImageLoaded = _useState2[1];
   function onImageLoad() {
@@ -142266,7 +142266,7 @@ function Panel(_ref6) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return QuickReply; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -142280,7 +142280,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _templateObject2,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\QuickReply.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\QuickReply.js";
 
 
 
@@ -142289,14 +142289,14 @@ var _templateObject,
 
 
 
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", " 0;\n  display: flex;\n  flex-wrap: wrap;\n  flex-direction: row;\n  gap: ", ";\n  justify-content: flex-end;\n"])), function (_ref) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", " 0;\n  display: flex;\n  flex-wrap: wrap;\n  flex-direction: row;\n  gap: ", ";\n  justify-content: flex-end;\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.spacing.base;
 }, function (_ref2) {
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: ", ";\n  color: ", ";\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: ", ";\n  }\n"])), function (_ref3) {
+var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: ", ";\n  color: ", ";\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: ", ";\n  }\n"])), function (_ref3) {
   var theme = _ref3.theme;
   return theme.componentPalette.quickReply.backgroundColor;
 }, function (_ref4) {
@@ -142391,9 +142391,9 @@ function QuickReply(_ref8) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TimePicker; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -142418,7 +142418,7 @@ var _templateObject,
   _templateObject10,
   _templateObject11,
   _templateObject12,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\TimePicker.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\TimePicker.js";
 
 
 
@@ -142427,20 +142427,20 @@ var _templateObject,
 
 
 var NUM_TIMESLOTS_PER_PAGE = 3;
-var DatePicker = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: white;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  padding: ", ";\n  \n  span {\n    padding: 0 5px;\n    flex-grow: 2;\n  }\n"])), function (_ref) {
+var DatePicker = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: white;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  padding: ", ";\n  \n  span {\n    padding: 0 5px;\n    flex-grow: 2;\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.basePadding;
 });
-var DatePickerButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_5__["Button"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  border: ", ";\n  padding: 0;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  \n  &[disabled] {\n    opacity: 0.3 !important;\n  }\n  \n  &>div {\n    display: flex;\n  }\n"])), function (_ref2) {
+var DatePickerButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_5__["Button"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  border: ", ";\n  padding: 0;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  \n  &[disabled] {\n    opacity: 0.3 !important;\n  }\n  \n  &>div {\n    display: flex;\n  }\n"])), function (_ref2) {
   var theme = _ref2.theme;
   return theme.globals.baseBorder;
 });
-DatePicker.PrevDateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(DatePickerButton)(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  align-self: flex-start;\n"])));
-DatePicker.NextDateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(DatePickerButton)(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  align-self: flex-end;\n"])));
-var ChevronIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n  \n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
+DatePicker.PrevDateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(DatePickerButton)(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  align-self: flex-start;\n"])));
+DatePicker.NextDateButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(DatePickerButton)(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  align-self: flex-end;\n"])));
+var ChevronIcon = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n  \n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
   return props.direction === "left" ? "180" : "0";
 });
-var TimeslotsList = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  padding: 0 ", ";\n  \n  button {\n    margin-top: ", ";\n    width: 100%;\n    max-width: none;\n    border-radius: ", ";\n    white-space: pre-line;\n    \n    &[data-selected='true'] { \n      box-shadow: none;\n      border: 1px solid ", ";\n    }\n  }\n"])), function (_ref3) {
+var TimeslotsList = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  padding: 0 ", ";\n  \n  button {\n    margin-top: ", ";\n    width: 100%;\n    max-width: none;\n    border-radius: ", ";\n    white-space: pre-line;\n    \n    &[data-selected='true'] { \n      box-shadow: none;\n      border: 1px solid ", ";\n    }\n  }\n"])), function (_ref3) {
   var theme = _ref3.theme;
   return theme.spacing.large;
 }, function (_ref4) {
@@ -142453,7 +142453,7 @@ var TimeslotsList = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].di
   var theme = _ref6.theme;
   return theme.color.highlightColor;
 });
-var TimeslotControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: ", " ", ";\n  \n  button{\n      border-radius: ", ";\n\t  padding: ", ";\n\t     \n\t  &[disabled] {\n\t    opacity: 0.3 !important;\n\t  }\n  }\n"])), function (_ref7) {
+var TimeslotControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: ", " ", ";\n  \n  button{\n      border-radius: ", ";\n\t  padding: ", ";\n\t     \n\t  &[disabled] {\n\t    opacity: 0.3 !important;\n\t  }\n  }\n"])), function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.basePadding;
 }, function (_ref8) {
@@ -142466,9 +142466,9 @@ var TimeslotControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"]
   var theme = _ref10.theme;
   return theme.globals.basePadding;
 });
-var PrevTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-start;\n"])));
-var NextTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-end;\n"])));
-var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  ", ";\n  background-color: ", ";\n  color: ", " !important;\n"])), function (_ref11) {
+var PrevTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-start;\n"])));
+var NextTimeslotsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject9 || (_templateObject9 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #fff;\n  align-self: flex-end;\n"])));
+var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject10 || (_templateObject10 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  ", ";\n  background-color: ", ";\n  color: ", " !important;\n"])), function (_ref11) {
   var theme = _ref11.theme;
   return theme.typography.label;
 }, function (_ref12) {
@@ -142478,8 +142478,8 @@ var ConfirmControlsButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["defa
   var theme = _ref13.theme;
   return theme.componentPalette.timePicker.confirmTextColor;
 });
-var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
-var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref14) {
+var ConfirmSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject11 || (_templateObject11 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  flex-grow: 2;\n"])));
+var ResetSelectionButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(ConfirmControlsButton)(_templateObject12 || (_templateObject12 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  font-size: 0;\n  margin-right: ", ";\n  svg {\n    width: ", ";\n    height: ", ";\n  }\n"])), function (_ref14) {
   var theme = _ref14.theme;
   return theme.spacing.mini;
 }, function (_ref15) {
@@ -142587,17 +142587,17 @@ function TimePicker(_ref19) {
   var timeslotsGroupedByDate = getTimeslotsGroupedByDate(timeSlotsWithTimeZoneOffset);
   var availableDates = Object.keys(timeslotsGroupedByDate);
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(0),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
     datePageIndex = _useState2[0],
     setDatePageIndex = _useState2[1];
   var selectedDate = availableDates[datePageIndex];
   var timeslotsForSelectedDate = timeslotsGroupedByDate[selectedDate];
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(null),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
     selectedTimeslot = _useState4[0],
     setSelectedTimeslot = _useState4[1];
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(0),
-    _useState6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
+    _useState6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
     timeslotPageIndex = _useState6[0],
     setTimeslotPageIndex = _useState6[1];
   var timeslotStartIndex = timeslotPageIndex * NUM_TIMESLOTS_PER_PAGE;
@@ -142821,7 +142821,7 @@ function applyTimeZoneOffset(date, timeZoneOffset) {
 }
 function getTimeslotsWithTimeZoneOffset(timeslots, timeZoneOffset) {
   var timeslotsWithTimeZoneOffset = timeslots.map(function (ts) {
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, ts, {
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, ts, {
       date: applyTimeZoneOffset(ts.date, timeZoneOffset)
     });
   });
@@ -142840,13 +142840,13 @@ function getTimeslotsWithTimeZoneOffset(timeslots, timeZoneOffset) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SystemMessage", function() { return SystemMessage; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -142861,23 +142861,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\SystemMessage.js";
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\SystemMessage.js";
 
 
 
 
 
 var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(SystemMessage, _React$PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(SystemMessage, _React$PureComponent);
   function SystemMessage() {
     var _getPrototypeOf2;
     var _this;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, SystemMessage);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, SystemMessage);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, (_getPrototypeOf2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(SystemMessage)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "getMessageText", function () {
+    _this = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, (_getPrototypeOf2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(SystemMessage)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "getMessageText", function () {
       console.log("SystemMessage getMessageText");
       console.log(_this.props);
       var name = _this.props.messageDetails.displayName;
@@ -142892,7 +142892,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             values: {
               name: name
             },
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 23,
@@ -142907,7 +142907,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             values: {
               name: name
             },
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 32,
@@ -142918,7 +142918,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_AuthenticationMessage__WEBPACK_IMPORTED_MODULE_11__["AuthenticationMessage"], {
             link: _this.props.messageDetails.authenticationUrl,
             content: content,
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 40,
@@ -142932,7 +142932,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
         case _datamodel_Model__WEBPACK_IMPORTED_MODULE_10__["ContentType"].EVENT_CONTENT_TYPE.AUTHENTICATION_CANCELLED:
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(_AuthenticationMessage__WEBPACK_IMPORTED_MODULE_11__["AuthenticationMessage"], {
             content: content,
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 46,
@@ -142943,7 +142943,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_8__["FormattedMessage"], {
             id: "transcriptor.endChat",
             defaultMessage: "Chat has ended!",
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 48,
@@ -142957,7 +142957,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             values: {
               name: name
             },
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 53,
@@ -142971,7 +142971,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             values: {
               name: name
             },
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 61,
@@ -142985,7 +142985,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             values: {
               name: name
             },
-            __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
+            __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
               lineNumber: 69,
@@ -142998,7 +142998,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
     });
     return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(SystemMessage, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(SystemMessage, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_7___default.a.Fragment, null, this.getMessageText());
@@ -143006,11 +143006,11 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
   }]);
   return SystemMessage;
 }(react__WEBPACK_IMPORTED_MODULE_7___default.a.PureComponent);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(SystemMessage, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(SystemMessage, "propTypes", {
   messageDetails: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.object.isRequired,
   authenticationUrl: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.string
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(SystemMessage, "defaultProps", {});
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(SystemMessage, "defaultProps", {});
 
 /***/ }),
 
@@ -143025,10 +143025,10 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderWrapper", function() { return LoaderWrapper; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChatTranscriptScroller; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -143045,7 +143045,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _templateObject2,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatTranscriptScroller.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatTranscriptScroller.js";
 
 
 
@@ -143054,10 +143054,10 @@ var _templateObject,
 
 
 
-var ScrollContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  overflow: auto;\n\n  /* Hide scrollbar while preserving scroll behavior */\n  ::-webkit-scrollbar {\n    display: none; /* Chrome, Safari and Opera */\n  }\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n"])));
+var ScrollContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  overflow: auto;\n\n  /* Hide scrollbar while preserving scroll behavior */\n  ::-webkit-scrollbar {\n    display: none; /* Chrome, Safari and Opera */\n  }\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n"])));
 var SCROLL_BOTTOM_MARGIN = 20;
 var SCROLL_TOP_MARGIN = 0;
-var LoaderWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_11__["MessageBox"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  width: 80%;\n  text-align: center;\n  transition: 100ms;\n  margin: 0 auto;\n"])), function (_ref) {
+var LoaderWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_11__["MessageBox"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  width: 80%;\n  text-align: center;\n  transition: 100ms;\n  margin: 0 auto;\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.typography.supportingText;
 });
@@ -143082,15 +143082,15 @@ function ChatTranscriptScroller(_ref2) {
   var prevChildren = Object(connect_hooks__WEBPACK_IMPORTED_MODULE_10__["usePrevious"])(children);
   var prevLastSentMessageId = Object(connect_hooks__WEBPACK_IMPORTED_MODULE_10__["usePrevious"])(lastSentMessageId);
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
-    _useState2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     loading = _useState2[0],
     setLoading = _useState2[1]; // Stores the scroll position during transcript loading
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(null),
-    _useState4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
     loadingScrollPos = _useState4[0],
     setLoadingScrollPos = _useState4[1]; // Stored scroll positions for different contactIds
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])({}),
-    _useState6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+    _useState6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
     contactScrollStore = _useState6[0],
     setContactScrollStore = _useState6[1];
   var lockedToBottom = ref && ref.current ? ref.current.scrollHeight - ref.current.clientHeight <= ref.current.scrollTop + SCROLL_BOTTOM_MARGIN : true;
@@ -143117,7 +143117,7 @@ function ChatTranscriptScroller(_ref2) {
     if (isValidScrollTop(scrollTop)) {
       ref.current.scrollTop = scrollTop < 0 ? maxScrollTop() : scrollTop;
       setContactScrollStore(function (contactScrollStore) {
-        return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, contactScrollStore, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, contactId, undefined));
+        return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, contactScrollStore, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, contactId, undefined));
       });
     } else if (shouldScrollToBottom()) {
       ref.current.scrollTop = maxScrollTop();
@@ -143138,7 +143138,7 @@ function ChatTranscriptScroller(_ref2) {
       var scrolledToBottom = maxScrollTop() <= ref.current.scrollTop + SCROLL_BOTTOM_MARGIN;
       var scrollTop = scrolledToBottom ? -1 : ref.current.scrollTop;
       setContactScrollStore(function (contactScrollStore) {
-        return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, contactScrollStore, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, contactId, scrollTop));
+        return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, contactScrollStore, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, contactId, scrollTop));
       });
     };
   }, [contactId]);
@@ -143216,16 +143216,16 @@ function ChatTranscriptScroller(_ref2) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChatTranscriptor; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/extends */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/extends */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -143252,7 +143252,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject,
   _templateObject2,
   _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatTranscriptor.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatTranscriptor.js";
 
 
 
@@ -143263,14 +143263,14 @@ var _templateObject,
 
 
 
-var TranscriptBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__["default"])(["\n  margin: 0 auto;\n"])));
-var TranscriptWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(_ChatTranscriptScroller__WEBPACK_IMPORTED_MODULE_18__["default"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__["default"])(["\n  background: var(--ac-widget-transcript-backgroundcolor, ", ");\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n  flex: 12 1 auto;\n"])), function (props) {
+var TranscriptBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__["default"])(["\n  margin: 0 auto;\n"])));
+var TranscriptWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(_ChatTranscriptScroller__WEBPACK_IMPORTED_MODULE_18__["default"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_9__["default"])(["\n  background: var(--ac-widget-transcript-backgroundcolor, ", ");\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n  flex: 12 1 auto;\n"])), function (props) {
   return props.theme.chatTranscriptor.background || props.theme.palette.white;
 });
 var defaultTranscriptConfig = {
   participantMessageConfig: {
     render: function render(_ref) {
-      var props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref);
+      var props = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_16__["ParticipantMessage"], Object.assign({}, props, {
         __self: _this,
         __source: {
@@ -143283,7 +143283,7 @@ var defaultTranscriptConfig = {
   },
   attachmentMessageConfig: {
     render: function render(_ref2) {
-      var props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref2);
+      var props = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref2);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_16__["ParticipantMessage"], Object.assign({}, props, {
         __self: _this,
         __source: {
@@ -143296,7 +143296,7 @@ var defaultTranscriptConfig = {
   },
   systemMessageConfig: {
     render: function render(_ref3) {
-      var props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref3);
+      var props = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, _ref3);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ChatMessages_SystemMessage__WEBPACK_IMPORTED_MODULE_17__["SystemMessage"], Object.assign({}, props, {
         __self: _this,
         __source: {
@@ -143309,23 +143309,23 @@ var defaultTranscriptConfig = {
   }
 };
 var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ChatTranscriptor, _PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ChatTranscriptor, _PureComponent);
   function ChatTranscriptor() {
     var _getPrototypeOf2;
     var _this2;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ChatTranscriptor);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ChatTranscriptor);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    _this2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, (_getPrototypeOf2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatTranscriptor)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "loadTranscript", function () {
+    _this2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, (_getPrototypeOf2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ChatTranscriptor)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "loadTranscript", function () {
       console.log("CCP", "ChatTranscriptor - transcriptLoading true");
       return _this2.props.loadPreviousTranscript().then(function (data) {
         console.log("CCP", "ChatTranscriptor - transcript Loading complete");
         return data;
       });
     });
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "renderMessage", function (itemDetails, isLatestMessage) {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "renderMessage", function (itemDetails, isLatestMessage) {
       var itemId = itemDetails.id;
       var version = itemDetails.version;
       var messageReceiptType = itemDetails.transportDetails && itemDetails.transportDetails.messageReceiptType ? itemDetails.transportDetails.messageReceiptType : "";
@@ -143369,7 +143369,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         textAlign = "center";
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_10___default.a.Fragment, {
-          __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
+          __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
           __source: {
             fileName: _jsxFileName,
             lineNumber: 118,
@@ -143378,7 +143378,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         });
       }
       if (!content && config && config.render) {
-        content = config.render(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        content = config.render(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({
           key: key,
           messageDetails: itemDetails
         }, additionalProps));
@@ -143386,7 +143386,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_16__["MessageBox"], {
         key: key,
         textAlign: textAlign,
-        __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
+        __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
           lineNumber: 129,
@@ -143394,7 +143394,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         }
       }, config.isHTML ? react_render_html__WEBPACK_IMPORTED_MODULE_15___default()(content) : content);
     });
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "renderTyping", function (participantTypingDetails) {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "renderTyping", function (participantTypingDetails) {
       var participantId = participantTypingDetails.participantId;
       var displayName = participantTypingDetails.displayName;
       var direction = participantTypingDetails.direction;
@@ -143402,7 +143402,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         key: participantId,
         displayName: displayName,
         direction: direction,
-        __self: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
+        __self: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
           lineNumber: 141,
@@ -143412,7 +143412,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
     });
     return _this2;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ChatTranscriptor, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ChatTranscriptor, [{
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -143450,7 +143450,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
   }]);
   return ChatTranscriptor;
 }(react__WEBPACK_IMPORTED_MODULE_10__["PureComponent"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(ChatTranscriptor, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(ChatTranscriptor, "propTypes", {
   contactId: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.string.isRequired,
   transcript: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.array,
   typingParticipants: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.array.isRequired,
@@ -143490,7 +143490,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmojiPicker", function() { return EmojiPicker; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RichMessageRenderer", function() { return RichMessageRenderer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RichTextEditor", function() { return RichTextEditor; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-markdown */ "./node_modules/react-markdown/src/react-markdown.js");
@@ -143936,7 +143936,7 @@ subresult=factory(node.children[offset],offset,grandparents)();if(subresult[0]==
  * @param data 数据
  * @param index 当前数据所在的位置
  * @returns 返回 当前参数数据 Object，`{}`
- */var getCommentObject=function getCommentObject(_ref5){var _ref5$value=_ref5.value,value=_ref5$value===void 0?'':_ref5$value;var param=getURLParameters(value.replace(/^<!--(.*?)-->/,'$1').replace(/^rehype:/,''));Object.keys(param).forEach(function(keyName){if(param[keyName]==='true'){param[keyName]=true;}if(param[keyName]==='false'){param[keyName]=false;}if(typeof param[keyName]==='string'&&!/^0/.test(param[keyName])&&!isNaN(+param[keyName])){param[keyName]=+param[keyName];}});return param;};var propertiesHandle=function propertiesHandle(defaultAttrs,attrs,type){if(type==='string'){return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,{'data-config':JSON.stringify(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},attrs,{rehyp:true}))});}else if(type==='attr'){return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,attrs);}return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,{'data-config':Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},attrs,{rehyp:true})});};var rehypeAttrs=function rehypeAttrs(){var options=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};var _options$properties=options.properties,properties=_options$properties===void 0?'data':_options$properties,_options$codeBlockPar=options.codeBlockParames,codeBlockParames=_options$codeBlockPar===void 0?true:_options$codeBlockPar;return function(tree){visit(tree,'element',function(node,index,parent){if(codeBlockParames&&node.tagName==='pre'&&node&&Array.isArray(node.children)&&parent&&Array.isArray(parent.children)&&parent.children.length>1){var firstChild=node.children[0];if(firstChild&&firstChild.tagName==='code'&&typeof index==='number'){var child=prevChild(parent.children,index);if(child){var attr=getCommentObject(child);if(Object.keys(attr).length>0){node.properties=Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},node.properties,{'data-type':'rehyp'});firstChild.properties=propertiesHandle(firstChild.properties,attr,properties);}}}}if(/^(em|strong|b|a|i|p|pre|kbd|blockquote|h(1|2|3|4|5|6)|code|table|img|del|ul|ol)$/.test(node.tagName)&&parent&&Array.isArray(parent.children)&&typeof index==='number'){var _child=nextChild(parent.children,index,'',codeBlockParames);if(_child){var _attr=getCommentObject(_child);if(Object.keys(_attr).length>0){node.properties=propertiesHandle(node.properties,_attr,properties);}}}});};};var rehypeAttrs$1=rehypeAttrs;var _excluded=["node"],_excluded2=["node"],_excluded3=["node"];var updateURLValue=function updateURLValue(urlValue){var updatedUrlValue=urlValue;if(!/^https?:\/\//i.test(urlValue)){updatedUrlValue='http://'+urlValue;}return updatedUrlValue;};/**
+ */var getCommentObject=function getCommentObject(_ref5){var _ref5$value=_ref5.value,value=_ref5$value===void 0?'':_ref5$value;var param=getURLParameters(value.replace(/^<!--(.*?)-->/,'$1').replace(/^rehype:/,''));Object.keys(param).forEach(function(keyName){if(param[keyName]==='true'){param[keyName]=true;}if(param[keyName]==='false'){param[keyName]=false;}if(typeof param[keyName]==='string'&&!/^0/.test(param[keyName])&&!isNaN(+param[keyName])){param[keyName]=+param[keyName];}});return param;};var propertiesHandle=function propertiesHandle(defaultAttrs,attrs,type){if(type==='string'){return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,{'data-config':JSON.stringify(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},attrs,{rehyp:true}))});}else if(type==='attr'){return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,attrs);}return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},defaultAttrs,{'data-config':Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},attrs,{rehyp:true})});};var rehypeAttrs=function rehypeAttrs(){var options=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};var _options$properties=options.properties,properties=_options$properties===void 0?'data':_options$properties,_options$codeBlockPar=options.codeBlockParames,codeBlockParames=_options$codeBlockPar===void 0?true:_options$codeBlockPar;return function(tree){visit(tree,'element',function(node,index,parent){if(codeBlockParames&&node.tagName==='pre'&&node&&Array.isArray(node.children)&&parent&&Array.isArray(parent.children)&&parent.children.length>1){var firstChild=node.children[0];if(firstChild&&firstChild.tagName==='code'&&typeof index==='number'){var child=prevChild(parent.children,index);if(child){var attr=getCommentObject(child);if(Object.keys(attr).length>0){node.properties=Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({},node.properties,{'data-type':'rehyp'});firstChild.properties=propertiesHandle(firstChild.properties,attr,properties);}}}}if(/^(em|strong|b|a|i|p|pre|kbd|blockquote|h(1|2|3|4|5|6)|code|table|img|del|ul|ol)$/.test(node.tagName)&&parent&&Array.isArray(parent.children)&&typeof index==='number'){var _child=nextChild(parent.children,index,'',codeBlockParames);if(_child){var _attr=getCommentObject(_child);if(Object.keys(_attr).length>0){node.properties=propertiesHandle(node.properties,_attr,properties);}}}});};};var rehypeAttrs$1=rehypeAttrs;var _excluded=["node"],_excluded2=["node"],_excluded3=["node"];var updateURLValue=function updateURLValue(urlValue){var updatedUrlValue=urlValue;if(!/^https?:\/\//i.test(urlValue)){updatedUrlValue='http://'+urlValue;}return updatedUrlValue;};/**
  * RichMessage renderer detecting and formatting markdown syntax
  * Supports styledWrapper prop to render within styled-component
 */var RichMessageRenderer=function RichMessageRenderer(_ref){var styledWrapper=_ref.styledWrapper,content=_ref.content;var StyledWrapper=styledWrapper||react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment;var ParaRenderer=function ParaRenderer(_ref2){_ref2.node;var props=_objectWithoutProperties(_ref2,_excluded);// Outputs the final formatted element
@@ -144191,8 +144191,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttachmentErrorType", function() { return AttachmentErrorType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransportDetails", function() { return TransportDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemDetails", function() { return ItemDetails; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 
 
 var PARTICIPANT_MESSAGE = "MESSAGE";
@@ -144285,7 +144285,7 @@ ContentType.ATTACHMENT_CONTENT_TYPE = {
 };
 
 //OpenXML content types do not show up in custom files list unless file extension is explicitly provided
-var ATTACHMENT_ACCEPT_CONTENT_TYPES = [].concat(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(Object.values(ContentType.ATTACHMENT_CONTENT_TYPE)), [
+var ATTACHMENT_ACCEPT_CONTENT_TYPES = [].concat(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(Object.values(ContentType.ATTACHMENT_CONTENT_TYPE)), [
 //For some browser + content type combinations, file extension must be explicitly provided for 'accept' attribute
 ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".csv", ".jfif", ".rtf", ".heic", ".mov", ".mp4"]);
 var InteractiveMessageType = {
@@ -144326,7 +144326,7 @@ var AttachmentErrorType = {
   ConflictException: "ConflictException"
 };
 var TransportDetails = function TransportDetails(input) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, TransportDetails);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, TransportDetails);
   var args = input || {};
   this.direction = args.direction;
   this.readTime = args.readTime;
@@ -144334,7 +144334,7 @@ var TransportDetails = function TransportDetails(input) {
   this.sentTime = args.sentTime;
 };
 var ItemDetails = function ItemDetails(input) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ItemDetails);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ItemDetails);
   var args = input || {};
   this.id = args.id;
   this.type = args.type;
@@ -144357,8 +144357,8 @@ var ItemDetails = function ItemDetails(input) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelUtils", function() { return modelUtils; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
 /* harmony import */ var _Model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Model */ "./src/components/Chat/datamodel/Model.js");
 
 
@@ -144411,7 +144411,7 @@ function createTranscriptItemFromSuccessResponse(oldTranscriptItem, response) {
   if (response.data && response.data.Id) {
     newTranscriptItem.id = response.data.Id;
   }
-  newTranscriptItem.transportDetails = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, oldTranscriptItem.transportDetails, {
+  newTranscriptItem.transportDetails = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, oldTranscriptItem.transportDetails, {
     status: _Model__WEBPACK_IMPORTED_MODULE_2__["Status"].SendSuccess,
     sentTime: new Date(response.data.AbsoluteTime || Date.now()).getTime() / 1000
   });
@@ -144468,7 +144468,7 @@ function isAttachmentContentType(contentType) {
 function createIncomingTranscriptReceiptItem(thisParticipant, oldItemInTranscript, messageReceiptData, messageReceiptType) {
   var newTranscriptItem = new _Model__WEBPACK_IMPORTED_MODULE_2__["ItemDetails"]();
   Object.assign(newTranscriptItem, oldItemInTranscript);
-  newTranscriptItem.transportDetails = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, oldItemInTranscript.transportDetails, {
+  newTranscriptItem.transportDetails = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, oldItemInTranscript.transportDetails, {
     messageReceiptType: oldItemInTranscript.transportDetails.messageReceiptType === "read" ? "read" : messageReceiptType
   });
   return newTranscriptItem;
@@ -144489,7 +144489,7 @@ function isParticipantAgentOrCustomer(participantRole) {
 function fullyParseViewInputData(parsedViewInputData) {
   var fullyParsedViewInputData = {};
   Object.entries(parsedViewInputData).forEach(function (_ref) {
-    var _ref2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, 2),
+    var _ref2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, 2),
       key = _ref2[0],
       value = _ref2[1];
     /**
@@ -144553,8 +144553,8 @@ var modelUtils = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -144565,7 +144565,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
  */
 var EventBus = /*#__PURE__*/function () {
   function EventBus() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, EventBus);
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, EventBus);
     this._eventMap = new Map();
     if (window.connect && window.connect.LogManager) {
       this.logger = window.connect.LogManager.getLogger({
@@ -144573,7 +144573,7 @@ var EventBus = /*#__PURE__*/function () {
       });
     }
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(EventBus, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(EventBus, [{
     key: "on",
     value: function on(name, handler) {
       if (name && handler) {
@@ -144663,13 +144663,13 @@ function createHashCode(handler) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StyledButton", function() { return StyledButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Button; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -144685,7 +144685,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _templateObject2,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\core\\Button\\Button.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\core\\Button\\Button.js";
 
 
 
@@ -144715,7 +144715,7 @@ var applyButtonStyles = function applyButtonStyles(_ref5, type) {
     globals = _ref5.globals;
   return "\n  background: ".concat(button[type].bg, ";\n  border-color: ").concat(button[type].borderColor, ";\n\n  color: ").concat(button[type].color, ";\n\n  &:hover {\n    background: ").concat(button[type].bgHover, ";\n  }\n\n  &:focus {\n    box-shadow: ").concat(globals.boxShadowFocus, ";\n    outline: none;\n  }\n\n  &:active{\n    border-color: ").concat(button[type].borderColorActive, ";\n  }\n\n  &:disabled {\n    ").concat(globals.disabled, "\n    pointer-events: none;\n\n    &:hover {\n      background: ").concat(button[type].bg, ";\n    }\n  }\n");
 };
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].button(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n"])), function (_ref6) {
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].button(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n  ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.label;
 }, function (_ref7) {
@@ -144730,7 +144730,7 @@ var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].but
   return props.small ? smallStyles(props.theme) : normalStyles(props.theme);
 });
 StyledButton.displayName = 'StyledButton';
-var StyledLink = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].a(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  display: inline-block;\n  line-height: normal;\n  &:visited,\n  &:active,\n  &:link {\n    text-decoration: none;\n    ", ";\n  }\n"])), function (_ref9) {
+var StyledLink = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].a(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_6__["default"])(["\n  ", ";\n  ", ";\n  ", ";\n  display: inline-block;\n  line-height: normal;\n  &:visited,\n  &:active,\n  &:link {\n    text-decoration: none;\n    ", ";\n  }\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.typography.label;
 }, function (props) {
@@ -144743,12 +144743,12 @@ var StyledLink = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].a(_te
 });
 StyledLink.displayName = 'StyledLink';
 var Button = /*#__PURE__*/function (_PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(Button, _PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(Button, _PureComponent);
   function Button() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Button);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Button).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Button);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Button).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Button, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Button, [{
     key: "render",
     value: function render() {
       var href = this.props.href;
@@ -144794,7 +144794,7 @@ var Button = /*#__PURE__*/function (_PureComponent) {
   }]);
   return Button;
 }(react__WEBPACK_IMPORTED_MODULE_7__["PureComponent"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(Button, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(Button, "propTypes", {
   type: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.oneOf(['default', 'primary', 'secondary', 'secondary_alt', 'tertiary', 'standard']),
   small: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool,
@@ -144802,7 +144802,7 @@ Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_bab
   iconSize: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.oneOf(['small', 'medium', "mini"]),
   selected: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(Button, "defaultProps", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(Button, "defaultProps", {
   type: 'default',
   small: false,
   disabled: false,
@@ -144842,8 +144842,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Icon", function() { return Icon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconWrapper", function() { return IconWrapper; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -144854,7 +144854,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var connect_theme_Helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! connect-theme/Helpers */ "./src/theme/Helpers.js");
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\core\\Icon\\Icon.js",
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\core\\Icon\\Icon.js",
   _templateObject,
   _templateObject2;
 
@@ -144883,7 +144883,7 @@ var SVGComponent = function SVGComponent(_ref) {
     }
   }));
 };
-var ImgComponent = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].img(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])([""])));
+var ImgComponent = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].img(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])([""])));
 var SIZE_TYPE = {
   mini: {
     w: '13px',
@@ -144913,14 +144913,14 @@ Icon.defaultProps = {
   src: connect_images__WEBPACK_IMPORTED_MODULE_5__["default_image"],
   alt: ''
 };
-var IconWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(connect_theme_Helpers__WEBPACK_IMPORTED_MODULE_7__["FlexVerticalCenterContainer"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  \n  img{\n    width: 100%;\n  }\n"])), function (_ref2) {
+var IconWrapper = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(connect_theme_Helpers__WEBPACK_IMPORTED_MODULE_7__["FlexVerticalCenterContainer"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  \n  img{\n    width: 100%;\n  }\n"])), function (_ref2) {
   var size = _ref2.size;
   return "width: ".concat(size.w, "; height: ").concat(size.h, ";");
 });
 function Icon(_ref3) {
   var type = _ref3.type,
     src = _ref3.src,
-    rest = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref3, ["type", "src"]);
+    rest = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref3, ["type", "src"]);
   var IconComponent = typeof src === 'string' ? ImgComponent : SVGComponent;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(IconWrapper, {
     type: type,
@@ -144975,11 +144975,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Loader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypingLoader", function() { return TypingLoader; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_spinners__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
@@ -144989,16 +144989,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\core\\Loader\\Loader.js";
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\core\\Loader\\Loader.js";
 
 
 var Loader = /*#__PURE__*/function (_PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(Loader, _PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(Loader, _PureComponent);
   function Loader() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Loader);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Loader).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Loader);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(Loader).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Loader, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Loader, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
@@ -145026,12 +145026,12 @@ var Loader = /*#__PURE__*/function (_PureComponent) {
 }(react__WEBPACK_IMPORTED_MODULE_5__["PureComponent"]);
 
 var TypingLoader = /*#__PURE__*/function (_PureComponent2) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(TypingLoader, _PureComponent2);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_4__["default"])(TypingLoader, _PureComponent2);
   function TypingLoader() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, TypingLoader);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(TypingLoader).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, TypingLoader);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__["default"])(TypingLoader).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(TypingLoader, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(TypingLoader, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_spinners__WEBPACK_IMPORTED_MODULE_6__["BeatLoader"], Object.assign({
@@ -145080,14 +145080,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Text; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -145108,11 +145108,11 @@ var _templateObject,
   _templateObject5,
   _templateObject6,
   _templateObject7,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\core\\Text\\Text.js";
+  _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\core\\Text\\Text.js";
 
 
 
-var StyledH1 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h1(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  color: ", ";\n  ", "\n  margin: ", ";\n"])), function (_ref) {
+var StyledH1 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h1(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  color: ", ";\n  ", "\n  margin: ", ";\n"])), function (_ref) {
   var styleAs = _ref.styleAs,
     theme = _ref.theme;
   return theme.typography[styleAs || 'h1'];
@@ -145128,7 +145128,7 @@ var StyledH1 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h1(_te
     withMargin = _ref4.withMargin;
   return withMargin ? typography.h1Margin : 0;
 });
-var StyledH2 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h2(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref5) {
+var StyledH2 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h2(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref5) {
   var styleAs = _ref5.styleAs,
     theme = _ref5.theme;
   return theme.typography[styleAs || 'h2'];
@@ -145144,7 +145144,7 @@ var StyledH2 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h2(_te
     withMargin = _ref8.withMargin;
   return withMargin ? typography.h2Margin : 0;
 });
-var StyledH3 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h3(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref9) {
+var StyledH3 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h3(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref9) {
   var styleAs = _ref9.styleAs,
     theme = _ref9.theme;
   return theme.typography[styleAs || 'h3'];
@@ -145160,7 +145160,7 @@ var StyledH3 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h3(_te
     withMargin = _ref12.withMargin;
   return withMargin ? typography.h3Margin : 0;
 });
-var StyledH4 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h4(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref13) {
+var StyledH4 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h4(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref13) {
   var styleAs = _ref13.styleAs,
     theme = _ref13.theme;
   return theme.typography[styleAs || 'h4'];
@@ -145176,7 +145176,7 @@ var StyledH4 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h4(_te
     withMargin = _ref16.withMargin;
   return withMargin ? typography.h4Margin : 0;
 });
-var StyledH5 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h5(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref17) {
+var StyledH5 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h5(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref17) {
   var styleAs = _ref17.styleAs,
     theme = _ref17.theme;
   return theme.typography[styleAs || 'h5'];
@@ -145192,7 +145192,7 @@ var StyledH5 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h5(_te
     withMargin = _ref20.withMargin;
   return withMargin ? typography.h5Margin : 0;
 });
-var StyledH6 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h6(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref21) {
+var StyledH6 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h6(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n  margin: ", ";\n"])), function (_ref21) {
   var styleAs = _ref21.styleAs,
     theme = _ref21.theme;
   return theme.typography[styleAs || 'h6'];
@@ -145208,7 +145208,7 @@ var StyledH6 = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].h6(_te
     withMargin = _ref24.withMargin;
   return withMargin ? typography.h6Margin : 0;
 });
-var StyledP = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].p(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n \n  margin: ", ";\n \n  &:last-child {\n    margin: ", ";\n  }\n"])), function (_ref25) {
+var StyledP = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].p(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", "\n  ", "\n  color: ", ";\n \n  margin: ", ";\n \n  &:last-child {\n    margin: ", ";\n  }\n"])), function (_ref25) {
   var theme = _ref25.theme;
   return theme.typography.base;
 }, function (_ref26) {
@@ -145228,17 +145228,17 @@ var StyledP = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].p(_temp
   return withMargin ? typography.baseMargin : 0;
 });
 var Text = /*#__PURE__*/function (_PureComponent) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Text, _PureComponent);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Text, _PureComponent);
   function Text() {
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, Text);
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Text).apply(this, arguments));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, Text);
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(Text).apply(this, arguments));
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(Text, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(Text, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
         type = _this$props.type,
-        rest = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["type"]);
+        rest = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["type"]);
       switch (type) {
         case 'h1':
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(StyledH1, Object.assign({}, rest, {
@@ -145317,14 +145317,14 @@ var Text = /*#__PURE__*/function (_PureComponent) {
   }]);
   return Text;
 }(react__WEBPACK_IMPORTED_MODULE_8__["PureComponent"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Text, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Text, "propTypes", {
   type: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p']),
   withMargin: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
   styleAs: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.string,
   inline: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.bool,
   textColor: prop_types__WEBPACK_IMPORTED_MODULE_9___default.a.oneOf(['base', 'secondary', 'tertiary'])
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Text, "defaultProps", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Text, "defaultProps", {
   type: 'p',
   withMargin: false,
   styleAs: undefined,
@@ -145528,14 +145528,14 @@ var START_CHAT_CLIENT_TIMEOUT_MS = 5000;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LanguageContext", function() { return LanguageContext; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LanguageProvider", function() { return LanguageProvider; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/index.js");
@@ -145550,7 +145550,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\context\\LanguageContext.js";
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\context\\LanguageContext.js";
 
 
 
@@ -145560,26 +145560,26 @@ var LanguageContext = react__WEBPACK_IMPORTED_MODULE_8___default.a.createContext
 
 //Provider
 var LanguageProvider = /*#__PURE__*/function (_React$Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(LanguageProvider, _React$Component);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(LanguageProvider, _React$Component);
   function LanguageProvider(props) {
     var _this;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, LanguageProvider);
-    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(LanguageProvider).call(this, props));
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "getLanguageDetails", function (language) {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, LanguageProvider);
+    _this = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(LanguageProvider).call(this, props));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "getLanguageDetails", function (language) {
       return _constants_global__WEBPACK_IMPORTED_MODULE_10__["LANGUAGES"].find(function (lan) {
         return lan.id === language;
       });
     });
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "loadLanguages", function (selectedLanguage) {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "loadLanguages", function (selectedLanguage) {
       var selectedLanguageId = selectedLanguage ? selectedLanguage.id : _this.state.selectedLanguage.id;
       if (_this.state.selectedLanguage.id !== selectedLanguageId) {
         _this.setState({
-          messages: Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _localization__WEBPACK_IMPORTED_MODULE_11__["AmazonConnectChatInterfaceStrings"][selectedLanguageId] || {}),
+          messages: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _localization__WEBPACK_IMPORTED_MODULE_11__["AmazonConnectChatInterfaceStrings"][selectedLanguageId] || {}),
           selectedLanguage: selectedLanguage
         });
       }
     });
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "changeLanguage", function (language) {
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this), "changeLanguage", function (language) {
       var selectedLanguage = _this.getLanguageDetails(language);
       if (!!selectedLanguage) {
         _this.loadLanguages(selectedLanguage);
@@ -145601,7 +145601,7 @@ var LanguageProvider = /*#__PURE__*/function (_React$Component) {
     _this.loadLanguages(_selectedLanguage);
     return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(LanguageProvider, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(LanguageProvider, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(LanguageContext.Provider, {
@@ -145904,8 +145904,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_url_to_json__WEBPACK_IMPORTED_MODULE_103___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_url_to_json__WEBPACK_IMPORTED_MODULE_103__);
 /* harmony import */ var core_js_modules_web_url_search_params__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! core-js/modules/web.url-search-params */ "./node_modules/core-js/modules/web.url-search-params.js");
 /* harmony import */ var core_js_modules_web_url_search_params__WEBPACK_IMPORTED_MODULE_104___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_url_search_params__WEBPACK_IMPORTED_MODULE_104__);
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_107___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_107__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -146025,7 +146025,7 @@ var _package_json__WEBPACK_IMPORTED_MODULE_115___namespace = /*#__PURE__*/__webp
 
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\index.js";
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\index.js";
 
 
 
@@ -146068,7 +146068,7 @@ function resolveFontFaces(brandConfig) {
     // window.parent is cross-origin; resolve font URLs against our own document instead
   }
   return fontFaces.map(function (face) {
-    return Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, face, {
+    return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, face, {
       url: new URL(face.url, baseHref).href
     });
   });
@@ -146101,10 +146101,10 @@ function buildThemeConfig() {
     // with the hosted-widget iframe path (brand-theme.css's CSS vars) -
     // both now resolve from the same colors.json bubbles.* keys instead of
     // this path silently falling back to defaultTheme's hardcoded colors.
-    themeConfig.chatTranscriptor = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor, Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
+    themeConfig.chatTranscriptor = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor, Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
   }
   if (brandConfig.fontFamily) {
-    themeConfig.globals = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
+    themeConfig.globals = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
       bodyFontFamily: brandConfig.fontFamily
     });
     themeConfig.fonts = Object.keys(_theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].fonts).reduce(function (fonts, key) {
@@ -146141,7 +146141,7 @@ function buildLogoConfig(brandInfo) {
   connect.ChatInterface.init = function (_ref) {
     var _props$themeConfig, _themeConfig$chatTran;
     var containerId = _ref.containerId,
-      props = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__["default"])(_ref, ["containerId"]);
+      props = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_105__["default"])(_ref, ["containerId"]);
     var brandInfo = getBrandInfo();
     var brandConfig = (brandInfo === null || brandInfo === void 0 ? void 0 : brandInfo.config) || {};
 
@@ -146178,7 +146178,7 @@ function buildLogoConfig(brandInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 188,
+        lineNumber: 182,
         columnNumber: 7
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_107___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_110__["default"], Object.assign({}, props, {
@@ -146189,7 +146189,7 @@ function buildLogoConfig(brandInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 189,
+        lineNumber: 183,
         columnNumber: 9
       }
     }))), document.getElementById(containerId) || document.getElementById("root"));
@@ -146406,30 +146406,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Mask", function() { return Mask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HiddenText", function() { return HiddenText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HiddenLevelOneHeading", function() { return HiddenLevelOneHeading; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7;
 
-var FlexRowContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-direction: row;\n  justify-content: ", ";\n  align-items: ", "; \n"])), function (props) {
+var FlexRowContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-direction: row;\n  justify-content: ", ";\n  align-items: ", "; \n"])), function (props) {
   return props.center ? "center" : "space-between";
 }, function (props) {
   return props.center ? "center" : "normal";
 });
-var FlexColumnContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-direction: column;\n  justify-content: ", ";\n  align-items: ", "; \n"])), function (props) {
+var FlexColumnContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-direction: column;\n  justify-content: ", ";\n  align-items: ", "; \n"])), function (props) {
   return props.center ? "center" : "space-between";
 }, function (props) {
   return props.center ? "center" : "normal";
 });
-var FlexVerticalCenterContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n"])));
-var FlexColumnSpaceBetweenContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display:flex;\n  align-items: center;\n  justify-content: space-between;\n"])));
-var Mask = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0.7;\n  outline: none;\n  background-color: ", ";\n  z-index: ", ";\n"])), function (props) {
+var FlexVerticalCenterContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n"])));
+var FlexColumnSpaceBetweenContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display:flex;\n  align-items: center;\n  justify-content: space-between;\n"])));
+var Mask = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  opacity: 0.7;\n  outline: none;\n  background-color: ", ";\n  z-index: ", ";\n"])), function (props) {
   return props.theme.palette.white;
 }, function (props) {
   return props.theme.zIndex.level_2;
 });
-var HiddenText = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  pointer-events: none;\n  color: transparent;\n  width: 0;\n  overflow: hidden;\n  white-space: nowrap;\n"])));
-var HiddenLevelOneHeading = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].h1(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 0;\n  height: 0;\n  pointer-events: none;\n  color: transparent;\n  overflow: hidden;\n"])));
+var HiddenText = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  pointer-events: none;\n  color: transparent;\n  width: 0;\n  overflow: hidden;\n  white-space: nowrap;\n"])));
+var HiddenLevelOneHeading = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].h1(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 0;\n  height: 0;\n  pointer-events: none;\n  color: transparent;\n  overflow: hidden;\n"])));
 
 
 /***/ }),
@@ -146493,13 +146493,13 @@ Palette.setTheme(_defaultTheme__WEBPACK_IMPORTED_MODULE_0__["default"]);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ThemeProvider; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/inherits.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
@@ -146515,7 +146515,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\amazon-connect-chat-interface\\src\\theme\\ThemeProvider.js";
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\theme\\ThemeProvider.js";
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(typeof e + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 
 
@@ -146524,11 +146524,11 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 
 
 var ThemeProvider = /*#__PURE__*/function (_Component) {
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(ThemeProvider, _Component);
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(ThemeProvider, _Component);
   function ThemeProvider(props) {
     var _this;
-    Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ThemeProvider);
-    _this = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ThemeProvider).call(this, props));
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ThemeProvider);
+    _this = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__["default"])(this, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__["default"])(ThemeProvider).call(this, props));
     var initialTheme = props.theme || _defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"];
     _this.state = {
       theme: initialTheme
@@ -146536,10 +146536,10 @@ var ThemeProvider = /*#__PURE__*/function (_Component) {
     _Palette__WEBPACK_IMPORTED_MODULE_10__["default"].setTheme(initialTheme);
     return _this;
   }
-  Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ThemeProvider, [{
+  Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ThemeProvider, [{
     key: "componentDidMount",
     value: function () {
-      var _componentDidMount = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _componentDidMount = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var merged;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -146601,11 +146601,11 @@ var ThemeProvider = /*#__PURE__*/function (_Component) {
   }]);
   return ThemeProvider;
 }(react__WEBPACK_IMPORTED_MODULE_7__["Component"]);
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "propTypes", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "propTypes", {
   children: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.node.isRequired,
   theme: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.objectOf(prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.object)
 });
-Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "defaultProps", {
+Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(ThemeProvider, "defaultProps", {
   theme: _defaultTheme__WEBPACK_IMPORTED_MODULE_9__["default"]
 });
 
@@ -146661,9 +146661,6 @@ function buildComponentPalette() {
       }
     },
     quickReply: {
-      // A light tint of the brand color (not solid primary500) to keep the
-      // original "pastel chip" look - only the hue now follows the brand
-      // instead of a fixed, brand-unrelated lavender.
       backgroundColor: primary['100'] || primary500,
       hoverBackgroundColor: primary['200'] || primary800,
       textColor: textDefault
@@ -146673,9 +146670,6 @@ function buildComponentPalette() {
       confirmTextColor: '#ffffff'
     },
     carousel: {
-      // Kept neutral white (not brand-colored) to preserve the existing
-      // look of the round scroll-arrow control - named here so it can
-      // become brand-driven later with a one-line change if ever wanted.
       arrowBackgroundColor: '#ffffff'
     }
   };
@@ -147159,7 +147153,7 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeBrandColors", function() { return mergeBrandColors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBrandThemeSync", function() { return loadBrandThemeSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBrandThemeBrowser", function() { return loadBrandThemeBrowser; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "./node_modules/node-libs-browser/mock/empty.js");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
@@ -147214,7 +147208,7 @@ function loadBrandThemeBrowser(_x) {
   return _loadBrandThemeBrowser.apply(this, arguments);
 }
 function _loadBrandThemeBrowser() {
-  _loadBrandThemeBrowser = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(defaultTheme) {
+  _loadBrandThemeBrowser = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(defaultTheme) {
     var url,
       res,
       colors,
@@ -147344,7 +147338,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "truncateStrFromCharLimit", function() { return truncateStrFromCharLimit; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "constructGuidesRendererUrl", function() { return constructGuidesRendererUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupGuidesRenderer", function() { return setupGuidesRenderer; });
-/* harmony import */ var C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Chat/datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
 /* harmony import */ var _components_Chat_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Chat/constants */ "./src/components/Chat/constants.js");
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dompurify */ "./node_modules/dompurify/dist/purify.js");
@@ -147409,7 +147403,7 @@ function createInteractiveMessagePayload(selectedElement, preIndex, nextIndex, l
  *
  * Documentation: https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html
  */
-var INTERACTIVE_MESSAGE_CONSTRAINTS = Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].PANEL, {
+var INTERACTIVE_MESSAGE_CONSTRAINTS = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].PANEL, {
   titleCharLimit: 400,
   subtitleCharLimit: 400,
   elementTitleCharLimit: 400
@@ -147539,8 +147533,8 @@ var config = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\ChatJs_POC\Local_Changes\amazon-connect-chat-interface\node_modules\react-dev-utils\webpackHotDevClient.js */"./node_modules/react-dev-utils/webpackHotDevClient.js");
-module.exports = __webpack_require__(/*! C:\ChatJs_POC\Local_Changes\amazon-connect-chat-interface\src\index.js */"./src/index.js");
+__webpack_require__(/*! C:\Users\gitesh.purbia\Desktop\amazon-connect-chat-interface\node_modules\react-dev-utils\webpackHotDevClient.js */"./node_modules/react-dev-utils/webpackHotDevClient.js");
+module.exports = __webpack_require__(/*! C:\Users\gitesh.purbia\Desktop\amazon-connect-chat-interface\src\index.js */"./src/index.js");
 
 
 /***/ }),

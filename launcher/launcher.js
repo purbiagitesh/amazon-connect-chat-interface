@@ -201,6 +201,35 @@
     return { brand: brand, env: env };
   }
 
+  // ─── Contact attributes for the Connect greeting flow ───
+  // Maps window.utag_data (Tealium's data-layer, same global brand
+  // resolution above reads from) to the contact attribute names the AWS
+  // side's contact flow "Play prompt" block will reference. These are sent
+  // once, on StartChatContact (see customStartChat below) - Connect
+  // persists Attributes for the life of the contact, so the flow's very
+  // first block already sees them; no per-message resend is needed or
+  // possible from this script.
+  // customerEmail/customerName/customerPhone are static placeholders until
+  // real utag_data keys for those are confirmed with the brand's site.
+  // customerLoggedIn's source key/value ("customer_state": "logged in")
+  // is per spec from the integration owner - not yet verified against a
+  // real logged-in utag_data sample (only guest sessions observed so far).
+  function buildContactAttributes(utagData) {
+    utagData = utagData || {};
+    return {
+      brand: utagData.brand || '',
+      // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
+      customerLoggedIn: 'Yes',
+      customerId: utagData.USER_ID || '',
+      customerEmail: 'purbiagitesh@gmail.com',
+      customerName: 'Gitesh',
+      customerPhone: '8107281183',
+      brandRegion: utagData.region_code || '',
+      brandLocation: utagData.locale || '',
+      channel: 'Chat'
+    };
+  }
+
   function hexToRgba(hex, alpha) {
     var match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');
     if (!match) return null;
@@ -315,14 +344,19 @@
 
     amazon_connect('customStartChat', async function (callback) {
       try {
+        // Read window.utag_data fresh (not the bootstrap-time snapshot) so
+        // any login/session change between page load and the customer
+        // actually starting chat is reflected in the attributes Connect gets.
+        const contactAttributes = buildContactAttributes(window.utag_data);
+
+        // Sent flat at the request root (not nested under "Attributes") -
+        // per the backend lambda's expected request shape for this project.
         const response = await fetch(brandConfig.apiGatewayEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            customerName: 'Guest',
-            customerId: '',
             pageUrl: window.location.href,
-            brand: brandInfo.brand || 'demo-brand',
+            ...contactAttributes,
           })
         });
 
