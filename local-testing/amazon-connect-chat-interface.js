@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "f029851e644d350e964d";
+/******/ 	var hotCurrentHash = "b4ffc65a2bc31e57c132";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -140457,7 +140457,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
     }
   }, {
     key: "renderHeader",
-    value: function renderHeader() {
+    value: function renderHeader(hideSenderName) {
       var isOutgoingMsg = this.props.messageDetails.transportDetails.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing;
       var authenticatedParticipantDisplayName = Object(_ChatSession__WEBPACK_IMPORTED_MODULE_14__["getCurrentChatSessionInstance"])().authenticatedParticipantDisplayName;
       var displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
@@ -140568,12 +140568,12 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           lineNumber: 270,
           columnNumber: 7
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
+      }, !hideSenderName && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 271,
-          columnNumber: 9
+          lineNumber: 272,
+          columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
         id: displayName || "DISPLAY_NAME_MISSING",
@@ -140581,14 +140581,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 272,
-          columnNumber: 11
+          lineNumber: 273,
+          columnNumber: 13
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 277,
+          lineNumber: 279,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -140612,14 +140612,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 294,
+          lineNumber: 296,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 295,
+          lineNumber: 297,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140629,7 +140629,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 296,
+          lineNumber: 298,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140639,7 +140639,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 301,
+          lineNumber: 303,
           columnNumber: 36
         }
       })));
@@ -140730,7 +140730,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 408,
+          lineNumber: 410,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -140738,10 +140738,10 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 409,
+          lineNumber: 411,
           columnNumber: 9
         }
-      }, this.renderHeader()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
+      }, this.renderHeader(!!avatarUrl)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
         onChange: function onChange(inView) {
           return _this3.setState({
             inView: inView
@@ -140750,7 +140750,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 410,
+          lineNumber: 412,
           columnNumber: 9
         }
       }, function (_ref24) {
@@ -140764,7 +140764,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 412,
+            lineNumber: 414,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -140772,7 +140772,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 423,
+          lineNumber: 425,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
@@ -140784,7 +140784,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 435,
+          lineNumber: 437,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
@@ -140794,14 +140794,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 436,
+          lineNumber: 438,
           columnNumber: 9
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 437,
+          lineNumber: 439,
           columnNumber: 9
         }
       }, mainMessage));
@@ -140823,7 +140823,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 451,
+            lineNumber: 453,
             columnNumber: 9
           }
         });
@@ -140840,14 +140840,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 463,
+                lineNumber: 465,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 463,
+              lineNumber: 465,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -140858,7 +140858,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 464,
+              lineNumber: 466,
               columnNumber: 13
             }
           }));
@@ -140869,7 +140869,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 474,
+            lineNumber: 476,
             columnNumber: 14
           }
         });
@@ -140885,7 +140885,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 482,
+            lineNumber: 484,
             columnNumber: 14
           }
         });
@@ -140897,7 +140897,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 487,
+            lineNumber: 489,
             columnNumber: 14
           }
         });
@@ -140910,7 +140910,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 492,
+            lineNumber: 494,
             columnNumber: 14
           }
         });
@@ -140920,7 +140920,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 495,
+          lineNumber: 497,
           columnNumber: 12
         }
       });
@@ -140935,14 +140935,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 503,
+          lineNumber: 505,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 504,
+          lineNumber: 506,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -140962,7 +140962,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 517,
+          lineNumber: 519,
           columnNumber: 7
         }
       }, "Retry");
@@ -140995,7 +140995,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 532,
+          lineNumber: 534,
           columnNumber: 7
         }
       }, this.props.content);
@@ -141033,7 +141033,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 559,
+          lineNumber: 561,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -141041,7 +141041,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 560,
+          lineNumber: 562,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -141049,7 +141049,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 561,
+          lineNumber: 563,
           columnNumber: 11
         }
       })));
@@ -141092,7 +141092,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 591,
+            lineNumber: 593,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141109,7 +141109,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 608,
+          lineNumber: 610,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -141152,8 +141152,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InteractiveMessages_TimePicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./InteractiveMessages/TimePicker */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/TimePicker.js");
 /* harmony import */ var _InteractiveMessages_QuickReply__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./InteractiveMessages/QuickReply */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/QuickReply.js");
 /* harmony import */ var _InteractiveMessages_Carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./InteractiveMessages/Carousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/Carousel.js");
-/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _InteractiveMessages_OrderCarousel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./InteractiveMessages/OrderCarousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 
 var _templateObject,
@@ -141177,7 +141178,8 @@ var _templateObject,
 
 
 
-var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
+
+var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
@@ -141196,31 +141198,31 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_13__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.title;
 });
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_13__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.body;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
-var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].img(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].img(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
   var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_13__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141254,7 +141256,7 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_12__["default
   var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_12__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_13__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.label;
 }, function (props) {
@@ -141330,7 +141332,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 197,
+          lineNumber: 198,
           columnNumber: 14
         }
       });
@@ -141344,7 +141346,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 199,
+          lineNumber: 200,
           columnNumber: 14
         }
       });
@@ -141355,7 +141357,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 201,
+          lineNumber: 202,
           columnNumber: 14
         }
       });
@@ -141370,7 +141372,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 207,
+        lineNumber: 208,
         columnNumber: 12
       }
     });
@@ -141381,7 +141383,18 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 209,
+        lineNumber: 210,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].ORDER_CAROUSEL) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_OrderCarousel__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 212,
         columnNumber: 12
       }
     });
@@ -141392,7 +141405,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 211,
+        lineNumber: 214,
         columnNumber: 12
       }
     });
@@ -141403,7 +141416,7 @@ function InteractiveMessage(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 215,
+      lineNumber: 218,
       columnNumber: 5
     }
   }, renderTemplate());
@@ -141426,7 +141439,7 @@ function ReactiveImage(_ref23) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 227,
+      lineNumber: 230,
       columnNumber: 10
     }
   });
@@ -141442,25 +141455,25 @@ function HeaderText(_ref24) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 237,
+      lineNumber: 240,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_11__["RichMessageRenderer"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_12__["RichMessageRenderer"], {
     content: title,
     styledWrapper: Title,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 238,
+      lineNumber: 241,
       columnNumber: 7
     }
-  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_11__["RichMessageRenderer"], {
+  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_12__["RichMessageRenderer"], {
     content: subtitle,
     styledWrapper: Subtitle,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 242,
       columnNumber: 21
     }
   }));
@@ -141476,7 +141489,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 246,
+      lineNumber: 249,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -141485,7 +141498,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 254,
+      lineNumber: 257,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -141493,7 +141506,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 255,
+      lineNumber: 258,
       columnNumber: 7
     }
   }));
@@ -141508,7 +141521,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 262,
+      lineNumber: 265,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerOptionTitle, {
@@ -141516,7 +141529,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 263,
+      lineNumber: 266,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
@@ -141525,14 +141538,14 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 264,
+      lineNumber: 267,
       columnNumber: 9
     }
   }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ExternalLinkIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 267,
+      lineNumber: 270,
       columnNumber: 9
     }
   })));
@@ -142067,6 +142080,149 @@ function ListPicker(_ref9) {
 
 /***/ }),
 
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.js":
+/*!************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.js ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OrderCarousel; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _SelectionCarousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SelectionCarousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SelectionCarousel.js");
+/* harmony import */ var _OrderCarousel_mockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OrderCarousel.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.mockData.js");
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\OrderCarousel.js";
+
+
+
+
+
+// Adapter for the "Find Order Number" flow - maps order-shaped VA content
+// onto the generic SelectionCarousel primitive (structure/behavior lives
+// there and is shared across flows; only this mapping is order-specific).
+function formatProductMeta(product) {
+  var detail = product.shade ? "Shade: ".concat(product.shade) : product.size;
+  return "".concat(detail, " \u2022 Qty: ").concat(product.qty);
+}
+OrderCarousel.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+};
+function OrderCarousel(_ref) {
+  var content = _ref.content,
+    addMessage = _ref.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // OrderCarousel.mockData.js. Swapping to the real VA JSON is a data
+  // change only, not a structural one.
+  var orders = content && content.orders || _OrderCarousel_mockData__WEBPACK_IMPORTED_MODULE_3__["MOCK_ORDERS"];
+  var cards = orders.map(function (order) {
+    return {
+      id: order.id,
+      testId: "order-card-".concat(order.id),
+      header: {
+        title: "Order No. ".concat(order.orderNumber),
+        subtitle: "Placed on: ".concat(order.orderDate)
+      },
+      items: order.products.map(function (product) {
+        return {
+          primaryText: product.name,
+          secondaryText: formatProductMeta(product)
+        };
+      }),
+      onSelectMessage: "Selected order ".concat(order.orderNumber)
+    };
+  });
+  var fallbackCard = {
+    testId: "order-card-empty",
+    heading: "Can't find your order?",
+    ctas: [{
+      testId: "order-card-empty-enter",
+      label: "Enter order number",
+      message: "Enter order number"
+    }, {
+      testId: "order-card-empty-unknown",
+      label: "Don't know order number",
+      message: "Don't know order number"
+    }]
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SelectionCarousel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    cards: cards,
+    fallbackCard: fallbackCard,
+    addMessage: addMessage,
+    testIdPrefix: "order-carousel",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 49,
+      columnNumber: 5
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.mockData.js":
+/*!*********************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.mockData.js ***!
+  \*********************************************************************************************************/
+/*! exports provided: MOCK_ORDERS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOCK_ORDERS", function() { return MOCK_ORDERS; });
+// Placeholder data for local/visual development (see step 6 of the Order
+// Carousel design plan - build and verify the UI before the VA JSON
+// contract exists). OrderCarousel falls back to this only when no
+// content.orders is passed in, so swapping to runtime data later requires
+// no structural changes.
+var MOCK_ORDERS = [{
+  id: "order-00000",
+  orderNumber: "00000",
+  orderDate: "May 5, 2026",
+  products: [{
+    name: "Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }, {
+    name: "Product Name",
+    shade: "Rose",
+    qty: 1
+  }, {
+    name: "Sample of Long Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }, {
+    name: "Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }, {
+    name: "Sample of Long Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }, {
+    name: "Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }]
+}, {
+  id: "order-11111",
+  orderNumber: "11111",
+  orderDate: "May 1, 2026",
+  products: [{
+    name: "Sample of Long Product Name",
+    size: "1.7 oz",
+    qty: 1
+  }]
+}];
+
+/***/ }),
+
 /***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/Panel.js":
 /*!****************************************************************************************!*\
   !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/Panel.js ***!
@@ -142373,6 +142529,613 @@ function QuickReply(_ref8) {
       }
     });
   })));
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SelectionCarousel.js":
+/*!****************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SelectionCarousel.js ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SelectionCarousel; });
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/objectSpread.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var connect_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! connect-core */ "./src/components/core/index.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+
+
+
+
+var _jsxFileName = "C:\\Users\\gitesh.purbia\\Desktop\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\SelectionCarousel.js",
+  _templateObject,
+  _templateObject2,
+  _templateObject3,
+  _templateObject4,
+  _templateObject5,
+  _templateObject6,
+  _templateObject7,
+  _templateObject8,
+  _templateObject9,
+  _templateObject10,
+  _templateObject11,
+  _templateObject12,
+  _templateObject13,
+  _templateObject14,
+  _templateObject15,
+  _templateObject16,
+  _templateObject17,
+  _templateObject18,
+  _templateObject19,
+  _templateObject20,
+  _templateObject21,
+  _templateObject22,
+  _templateObject23;
+
+
+
+
+
+
+// Generic carousel-of-selectable-cards primitive. Structure/behavior here
+// (scroll, expand/collapse, single-select-disables-siblings, chevron +
+// pagination nav, fixed 200px card width) is meant to stay identical across
+// every flow that uses it - only the content/CTAs passed in via `cards`/
+// `fallbackCard` should vary. Flow-specific adapters (e.g. OrderCarousel.js)
+// map their own domain data onto this generic shape rather than duplicating
+// this component. See the plan doc this was built from for the rationale.
+var CARD_WIDTH = 200;
+var CARD_GAP = 12;
+var DEFAULT_COLLAPSED_ITEM_COUNT = 2;
+var DEFAULT_TOGGLE_LABELS = {
+  expand: "Show all items",
+  collapse: "Hide all items"
+};
+var DEFAULT_SELECT_LABEL = "Select this order";
+function ChevronIcon(_ref) {
+  var direction = _ref.direction;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIconWrapper, {
+    direction: direction,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
+    width: "8px",
+    height: "12px",
+    viewBox: "0 0 8 12",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("g", {
+    stroke: "none",
+    strokeWidth: "1",
+    fill: "none",
+    fillRule: "evenodd",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 24,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("polygon", {
+    fill: "currentColor",
+    fillRule: "nonzero",
+    points: "2 0 0.59 1.41 5.17 6 0.59 10.59 2 12 8 6",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25,
+      columnNumber: 11
+    }
+  }))));
+}
+var ChevronIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  font-size: 0;\n  transform: rotate(", "deg);\n"])), function (props) {
+  return props.direction === "left" ? "180" : "0";
+});
+var CarouselShell = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: ", ";\n"])), function (_ref2) {
+  var theme = _ref2.theme;
+  return theme.spacing.small;
+});
+var CardsScroller = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: ", "px;\n  overflow-x: auto;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n\n  ::-webkit-scrollbar {\n    display: none;\n  }\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n"])), CARD_GAP);
+var CardBase = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  box-sizing: border-box;\n  width: ", "px;\n  min-height: 255px;\n  scroll-snap-align: start;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-selection-card-border, ", ");\n  background: ", ";\n  opacity: ", ";\n  pointer-events: ", ";\n\n  ", "\n"])), CARD_WIDTH, function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.palette.alto;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.palette.white;
+}, function (props) {
+  return props.disabled ? 0.5 : 1;
+}, function (props) {
+  return props.disabled ? "none" : "auto";
+}, function (props) {
+  return props.selected ? "border-color: var(--ac-widget-selection-card-select-bg, ".concat(props.theme.chatTranscriptor.sendButtonActiveBg, "); border-width: 2px;") : "";
+});
+var CardTop = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n"])));
+var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])));
+var CardHeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.typography.h3;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.globals.bodyFontColor;
+});
+var CardHeaderSubtitle = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject8 || (_templateObject8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.label;
+}, function (_ref8) {
+  var theme = _ref8.theme;
+  return theme.globals.textSecondaryColor;
+});
+var Divider = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject9 || (_templateObject9 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  border-top: 1px solid var(--ac-widget-selection-card-border, ", ");\n"])), function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.palette.alto;
+});
+var ItemList = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject10 || (_templateObject10 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n"])));
+var ItemRow = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject11 || (_templateObject11 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n"])));
+
+// Truncates to a single line only while collapsed - an expanded card must
+// show the full text (spec: "Show all items" reveals full product names).
+var ItemPrimaryText = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject12 || (_templateObject12 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  font-weight: 600;\n  color: ", ";\n  ", "\n"])), function (_ref10) {
+  var theme = _ref10.theme;
+  return theme.typography.body;
+}, function (_ref11) {
+  var theme = _ref11.theme;
+  return theme.globals.bodyFontColor;
+}, function (props) {
+  return props.truncate ? "\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  " : "";
+});
+var ItemSecondaryText = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject13 || (_templateObject13 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref12) {
+  var theme = _ref12.theme;
+  return theme.typography.label;
+}, function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.globals.textSecondaryColor;
+});
+var ButtonGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject14 || (_templateObject14 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n"])));
+var CardButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_7__["Button"])(_templateObject15 || (_templateObject15 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  min-height: 36px;\n  padding: 10px 8px;\n  border-radius: 16px;\n  border: none;\n  ", ";\n"])), function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.typography.body;
+});
+var SecondaryCardButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(CardButton)(_templateObject16 || (_templateObject16 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background: ", ";\n  color: ", ";\n\n  &:hover:enabled {\n    background: ", ";\n  }\n"])), function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+}, function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref17) {
+  var theme = _ref17.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+});
+var PrimaryCardButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(CardButton)(_templateObject17 || (_templateObject17 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background: var(--ac-widget-selection-card-select-bg, ", ");\n  color: ", ";\n\n  &:hover:enabled {\n    background: var(--ac-widget-selection-card-select-bg, ", ");\n  }\n"])), function (_ref18) {
+  var theme = _ref18.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+}, function (_ref19) {
+  var theme = _ref19.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref20) {
+  var theme = _ref20.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+});
+var FallbackCard = Object(styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(CardBase)(_templateObject18 || (_templateObject18 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  border-style: dashed;\n  justify-content: flex-start;\n  align-items: stretch;\n  text-align: center;\n"])));
+var FallbackCardHeading = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject19 || (_templateObject19 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref21) {
+  var theme = _ref21.theme;
+  return theme.typography.h3;
+}, function (_ref22) {
+  var theme = _ref22.theme;
+  return theme.globals.bodyFontColor;
+});
+var NavRow = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject20 || (_templateObject20 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: ", "px;\n"])), CARD_WIDTH);
+var NavButton = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].button(_templateObject21 || (_templateObject21 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 36px;\n  height: 36px;\n  padding: 10px;\n  border-radius: 50%;\n  box-sizing: border-box;\n  border: 1px solid ", ";\n  background: ", ";\n  color: ", ";\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: ", ";\n  opacity: ", ";\n\n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
+  return props.enabled ? props.theme.color.primary : "transparent";
+}, function (_ref23) {
+  var theme = _ref23.theme;
+  return theme.palette.white;
+}, function (_ref24) {
+  var theme = _ref24.theme;
+  return theme.color.primary;
+}, function (props) {
+  return props.enabled ? "pointer" : "default";
+}, function (props) {
+  return props.enabled ? 1 : 0.4;
+});
+var Pagination = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject22 || (_templateObject22 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: 8px;\n"])));
+var Dot = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject23 || (_templateObject23 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  height: 8px;\n  width: ", ";\n  border-radius: 4px;\n  background: ", ";\n  transition: width 0.15s ease;\n"])), function (props) {
+  return props.active ? "24px" : "8px";
+}, function (props) {
+  return props.active ? props.theme.color.primary : props.theme.palette.alto;
+});
+function SelectableCard(_ref25) {
+  var _this = this;
+  var card = _ref25.card,
+    expanded = _ref25.expanded,
+    onToggleExpand = _ref25.onToggleExpand,
+    selected = _ref25.selected,
+    disabled = _ref25.disabled,
+    onSelect = _ref25.onSelect;
+  var collapsedItemCount = card.collapsedItemCount || DEFAULT_COLLAPSED_ITEM_COUNT;
+  var toggleLabels = card.toggleLabels || DEFAULT_TOGGLE_LABELS;
+  var selectLabel = card.selectLabel || DEFAULT_SELECT_LABEL;
+  var items = expanded ? card.items : card.items.slice(0, collapsedItemCount);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardBase, {
+    disabled: disabled,
+    selected: selected,
+    "data-testid": card.testId,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 236,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardTop, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 237,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeader, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 238,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeaderTitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 239,
+      columnNumber: 11
+    }
+  }, card.header.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeaderSubtitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 240,
+      columnNumber: 11
+    }
+  }, card.header.subtitle)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Divider, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 242,
+      columnNumber: 9
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemList, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 243,
+      columnNumber: 9
+    }
+  }, items.map(function (item, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemRow, {
+      key: index,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 245,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
+      truncate: !expanded,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 246,
+        columnNumber: 15
+      }
+    }, item.primaryText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemSecondaryText, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 247,
+        columnNumber: 15
+      }
+    }, item.secondaryText));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ButtonGroup, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 252,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SecondaryCardButton, {
+    disabled: disabled,
+    onClick: onToggleExpand,
+    "data-testid": "".concat(card.testId, "-toggle"),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 253,
+      columnNumber: 9
+    }
+  }, expanded ? toggleLabels.collapse : toggleLabels.expand), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PrimaryCardButton, {
+    disabled: disabled,
+    onClick: onSelect,
+    "data-testid": "".concat(card.testId, "-select"),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 256,
+      columnNumber: 9
+    }
+  }, selectLabel)));
+}
+function FallbackSelectionCard(_ref26) {
+  var _this2 = this;
+  var card = _ref26.card,
+    disabled = _ref26.disabled,
+    onCtaClick = _ref26.onCtaClick;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackCard, {
+    disabled: disabled,
+    "data-testid": card.testId,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 266,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackCardHeading, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 267,
+      columnNumber: 7
+    }
+  }, card.heading), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ButtonGroup, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 268,
+      columnNumber: 7
+    }
+  }, card.ctas.map(function (cta) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SecondaryCardButton, {
+      key: cta.testId,
+      disabled: disabled,
+      onClick: function onClick() {
+        return onCtaClick(cta);
+      },
+      "data-testid": cta.testId,
+      __self: _this2,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 270,
+        columnNumber: 11
+      }
+    }, cta.label);
+  })));
+}
+SelectionCarousel.propTypes = {
+  cards: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+    id: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
+    testId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
+    header: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+      title: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      subtitle: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+    }).isRequired,
+    items: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+      primaryText: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      secondaryText: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+    })).isRequired,
+    collapsedItemCount: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.number,
+    toggleLabels: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+      expand: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      collapse: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+    }),
+    selectLabel: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+    onSelectMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired
+  })).isRequired,
+  fallbackCard: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+    testId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
+    heading: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
+    ctas: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
+      testId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      label: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      message: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+    })).isRequired
+  }),
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func.isRequired,
+  testIdPrefix: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+};
+function SelectionCarousel(_ref27) {
+  var _this3 = this;
+  var cards = _ref27.cards,
+    fallbackCard = _ref27.fallbackCard,
+    addMessage = _ref27.addMessage,
+    _ref27$testIdPrefix = _ref27.testIdPrefix,
+    testIdPrefix = _ref27$testIdPrefix === void 0 ? "selection-carousel" : _ref27$testIdPrefix;
+  var totalCards = cards.length + (fallbackCard ? 1 : 0);
+  var scrollerRef = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])(null);
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])({}),
+    _useState2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
+    expandedIds = _useState2[0],
+    setExpandedIds = _useState2[1];
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(null),
+    _useState4 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
+    selectedId = _useState4[0],
+    setSelectedId = _useState4[1];
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(0),
+    _useState6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+    activeIndex = _useState6[0],
+    setActiveIndex = _useState6[1];
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(false),
+    _useState8 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
+    canScrollLeft = _useState8[0],
+    setCanScrollLeft = _useState8[1];
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(totalCards > 1),
+    _useState10 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState9, 2),
+    canScrollRight = _useState10[0],
+    setCanScrollRight = _useState10[1];
+  var updateScrollState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useCallback"])(function () {
+    var el = scrollerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    var index = Math.round(el.scrollLeft / (CARD_WIDTH + CARD_GAP));
+    setActiveIndex(Math.max(0, Math.min(index, totalCards - 1)));
+  }, [totalCards]);
+  function scrollByCard(direction) {
+    var el = scrollerRef.current;
+    if (!el) return;
+    el.scrollLeft += direction * (CARD_WIDTH + CARD_GAP);
+  }
+  function handleToggleExpand(cardId) {
+    setExpandedIds(function (prev) {
+      return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, prev, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, cardId, !prev[cardId]));
+    });
+  }
+  function sendInteractiveResponse(text) {
+    addMessage({
+      text: text,
+      type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+    });
+  }
+  function handleSelect(card) {
+    setSelectedId(card.id);
+    sendInteractiveResponse(card.onSelectMessage);
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CarouselShell, {
+    "data-testid": testIdPrefix,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 345,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardsScroller, {
+    ref: scrollerRef,
+    onScroll: updateScrollState,
+    "data-testid": "".concat(testIdPrefix, "-scroller"),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 346,
+      columnNumber: 7
+    }
+  }, cards.map(function (card) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SelectableCard, {
+      key: card.id,
+      card: card,
+      expanded: !!expandedIds[card.id],
+      onToggleExpand: function onToggleExpand() {
+        return handleToggleExpand(card.id);
+      },
+      selected: selectedId === card.id,
+      disabled: selectedId !== null && selectedId !== card.id,
+      onSelect: function onSelect() {
+        return handleSelect(card);
+      },
+      __self: _this3,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 348,
+        columnNumber: 11
+      }
+    });
+  }), fallbackCard && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackSelectionCard, {
+    card: fallbackCard,
+    disabled: selectedId !== null,
+    onCtaClick: function onCtaClick(cta) {
+      return sendInteractiveResponse(cta.message);
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 359,
+      columnNumber: 11
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavRow, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 367,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavButton, {
+    enabled: canScrollLeft,
+    disabled: !canScrollLeft,
+    onClick: function onClick() {
+      return scrollByCard(-1);
+    },
+    "aria-label": "Previous cards",
+    "data-testid": "".concat(testIdPrefix, "-prev"),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 368,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
+    direction: "left",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 375,
+      columnNumber: 11
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Pagination, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 377,
+      columnNumber: 9
+    }
+  }, Array.from({
+    length: totalCards
+  }).map(function (_, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Dot, {
+      key: index,
+      active: index === activeIndex,
+      __self: _this3,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 379,
+        columnNumber: 13
+      }
+    });
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavButton, {
+    enabled: canScrollRight,
+    disabled: !canScrollRight,
+    onClick: function onClick() {
+      return scrollByCard(1);
+    },
+    "aria-label": "Next cards",
+    "data-testid": "".concat(testIdPrefix, "-next"),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 382,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
+    direction: "right",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 389,
+      columnNumber: 11
+    }
+  }))));
 }
 
 /***/ }),
@@ -144290,7 +145053,8 @@ var InteractiveMessageType = {
   PANEL: "Panel",
   QUICK_REPLY: "QuickReply",
   CAROUSEL: "Carousel",
-  VIEW_RESOURCE: "ViewResource"
+  VIEW_RESOURCE: "ViewResource",
+  ORDER_CAROUSEL: "OrderCarousel"
 };
 var InteractiveMessageSelectionType = {
   ACTION: "action",
@@ -146098,7 +146862,6 @@ function buildThemeConfig() {
     // both now resolve from the same colors.json bubbles.* keys instead of
     // this path silently falling back to defaultTheme's hardcoded colors.
     themeConfig.chatTranscriptor = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].chatTranscriptor, Object(_theme_componentPalette__WEBPACK_IMPORTED_MODULE_114__["buildChatTranscriptorPalette"])(colors));
-    console.log("themeConfig.chatTranscriptor:", themeConfig.chatTranscriptor);
   }
   if (brandConfig.fontFamily) {
     themeConfig.globals = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, _theme_defaultTheme__WEBPACK_IMPORTED_MODULE_113__["default"].globals, {
@@ -146147,7 +146910,6 @@ function buildLogoConfig(brandInfo) {
     console.log("========== THEME DEBUG ==========");
     console.log("Brand Theme:", brandThemeConfig.chatTranscriptor);
     console.log("Caller Theme Override:", (_props$themeConfig = props.themeConfig) === null || _props$themeConfig === void 0 ? void 0 : _props$themeConfig.chatTranscriptor);
-    console.log("props.themeConfig:", props.themeConfig);
     var themeConfig = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, brandThemeConfig, props.themeConfig, {
       chatTranscriptor: Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_106__["default"])({}, brandThemeConfig.chatTranscriptor)
     });
@@ -146178,7 +146940,7 @@ function buildLogoConfig(brandInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 188,
+        lineNumber: 183,
         columnNumber: 7
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_107___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_110__["default"], Object.assign({}, props, {
@@ -146189,7 +146951,7 @@ function buildLogoConfig(brandInfo) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 189,
+        lineNumber: 184,
         columnNumber: 9
       }
     }))), document.getElementById(containerId) || document.getElementById("root"));

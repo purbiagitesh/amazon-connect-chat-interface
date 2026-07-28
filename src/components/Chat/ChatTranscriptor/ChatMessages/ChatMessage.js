@@ -221,7 +221,7 @@ export class ParticipantMessage extends PureComponent {
     });
   }
 
-  renderHeader() {
+  renderHeader(hideSenderName) {
     const isOutgoingMsg = this.props.messageDetails.transportDetails.direction === Direction.Outgoing;
     const authenticatedParticipantDisplayName = getCurrentChatSessionInstance().authenticatedParticipantDisplayName;
     let displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
@@ -268,12 +268,14 @@ export class ParticipantMessage extends PureComponent {
     }
     return (
       <React.Fragment>
-        <Header.Sender>
-          <FormattedMessage
-            id={displayName || "DISPLAY_NAME_MISSING"}
-            defaultMessage={displayName}
-          />
-        </Header.Sender>
+        {!hideSenderName && (
+          <Header.Sender>
+            <FormattedMessage
+              id={displayName || "DISPLAY_NAME_MISSING"}
+              defaultMessage={displayName}
+            />
+          </Header.Sender>
+        )}
         <Header.Status>{transportStatusElement}</Header.Status>
       </React.Fragment>
     );
@@ -406,7 +408,7 @@ export class ParticipantMessage extends PureComponent {
 
     const mainMessage = (
       <MessageContainer direction={direction} data-testid="main-message">
-        <Header data-testid="message-header">{this.renderHeader()}</Header>
+        <Header data-testid="message-header">{this.renderHeader(!!avatarUrl)}</Header>
         <InView onChange={(inView) => this.setState({ inView })}>
           {({ ref }) => (
             <Body

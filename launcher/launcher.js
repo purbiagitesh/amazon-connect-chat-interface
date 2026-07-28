@@ -342,6 +342,16 @@
       },
     });
 
+    // This widget is AWS's hosted "Communications Widget" (connectwidget/api/<widgetId>/start)
+    // - it always runs its own native start-chat internally, regardless of customStartChat below,
+    // and its own contact is what the live session actually binds to (confirmed via GetTranscript's
+    // InitialContactId + the flow's own debug output both matching the native call, never the
+    // customStartChat/Lambda contact). Per AWS's docs (Personalize the customer experience for
+    // in-app, web, and video calling > Alternate method: Pass contact attributes directly from
+    // snippet code), this is the supported way to get custom data onto THAT contact. Flow-side,
+    // these land under a "HostedWidget-" prefix: $.Attributes.HostedWidget-brand, not $.Attributes.brand.
+    amazon_connect('contactAttributes', buildContactAttributes(window.utag_data));
+
     amazon_connect('customStartChat', async function (callback) {
       try {
         // Read window.utag_data fresh (not the bootstrap-time snapshot) so
