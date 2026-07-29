@@ -67,7 +67,60 @@ function prepareBrandForBuild() {
   }
 }
 
+// Regenerates brand-namespaced runtime data for EVERY brand/env (see
+// scripts/prepare-brand.js's --all mode) so the production build carries
+// every brand's data, not just whichever single brand/env prepareBrandForBuild()
+// above last prepared for local dev - launcher.js resolves brand/env at
+// runtime from window.utag_data, so all of them need to be present.
+function prepareAllBrandsForBuild() {
+  console.log('Preparing brand-assets for ALL brands (production build)...');
+  const result = spawnSync(
+    process.execPath,
+    [path.join(__dirname, 'prepare-brand.js'), '--all'],
+    {stdio: 'inherit'}
+  );
+
+  if (result.status !== 0) {
+    process.exit(result.status || 1);
+  }
+}
+
+// Copies/arranges the pieces that aren't produced by webpack in their final
+// deployable shape, so paths.appBuild ends up as a single, complete folder
+// to upload as-is (this file, brand-assets/, and launcher.js all served from
+// the same host/CDN - see launcher/launcher.js's own header comment):
+//   - every brand's runtime data (brand-assets/)
+//   - the self-mounting launcher script (launcher/launcher.js -> launcher.js)
+//   - the webpack JS bundle, flattened from its nested static/js/ output
+//     path to the build root, since launcher.js loads it via a plain
+//     relative reference (absoluteUrl('./amazon-connect-chat-interface.js'))
+//     resolved against launcher.js's own location, not a nested subfolder.
+function copyDeployableAssets() {
+  const brandAssetsSrc = path.join(__dirname, '..', 'local-testing', 'brand-assets');
+  const brandAssetsDest = path.join(paths.appBuild, 'brand-assets');
+  if (fs.existsSync(brandAssetsSrc)) {
+    fs.copySync(brandAssetsSrc, brandAssetsDest);
+    console.log('Copied brand-assets/ into ' + path.relative(process.cwd(), brandAssetsDest));
+  }
+
+  const launcherSrc = path.join(__dirname, '..', 'launcher', 'launcher.js');
+  const launcherDest = path.join(paths.appBuild, 'launcher.js');
+  fs.copySync(launcherSrc, launcherDest);
+  console.log('Copied launcher.js into ' + path.relative(process.cwd(), launcherDest));
+
+  const bundleSrcDir = path.join(paths.appBuild, 'static', 'js');
+  ['amazon-connect-chat-interface.js', 'amazon-connect-chat-interface.js.map'].forEach(fileName => {
+    const src = path.join(bundleSrcDir, fileName);
+    if (fs.existsSync(src)) {
+      const dest = path.join(paths.appBuild, fileName);
+      fs.copySync(src, dest);
+      console.log('Copied ' + fileName + ' into ' + path.relative(process.cwd(), dest));
+    }
+  });
+}
+
 prepareBrandForBuild();
+prepareAllBrandsForBuild();
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appIndexJs])) {
@@ -112,6 +165,8 @@ checkBrowsers(paths.appPath, isInteractive)
       } else {
         console.log(chalk.green('Compiled successfully.\n'));
       }
+
+      copyDeployableAssets();
 
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(

@@ -19,10 +19,9 @@ Object {
 }
 
 .c1 {
-  font-size: 1em;
-  line-height: 1.465;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: normal;
-  font-family: Arial,Helvetica,"sans-serif",Helvetica,sans-serif;
   padding: 0;
   white-space: nowrap;
   color: #111111;
@@ -54,7 +53,6 @@ Object {
   color: undefined;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
-  font-size: 0.875rem;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.1);
 }
 
@@ -217,10 +215,10 @@ Object {
   z-index: 99;
   width: 32px;
   height: 32px;
-  border: 2px solid #fff;
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
   background-size: 14px auto;
-  background: white;
+  background: #FFFFFF;
   -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
@@ -236,10 +234,10 @@ Object {
   right: 0;
   width: 32px;
   height: 32px;
-  border: 2px solid #fff;
+  border: 2px solid #FFFFFF;
   border-radius: 50%;
   background-size: 14px auto;
-  background: white;
+  background: #FFFFFF;
   -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.75);
@@ -330,10 +328,17 @@ Object {
 }
 
 .c8 {
-  font-weight: bold !important;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: normal;
+  padding: 0;
 }
 
 .c9 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: normal;
+  padding: 0;
   color: #555555;
 }
 
@@ -376,8 +381,10 @@ Object {
   padding-left: 10px;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
-  font-size: 0.875rem;
-  line-height: 1.465;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -388,19 +395,21 @@ Object {
   margin-bottom: 0;
 }
 
-.c13 a: {
+.c13 a {
   -webkit-text-decoration: none !important;
   text-decoration: none !important;
-  font-weight: bold !important;
 }
 
-.c13 svg: {
+.c13 svg {
   color: #555555;
   margin: 0 4px;
 }
 
 .c12 {
-  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
 }
 
 .c12 a {
@@ -409,7 +418,10 @@ Object {
 }
 
 .c14 {
-  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -772,7 +784,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-ksYbfQ jLuGoR"
+      class="sc-lhVmIH lnsTsK"
       data-testid="interactive-carousel-message-title"
     >
       <p
@@ -782,7 +794,7 @@ Object {
       </p>
     </div>
     <button
-      class="sc-gzVnrw fgSGc sc-kgAjT cPGprc"
+      class="sc-gzVnrw irdTUs sc-kgAjT iFpXep"
       data-selected="false"
       data-testid="interactive-carousel-scroll-left-btn"
       direction="left"
@@ -820,58 +832,58 @@ Object {
       data-testid="interactive-carousel-response-section"
     >
       <div
-        class="sc-ksYbfQ dVcUzf"
+        class="sc-lhVmIH kRwUyp"
         data-testid="asdf0001"
       >
         <div
-          class="sc-hqyNC kEFGTq"
+          class="sc-kTUwUJ eczQue"
         >
           <p
-            class="sc-bZQynM fraGhu sc-hmzhuo jgrcQe"
+            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
             style="margin: 0px;"
           >
             Flight
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-frDJqD kyrTVw"
+            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-jbKcbu fMyVdq"
+          class="sc-dqBHgY gkIymR"
         >
           <div>
             <button
-              class="sc-gzVnrw fgSGc sc-gipzik kNfQEF"
+              class="sc-gzVnrw irdTUs sc-gipzik kNfQEF"
               data-selected="false"
               type="default"
               value="Purchase Ticket"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 Purchase Ticket
               </p>
             </button>
             <button
-              class="sc-gzVnrw fgSGc sc-gipzik kNfQEF"
+              class="sc-gzVnrw irdTUs sc-gipzik kNfQEF"
               data-selected="false"
               type="default"
               value="View All Destinations"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 View All Destinations
               </p>
             </button>
             <div
-              class="sc-dNLxif eEwQfF"
+              class="sc-gxMtzJ gESzdp"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK heFdHn"
+                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
               >
                 <a
                   href="https://example.com"
@@ -901,7 +913,7 @@ Object {
         </div>
       </div>
       <div
-        class="sc-ksYbfQ dVcUzf"
+        class="sc-lhVmIH kRwUyp"
         data-testid="asdf0002"
       >
         <div
@@ -909,59 +921,59 @@ Object {
         >
           <img
             alt="Hotel Destination"
-            class="sc-kvZOFW lavOvh"
+            class="sc-jtRfpW dbfmtq"
             src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/a1/9c/80/essentia-luxury-hotel.jpg?w=700&h=-1&s=1"
           />
         </div>
         <div
-          class="sc-hqyNC kEFGTq"
+          class="sc-kTUwUJ eczQue"
         >
           <p
-            class="sc-bZQynM fraGhu sc-hmzhuo jgrcQe"
+            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
             style="margin: 0px;"
           >
             Hotel
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-frDJqD kyrTVw"
+            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-jbKcbu fMyVdq"
+          class="sc-dqBHgY gkIymR"
         >
           <div>
             <button
-              class="sc-gzVnrw fgSGc sc-gipzik kNfQEF"
+              class="sc-gzVnrw irdTUs sc-gipzik kNfQEF"
               data-selected="false"
               type="default"
               value="Book Room"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 Book Room
               </p>
             </button>
             <button
-              class="sc-gzVnrw fgSGc sc-gipzik kNfQEF"
+              class="sc-gzVnrw irdTUs sc-gipzik kNfQEF"
               data-selected="false"
               type="default"
               value="View All Listings"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 View All Listings
               </p>
             </button>
             <div
-              class="sc-dNLxif eEwQfF"
+              class="sc-gxMtzJ gESzdp"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK heFdHn"
+                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
               >
                 <a
                   href="https://example.com"
@@ -991,61 +1003,61 @@ Object {
         </div>
       </div>
       <div
-        class="sc-ksYbfQ dVcUzf"
+        class="sc-lhVmIH kRwUyp"
         data-testid="asdf0003"
       >
         <div
-          class="sc-hqyNC kEFGTq"
+          class="sc-kTUwUJ eczQue"
         >
           <p
-            class="sc-bZQynM fraGhu sc-hmzhuo jgrcQe"
+            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
             style="margin: 0px;"
           >
             Dining
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-frDJqD kyrTVw"
+            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-jbKcbu fMyVdq"
+          class="sc-dqBHgY gkIymR"
         >
           <div>
             <button
-              class="sc-gzVnrw fgSGc sc-gPEVay gERDOC"
+              class="sc-gzVnrw irdTUs sc-gPEVay gERDOC"
               data-selected="false"
               data-testid="listElement0"
               type="default"
               value="Book Table"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 Book Table
               </p>
             </button>
             <button
-              class="sc-gzVnrw fgSGc sc-gPEVay gERDOC"
+              class="sc-gzVnrw irdTUs sc-gPEVay gERDOC"
               data-selected="false"
               data-testid="listElement1"
               type="default"
               value="View Popular Entrees"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK fuahsP"
+                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
               >
                 View Popular Entrees
               </p>
             </button>
             <div
-              class="sc-dNLxif eEwQfF"
+              class="sc-gxMtzJ gESzdp"
               data-testid="listElement2"
             >
               <p
-                class="sc-bZQynM fraGhu sc-jqCOkK heFdHn"
+                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
               >
                 <a
                   href="https://example.com"
@@ -1076,7 +1088,7 @@ Object {
       </div>
     </div>
     <button
-      class="sc-gzVnrw fgSGc sc-kgAjT iVyuV"
+      class="sc-gzVnrw irdTUs sc-kgAjT dPpNpM"
       data-selected="false"
       data-testid="interactive-carousel-scroll-right-btn"
       direction="right"
@@ -1167,102 +1179,7 @@ Object {
 exports[`<QuickReply /> Style should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .c2 {
-  font-size: 1em;
-  line-height: 1.465;
-  font-weight: normal;
-  font-family: Arial,Helvetica,"sans-serif",Helvetica,sans-serif;
-  padding: 0;
-  white-space: nowrap;
-  color: #111111;
-  cursor: pointer;
-  text-align: center;
-  vertical-align: middle;
-  border-width: 0px;
-  border-style: solid;
-  padding-right: 10px;
-  padding-left: 10px;
-  font-family: Arial,Helvetica,"sans-serif";
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  max-width: 260px;
-  background: linear-gradient(#FFFFFF,#FFFFFF 80%,#FFFFFF);
-  border-color: #fff #fff #fff;
-  background: linear-gradient(#FFFFFF,#FFFFFF 80%,#FFFFFF);
-  border-color: #fff #fff #fff;
-  color: undefined;
-  padding-top: 0.45rem;
-  padding-bottom: 0.45rem;
-  font-size: 0.875rem;
-  box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.1);
-}
-
-.c2:hover {
-  background: linear-gradient(#fff,#f9f9f9);
-}
-
-.c2:focus {
-  box-shadow: 0 0 2px 0 #E77600;
-  outline: none;
-}
-
-.c2:active {
-  border-color: #fff #fff #fff;
-}
-
-.c2:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-  outline: none;
-  pointer-events: none;
-}
-
-.c2:disabled:hover {
-  background: linear-gradient(#FFFFFF,#FFFFFF 80%,#FFFFFF);
-}
-
-.c2 > img,
-.c2 .loader {
-  margin-right: undefined;
-  position: relative;
-  top: 1px;
-}
-
-.c2:hover {
-  background: linear-gradient(#fff,#f9f9f9);
-}
-
-.c2:focus {
-  box-shadow: 0 0 2px 0 #E77600;
-  outline: none;
-}
-
-.c2:active {
-  border-color: #fff #fff #fff;
-}
-
-.c2:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-  outline: none;
-  pointer-events: none;
-}
-
-.c2:disabled:hover {
-  background: linear-gradient(#FFFFFF,#FFFFFF 80%,#FFFFFF);
-}
-
-.c1 {
+  "baseElement": .c1 {
   padding: 14px 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1281,29 +1198,27 @@ Object {
   justify-content: flex-end;
 }
 
-.c3 {
-  padding: 4px 14px;
-  text-align: left;
+.c2 {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 24px;
+  background-color: #D6D6FA;
+  color: #1A1A1A;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
+  text-align: center;
   cursor: pointer;
-  border: 2px solid #077398;
-  border-radius: 2px;
-  white-space: pre-wrap;
-  font-weight: bold;
-  font-size: 0.875rem;
-  line-height: 22px;
-  font-weight: 600;
-  font-style: normal;
-  color: #077398;
-  background: #FFFFFF;
-  text-shadow: none;
-  box-shadow: none;
+  -webkit-transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
-.c3:hover,
-.c3:focus {
-  background: #077398;
-  color: #FFFFFF;
-  border: 2px solid #077398 !important;
+.c2:hover {
+  background-color: #C4C4F8;
 }
 
 .c0 {
@@ -1353,37 +1268,27 @@ Object {
         data-testid="interactive-quickreply-response-section"
       >
         <button
-          class="c2 c3"
-          data-selected="false"
-          type="default"
+          class="c2"
         >
           Great!
         </button>
         <button
-          class="c2 c3"
-          data-selected="false"
-          type="default"
+          class="c2"
         >
           Good
         </button>
         <button
-          class="c2 c3"
-          data-selected="false"
-          type="default"
+          class="c2"
         >
           Ok
         </button>
         <button
-          class="c2 c3"
-          data-selected="false"
-          type="default"
+          class="c2"
         >
           Poor
         </button>
         <button
-          class="c2 c3"
-          data-selected="false"
-          type="default"
+          class="c2"
         >
           Terrible!
         </button>
@@ -1392,7 +1297,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-ksYbfQ jLuGoR"
+      class="sc-lhVmIH lnsTsK"
       data-testid="interactive-quickreply-message-title"
     >
       <p
@@ -1406,37 +1311,27 @@ Object {
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-gzVnrw fgSGc sc-cHGsZl fIUIDL"
-        data-selected="false"
-        type="default"
+        class="sc-cHGsZl buVXpA"
       >
         Great!
       </button>
       <button
-        class="sc-gzVnrw fgSGc sc-cHGsZl fIUIDL"
-        data-selected="false"
-        type="default"
+        class="sc-cHGsZl buVXpA"
       >
         Good
       </button>
       <button
-        class="sc-gzVnrw fgSGc sc-cHGsZl fIUIDL"
-        data-selected="false"
-        type="default"
+        class="sc-cHGsZl buVXpA"
       >
         Ok
       </button>
       <button
-        class="sc-gzVnrw fgSGc sc-cHGsZl fIUIDL"
-        data-selected="false"
-        type="default"
+        class="sc-cHGsZl buVXpA"
       >
         Poor
       </button>
       <button
-        class="sc-gzVnrw fgSGc sc-cHGsZl fIUIDL"
-        data-selected="false"
-        type="default"
+        class="sc-cHGsZl buVXpA"
       >
         Terrible!
       </button>

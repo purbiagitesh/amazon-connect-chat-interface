@@ -262,12 +262,14 @@ describe("when window.connect is defined", () => {
     expect(() => mockComposer.getByTestId("rich-text-editor")).toThrow("Unable to find an element");
   });
 
-  it("should render richtoolbar when given supportedMessagingContentTypes input", () => {
+  // The rich-text composer is force-disabled regardless of richMessagingEnabled
+  // (see ChatComposer.js's FORCE_DISABLE_RICH_MESSAGING - Figma spec calls for
+  // a plain single-line composer), so this stays absent even when enabled.
+  it("should not render richtoolbar even when given supportedMessagingContentTypes input", () => {
     mockProps.composerConfig.richMessagingEnabled = true;
     mockProps.composerConfig.supportedMessagingContentTypes = "text/plain,text/markdown";
     renderElement(mockProps);
 
-    const richTextEditor = mockComposer.getByTestId("rich-text-editor");
-    expect(richTextEditor).toBeInTheDocument();
+    expect(() => mockComposer.getByTestId("rich-text-editor")).toThrow("Unable to find an element");
   });
 });

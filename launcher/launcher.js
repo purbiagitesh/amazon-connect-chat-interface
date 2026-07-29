@@ -11,15 +11,28 @@
  * logic made deployable on its own, with two differences required because
  * a brand's real website is not a page we control:
  *
- *   1. It creates its OWN DOM (the "Chat now" button + its <style>) instead
- *      of assuming that markup already exists in the page - a brand's site
- *      has its own HTML, not ours.
+ *   1. It creates its OWN DOM (the "Chat now" button, the chat panel
+ *      container, and their <style>) instead of assuming that markup
+ *      already exists in the page - a brand's site has its own HTML, not
+ *      ours.
  *   2. Every asset URL (brandInfo.json, the launcher icon, the chat bundle)
  *      is resolved as an ABSOLUTE url against THIS SCRIPT's own location,
  *      not a relative path. A relative fetch would resolve against the
  *      brand's website origin (where this script is merely injected),
  *      not the CDN this script and its sibling brand-assets/ actually live
  *      on - those are two different origins in production.
+ *
+ * Self-hosted chat interface (not AWS's hosted Communications Widget):
+ * this script loads our own amazon-connect-chat-interface.js bundle
+ * directly and drives it via connect.ChatInterface.init()/.initiateChat().
+ * There is no AWS-hosted widget snippet/iframe involved, and therefore no
+ * competing "native" start-chat call - the Lambda behind apiGatewayEndpoint
+ * is the only thing that ever creates the contact. (An earlier version of
+ * this file loaded AWS's hosted Communications Widget instead; that widget
+ * always ran its own native start-chat regardless of any customStartChat
+ * override, so contact attributes and the actual live session never lined
+ * up with what this script's own Lambda created - see git history for that
+ * approach if it's ever needed for reference.)
  *
  * Deployment: this file, amazon-connect-chat-interface.js, and brand-assets/
  * all get served from the SAME host/CDN (see scripts/build.js, which copies
@@ -62,6 +75,8 @@
     // host page's location.
     return new URL(relativeOrAbsolute, LAUNCHER_BASE_URL).href;
   }
+
+  var CHAT_PANEL_ID = 'amazon-connect-chat-panel';
 
   // ─── DOM: create the launcher's CSS + markup (no pre-existing HTML assumed) ───
 
@@ -113,9 +128,33 @@
     + '#chat-now-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
     + '#chat-now-btn .btn-icon img { width: 15px; height: 15px; object-fit: contain; }'
     + '#chat-now-btn.widget-open { display: none !important; }'
-    + '#amazon-connect-close-widget-button { display: none !important; }'
-    + 'div[class*="acWidgetContainer"] { overflow: visible !important; border-radius: 24px 24px 0 0 !important; }'
-    + 'div[class*="acFrameContainer"] { border-radius: 24px 24px 0 0 !important; }';
+    // Chat panel: this is OUR OWN floating container (no AWS-managed iframe
+    // to style anymore) - amazon-connect-chat-interface.js's React app
+    // (App.js's "Page" element, className "connect-customer-interface")
+    // mounts directly inside it. Page has its own fixed 300px width/margin/
+    // shadow meant for being the sole content of an iframe document, so
+    // those are neutralized here in favor of this container's own chrome.
+    + '#' + CHAT_PANEL_ID + ' {'
+    + '  display: none;'
+    + '  position: fixed;'
+    + '  bottom: 24px;'
+    + '  right: 24px;'
+    + '  width: 330px;'
+    + '  height: min(520px, calc(100vh - 48px));'
+    + '  max-width: calc(100vw - 32px);'
+    + '  background: #ffffff;'
+    + '  border-radius: 24px;'
+    + '  overflow: hidden;'
+    + '  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);'
+    + '  z-index: 9998;'
+    + '}'
+    + '#' + CHAT_PANEL_ID + '.open { display: block; }'
+    + '#' + CHAT_PANEL_ID + ' .connect-customer-interface {'
+    + '  width: 100% !important;'
+    + '  height: 100% !important;'
+    + '  margin: 0 !important;'
+    + '  box-shadow: none !important;'
+    + '}';
 
   // Fallback icon shown only until the resolved brand's own
   // assets/images/launcher-icon.svg has been fetched and inlined by
@@ -139,17 +178,11 @@
     btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span>Chat now';
     document.body.appendChild(btn);
 
-    // If AWS's client script finished loading and called programmaticLaunch
-    // (see loadConnectWidgetScript below) before this DOM existed, the
-    // launch callback is stashed on window._connectLaunchCallback - bind it
-    // now that the button actually exists. In practice this DOM is created
-    // synchronously before that script has had a chance to load, so this is
-    // a defensive no-op, not the primary binding path.
-    if (window._connectLaunchCallback) {
-      btn.addEventListener('click', window._connectLaunchCallback);
-    }
+    var panel = document.createElement('div');
+    panel.id = CHAT_PANEL_ID;
+    document.body.appendChild(panel);
 
-    return btn;
+    return { btn: btn, panel: panel };
   }
 
   // ─── Runtime brand resolution (single build, all brands) ───
@@ -203,17 +236,16 @@
 
   // ─── Contact attributes for the Connect greeting flow ───
   // Maps window.utag_data (Tealium's data-layer, same global brand
-  // resolution above reads from) to the contact attribute names the AWS
-  // side's contact flow "Play prompt" block will reference. These are sent
-  // once, on StartChatContact (see customStartChat below) - Connect
-  // persists Attributes for the life of the contact, so the flow's very
-  // first block already sees them; no per-message resend is needed or
-  // possible from this script.
+  // resolution above reads from) to the contact attribute names the Connect
+  // flow's "Play prompt"/greeting block references. Sent once, as part of
+  // the StartChatContact request our own Lambda (apiGatewayEndpoint) makes -
+  // Connect persists Attributes for the life of the contact, so the flow's
+  // very first block already sees them.
   // customerEmail/customerName/customerPhone are static placeholders until
   // real utag_data keys for those are confirmed with the brand's site.
-  // customerLoggedIn's source key/value ("customer_state": "logged in")
-  // is per spec from the integration owner - not yet verified against a
-  // real logged-in utag_data sample (only guest sessions observed so far).
+  // customerLoggedIn is temporarily hardcoded to 'Yes' for testing; restore
+  // the utag_data.customer_state check once a real logged-in sample is
+  // available to verify against.
   function buildContactAttributes(utagData) {
     utagData = utagData || {};
     return {
@@ -298,105 +330,89 @@
     btn.classList.add('ready');
   }
 
-  // NOTE: this Connect instance script URL + snippetId are still
-  // hardcoded (unchanged from the original hostedWidget.html prototype) -
-  // if different brands are actually backed by different Connect
-  // instances, this needs to become brand-driven too. Flagged as an open
-  // item, not guessed at here since the instance topology per brand hasn't
-  // been confirmed.
-  function loadConnectWidgetScript() {
-    (function (w, d, x, id) {
-      var s = d.createElement('script');
-      s.src = 'https://elc-connect-sandbox.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
-      s.async = 1;
-      s.id = id;
-      d.getElementsByTagName('head')[0].appendChild(s);
-      w[x] = w[x] || function () { (w[x].ac = w[x].ac || []).push(arguments); };
-    })(window, document, 'amazon_connect', '01f66d6e-2817-4aee-9071-b897dd6dbf23');
+  // Loads our own chat interface bundle (this repo's src/index.js output) -
+  // attaches connect.ChatInterface.init/.initiateChat onto window.connect.
+  // No AWS-hosted script/iframe is involved.
+  function loadChatInterfaceScript() {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = absoluteUrl('./amazon-connect-chat-interface.js');
+      s.async = true;
+      s.onload = resolve;
+      s.onerror = function () {
+        reject(new Error('failed to load amazon-connect-chat-interface.js'));
+      };
+      document.head.appendChild(s);
+    });
   }
 
-  function setupWidget(brandInfo, btn) {
+  function setupWidget(brandInfo, btn, panel) {
     window.__CHAT_BRAND_INFO__ = brandInfo;
     var brandConfig = brandInfo.config || {};
     var brandColors = brandConfig.colors || {};
 
     applyBrandColors(brandConfig);
 
-    var openColor = brandConfig.headerTextColor || '#ffffff';
-    var openBg = brandColors.primary500 || brandConfig.primaryColor || '#123456';
-    var closeBg = brandColors.primary800 || brandConfig.secondaryColor || openBg;
-
-    amazon_connect('styles', {
-      iconType: 'CHAT_VOICE',
-      openChat: { color: openColor, backgroundColor: openBg },
-      closeChat: { color: openColor, backgroundColor: closeBg }
-    });
-    amazon_connect('snippetId', 'QVFJREFIaUYzWWsrMWRnRDlkczNlcXlOOW53N0RzaVdJdlpUUXhxcmxDcHgzM0xWdXdFOWd4ZzBPek1jclQ5Sm1RbU1SdFZFQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZmdNS0ZTeDRkazY1cllaY0FnRVFnQ3VTZng5N2xUM1Z3bFYrQkNyUjRLZmdGTmYwdkhaSVAvaHJOVGErTENlOUVzNGhiQnkyWVNZSURpVW06Om15L01OMThVc0RkTXF0VENZbk1FUEh0UGduMDZIb0J4aFF2T2l3dVN3elZHSEtQNU4wZGVkMjNPUnNXYW9vU2lSY1JKb0NtS3BqTWN4c0JkVGhLQWJDSTlpYmdaVFdKREREcitjeUdnTFhsOHAzZXd0RHluMFNMTU1hdk0zM2NwZnlONTBkSWYyRmd2TG9pUTB1UHRneWRyelR2N2JDOD0=');
-    amazon_connect('supportedMessagingContentTypes', ['text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response']);
-    amazon_connect('customerChatInterfaceUrl', absoluteUrl('./amazon-connect-chat-interface.js'));
-    amazon_connect('customizationObject', {
+    // Mount the (initially idle) chat React app into our own panel - no
+    // network calls happen until initiateChat() is called below, so it's
+    // safe to do this eagerly rather than on first click.
+    window.connect.ChatInterface.init({
+      containerId: CHAT_PANEL_ID,
       headerConfig: brandConfig.header,
-      composer: {
-        disableEmojiPicker: true,
-        disableCustomerAttachment: true,
-      },
+      logoConfig: brandInfo.assets && brandInfo.assets.logo
+        ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
+        : undefined,
     });
 
-    // This widget is AWS's hosted "Communications Widget" (connectwidget/api/<widgetId>/start)
-    // - it always runs its own native start-chat internally, regardless of customStartChat below,
-    // and its own contact is what the live session actually binds to (confirmed via GetTranscript's
-    // InitialContactId + the flow's own debug output both matching the native call, never the
-    // customStartChat/Lambda contact). Per AWS's docs (Personalize the customer experience for
-    // in-app, web, and video calling > Alternate method: Pass contact attributes directly from
-    // snippet code), this is the supported way to get custom data onto THAT contact. Flow-side,
-    // these land under a "HostedWidget-" prefix: $.Attributes.HostedWidget-brand, not $.Attributes.brand.
-    amazon_connect('contactAttributes', buildContactAttributes(window.utag_data));
+    // Tracks whether a chat is currently active, so re-clicking the
+    // launcher button while a session is live just toggles the panel
+    // instead of starting a second, unrelated contact.
+    var hasActiveChat = false;
 
-    amazon_connect('customStartChat', async function (callback) {
-      try {
-        // Read window.utag_data fresh (not the bootstrap-time snapshot) so
-        // any login/session change between page load and the customer
-        // actually starting chat is reflected in the attributes Connect gets.
-        const contactAttributes = buildContactAttributes(window.utag_data);
+    function openPanel() {
+      panel.classList.add('open');
+      btn.classList.add('widget-open');
+    }
 
-        // Sent flat at the request root (not nested under "Attributes") -
-        // per the backend lambda's expected request shape for this project.
-        const response = await fetch(brandConfig.apiGatewayEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            pageUrl: window.location.href,
-            ...contactAttributes,
-          })
+    function closePanel() {
+      panel.classList.remove('open');
+      btn.classList.remove('widget-open');
+    }
+
+    function startChat() {
+      var contactAttributes = buildContactAttributes(window.utag_data);
+      window.connect.ChatInterface.initiateChat({
+        name: contactAttributes.customerName,
+        region: brandConfig.region,
+        instanceId: brandConfig.instanceId,
+        contactFlowId: brandConfig.contactFlowId,
+        apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
+        contactAttributes: JSON.stringify(contactAttributes),
+        supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
+      }, function onSuccess(chatSession) {
+        hasActiveChat = true;
+        // Fires when the chat truly ends (customer or agent closes it) -
+        // reopening the panel afterward should start a fresh chat, not
+        // silently show the now-disconnected transcript.
+        chatSession.onChatClose(function () {
+          hasActiveChat = false;
+          closePanel();
         });
-
-        const data = await response.json();
-
-        // Parse the body since Lambda returns it as a string
-        const body = typeof data.body === 'string'
-          ? JSON.parse(data.body)
-          : data;
-
-        // Pass in exact format widget expects
-        callback({
-          startChatResult: body.startChatResult,
-          featurePermissions: body.featurePermissions
-        });
-
-      } catch (error) {
+      }, function onFailure(error) {
         console.error('[chat-widget] Failed to start chat:', error);
+        closePanel();
+      });
+    }
+
+    btn.addEventListener('click', function () {
+      if (panel.classList.contains('open')) {
+        // Minimize - does not end an active chat, so reopening resumes it.
+        closePanel();
+        return;
       }
-    });
-
-    amazon_connect('customLaunchBehavior', {
-      skipIconButtonAndAutoLaunch: true,   // MUST be true
-      alwaysHideWidgetButton: true,        // hides Amazon's default button
-
-      programmaticLaunch: function (launchCallback) {
-        // Store launchCallback globally so button click can use it
-        // regardless of when this function runs vs when the button exists.
-        window._connectLaunchCallback = launchCallback;
-        btn.addEventListener('click', launchCallback);
+      openPanel();
+      if (!hasActiveChat) {
+        startChat();
       }
     });
 
@@ -406,51 +422,37 @@
   }
 
   function bootstrap() {
-    var btn = createLauncherDom();
+    var dom = createLauncherDom();
 
-    loadConnectWidgetScript();
+    var scriptLoaded = loadChatInterfaceScript();
 
-    waitForUtagData(function (utagData) {
-      var resolved = resolveBrand(utagData);
-      if (!resolved.brand) {
-        console.warn('[chat-widget] utag_data.brand is missing/empty - launcher will remain hidden.');
-        return;
-      }
-      var brandInfoUrl = absoluteUrl('./brand-assets/' + resolved.brand + '/' + resolved.env + '/brandInfo.json');
-      fetch(brandInfoUrl, { cache: 'no-store' })
-        .then(function (res) {
-          if (!res.ok) throw new Error('brandInfo fetch failed with status ' + res.status);
-          return res.json();
-        })
-        .then(function (brandInfo) {
-          return setupWidget(brandInfo, btn);
-        })
-        .catch(function (err) {
-          console.warn('[chat-widget] failed to load brand data for "' + resolved.brand + '/' + resolved.env + '" - launcher will remain hidden.', err);
-        });
-    }, function () {
-      console.warn('[chat-widget] window.utag_data was not available after ' + UTAG_TIMEOUT_MS + 'ms - launcher will remain hidden.');
+    var brandInfoLoaded = new Promise(function (resolve, reject) {
+      waitForUtagData(function (utagData) {
+        var resolved = resolveBrand(utagData);
+        if (!resolved.brand) {
+          reject(new Error('utag_data.brand is missing/empty'));
+          return;
+        }
+        var brandInfoUrl = absoluteUrl('./brand-assets/' + resolved.brand + '/' + resolved.env + '/brandInfo.json');
+        fetch(brandInfoUrl, { cache: 'no-store' })
+          .then(function (res) {
+            if (!res.ok) throw new Error('brandInfo fetch failed with status ' + res.status);
+            return res.json();
+          })
+          .then(resolve)
+          .catch(reject);
+      }, function () {
+        reject(new Error('window.utag_data was not available after ' + UTAG_TIMEOUT_MS + 'ms'));
+      });
     });
 
-    // Cosmetic patch for AWS's own widget DOM, unrelated to brand
-    // resolution - applies regardless of which brand loads.
-    setTimeout(function () {
-      var widgetContainer = document.querySelector('div[class*="acWidgetContainer"]');
-      if (widgetContainer) {
-        widgetContainer.style.overflow = 'visible';
-        widgetContainer.style.borderRadius = '24px 24px 0 0';
-      }
-
-      var frameContainer = document.querySelector('div[class*="acFrameContainer"]');
-      if (frameContainer) {
-        frameContainer.style.borderRadius = '24px 24px 0 0';
-        // Apply radius on iframe to handle white corner bleed
-        var iframe = frameContainer.querySelector('iframe');
-        if (iframe) {
-          iframe.style.borderRadius = '24px 24px 0 0';
-        }
-      }
-    }, 1000);
+    Promise.all([scriptLoaded, brandInfoLoaded])
+      .then(function (results) {
+        return setupWidget(results[1], dom.btn, dom.panel);
+      })
+      .catch(function (err) {
+        console.warn('[chat-widget] failed to initialize - launcher will remain hidden.', err);
+      });
   }
 
   if (document.readyState === 'loading') {

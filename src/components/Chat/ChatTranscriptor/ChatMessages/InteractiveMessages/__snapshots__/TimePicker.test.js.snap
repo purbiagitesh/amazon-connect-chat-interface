@@ -18,10 +18,9 @@ Object {
 }
 
 .c6 {
-  font-size: 1em;
-  line-height: 1.465;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: normal;
-  font-family: Arial,Helvetica,"sans-serif",Helvetica,sans-serif;
   padding: 0;
   white-space: nowrap;
   color: #111111;
@@ -53,7 +52,6 @@ Object {
   color: undefined;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
-  font-size: 0.875rem;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.1);
 }
 
@@ -113,10 +111,17 @@ Object {
 }
 
 .c2 {
-  font-weight: bold !important;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: normal;
+  padding: 0;
 }
 
 .c3 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: normal;
+  padding: 0;
   color: #555555;
 }
 
@@ -388,36 +393,36 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-fAjcbJ bJnSGf"
+      class="sc-ktHwxA frjmaX"
     >
       <p
-        class="sc-bZQynM fraGhu sc-fMiknA guHZOl"
+        class="sc-bZQynM fraGhu sc-fYxtnH fvXfpx"
         style="margin: 0px;"
       >
         TimePickerTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-dVhcbM fmjyml"
+        class="sc-bZQynM fraGhu sc-tilXH fTZliX"
         style="margin: 0px;"
       >
         TimePickerSubtitle
       </p>
     </div>
     <div
-      class="sc-caSCKo eMgFmA"
+      class="sc-cIShpX fwRSI"
     >
       <div
-        class="sc-cHGsZl kpeViL"
+        class="sc-iELTvK hktkMy"
       >
         <button
-          class="sc-gzVnrw fgSGc sc-TOsTZ sc-kgAjT cxxbiC"
+          class="sc-gzVnrw irdTUs sc-cmTdod sc-jwKygS cBPvYz"
           data-selected="false"
           data-testid="time-picker-prev-date-button"
           disabled=""
           type="default"
         >
           <div
-            class="sc-ksYbfQ kgnwri"
+            class="sc-lhVmIH dnyxwF"
             direction="left"
           >
             <svg
@@ -450,13 +455,13 @@ Object {
           Saturday, October 31
         </span>
         <button
-          class="sc-gzVnrw fgSGc sc-TOsTZ sc-cJSrbW krSpzL"
+          class="sc-gzVnrw irdTUs sc-cmTdod sc-btzYZH imNbuX"
           data-selected="false"
           data-testid="time-picker-next-date-button"
           type="default"
         >
           <div
-            class="sc-ksYbfQ leEBYp"
+            class="sc-lhVmIH efvZcL"
             direction="right"
           >
             <svg
@@ -487,10 +492,10 @@ Object {
         </button>
       </div>
       <div
-        class="sc-hmzhuo cAkzWi"
+        class="sc-bYSBpT iFWWfp"
       >
         <button
-          class="sc-gzVnrw fgSGc"
+          class="sc-gzVnrw irdTUs"
           data-selected="false"
           type="default"
           value="2020-10-31T17:00+00:00"
@@ -499,7 +504,7 @@ Object {
         </button>
       </div>
       <div
-        class="sc-frDJqD cxKniI"
+        class="sc-elJkPf kSXnSr"
       />
     </div>
   </div>,

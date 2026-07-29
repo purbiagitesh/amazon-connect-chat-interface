@@ -19,14 +19,16 @@
     // tag; this stub exists purely so this local page has something for
     // launcher.js to wait for. Not part of the production script - change
     // brand/ELC_ENV here to test different brands locally.
-    window.utag_data = { brand: 'origins', ELC_ENV: 'dev' };
+    window.utag_data = { brand: 'kilian', ELC_ENV: 'dev' };
   </script>
 
   <!-- The actual production artifact: this is the one script Tealium
        injects on a brand's real site (see scripts/build.js, which copies
        launcher/launcher.js to build/dist/launcher.js alongside
-       amazon-connect-chat-interface.js and brand-assets/). Nothing else on
-       this page is required for it to work. -->
+       amazon-connect-chat-interface.js and brand-assets/). It loads
+       amazon-connect-chat-interface.js itself and mounts the chat panel
+       into a container it creates - nothing else on this page is required
+       for it to work. -->
   <script src="./launcher.js"></script>
 </body>
 

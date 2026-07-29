@@ -2,10 +2,9 @@
 
 exports[`<ChatActionBar /> Style should match the snapshot 1`] = `
 .c3 {
-  font-size: 1em;
-  line-height: 1.465;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: normal;
-  font-family: Arial,Helvetica,"sans-serif",Helvetica,sans-serif;
   padding: 0;
   white-space: nowrap;
   color: #111111;
@@ -37,7 +36,6 @@ exports[`<ChatActionBar /> Style should match the snapshot 1`] = `
   color: undefined;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
-  font-size: 0.875rem;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.1);
 }
 
@@ -129,13 +127,11 @@ exports[`<ChatActionBar /> Style should match the snapshot 1`] = `
 .c2 > button {
   min-width: 85px;
   margin: 6px;
-  font-weight: bold;
 }
 
 .c4 {
   margin: 10px;
   width: 43%;
-  font-size: var(--ac-widget-footer-button-fontsize,inherit);
   color: var(--ac-widget-footer-button-textcolor,inherit);
   border-color: var(--ac-widget-footer-button-bordercolor,inherit);
   background: var(--ac-widget-footer-button-backgroundcolor,inherit);

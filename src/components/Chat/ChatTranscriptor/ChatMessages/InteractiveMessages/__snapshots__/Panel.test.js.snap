@@ -18,10 +18,9 @@ Object {
 }
 
 .c7 {
-  font-size: 1em;
-  line-height: 1.465;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: normal;
-  font-family: Arial,Helvetica,"sans-serif",Helvetica,sans-serif;
   padding: 0;
   white-space: nowrap;
   color: #111111;
@@ -53,7 +52,6 @@ Object {
   color: undefined;
   padding-top: 0.45rem;
   padding-bottom: 0.45rem;
-  font-size: 0.875rem;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.1);
 }
 
@@ -113,10 +111,17 @@ Object {
 }
 
 .c4 {
-  font-weight: bold !important;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: normal;
+  padding: 0;
 }
 
 .c5 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: normal;
+  padding: 0;
   color: #555555;
 }
 
@@ -138,7 +143,10 @@ Object {
 }
 
 .c9 {
-  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
 }
 
 .c9 a {
@@ -238,54 +246,54 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-dNLxif bpIhGK"
+      class="sc-gxMtzJ iIJhiR"
     >
       <img
         alt="PanelImageDescription"
-        class="sc-hmzhuo ktACEa"
+        class="sc-bYSBpT cSwwTM"
         src="PanelImageData"
       />
     </div>
     <div
-      class="sc-frDJqD kVtdcK"
+      class="sc-elJkPf jfwVBY"
     >
       <p
-        class="sc-bZQynM fraGhu sc-cJSrbW fDctaU"
+        class="sc-bZQynM fraGhu sc-btzYZH gSPlNl"
         style="margin: 0px;"
       >
         PanelTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-ksYbfQ gPMVVn"
+        class="sc-bZQynM fraGhu sc-lhVmIH jFCHEG"
         style="margin: 0px;"
       >
         PanelSubtitle
       </p>
     </div>
     <div
-      class="sc-kvZOFW dyyoOq"
+      class="sc-jtRfpW gkTWSZ"
     >
       <div>
         <button
-          class="sc-gzVnrw fgSGc sc-jqCOkK gjiNJE"
+          class="sc-gzVnrw irdTUs sc-dfVpRl cwNPzz"
           data-selected="false"
           type="default"
           value="PanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-jbKcbu LiUFM"
+            class="sc-bZQynM fraGhu sc-dqBHgY jjQdbp"
           >
             PanelElementTitle
           </p>
         </button>
         <button
-          class="sc-gzVnrw fgSGc sc-jqCOkK gjiNJE"
+          class="sc-gzVnrw irdTUs sc-dfVpRl cwNPzz"
           data-selected="false"
           type="default"
           value="AnotherPanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-jbKcbu LiUFM"
+            class="sc-bZQynM fraGhu sc-dqBHgY jjQdbp"
           >
             AnotherPanelElementTitle
           </p>

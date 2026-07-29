@@ -5,20 +5,35 @@ import {RichMessageRenderer} from "../../../RichMessageComponents";
 import {InteractiveMessage, MessageBody} from "../InteractiveMessage";
 import {Button} from "connect-core";
 import {truncateStrFromCharLimit} from "../../../../../utils/helper";
-import isJSON from "is-json";
 import {InteractiveMessageType} from "../../../datamodel/Model";
 
 const SCROLL_OFFSET_AMOUNT = 200;
 
+// Every plain-text message gets checked against this to see if it's a
+// carousel/list-picker selection echo, so messageContent is often just
+// ordinary chat text, not JSON at all - JSON.parse must never throw here.
+// (is-json's own check used to guard this instead of a real try/catch, but
+// it's a loose regex that produces false positives for non-JSON text
+// containing a `"key":value`-shaped substring, e.g. brace-wrapped plain
+// text - JSON.parse on that still throws, uncaught, crashing the transcript.)
 export function isCarouselSelectionMessage(messageContent) {
-  if (isJSON(messageContent)) {
-    const parsedContent = JSON.parse(messageContent);
-    const expectedSelectionKeys = ["listTitle", "selectionText", "templateIdentifier"];
-
-    return expectedSelectionKeys.every(key => key in parsedContent && typeof parsedContent[key] === "string");
+  if (typeof messageContent !== "string") {
+    return false;
   }
 
-  return false;
+  let parsedContent;
+  try {
+    parsedContent = JSON.parse(messageContent);
+  } catch (e) {
+    return false;
+  }
+
+  if (typeof parsedContent !== "object" || parsedContent === null) {
+    return false;
+  }
+
+  const expectedSelectionKeys = ["listTitle", "selectionText", "templateIdentifier"];
+  return expectedSelectionKeys.every(key => key in parsedContent && typeof parsedContent[key] === "string");
 }
 
 export function formatCarouselInteractiveSelection(messageContent) {

@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "b4ffc65a2bc31e57c132";
+/******/ 	var hotCurrentHash = "d7c13637f123f5c2c3b4";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136241,7 +136241,7 @@ function extend() {
 /*! exports provided: name, version, homepage, author, license, repository, engines, browserslist, scripts, jest, dependencies, devDependencies, overrides, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"@amzn/connect-chat-interface\",\"version\":\"1.0.0\",\"homepage\":\"https://github.com/amazon-connect/amazon-connect-chat-interface\",\"author\":\"Amazon Web Services\",\"license\":\"MIT-0\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/amazon-connect/amazon-connect-chat-interface.git\"},\"engines\":{\"node\":\">=15.0.0\"},\"browserslist\":[\">0.2%\",\"not dead\",\"not ie <= 11\",\"not op_mini all\"],\"scripts\":{\"build\":\"npm run coverage && node scripts/build.js\",\"release\":\"npm run build\",\"debug\":\"npm run dev-build && node scripts/copyToOutput.js\",\"dev-build\":\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js\",\"dev-watch\":\"nodemon --watch src -x \\\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js && node scripts/copyToOutput.js\\\"\",\"clean\":\"rm -rf build/ node_modules build\",\"test\":\"node scripts/test.js\",\"coverage\":\"node scripts/test.js --coverage\",\"test:watch\":\"node scripts/test.js --watchAll\",\"preinstall\":\"npx npm-force-resolutions\",\"prepare-brand\":\"node scripts/prepare-brand.js\",\"prepare-brand:all\":\"node scripts/prepare-brand.js --all\",\"create-brand\":\"node scripts/create-brand.js\",\"dev\":\"node scripts/dev-server.js\",\"dev:brand\":\"node scripts/dev-server.js\",\"start\":\"npm run dev\",\"list-brands\":\"node scripts/prepare-brand.js --list\"},\"jest\":{\"setupFilesAfterEnv\":[\"<rootDir>/configuration/jest/setup.js\"],\"collectCoverage\":true,\"collectCoverageFrom\":[\"src/**/*.{js,jsx,ts,tsx}\",\"!src/**/*.d.ts\"],\"resolver\":\"jest-pnp-resolver\",\"setupFiles\":[\"react-app-polyfill/jsdom\"],\"testMatch\":[\"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}\",\"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}\"],\"testEnvironment\":\"jsdom\",\"testURL\":\"http://localhost\",\"transform\":{\"\\\\.[jt]sx?$\":\"babel-jest\",\".+\\\\.(css|styl|less|sass|scss)$\":\"jest-css-modules-transform\",\"\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/configuration/jest/fileTransform.js\"},\"transformIgnorePatterns\":[\"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|ts|tsx)$\",\"^.+\\\\.module\\\\.(css|sass|scss)$\"],\"moduleNameMapper\":{\"^react-native$\":\"react-native-web\",\"^connect-components/(.*)$\":\"<rootDir>/src/components/$1\",\"^connect-core$\":\"<rootDir>/src/components/core/\",\"^connect-services/(.*)$\":\"<rootDir>/src/services/$1\",\"^connect-chat$\":\"<rootDir>/src/components/Chat\",\"^connect-chat/(.*)$\":\"<rootDir>/src/components/Chat/$1\",\"^connect-constants$\":\"<rootDir>/src/constants/global\",\"^connect-hooks$\":\"<rootDir>/src/hooks\",\"^connect-images$\":\"<rootDir>/src/assets/images\",\"^connect-prop-types$\":\"<rootDir>/src/propTypes\",\"^connect-theme$\":\"<rootDir>/src/theme\",\"^connect-theme/(.*)$\":\"<rootDir>/src/theme/$1\",\"^connect-app-context/(.*)$\":\"<rootDir>/src/context/$1\",\"^.+\\\\.module\\\\.(css|sass|scss)$\":\"identity-obj-proxy\"},\"moduleFileExtensions\":[\"web.js\",\"js\",\"web.ts\",\"ts\",\"web.tsx\",\"tsx\",\"json\",\"web.jsx\",\"jsx\",\"node\"],\"globalSetup\":\"./global-setup.js\"},\"dependencies\":{\"@babel/runtime\":\"7.9.2\",\"@emotion/core\":\"^10.0.35\",\"@svgr/webpack\":\"^6.2.1\",\"@types/jest\":\"^28.0.0\",\"amazon-connect-chatjs\":\"^3.0.3\",\"braces\":\"^3.0.3\",\"core-js\":\"^3.8.3\",\"dompurify\":\"^3.1.3\",\"draft-js\":\"^0.11.7\",\"emoji-mart\":\"^3.0.1\",\"http-proxy-middleware\":\"^2.0.7\",\"is-json\":\"^2.0.1\",\"markdown-draft-js\":\"^2.4.0\",\"react\":\"^16.6.3\",\"react-app-polyfill\":\"^3.0.0\",\"react-dom\":\"^16.6.3\",\"react-error-boundary\":\"^5.0.0\",\"react-intersection-observer\":\"8.33.1\",\"react-linkify\":\"0.2.2\",\"react-markdown\":\"^6.0.3\",\"react-router-dom\":\"^4.3.1\",\"react-spinners\":\"^0.10.4\",\"react-textarea-autosize\":\"8.4.0\",\"styled-components\":\"^4.1.1\",\"webpack\":\"^4.46.0\",\"whatwg-fetch\":\"^3.2.0\",\"workbox-webpack-plugin\":\"^7.0.0\"},\"devDependencies\":{\"@babel/core\":\"^7.23.2\",\"@babel/plugin-proposal-class-properties\":\"^7.18.6\",\"@babel/plugin-proposal-optional-chaining\":\"^7.21.0\",\"@babel/preset-env\":\"^7.23.2\",\"@emotion/babel-plugin\":\"^11.11.0\",\"@testing-library/dom\":\"7.29.4\",\"@testing-library/jest-dom\":\"^6.6.3\",\"@testing-library/react\":\"^12.1.5\",\"@testing-library/user-event\":\"13.0.7\",\"@types/react\":\"^16.14.35\",\"acorn\":\"^8.8.2\",\"babel-core\":\"7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.0\",\"babel-jest\":\"27.2.0\",\"babel-loader\":\"^8.3.0\",\"babel-plugin-named-asset-import\":\"^0.2.3\",\"babel-preset-react-app\":\"^8.0.0\",\"bfj\":\"6.1.1\",\"case-sensitive-paths-webpack-plugin\":\"2.1.2\",\"chalk\":\"2.4.1\",\"cross-env\":\"^7.0.3\",\"css-loader\":\"^7.1.2\",\"dotenv\":\"6.0.0\",\"dotenv-expand\":\"12.0.1\",\"enzyme\":\"^3.7.0\",\"enzyme-adapter-react-16\":\"^1.7.0\",\"eslint\":\"^7.32.0\",\"eslint-config-react-app\":\"^6.0.0\",\"eslint-loader\":\"4.0.2\",\"eslint-plugin-flowtype\":\"5.10.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-jsx-a11y\":\"6.4.1\",\"eslint-plugin-react\":\"7.27.0\",\"file-loader\":\"2.0.0\",\"fork-ts-checker-webpack-plugin\":\"6.3.3\",\"fs-extra\":\"7.0.0\",\"html-webpack-plugin\":\"4.0.0-alpha.2\",\"husky\":\"^4.3.8\",\"identity-obj-proxy\":\"3.0.0\",\"jest\":\"^28.0.0\",\"jest-css-modules-transform\":\"^4.4.2\",\"jest-environment-jsdom\":\"^29.7.0\",\"jest-location-mock\":\"^1.0.9\",\"jest-pnp-resolver\":\"1.0.1\",\"jest-resolve\":\"^23.6.0\",\"jest-styled-components\":\"^6.3.1\",\"lodash\":\"^4.17.21\",\"mini-css-extract-plugin\":\"^0.9.0\",\"nodemon\":\"^3.1.0\",\"optimize-css-assets-webpack-plugin\":\"^6.0.0\",\"pnp-webpack-plugin\":\"1.7.0\",\"postcss-flexbugs-fixes\":\"^5.0.2\",\"postcss-loader\":\"4.2.0\",\"postcss-preset-env\":\"^9.5.2\",\"postcss-safe-parser\":\"^7.0.0\",\"prop-types\":\"^15.8.1\",\"react-dev-utils\":\"^12.0.0\",\"react-intl\":\"^6.3.2\",\"react-render-html\":\"^0.6.0\",\"react-test-renderer\":\"^16.6.3\",\"resolve\":\"1.8.1\",\"sass-loader\":\"^10.1.1\",\"shallow\":\"^1.0.0\",\"style-loader\":\"0.23.0\",\"terser-webpack-plugin\":\"4.2.3\",\"typescript\":\"^4.9.4\",\"typescript-formatter\":\"^7.2.2\",\"universal-cookie\":\"^7.2.1\",\"url-loader\":\"1.1.1\",\"webpack-cli\":\"^4.8.0\",\"webpack-dev-server\":\"^4.1.1\",\"webpack-manifest-plugin\":\"2.0.4\"},\"overrides\":{\"glob-parent\":\"^5.1.2\",\"css-loader\":{\"webpack\":\"^4.46.0\"}}}");
+module.exports = JSON.parse("{\"name\":\"@amzn/connect-chat-interface\",\"version\":\"1.0.0\",\"homepage\":\"https://github.com/amazon-connect/amazon-connect-chat-interface\",\"author\":\"Amazon Web Services\",\"license\":\"MIT-0\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/amazon-connect/amazon-connect-chat-interface.git\"},\"engines\":{\"node\":\">=15.0.0\"},\"browserslist\":[\">0.2%\",\"not dead\",\"not ie <= 11\",\"not op_mini all\"],\"scripts\":{\"build\":\"npm run coverage && node scripts/build.js\",\"release\":\"npm run build\",\"debug\":\"npm run dev-build && node scripts/copyToOutput.js\",\"dev-build\":\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js\",\"dev-watch\":\"nodemon --watch src -x \\\"cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js && node scripts/copyToOutput.js\\\"\",\"clean\":\"rm -rf build/ node_modules build\",\"test\":\"node scripts/test.js\",\"coverage\":\"node scripts/test.js --coverage\",\"test:watch\":\"node scripts/test.js --watchAll\",\"preinstall\":\"npx npm-force-resolutions\",\"prepare-brand\":\"node scripts/prepare-brand.js\",\"prepare-brand:all\":\"node scripts/prepare-brand.js --all\",\"create-brand\":\"node scripts/create-brand.js\",\"dev\":\"node scripts/dev-server.js\",\"dev:brand\":\"node scripts/dev-server.js\",\"start\":\"npm run dev\",\"list-brands\":\"node scripts/prepare-brand.js --list\"},\"jest\":{\"setupFilesAfterEnv\":[\"<rootDir>/configuration/jest/setup.js\"],\"collectCoverage\":true,\"collectCoverageFrom\":[\"src/**/*.{js,jsx,ts,tsx}\",\"!src/**/*.d.ts\"],\"resolver\":\"jest-pnp-resolver\",\"setupFiles\":[\"react-app-polyfill/jsdom\"],\"testMatch\":[\"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}\",\"<rootDir>/src/**/*.test.{js,jsx,ts,tsx}\",\"<rootDir>/src/**/*.spec.{js,jsx,ts,tsx}\"],\"testEnvironment\":\"jsdom\",\"testURL\":\"http://localhost\",\"transform\":{\"\\\\.[jt]sx?$\":\"babel-jest\",\".+\\\\.(css|styl|less|sass|scss)$\":\"jest-css-modules-transform\",\"\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/configuration/jest/fileTransform.js\"},\"transformIgnorePatterns\":[\"[/\\\\\\\\]node_modules[/\\\\\\\\].+\\\\.(js|jsx|ts|tsx)$\",\"^.+\\\\.module\\\\.(css|sass|scss)$\"],\"moduleNameMapper\":{\"^react-native$\":\"react-native-web\",\"^connect-components/(.*)$\":\"<rootDir>/src/components/$1\",\"^connect-core$\":\"<rootDir>/src/components/core/\",\"^connect-services/(.*)$\":\"<rootDir>/src/services/$1\",\"^connect-chat$\":\"<rootDir>/src/components/Chat\",\"^connect-chat/(.*)$\":\"<rootDir>/src/components/Chat/$1\",\"^connect-constants$\":\"<rootDir>/src/constants/global\",\"^connect-hooks$\":\"<rootDir>/src/hooks\",\"^connect-images$\":\"<rootDir>/src/assets/images\",\"^connect-prop-types$\":\"<rootDir>/src/propTypes\",\"^connect-theme$\":\"<rootDir>/src/theme\",\"^connect-theme/(.*)$\":\"<rootDir>/src/theme/$1\",\"^connect-app-context/(.*)$\":\"<rootDir>/src/context/$1\",\"^.+\\\\.module\\\\.(css|sass|scss)$\":\"identity-obj-proxy\"},\"moduleFileExtensions\":[\"web.js\",\"js\",\"web.ts\",\"ts\",\"web.tsx\",\"tsx\",\"json\",\"web.jsx\",\"jsx\",\"node\"],\"globalSetup\":\"./global-setup.js\"},\"dependencies\":{\"@babel/runtime\":\"7.9.2\",\"@emotion/core\":\"^10.0.35\",\"@svgr/webpack\":\"^6.2.1\",\"@types/jest\":\"^28.0.0\",\"amazon-connect-chatjs\":\"^3.0.3\",\"braces\":\"^3.0.3\",\"core-js\":\"^3.8.3\",\"dompurify\":\"^3.1.3\",\"draft-js\":\"^0.11.7\",\"emoji-mart\":\"^3.0.1\",\"http-proxy-middleware\":\"^2.0.7\",\"is-json\":\"^2.0.1\",\"markdown-draft-js\":\"^2.4.0\",\"react\":\"^16.6.3\",\"react-app-polyfill\":\"^3.0.0\",\"react-dom\":\"^16.6.3\",\"react-error-boundary\":\"^5.0.0\",\"react-intersection-observer\":\"8.33.1\",\"react-linkify\":\"0.2.2\",\"react-markdown\":\"^6.0.3\",\"react-router-dom\":\"^4.3.1\",\"react-spinners\":\"^0.10.4\",\"react-textarea-autosize\":\"8.4.0\",\"styled-components\":\"^4.1.1\",\"webpack\":\"^4.46.0\",\"whatwg-fetch\":\"^3.2.0\",\"workbox-webpack-plugin\":\"^7.0.0\"},\"devDependencies\":{\"@babel/core\":\"^7.23.2\",\"@babel/plugin-proposal-class-properties\":\"^7.18.6\",\"@babel/plugin-proposal-optional-chaining\":\"^7.21.0\",\"@babel/preset-env\":\"^7.23.2\",\"@emotion/babel-plugin\":\"^11.11.0\",\"@testing-library/dom\":\"7.29.4\",\"@testing-library/jest-dom\":\"^6.6.3\",\"@testing-library/react\":\"^12.1.5\",\"@testing-library/user-event\":\"13.0.7\",\"@types/react\":\"^16.14.35\",\"acorn\":\"^8.8.2\",\"babel-core\":\"7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.0\",\"babel-jest\":\"27.2.0\",\"babel-loader\":\"^8.3.0\",\"babel-plugin-named-asset-import\":\"^0.2.3\",\"babel-preset-react-app\":\"^8.0.0\",\"bfj\":\"6.1.1\",\"case-sensitive-paths-webpack-plugin\":\"2.1.2\",\"chalk\":\"2.4.1\",\"cross-env\":\"^7.0.3\",\"css-loader\":\"^7.1.2\",\"dotenv\":\"6.0.0\",\"dotenv-expand\":\"12.0.1\",\"enzyme\":\"^3.7.0\",\"enzyme-adapter-react-16\":\"^1.7.0\",\"eslint\":\"^7.32.0\",\"eslint-config-react-app\":\"^6.0.0\",\"eslint-loader\":\"4.0.2\",\"eslint-plugin-flowtype\":\"5.10.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-jsx-a11y\":\"6.4.1\",\"eslint-plugin-react\":\"7.27.0\",\"file-loader\":\"2.0.0\",\"fork-ts-checker-webpack-plugin\":\"6.3.3\",\"fs-extra\":\"7.0.0\",\"html-webpack-plugin\":\"4.0.0-alpha.2\",\"husky\":\"^4.3.8\",\"identity-obj-proxy\":\"3.0.0\",\"jest\":\"^28.0.0\",\"jest-css-modules-transform\":\"^4.4.2\",\"jest-environment-jsdom\":\"^29.7.0\",\"jest-location-mock\":\"^1.0.9\",\"jest-pnp-resolver\":\"1.0.1\",\"jest-resolve\":\"^23.6.0\",\"jest-styled-components\":\"^6.3.1\",\"lodash\":\"^4.17.21\",\"mini-css-extract-plugin\":\"^0.9.0\",\"nodemon\":\"^3.1.0\",\"optimize-css-assets-webpack-plugin\":\"^6.0.0\",\"pnp-webpack-plugin\":\"1.7.0\",\"postcss-flexbugs-fixes\":\"^5.0.2\",\"postcss-loader\":\"4.2.0\",\"postcss-preset-env\":\"^9.5.2\",\"postcss-safe-parser\":\"^7.0.0\",\"prop-types\":\"^15.8.1\",\"react-dev-utils\":\"^12.0.0\",\"react-intl\":\"^6.3.2\",\"react-render-html\":\"^0.6.0\",\"react-test-renderer\":\"^16.6.3\",\"resolve\":\"1.8.1\",\"sass-loader\":\"^10.1.1\",\"shallow\":\"^1.0.0\",\"style-loader\":\"0.23.0\",\"terser-webpack-plugin\":\"4.2.3\",\"typescript\":\"^4.9.4\",\"typescript-formatter\":\"^7.2.2\",\"universal-cookie\":\"^7.2.1\",\"url-loader\":\"1.1.1\",\"webpack-cli\":\"^4.8.0\",\"webpack-dev-server\":\"^4.1.1\",\"webpack-manifest-plugin\":\"2.0.4\"},\"overrides\":{\"glob-parent\":\"^5.1.2\",\"css-loader\":{\"webpack\":\"^4.46.0\"}}}");
 
 /***/ }),
 
@@ -141576,9 +141576,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InteractiveMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../InteractiveMessage */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessage.js");
 /* harmony import */ var connect_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! connect-core */ "./src/components/core/index.js");
 /* harmony import */ var _utils_helper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../utils/helper */ "./src/utils/helper.js");
-/* harmony import */ var is_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! is-json */ "./node_modules/is-json/index.js");
-/* harmony import */ var is_json__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(is_json__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
 
 var _templateObject,
   _templateObject2,
@@ -141592,17 +141590,32 @@ var _templateObject,
 
 
 
-
 var SCROLL_OFFSET_AMOUNT = 200;
+
+// Every plain-text message gets checked against this to see if it's a
+// carousel/list-picker selection echo, so messageContent is often just
+// ordinary chat text, not JSON at all - JSON.parse must never throw here.
+// (is-json's own check used to guard this instead of a real try/catch, but
+// it's a loose regex that produces false positives for non-JSON text
+// containing a `"key":value`-shaped substring, e.g. brace-wrapped plain
+// text - JSON.parse on that still throws, uncaught, crashing the transcript.)
 function isCarouselSelectionMessage(messageContent) {
-  if (is_json__WEBPACK_IMPORTED_MODULE_8___default()(messageContent)) {
-    var parsedContent = JSON.parse(messageContent);
-    var expectedSelectionKeys = ["listTitle", "selectionText", "templateIdentifier"];
-    return expectedSelectionKeys.every(function (key) {
-      return key in parsedContent && typeof parsedContent[key] === "string";
-    });
+  if (typeof messageContent !== "string") {
+    return false;
   }
-  return false;
+  var parsedContent;
+  try {
+    parsedContent = JSON.parse(messageContent);
+  } catch (e) {
+    return false;
+  }
+  if (typeof parsedContent !== "object" || parsedContent === null) {
+    return false;
+  }
+  var expectedSelectionKeys = ["listTitle", "selectionText", "templateIdentifier"];
+  return expectedSelectionKeys.every(function (key) {
+    return key in parsedContent && typeof parsedContent[key] === "string";
+  });
 }
 function formatCarouselInteractiveSelection(messageContent) {
   var _JSON$parse = JSON.parse(messageContent),
@@ -141645,7 +141658,7 @@ function NestedInteractiveMessages(_ref5) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 83,
+        lineNumber: 98,
         columnNumber: 9
       }
     });
@@ -141658,7 +141671,7 @@ function ChevronIcon(_ref6) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 113,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("svg", {
@@ -141669,7 +141682,7 @@ function ChevronIcon(_ref6) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99,
+      lineNumber: 114,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("g", {
@@ -141681,7 +141694,7 @@ function ChevronIcon(_ref6) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100,
+      lineNumber: 115,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("polygon", {
@@ -141692,7 +141705,7 @@ function ChevronIcon(_ref6) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101,
+      lineNumber: 116,
       columnNumber: 11
     }
   }))));
@@ -141722,7 +141735,7 @@ function Carousel(_ref7) {
   };
 
   // Frontend field validations
-  var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["InteractiveMessageType"].CAROUSEL, "titleCharLimit");
+  var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].CAROUSEL, "titleCharLimit");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_5__["MessageBody"], {
     addChildBackgroundStyles: true,
     "data-testid": "interactive-carousel-message-title",
@@ -141730,7 +141743,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 156,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -141738,7 +141751,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 142,
+      lineNumber: 157,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ScrollButton, {
@@ -141749,7 +141762,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 145,
+      lineNumber: 160,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChevronIcon, {
@@ -141757,7 +141770,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 151,
+      lineNumber: 166,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ResponsesSection, {
@@ -141766,7 +141779,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 154,
+      lineNumber: 169,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(NestedInteractiveMessages, {
@@ -141775,7 +141788,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 155,
+      lineNumber: 170,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ScrollButton, {
@@ -141786,7 +141799,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 158,
+      lineNumber: 173,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChevronIcon, {
@@ -141794,7 +141807,7 @@ function Carousel(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 164,
+      lineNumber: 179,
       columnNumber: 9
     }
   })));

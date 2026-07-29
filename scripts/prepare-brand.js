@@ -504,6 +504,7 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
       apiGatewayEndpoint:  config.aws?.apiGatewayEndpoint || '',
       instanceId:          config.aws?.instanceId || '',
       contactFlowId:       config.aws?.contactFlowId || '',
+      region:              config.aws?.region || '',
     },
   };
 
