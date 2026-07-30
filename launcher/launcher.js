@@ -140,7 +140,14 @@
     + '  bottom: 24px;'
     + '  right: 24px;'
     + '  width: 330px;'
-    + '  height: min(520px, calc(100vh - 48px));'
+    // Fixed pixel height, deliberately NOT a calc(100vh - ...) expression -
+    // that dynamic form was the suspected cause of the panel only
+    // rendering correctly while DevTools happened to be open: the bug
+    // reproduced specifically when the viewport grew *after* the panel was
+    // already open (DevTools closing), which a static bottom-anchored box
+    // should never be sensitive to. A plain fixed height has no viewport
+    // dependency to ever go stale on.
+    + '  height: 520px;'
     + '  max-width: calc(100vw - 32px);'
     + '  background: #ffffff;'
     + '  border-radius: 24px;'

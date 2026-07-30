@@ -181,6 +181,39 @@ export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageTyp
   )
 }
 
+const INTERACTIVE_MESSAGE_TEMPLATE_TYPES = Object.values(InteractiveMessageType);
+
+// Amazon Connect's SendMessage API only accepts ContentType text/plain or
+// text/markdown for a CUSTOM_BOT participant (confirmed via a live
+// ValidationException: "supported value(s) [text/plain, text/markdown]") -
+// application/vnd.amazonaws.connect.message.interactive is rejected outside
+// Lex's own internal integration. Rather than requiring Lex, this lets a
+// plain-text/markdown message still render as the real interactive
+// component (ListPicker, QuickReply, etc.) if its content is shaped like a
+// genuine interactive-message payload - both a native Lex-sent interactive
+// message (matched via contentType above) and this same JSON sent as
+// text/plain by a custom-bot Lambda end up rendering identically.
+function isInteractiveMessagePayload(content) {
+  if (typeof content !== "string") {
+    return false;
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(content);
+  } catch (e) {
+    return false;
+  }
+  return (
+    typeof parsed === "object" &&
+    parsed !== null &&
+    INTERACTIVE_MESSAGE_TEMPLATE_TYPES.includes(parsed.templateType) &&
+    typeof parsed.data === "object" &&
+    parsed.data !== null &&
+    typeof parsed.data.content === "object" &&
+    parsed.data.content !== null
+  );
+}
+
 export class ParticipantMessage extends PureComponent {
   static propTypes = {
     messageDetails: PT.object.isRequired,
@@ -457,7 +490,7 @@ export class ParticipantMessage extends PureComponent {
       );
     }
 
-    if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE) {
+    if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) {
       const { data, templateType } = JSON.parse(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)

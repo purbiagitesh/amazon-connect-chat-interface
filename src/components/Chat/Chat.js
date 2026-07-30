@@ -15,13 +15,6 @@ const ChatWrapper = styled.div`
   height: 100%;
   border-radius: 24px; // to match the border with figma frame
   overflow: hidden;
-  @media (max-width:640px) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-  }
 `;
 
 const ParentHeaderWrapper = styled.div`
@@ -32,12 +25,7 @@ const ParentHeaderWrapper = styled.div`
   max-height: min(115px, 21.2%);
   border-radius: 12px 12px 0 0;
   overflow: hidden;
-  @media (max-width: 640px) {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-  }
+  flex-shrink: 0;
 `;
 
 const ChatComposerWrapper = styled.div`
@@ -48,15 +36,6 @@ const ChatComposerWrapper = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  @media (max-width:640px) {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    top: ${props => props.parentHeaderWrapperHeight}px;
-    height: auto;
-    min-height: auto;
-  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -68,7 +47,8 @@ const HeaderWrapper = styled.div`
 const BrandIconWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px 0 4px;
+  align-items: center;
+  padding: 16px 0;
   flex-shrink: 0;
 `;
 
@@ -185,8 +165,6 @@ function Header({headerConfig, logoConfig, onEndChat}) {
 
 const textInputRef = React.createRef();
 
-const HEADER_HEIGHT = 115;
-
 export default class Chat extends Component {
 
   constructor(props) {
@@ -195,9 +173,7 @@ export default class Chat extends Component {
       transcript: [],
       typingParticipants: [],
       contactStatus: CONTACT_STATUS.DISCONNECTED,
-      parentHeaderWrapperHeight: HEADER_HEIGHT,
     };
-    this.parentHeaderRef = React.createRef();
     this.updateTranscript = transcript => this.setState({transcript: [...transcript]});
     this.updateTypingParticipants = typingParticipants => this.setState({typingParticipants});
     this.updateContactStatus = contactStatus => this.setState({contactStatus});
@@ -216,22 +192,15 @@ export default class Chat extends Component {
     onEnded: () => {},
   };
 
-  resetChatHeight() {
-    this.setState({
-      parentHeaderWrapperHeight: this.parentHeaderRef && this.parentHeaderRef.current ? this.parentHeaderRef.current.clientHeight : HEADER_HEIGHT,
-    });
-  }
-
   componentDidMount() {
     this.init(this.props.chatSession);
-    this.resetChatHeight();
     if (typeof this.props.changeLanguage === "function") {
       this.props.changeLanguage(this.props.language);
     }
     this.logger && this.logger.info("Component mounted.")
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.chatSession !== this.props.chatSession) {
       this.cleanUp(prevProps.chatSession);
       this.init(this.props.chatSession);
@@ -239,13 +208,6 @@ export default class Chat extends Component {
     if (prevProps.language !== this.props.language &&
       typeof this.props.changeLanguage === "function") {
       this.props.changeLanguage(this.props.language);
-    }
-    if (prevState.contactStatus !== this.state.contactStatus) {
-      // The header is gated behind contactStatus, so its rendered height
-      // (and the ref this measures) only exists once status flips to
-      // CONNECTED/CONNECTING/ENDED - re-measure now instead of relying on
-      // the componentDidMount reading, which ran before the header existed.
-      this.resetChatHeight();
     }
   }
 
@@ -271,13 +233,6 @@ export default class Chat extends Component {
     this.props.onEnded();
   }
 
-  /*
-    Note: For Mobile layout: divided into 3 sections
-    1. Header - Positon: absolute; top: 0, left: 0, right: 0 - height is dynamic!
-    2. MainContent - Position: absolute; top: {dynamicHeight}, left: 0, right: 0, bottom: {fixedFooterHeight: 85px}
-    3. Footer - position: absolute; bottom: 0, right: 0, left: 0
-    -- this prevents overlay from overflowing in mobile browser.
-  */
   render() {
     const {chatSession, headerConfig, transcriptConfig, composerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
@@ -285,11 +240,11 @@ export default class Chat extends Component {
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) &&
-          <ParentHeaderWrapper className="header" ref={this.parentHeaderRef}>
+          <ParentHeaderWrapper className="header">
             <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.endChat()}/>
           </ParentHeaderWrapper>
         }
-        <ChatComposerWrapper parentHeaderWrapperHeight={this.state.parentHeaderWrapperHeight}>
+        <ChatComposerWrapper>
           {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
             this.state.contactStatus === CONTACT_STATUS.ACW ||
             this.state.contactStatus === CONTACT_STATUS.ENDED) && logoConfig && logoConfig.sourceUrl &&

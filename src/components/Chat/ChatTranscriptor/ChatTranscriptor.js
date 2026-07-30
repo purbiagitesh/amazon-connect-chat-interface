@@ -24,6 +24,7 @@ const TranscriptWrapper = styled(ChatTranscriptScroller)`
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
   flex: 12 1 auto;
+  min-height: 0;
 `;
 
 const defaultTranscriptConfig = {
