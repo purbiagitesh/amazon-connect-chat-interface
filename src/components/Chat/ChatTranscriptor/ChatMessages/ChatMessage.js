@@ -47,21 +47,23 @@ export const MessageBox = styled.div`
   text-align: ${(props) => props.textAlign};
 `;
 const Header = styled.div`
-  overflow: auto;
+  display: flex;
+  align-items: baseline;
+  gap: ${({ theme }) => theme.spacing.mini};
 `;
 Header.Sender = styled.div`
-  float: left;
+  ${({ theme }) => theme.typography.supportingText};
   max-width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
-  color: ${({ theme }) => theme.palette.mediumGray};
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: ${({ theme }) => theme.globals.timestampColor};
 `;
 Header.Status = styled.div`
   ${({ theme }) => theme.typography.supportingText};
-  font-size: 13px;
-  float: right;
+  color: ${({ theme }) => theme.globals.timestampColor};
 `;
 const Footer = styled.div`
   ${({ theme }) => theme.typography.supportingText};

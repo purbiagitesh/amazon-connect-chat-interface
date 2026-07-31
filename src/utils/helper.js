@@ -16,6 +16,19 @@ export function getTimeFromTimeStamp(timeStamp) {
   return new Date(timeStamp).getTime();
 }
 
+// timestamp is in epoch seconds (matches transportDetails.sentTime)
+export function formatTimeDisplay(timestamp) {
+  const d = new Date(0);
+  d.setUTCSeconds(timestamp);
+  return d.toLocaleTimeString([], { hour: "numeric", minute: "numeric" });
+}
+
+export function formatDateDisplay(timestamp) {
+  const d = new Date(0);
+  d.setUTCSeconds(timestamp);
+  return d.toLocaleDateString([], { month: "long", day: "numeric" });
+}
+
 export function createInteractiveMessagePayload(
   selectedElement,
   preIndex,

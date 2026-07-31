@@ -147,7 +147,7 @@
     // already open (DevTools closing), which a static bottom-anchored box
     // should never be sensitive to. A plain fixed height has no viewport
     // dependency to ever go stale on.
-    + '  height: 520px;'
+    + '  height: 550px;'
     + '  max-width: calc(100vw - 32px);'
     + '  background: #ffffff;'
     + '  border-radius: 24px;'
