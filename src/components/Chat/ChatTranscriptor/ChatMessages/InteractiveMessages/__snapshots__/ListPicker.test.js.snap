@@ -288,61 +288,61 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-dqBHgY caJofv"
+      class="sc-bsbRJL hZsdEN"
     >
       <img
         alt="ListPickerImageDescription"
-        class="sc-lhVmIH ktSFRo"
+        class="sc-eTuwsz jyEqdB"
         src="ListPickerImageData"
       />
     </div>
     <div
-      class="sc-bYSBpT dShImU"
+      class="sc-gwVKww cuUqYB"
     >
       <p
-        class="sc-bZQynM fraGhu sc-jwKygS juxofO"
+        class="sc-bZQynM fraGhu sc-bwCtUz ipCJaA"
         style="margin: 0px;"
       >
         ListPickerTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-btzYZH cZuxR"
+        class="sc-bZQynM fraGhu sc-hrWEMg gBbxRX"
         style="margin: 0px;"
       >
         ListPickerSubtitle
       </p>
     </div>
     <div
-      class="sc-elJkPf fgYGYx"
+      class="sc-hXRMBi bmizTM"
     >
       <div>
         <button
-          class="sc-gzVnrw irdTUs sc-gxMtzJ jCOUgr"
+          class="sc-gzVnrw irdTUs sc-hZSUBg fjCxvl"
           data-selected="false"
           data-testid="listElement0"
           type="default"
           value="ListPickerElementTitle"
         >
           <div
-            class="sc-dfVpRl hQesEH"
+            class="sc-cMhqgX ftzwIQ"
           >
             <img
               alt="ListPickerElementImageDescription"
-              class="sc-lhVmIH ktSFRo"
+              class="sc-eTuwsz jyEqdB"
               src="ListPickerElementImageData"
             />
           </div>
           <div
-            class="sc-bYSBpT dShImU"
+            class="sc-gwVKww cuUqYB"
           >
             <p
-              class="sc-bZQynM fraGhu sc-jwKygS juxofO"
+              class="sc-bZQynM fraGhu sc-bwCtUz ipCJaA"
               style="margin: 0px;"
             >
               ListPickerElementTitle
             </p>
             <p
-              class="sc-bZQynM fraGhu sc-btzYZH cZuxR"
+              class="sc-bZQynM fraGhu sc-hrWEMg gBbxRX"
               style="margin: 0px;"
             >
               ListPickerElementSubtitle
@@ -350,32 +350,32 @@ Object {
           </div>
         </button>
         <button
-          class="sc-gzVnrw irdTUs sc-gxMtzJ jCOUgr"
+          class="sc-gzVnrw irdTUs sc-hZSUBg fjCxvl"
           data-selected="false"
           data-testid="listElement1"
           type="default"
           value="AnotherListPickerElementTitle"
         >
           <div
-            class="sc-dfVpRl hQesEH"
+            class="sc-cMhqgX ftzwIQ"
           >
             <img
               alt="AnotherListPickerElementImageDescription"
-              class="sc-lhVmIH ktSFRo"
+              class="sc-eTuwsz jyEqdB"
               src="AnotherListPickerElementImageData"
             />
           </div>
           <div
-            class="sc-bYSBpT dShImU"
+            class="sc-gwVKww cuUqYB"
           >
             <p
-              class="sc-bZQynM fraGhu sc-jwKygS juxofO"
+              class="sc-bZQynM fraGhu sc-bwCtUz ipCJaA"
               style="margin: 0px;"
             >
               AnotherListPickerElementTitle
             </p>
             <p
-              class="sc-bZQynM fraGhu sc-btzYZH cZuxR"
+              class="sc-bZQynM fraGhu sc-hrWEMg gBbxRX"
               style="margin: 0px;"
             >
               AnotherListPickerElementSubtitle

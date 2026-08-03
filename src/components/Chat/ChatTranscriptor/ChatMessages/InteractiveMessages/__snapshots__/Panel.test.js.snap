@@ -246,54 +246,54 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-gxMtzJ iIJhiR"
+      class="sc-hZSUBg hflULf"
     >
       <img
         alt="PanelImageDescription"
-        class="sc-bYSBpT cSwwTM"
+        class="sc-gwVKww eEADDd"
         src="PanelImageData"
       />
     </div>
     <div
-      class="sc-elJkPf jfwVBY"
+      class="sc-hXRMBi jJVgtE"
     >
       <p
-        class="sc-bZQynM fraGhu sc-btzYZH gSPlNl"
+        class="sc-bZQynM fraGhu sc-hrWEMg igYYpo"
         style="margin: 0px;"
       >
         PanelTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-lhVmIH jFCHEG"
+        class="sc-bZQynM fraGhu sc-eTuwsz cRUBQZ"
         style="margin: 0px;"
       >
         PanelSubtitle
       </p>
     </div>
     <div
-      class="sc-jtRfpW gkTWSZ"
+      class="sc-epnACN dqedGB"
     >
       <div>
         <button
-          class="sc-gzVnrw irdTUs sc-dfVpRl cwNPzz"
+          class="sc-gzVnrw irdTUs sc-cMhqgX jmNjYo"
           data-selected="false"
           type="default"
           value="PanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-dqBHgY jjQdbp"
+            class="sc-bZQynM fraGhu sc-bsbRJL cDECZb"
           >
             PanelElementTitle
           </p>
         </button>
         <button
-          class="sc-gzVnrw irdTUs sc-dfVpRl cwNPzz"
+          class="sc-gzVnrw irdTUs sc-cMhqgX jmNjYo"
           data-selected="false"
           type="default"
           value="AnotherPanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-dqBHgY jjQdbp"
+            class="sc-bZQynM fraGhu sc-bsbRJL cDECZb"
           >
             AnotherPanelElementTitle
           </p>

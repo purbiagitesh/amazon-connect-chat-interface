@@ -121,7 +121,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-jwKygS hbrClI"
+      class="sc-bwCtUz krZBkA"
       data-testid="interactive-quickreply-message-title"
     >
       <p
@@ -131,31 +131,31 @@ Object {
       </p>
     </div>
     <div
-      class="sc-gxMtzJ diplui"
+      class="sc-hZSUBg dRZIjt"
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-dfVpRl IPqif"
+        class="sc-cMhqgX behxKW"
       >
         Great!
       </button>
       <button
-        class="sc-dfVpRl IPqif"
+        class="sc-cMhqgX behxKW"
       >
         Good
       </button>
       <button
-        class="sc-dfVpRl IPqif"
+        class="sc-cMhqgX behxKW"
       >
         Ok
       </button>
       <button
-        class="sc-dfVpRl IPqif"
+        class="sc-cMhqgX behxKW"
       >
         Poor
       </button>
       <button
-        class="sc-dfVpRl IPqif"
+        class="sc-cMhqgX behxKW"
       >
         Terrible!
       </button>

@@ -109,6 +109,9 @@ export const InteractiveMessageType = {
   CAROUSEL: "Carousel",
   VIEW_RESOURCE: "ViewResource",
   ORDER_CAROUSEL: "OrderCarousel",
+  LIST_CONFIRMATION: "ListConfirmation",
+  LIST_SELECTION: "ListSelection",
+  LIST_SELECTION_STEPPER: "ListSelectionStepper",
 };
 
 export const InteractiveMessageSelectionType = {

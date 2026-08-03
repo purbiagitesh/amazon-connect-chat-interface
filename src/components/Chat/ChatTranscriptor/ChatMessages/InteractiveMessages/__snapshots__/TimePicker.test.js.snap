@@ -393,36 +393,36 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-ktHwxA frjmaX"
+      class="sc-esjQYD gPihBe"
     >
       <p
-        class="sc-bZQynM fraGhu sc-fYxtnH fvXfpx"
+        class="sc-bZQynM fraGhu sc-hwwEjo ceNGMG"
         style="margin: 0px;"
       >
         TimePickerTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-tilXH fTZliX"
+        class="sc-bZQynM fraGhu sc-kPVwWT jliHdX"
         style="margin: 0px;"
       >
         TimePickerSubtitle
       </p>
     </div>
     <div
-      class="sc-cIShpX fwRSI"
+      class="sc-kIPQKe hTqoCF"
     >
       <div
-        class="sc-iELTvK hktkMy"
+        class="sc-RefOD dBvrTa"
       >
         <button
-          class="sc-gzVnrw irdTUs sc-cmTdod sc-jwKygS cBPvYz"
+          class="sc-gzVnrw irdTUs sc-iQKALj sc-bwCtUz fTUAwV"
           data-selected="false"
           data-testid="time-picker-prev-date-button"
           disabled=""
           type="default"
         >
           <div
-            class="sc-lhVmIH dnyxwF"
+            class="sc-eTuwsz iMeRgy"
             direction="left"
           >
             <svg
@@ -455,13 +455,13 @@ Object {
           Saturday, October 31
         </span>
         <button
-          class="sc-gzVnrw irdTUs sc-cmTdod sc-btzYZH imNbuX"
+          class="sc-gzVnrw irdTUs sc-iQKALj sc-hrWEMg jejfGk"
           data-selected="false"
           data-testid="time-picker-next-date-button"
           type="default"
         >
           <div
-            class="sc-lhVmIH efvZcL"
+            class="sc-eTuwsz gsxsoB"
             direction="right"
           >
             <svg
@@ -492,7 +492,7 @@ Object {
         </button>
       </div>
       <div
-        class="sc-bYSBpT iFWWfp"
+        class="sc-gwVKww dgTEon"
       >
         <button
           class="sc-gzVnrw irdTUs"
@@ -504,7 +504,7 @@ Object {
         </button>
       </div>
       <div
-        class="sc-elJkPf kSXnSr"
+        class="sc-hXRMBi fQaWAQ"
       />
     </div>
   </div>,
