@@ -6,6 +6,7 @@ import PT from "prop-types";
 import {CONTACT_STATUS, KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 import TextareaAutosize from "react-textarea-autosize";
 import SendMessageButton from "./SendMessageButton";
+import Disclaimer from "./Disclaimer";
 import {RichTextEditor} from "../RichMessageComponents";
 
 import {ATTACHMENT_ACCEPT_CONTENT_TYPES, AttachmentStatus, ContentType} from "../datamodel/Model";
@@ -427,13 +428,14 @@ ChatComposer.propTypes = {
   contactStatus: PT.string.isRequired,
   onTypingValidityTime: PT.number,
   composerConfig: PT.object,
+  disclaimerConfig: PT.object,
 };
 
 ChatComposer.defaultProps = {
   onTypingValidityTime: 10 * 1000,
 };
 
-export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig}) {
+export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig, disclaimerConfig}) {
   let logger;
   let mobileJitter;
   if (window.connect && window.connect.LogManager) {
@@ -451,6 +453,12 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   const mediaScrollRef = useRef(null);
   const [canScrollMediaLeft, setCanScrollMediaLeft] = useState(false);
   const [canScrollMediaRight, setCanScrollMediaRight] = useState(false);
+  // Recording/privacy disclaimer: expanded by default at the start of a new
+  // session, auto-collapses the first time the consumer sends a message,
+  // and stays toggleable (Show more/less) for the rest of that session.
+  const [isDisclaimerExpanded, setIsDisclaimerExpanded] = useState(true);
+  const [hasSentFirstMessage, setHasSentFirstMessage] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   // Mirrors `attachments` for use in the unmount cleanup effect below without
   // making that effect re-run (and re-subscribe) on every attachment change.
   const attachmentsRef = useRef(attachments);
@@ -459,6 +467,13 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   useEffect(() => {
     logger && logger.info("Component mounted.");
   }, [logger]);
+
+  // A new contactId means a new chat session - the disclaimer reappears in
+  // its default expanded state per the Figma spec.
+  useEffect(() => {
+    setIsDisclaimerExpanded(true);
+    setHasSentFirstMessage(false);
+  }, [contactId]);
 
   useEffect(() => {
     return () => {
@@ -509,6 +524,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
    *      Note: "new viewport" - refers to the small screen after virtual keyboard is displayed on iphone.
    */
   function onTextInputFocus() {
+    setIsInputFocused(true);
     if (!mobileJitter && isIphone()) {
       mobileJitter = true;
       const tempInputElem = document.createElement("input");
@@ -524,6 +540,10 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
         mobileJitter = false;
       }, 300);
     }
+  }
+
+  function onTextInputBlur() {
+    setIsInputFocused(false);
   }
 
   function isIphone() {
@@ -543,6 +563,15 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       sendAttachments();
       clearFileInput();
     }
+
+    if (!hasSentFirstMessage) {
+      setHasSentFirstMessage(true);
+      setIsDisclaimerExpanded(false);
+    }
+  }
+
+  function toggleDisclaimerExpanded() {
+    setIsDisclaimerExpanded((expanded) => !expanded);
   }
 
   const throttleOptions = useMemo(
@@ -770,6 +799,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             onKeyPress={onInput}
             onKeyDown={onInput}
             onFocus={onTextInputFocus}
+            onBlur={onTextInputBlur}
             aria-label={ariaLabel}
             placeholder={placeholder}
             tabIndex="0"
@@ -833,6 +863,15 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
 
   return (
     <ChatComposerWrapper className="composer">
+      { contactStatus === CONTACT_STATUS.CONNECTED && (
+        <Disclaimer
+          expanded={isDisclaimerExpanded}
+          onToggleExpand={toggleDisclaimerExpanded}
+          highlighted={isInputFocused}
+          privacyPolicyUrl={disclaimerConfig && disclaimerConfig.privacyPolicyUrl}
+          termsOfUseUrl={disclaimerConfig && disclaimerConfig.termsOfUseUrl}
+        />
+      )}
       { contactStatus === CONTACT_STATUS.CONNECTED && (
           composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING
               ? richMessagingComposer

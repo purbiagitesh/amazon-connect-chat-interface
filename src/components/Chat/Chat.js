@@ -185,6 +185,7 @@ export default class Chat extends Component {
   static propTypes = {
     chatSession: PT.object.isRequired,
     composerConfig: PT.object,
+    disclaimerConfig: PT.object,
     onEnded: PT.func,
   };
 
@@ -234,7 +235,7 @@ export default class Chat extends Component {
   }
 
   render() {
-    const {chatSession, headerConfig, transcriptConfig, composerConfig, logoConfig} = this.props;
+    const {chatSession, headerConfig, transcriptConfig, composerConfig, disclaimerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
@@ -271,6 +272,7 @@ export default class Chat extends Component {
             addAttachment={(contactId, attachment) => chatSession.addOutgoingAttachment(attachment)}
             onTyping={() => chatSession.sendTypingEvent()}
             composerConfig={composerConfig}
+            disclaimerConfig={disclaimerConfig}
             textInputRef={textInputRef}
           />
         </ChatComposerWrapper>

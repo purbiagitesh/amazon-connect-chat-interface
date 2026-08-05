@@ -13,6 +13,7 @@
 // one up.
 function buildComponentPalette(colors = {}) {
   const primary = colors.primary || {};
+  const featured = colors.featured || {};
   const text = colors.text || {};
 
   const primary500 = colors.primary500 || primary['500'] || '#3F5773';
@@ -48,6 +49,16 @@ function buildComponentPalette(colors = {}) {
     },
     carousel: {
       arrowBackgroundColor: '#ffffff',
+    },
+    // Recording/privacy disclaimer above the composer: neutral by default
+    // (see defaultTheme.js palette.whisper), but its background is meant to
+    // pick up the brand's light "featured" tint while the consumer is
+    // actively engaging with the input field (Figma: "neutral at default
+    // but becomes brand-specific with interaction"). featured-200/100 is a
+    // light tint (not primary500, which is near-black for most brands and
+    // would fail text contrast as a background fill).
+    disclaimer: {
+      activeBackgroundColor: featured['200'] || featured['100'] || primary500,
     },
   };
 }

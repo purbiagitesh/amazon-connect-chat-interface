@@ -154,6 +154,9 @@ const componentPalette = {
   carousel: {
     arrowBackgroundColor: palette.white,
   },
+  disclaimer: {
+    activeBackgroundColor: color.secondary,
+  },
 }
 
 const globals = {
