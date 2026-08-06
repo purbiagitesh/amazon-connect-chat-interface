@@ -109,6 +109,18 @@ function buildHeaderConfig(brandConfig = {}) {
   return headerConfig;
 }
 
+function buildDisclaimerConfig(brandConfig = {}) {
+  const disclaimerConfig = {};
+  const disclaimer = brandConfig.disclaimer || {};
+  if (disclaimer.privacyPolicyUrl) {
+    disclaimerConfig.privacyPolicyUrl = disclaimer.privacyPolicyUrl;
+  }
+  if (disclaimer.termsOfUseUrl) {
+    disclaimerConfig.termsOfUseUrl = disclaimer.termsOfUseUrl;
+  }
+  return disclaimerConfig;
+}
+
 function buildLogoConfig(brandInfo) {
   if (brandInfo && brandInfo.assets && brandInfo.assets.logo) {
     return {
@@ -161,6 +173,12 @@ function buildLogoConfig(brandInfo) {
       props.logoConfig || {}
     );
 
+    const disclaimerConfig = Object.assign(
+      {},
+      buildDisclaimerConfig(brandConfig),
+      props.disclaimerConfig || {}
+    );
+
     const fontFaces = resolveFontFaces(brandConfig);
 
     if (props.widgetType) {
@@ -186,6 +204,7 @@ function buildLogoConfig(brandInfo) {
           themeConfig={themeConfig}
           headerConfig={headerConfig}
           logoConfig={logoConfig}
+          disclaimerConfig={disclaimerConfig}
           fontFaces={fontFaces}
         />
       </BrowserRouter>,

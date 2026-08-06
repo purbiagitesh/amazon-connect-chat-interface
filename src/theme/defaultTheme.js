@@ -47,7 +47,8 @@ const palette = {
   tbd: 'transparent', // TBD COLORS
   brown: '#47596E',
   blue: '#329AD6',
-  darkBlue: '#1067BA'
+  darkBlue: '#1067BA',
+  charcoal: '#595959' // timestamp text grey
 };
 
 // Spacing
@@ -153,6 +154,9 @@ const componentPalette = {
   carousel: {
     arrowBackgroundColor: palette.white,
   },
+  disclaimer: {
+    activeBackgroundColor: color.secondary,
+  },
 }
 
 const globals = {
@@ -163,6 +167,9 @@ const globals = {
   textDisabledColor: palette.boulder,
   textSecondaryColor: palette.emperor,
   textTertiaryColor: palette.boulder,
+  // Timestamp text (system-message dividers + chat-bubble headers). Fixed
+  // across every brand per design spec - not sourced from colors.json.
+  timestampColor: palette.charcoal,
   radius: '2px',
   boxShadowFocus: `0 0 2px 0 ${palette.mango}`,
   baseBorder: `1px solid ${palette.alto}`,

@@ -8,6 +8,9 @@ import TimePicker from "./InteractiveMessages/TimePicker";
 import QuickReply from "./InteractiveMessages/QuickReply";
 import Carousel from "./InteractiveMessages/Carousel";
 import OrderCarousel from "./InteractiveMessages/OrderCarousel";
+import ListConfirmation from "./InteractiveMessages/ListConfirmation";
+import ListSelection from "./InteractiveMessages/ListSelection";
+import ListSelectionStepper from "./InteractiveMessages/ListSelectionStepper";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
@@ -210,6 +213,12 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <Carousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {
     return <OrderCarousel content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.LIST_CONFIRMATION) {
+    return <ListConfirmation content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.LIST_SELECTION) {
+    return <ListSelection content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.LIST_SELECTION_STEPPER) {
+    return <ListSelectionStepper content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.VIEW_RESOURCE) {
     return <connect-view-renderer data-testid="connect-view-renderer" ref={ref} />
   }

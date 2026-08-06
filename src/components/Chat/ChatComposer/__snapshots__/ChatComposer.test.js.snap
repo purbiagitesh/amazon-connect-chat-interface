@@ -4,7 +4,7 @@ exports[`when window.connect is defined Style should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
-    .c8 {
+    .c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -27,16 +27,119 @@ Object {
   background-color: var(--ac-widget-send-button-bg,#EDEDED);
 }
 
-.c8>svg {
+.c15>svg {
   width: var(--ac-widget-send-button-icon-size,16px);
   height: var(--ac-widget-send-button-icon-size,16px);
   fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
-.c8>img {
+.c15>img {
   width: var(--ac-widget-send-button-icon-size,16px);
   height: var(--ac-widget-send-button-icon-size,16px);
   object-fit: contain;
+}
+
+.c1 {
+  box-sizing: border-box;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  gap: var(--ac-widget-disclaimer-gap,10px);
+  padding: var(--ac-widget-disclaimer-padding,16px);
+  border-top: var(--ac-widget-disclaimer-border-top,1px solid #CCCCCC);
+  background: var(--ac-widget-disclaimer-background,#F7F7F7);
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.c2 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c2 svg {
+  width: var(--ac-widget-disclaimer-icon-size,20px);
+  height: var(--ac-widget-disclaimer-icon-size,20px);
+}
+
+.c3 {
+  min-width: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c6 {
+  margin: 0;
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
+  color: var(--ac-widget-disclaimer-text-color,#666666);
+  overflow-wrap: break-word;
+}
+
+.c7 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: var(--ac-widget-disclaimer-link-color,#1067BA);
+}
+
+.c4 {
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 2px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ac-widget-disclaimer-link-color,#1067BA);
+  font-family: inherit;
+  font-size: 9px;
+  font-style: normal;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  -webkit-text-decoration-style: solid;
+  text-decoration-style: solid;
+  white-space: nowrap;
+  float: right;
+  margin-left: 8px;
+}
+
+.c5 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 8px;
+  height: 6px;
+  fill: var(--ac-widget-disclaimer-link-color,#1067BA);
 }
 
 .c0 {
@@ -44,7 +147,7 @@ Object {
   padding: 0;
 }
 
-.c1 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -59,7 +162,7 @@ Object {
   margin: var(--ac-widget-composer-margin,8px 16px 16px);
 }
 
-.c2 {
+.c9 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -71,7 +174,7 @@ Object {
   align-items: center;
 }
 
-.c4 {
+.c11 {
   position: absolute;
   top: 50%;
   right: var(--ac-widget-composer-send-button-offset,10px);
@@ -90,18 +193,18 @@ Object {
   z-index: 2;
 }
 
-.c5 {
+.c12 {
   cursor: pointer;
   height: auto;
   vertical-align: top;
 }
 
-.c5 button {
+.c12 button {
   height: 100%;
   width: 100%;
 }
 
-.c5 label {
+.c12 label {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -116,11 +219,11 @@ Object {
   margin-bottom: 0;
 }
 
-.c5 input {
+.c12 input {
   display: none;
 }
 
-.c6 {
+.c13 {
   background-color: transparent;
   border: 1px solid transparent;
   position: relative;
@@ -128,7 +231,7 @@ Object {
   margin: 0;
 }
 
-.c3 {
+.c10 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -157,43 +260,43 @@ Object {
   -ms-overflow-style: none;
 }
 
-.c3::-webkit-scrollbar {
+.c10::-webkit-scrollbar {
   display: none;
 }
 
-.c3::-webkit-input-placeholder {
+.c10::-webkit-input-placeholder {
   color: #666666;
 }
 
-.c3::-moz-placeholder {
+.c10::-moz-placeholder {
   color: #666666;
 }
 
-.c3:-ms-input-placeholder {
+.c10:-ms-input-placeholder {
   color: #666666;
 }
 
-.c3::placeholder {
+.c10::placeholder {
   color: #666666;
 }
 
-.c3:focus::-webkit-input-placeholder {
+.c10:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.c3:focus::-moz-placeholder {
+.c10:focus::-moz-placeholder {
   color: transparent;
 }
 
-.c3:focus:-ms-input-placeholder {
+.c10:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.c3:focus::placeholder {
+.c10:focus::placeholder {
   color: transparent;
 }
 
-.c7 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -201,12 +304,12 @@ Object {
   font-size: 0;
 }
 
-.c7 svg {
+.c14 svg {
   width: 24px;
   height: 24px;
 }
 
-.c9 {
+.c16 {
   text-align: center;
   color: var(--ac-widget-composer-disclaimer-color,#666666);
   font-size: var(--ac-widget-composer-disclaimer-fontsize,12px);
@@ -215,6 +318,12 @@ Object {
 
 @media (max-width:360px) {
   .c1 {
+    padding: var(--ac-widget-disclaimer-padding-small,12px);
+  }
+}
+
+@media (max-width:360px) {
+  .c8 {
     margin: var(--ac-widget-composer-margin-small,8px 10px 10px);
   }
 }
@@ -225,13 +334,74 @@ Object {
       >
         <div
           class="c1"
+          data-testid="customer-chat-disclaimer"
         >
           <div
             class="c2"
           >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 0.833344L2.5 4.16668V9.16668C2.5 13.7917 5.7 18.1167 10 19.1667C14.3 18.1167 17.5 13.7917 17.5 9.16668V4.16668L10 0.833344ZM15.8333 9.16668C15.8333 10.7083 15.4083 12.2083 14.6833 13.5083L13.475 12.3C14.55 10.6833 14.3667 8.48334 12.9417 7.05834C11.3167 5.43334 8.675 5.43334 7.05 7.05834C5.425 8.68334 5.425 11.325 7.05 12.95C8.475 14.375 10.675 14.55 12.2917 13.4833L13.725 14.9167C12.7333 16.1 11.45 17.0083 10 17.45C6.65 16.4083 4.16667 12.9333 4.16667 9.16668V5.25001L10 2.65834L15.8333 5.25001V9.16668ZM10 12.5C8.61667 12.5 7.5 11.3833 7.5 10C7.5 8.61668 8.61667 7.50001 10 7.50001C11.3833 7.50001 12.5 8.61668 12.5 10C12.5 11.3833 11.3833 12.5 10 12.5Z"
+                fill="#595959"
+              />
+            </svg>
+          </div>
+          <div
+            class="c3"
+          >
+            <button
+              aria-expanded="true"
+              class="c4"
+              data-testid="customer-chat-disclaimer-toggle"
+              type="button"
+            >
+              Show less
+              <svg
+                aria-hidden="true"
+                class="c5"
+                viewBox="0 0 12 8"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z"
+                />
+              </svg>
+            </button>
+            <p
+              class="c6"
+            >
+              This chat may be recorded and shared with our service providers to support your experience. By sending a message, you agree to our 
+              <a
+                class="c7"
+              >
+                Privacy Policy
+              </a>
+               and 
+              <a
+                class="c7"
+              >
+                Terms of Use
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+        <div
+          class="c8"
+        >
+          <div
+            class="c9"
+          >
             <textarea
               aria-label="Type a message"
-              class="c3"
+              class="c10"
               data-testid="customer-chat-text-input"
               maxlength="200"
               placeholder="Type a message"
@@ -239,22 +409,22 @@ Object {
               tabindex="0"
             />
             <div
-              class="c4"
+              class="c11"
             >
               <div
-                class="c5"
+                class="c12"
                 data-testid="customer-chat-attachment-icon"
                 tabindex="0"
               >
                 <button
                   aria-label="Attach a file"
-                  class="c6"
+                  class="c13"
                 >
                   <label
                     for="customer-chat-file-select-12344"
                   >
                     <div
-                      class="c7"
+                      class="c14"
                     >
                       <svg
                         fill="none"
@@ -310,7 +480,7 @@ Object {
               </div>
               <div
                 aria-label="Send Message"
-                class="c8"
+                class="c15"
                 data-testid="customer-chat-send-message-button"
                 tabindex="0"
               >
@@ -333,7 +503,7 @@ Object {
           </div>
         </div>
         <div
-          class="c9"
+          class="c16"
         >
           Virtual Assistant is AI and can make mistakes.
         </div>
@@ -342,17 +512,78 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-kGXeez bsulgI composer"
+      class="sc-kkGfuU hRQtAN composer"
     >
       <div
-        class="sc-kpOJdX jeQRPa"
+        class="sc-bwzfXH hHbIBn"
+        data-testid="customer-chat-disclaimer"
       >
         <div
-          class="sc-dxgOiQ coXdhk"
+          class="sc-htpNat fsafFp"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 0.833344L2.5 4.16668V9.16668C2.5 13.7917 5.7 18.1167 10 19.1667C14.3 18.1167 17.5 13.7917 17.5 9.16668V4.16668L10 0.833344ZM15.8333 9.16668C15.8333 10.7083 15.4083 12.2083 14.6833 13.5083L13.475 12.3C14.55 10.6833 14.3667 8.48334 12.9417 7.05834C11.3167 5.43334 8.675 5.43334 7.05 7.05834C5.425 8.68334 5.425 11.325 7.05 12.95C8.475 14.375 10.675 14.55 12.2917 13.4833L13.725 14.9167C12.7333 16.1 11.45 17.0083 10 17.45C6.65 16.4083 4.16667 12.9333 4.16667 9.16668V5.25001L10 2.65834L15.8333 5.25001V9.16668ZM10 12.5C8.61667 12.5 7.5 11.3833 7.5 10C7.5 8.61668 8.61667 7.50001 10 7.50001C11.3833 7.50001 12.5 8.61668 12.5 10C12.5 11.3833 11.3833 12.5 10 12.5Z"
+              fill="#595959"
+            />
+          </svg>
+        </div>
+        <div
+          class="sc-bxivhb gbzHpS"
+        >
+          <button
+            aria-expanded="true"
+            class="sc-gzVnrw dcwcOS"
+            data-testid="customer-chat-disclaimer-toggle"
+            type="button"
+          >
+            Show less
+            <svg
+              aria-hidden="true"
+              class="sc-htoDjs bKoRnx"
+              viewBox="0 0 12 8"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z"
+              />
+            </svg>
+          </button>
+          <p
+            class="sc-EHOje gzPryD"
+          >
+            This chat may be recorded and shared with our service providers to support your experience. By sending a message, you agree to our 
+            <a
+              class="sc-bZQynM ftJhAn"
+            >
+              Privacy Policy
+            </a>
+             and 
+            <a
+              class="sc-bZQynM ftJhAn"
+            >
+              Terms of Use
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+      <div
+        class="sc-iAyFgw dAlhdE"
+      >
+        <div
+          class="sc-hSdWYo golqQu"
         >
           <textarea
             aria-label="Type a message"
-            class="sc-kEYyzF jQVLvh"
+            class="sc-cMljjf eoXgmh"
             data-testid="customer-chat-text-input"
             maxlength="200"
             placeholder="Type a message"
@@ -360,22 +591,22 @@ Object {
             tabindex="0"
           />
           <div
-            class="sc-ckVGcZ hjpJjk"
+            class="sc-eHgmQL gZbIKa"
           >
             <div
-              class="sc-jKJlTe iAGGzy"
+              class="sc-cvbbAY icApEO"
               data-testid="customer-chat-attachment-icon"
               tabindex="0"
             >
               <button
                 aria-label="Attach a file"
-                class="sc-eNQAEJ ANhXO"
+                class="sc-jWBwVP kaGVxr"
               >
                 <label
                   for="customer-chat-file-select-12344"
                 >
                   <div
-                    class="sc-kkGfuU btEicj"
+                    class="sc-jAaTju dtpwYi"
                   >
                     <svg
                       fill="none"
@@ -454,7 +685,7 @@ Object {
         </div>
       </div>
       <div
-        class="sc-jDwBTQ gWOlsA"
+        class="sc-hzDkRC DBcwP"
       >
         Virtual Assistant is AI and can make mistakes.
       </div>
@@ -517,7 +748,7 @@ Object {
 exports[`when window.connect is not defined Style should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .c8 {
+  "baseElement": .c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -540,16 +771,119 @@ Object {
   background-color: var(--ac-widget-send-button-bg,#EDEDED);
 }
 
-.c8>svg {
+.c15>svg {
   width: var(--ac-widget-send-button-icon-size,16px);
   height: var(--ac-widget-send-button-icon-size,16px);
   fill: var(--ac-widget-send-button-icon-color,#FFFFFF);
 }
 
-.c8>img {
+.c15>img {
   width: var(--ac-widget-send-button-icon-size,16px);
   height: var(--ac-widget-send-button-icon-size,16px);
   object-fit: contain;
+}
+
+.c1 {
+  box-sizing: border-box;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  gap: var(--ac-widget-disclaimer-gap,10px);
+  padding: var(--ac-widget-disclaimer-padding,16px);
+  border-top: var(--ac-widget-disclaimer-border-top,1px solid #CCCCCC);
+  background: var(--ac-widget-disclaimer-background,#F7F7F7);
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.c2 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c2 svg {
+  width: var(--ac-widget-disclaimer-icon-size,20px);
+  height: var(--ac-widget-disclaimer-icon-size,20px);
+}
+
+.c3 {
+  min-width: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c6 {
+  margin: 0;
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
+  color: var(--ac-widget-disclaimer-text-color,#666666);
+  overflow-wrap: break-word;
+}
+
+.c7 {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: var(--ac-widget-disclaimer-link-color,#1067BA);
+}
+
+.c4 {
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: normal;
+  padding: 0;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 2px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ac-widget-disclaimer-link-color,#1067BA);
+  font-family: inherit;
+  font-size: 9px;
+  font-style: normal;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  -webkit-text-decoration-style: solid;
+  text-decoration-style: solid;
+  white-space: nowrap;
+  float: right;
+  margin-left: 8px;
+}
+
+.c5 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 8px;
+  height: 6px;
+  fill: var(--ac-widget-disclaimer-link-color,#1067BA);
 }
 
 .c0 {
@@ -557,7 +891,7 @@ Object {
   padding: 0;
 }
 
-.c1 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -572,7 +906,7 @@ Object {
   margin: var(--ac-widget-composer-margin,8px 16px 16px);
 }
 
-.c2 {
+.c9 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -584,7 +918,7 @@ Object {
   align-items: center;
 }
 
-.c4 {
+.c11 {
   position: absolute;
   top: 50%;
   right: var(--ac-widget-composer-send-button-offset,10px);
@@ -603,18 +937,18 @@ Object {
   z-index: 2;
 }
 
-.c5 {
+.c12 {
   cursor: pointer;
   height: auto;
   vertical-align: top;
 }
 
-.c5 button {
+.c12 button {
   height: 100%;
   width: 100%;
 }
 
-.c5 label {
+.c12 label {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -629,11 +963,11 @@ Object {
   margin-bottom: 0;
 }
 
-.c5 input {
+.c12 input {
   display: none;
 }
 
-.c6 {
+.c13 {
   background-color: transparent;
   border: 1px solid transparent;
   position: relative;
@@ -641,7 +975,7 @@ Object {
   margin: 0;
 }
 
-.c3 {
+.c10 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -670,43 +1004,43 @@ Object {
   -ms-overflow-style: none;
 }
 
-.c3::-webkit-scrollbar {
+.c10::-webkit-scrollbar {
   display: none;
 }
 
-.c3::-webkit-input-placeholder {
+.c10::-webkit-input-placeholder {
   color: #666666;
 }
 
-.c3::-moz-placeholder {
+.c10::-moz-placeholder {
   color: #666666;
 }
 
-.c3:-ms-input-placeholder {
+.c10:-ms-input-placeholder {
   color: #666666;
 }
 
-.c3::placeholder {
+.c10::placeholder {
   color: #666666;
 }
 
-.c3:focus::-webkit-input-placeholder {
+.c10:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.c3:focus::-moz-placeholder {
+.c10:focus::-moz-placeholder {
   color: transparent;
 }
 
-.c3:focus:-ms-input-placeholder {
+.c10:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-.c3:focus::placeholder {
+.c10:focus::placeholder {
   color: transparent;
 }
 
-.c7 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -714,12 +1048,12 @@ Object {
   font-size: 0;
 }
 
-.c7 svg {
+.c14 svg {
   width: 24px;
   height: 24px;
 }
 
-.c9 {
+.c16 {
   text-align: center;
   color: var(--ac-widget-composer-disclaimer-color,#666666);
   font-size: var(--ac-widget-composer-disclaimer-fontsize,12px);
@@ -728,6 +1062,12 @@ Object {
 
 @media (max-width:360px) {
   .c1 {
+    padding: var(--ac-widget-disclaimer-padding-small,12px);
+  }
+}
+
+@media (max-width:360px) {
+  .c8 {
     margin: var(--ac-widget-composer-margin-small,8px 10px 10px);
   }
 }
@@ -739,13 +1079,74 @@ Object {
       >
         <div
           class="c1"
+          data-testid="customer-chat-disclaimer"
         >
           <div
             class="c2"
           >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 0.833344L2.5 4.16668V9.16668C2.5 13.7917 5.7 18.1167 10 19.1667C14.3 18.1167 17.5 13.7917 17.5 9.16668V4.16668L10 0.833344ZM15.8333 9.16668C15.8333 10.7083 15.4083 12.2083 14.6833 13.5083L13.475 12.3C14.55 10.6833 14.3667 8.48334 12.9417 7.05834C11.3167 5.43334 8.675 5.43334 7.05 7.05834C5.425 8.68334 5.425 11.325 7.05 12.95C8.475 14.375 10.675 14.55 12.2917 13.4833L13.725 14.9167C12.7333 16.1 11.45 17.0083 10 17.45C6.65 16.4083 4.16667 12.9333 4.16667 9.16668V5.25001L10 2.65834L15.8333 5.25001V9.16668ZM10 12.5C8.61667 12.5 7.5 11.3833 7.5 10C7.5 8.61668 8.61667 7.50001 10 7.50001C11.3833 7.50001 12.5 8.61668 12.5 10C12.5 11.3833 11.3833 12.5 10 12.5Z"
+                fill="#595959"
+              />
+            </svg>
+          </div>
+          <div
+            class="c3"
+          >
+            <button
+              aria-expanded="true"
+              class="c4"
+              data-testid="customer-chat-disclaimer-toggle"
+              type="button"
+            >
+              Show less
+              <svg
+                aria-hidden="true"
+                class="c5"
+                viewBox="0 0 12 8"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z"
+                />
+              </svg>
+            </button>
+            <p
+              class="c6"
+            >
+              This chat may be recorded and shared with our service providers to support your experience. By sending a message, you agree to our 
+              <a
+                class="c7"
+              >
+                Privacy Policy
+              </a>
+               and 
+              <a
+                class="c7"
+              >
+                Terms of Use
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+        <div
+          class="c8"
+        >
+          <div
+            class="c9"
+          >
             <textarea
               aria-label="Type a message"
-              class="c3"
+              class="c10"
               data-testid="customer-chat-text-input"
               maxlength="200"
               placeholder="Type a message"
@@ -753,22 +1154,22 @@ Object {
               tabindex="0"
             />
             <div
-              class="c4"
+              class="c11"
             >
               <div
-                class="c5"
+                class="c12"
                 data-testid="customer-chat-attachment-icon"
                 tabindex="0"
               >
                 <button
                   aria-label="Attach a file"
-                  class="c6"
+                  class="c13"
                 >
                   <label
                     for="customer-chat-file-select-12344"
                   >
                     <div
-                      class="c7"
+                      class="c14"
                     >
                       <svg
                         fill="none"
@@ -824,7 +1225,7 @@ Object {
               </div>
               <div
                 aria-label="Send Message"
-                class="c8"
+                class="c15"
                 data-testid="customer-chat-send-message-button"
                 tabindex="0"
               >
@@ -847,7 +1248,7 @@ Object {
           </div>
         </div>
         <div
-          class="c9"
+          class="c16"
         >
           Virtual Assistant is AI and can make mistakes.
         </div>
@@ -856,17 +1257,78 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-kGXeez bsulgI composer"
+      class="sc-kkGfuU hRQtAN composer"
     >
       <div
-        class="sc-kpOJdX jeQRPa"
+        class="sc-bwzfXH hHbIBn"
+        data-testid="customer-chat-disclaimer"
       >
         <div
-          class="sc-dxgOiQ coXdhk"
+          class="sc-htpNat fsafFp"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 0.833344L2.5 4.16668V9.16668C2.5 13.7917 5.7 18.1167 10 19.1667C14.3 18.1167 17.5 13.7917 17.5 9.16668V4.16668L10 0.833344ZM15.8333 9.16668C15.8333 10.7083 15.4083 12.2083 14.6833 13.5083L13.475 12.3C14.55 10.6833 14.3667 8.48334 12.9417 7.05834C11.3167 5.43334 8.675 5.43334 7.05 7.05834C5.425 8.68334 5.425 11.325 7.05 12.95C8.475 14.375 10.675 14.55 12.2917 13.4833L13.725 14.9167C12.7333 16.1 11.45 17.0083 10 17.45C6.65 16.4083 4.16667 12.9333 4.16667 9.16668V5.25001L10 2.65834L15.8333 5.25001V9.16668ZM10 12.5C8.61667 12.5 7.5 11.3833 7.5 10C7.5 8.61668 8.61667 7.50001 10 7.50001C11.3833 7.50001 12.5 8.61668 12.5 10C12.5 11.3833 11.3833 12.5 10 12.5Z"
+              fill="#595959"
+            />
+          </svg>
+        </div>
+        <div
+          class="sc-bxivhb gbzHpS"
+        >
+          <button
+            aria-expanded="true"
+            class="sc-gzVnrw dcwcOS"
+            data-testid="customer-chat-disclaimer-toggle"
+            type="button"
+          >
+            Show less
+            <svg
+              aria-hidden="true"
+              class="sc-htoDjs bKoRnx"
+              viewBox="0 0 12 8"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z"
+              />
+            </svg>
+          </button>
+          <p
+            class="sc-EHOje gzPryD"
+          >
+            This chat may be recorded and shared with our service providers to support your experience. By sending a message, you agree to our 
+            <a
+              class="sc-bZQynM ftJhAn"
+            >
+              Privacy Policy
+            </a>
+             and 
+            <a
+              class="sc-bZQynM ftJhAn"
+            >
+              Terms of Use
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+      <div
+        class="sc-iAyFgw dAlhdE"
+      >
+        <div
+          class="sc-hSdWYo golqQu"
         >
           <textarea
             aria-label="Type a message"
-            class="sc-kEYyzF jQVLvh"
+            class="sc-cMljjf eoXgmh"
             data-testid="customer-chat-text-input"
             maxlength="200"
             placeholder="Type a message"
@@ -874,22 +1336,22 @@ Object {
             tabindex="0"
           />
           <div
-            class="sc-ckVGcZ hjpJjk"
+            class="sc-eHgmQL gZbIKa"
           >
             <div
-              class="sc-jKJlTe iAGGzy"
+              class="sc-cvbbAY icApEO"
               data-testid="customer-chat-attachment-icon"
               tabindex="0"
             >
               <button
                 aria-label="Attach a file"
-                class="sc-eNQAEJ ANhXO"
+                class="sc-jWBwVP kaGVxr"
               >
                 <label
                   for="customer-chat-file-select-12344"
                 >
                   <div
-                    class="sc-kkGfuU btEicj"
+                    class="sc-jAaTju dtpwYi"
                   >
                     <svg
                       fill="none"
@@ -968,7 +1430,7 @@ Object {
         </div>
       </div>
       <div
-        class="sc-jDwBTQ gWOlsA"
+        class="sc-hzDkRC DBcwP"
       >
         Virtual Assistant is AI and can make mistakes.
       </div>

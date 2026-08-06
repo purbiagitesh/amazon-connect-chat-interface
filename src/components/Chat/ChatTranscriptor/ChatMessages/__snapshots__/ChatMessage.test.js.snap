@@ -377,14 +377,14 @@ Object {
   border: 1px solid #DDDDDD;
   background: #FFFFFF;
   white-space: pre-line;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 0.45rem;
-  padding-bottom: 0.45rem;
   font-size: 12px;
   line-height: 16px;
   font-weight: normal;
   padding: 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -784,7 +784,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-lhVmIH lnsTsK"
+      class="sc-eTuwsz hjXiWX"
       data-testid="interactive-carousel-message-title"
     >
       <p
@@ -832,27 +832,27 @@ Object {
       data-testid="interactive-carousel-response-section"
     >
       <div
-        class="sc-lhVmIH kRwUyp"
+        class="sc-eTuwsz rDzys"
         data-testid="asdf0001"
       >
         <div
-          class="sc-kTUwUJ eczQue"
+          class="sc-iQNlJl keVOuv"
         >
           <p
-            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+            class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
             style="margin: 0px;"
           >
             Flight
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+            class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-dqBHgY gkIymR"
+          class="sc-bsbRJL jiyRii"
         >
           <div>
             <button
@@ -862,7 +862,7 @@ Object {
               value="Purchase Ticket"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 Purchase Ticket
               </p>
@@ -874,16 +874,16 @@ Object {
               value="View All Destinations"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 View All Destinations
               </p>
             </button>
             <div
-              class="sc-gxMtzJ gESzdp"
+              class="sc-hZSUBg gosEah"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
+                class="sc-bZQynM fraGhu sc-cMhqgX ecMcdL"
               >
                 <a
                   href="https://example.com"
@@ -913,7 +913,7 @@ Object {
         </div>
       </div>
       <div
-        class="sc-lhVmIH kRwUyp"
+        class="sc-eTuwsz rDzys"
         data-testid="asdf0002"
       >
         <div
@@ -921,28 +921,28 @@ Object {
         >
           <img
             alt="Hotel Destination"
-            class="sc-jtRfpW dbfmtq"
+            class="sc-epnACN ccJmEq"
             src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/a1/9c/80/essentia-luxury-hotel.jpg?w=700&h=-1&s=1"
           />
         </div>
         <div
-          class="sc-kTUwUJ eczQue"
+          class="sc-iQNlJl keVOuv"
         >
           <p
-            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+            class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
             style="margin: 0px;"
           >
             Hotel
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+            class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-dqBHgY gkIymR"
+          class="sc-bsbRJL jiyRii"
         >
           <div>
             <button
@@ -952,7 +952,7 @@ Object {
               value="Book Room"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 Book Room
               </p>
@@ -964,16 +964,16 @@ Object {
               value="View All Listings"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 View All Listings
               </p>
             </button>
             <div
-              class="sc-gxMtzJ gESzdp"
+              class="sc-hZSUBg gosEah"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
+                class="sc-bZQynM fraGhu sc-cMhqgX ecMcdL"
               >
                 <a
                   href="https://example.com"
@@ -1003,27 +1003,27 @@ Object {
         </div>
       </div>
       <div
-        class="sc-lhVmIH kRwUyp"
+        class="sc-eTuwsz rDzys"
         data-testid="asdf0003"
       >
         <div
-          class="sc-kTUwUJ eczQue"
+          class="sc-iQNlJl keVOuv"
         >
           <p
-            class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+            class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
             style="margin: 0px;"
           >
             Dining
           </p>
           <p
-            class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+            class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-dqBHgY gkIymR"
+          class="sc-bsbRJL jiyRii"
         >
           <div>
             <button
@@ -1034,7 +1034,7 @@ Object {
               value="Book Table"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 Book Table
               </p>
@@ -1047,17 +1047,17 @@ Object {
               value="View Popular Entrees"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl exSabl"
+                class="sc-bZQynM fraGhu sc-cMhqgX hXqWqP"
               >
                 View Popular Entrees
               </p>
             </button>
             <div
-              class="sc-gxMtzJ gESzdp"
+              class="sc-hZSUBg gosEah"
               data-testid="listElement2"
             >
               <p
-                class="sc-bZQynM fraGhu sc-dfVpRl bAJFQE"
+                class="sc-bZQynM fraGhu sc-cMhqgX ecMcdL"
               >
                 <a
                   href="https://example.com"
@@ -1468,28 +1468,28 @@ Object {
     >
       <img
         alt="ListPickerImageDescription"
-        class="sc-jtRfpW dbfmtq"
+        class="sc-epnACN ccJmEq"
         src="ListPickerImageData"
       />
     </div>
     <div
-      class="sc-kTUwUJ eczQue"
+      class="sc-iQNlJl keVOuv"
     >
       <p
-        class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+        class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
         style="margin: 0px;"
       >
         ListPickerTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+        class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
         style="margin: 0px;"
       >
         ListPickerSubtitle
       </p>
     </div>
     <div
-      class="sc-dqBHgY ggltot"
+      class="sc-bsbRJL jreVSq"
     >
       <div>
         <button
@@ -1504,21 +1504,21 @@ Object {
           >
             <img
               alt="ListPickerElementImageDescription"
-              class="sc-jtRfpW dbfmtq"
+              class="sc-epnACN ccJmEq"
               src="ListPickerElementImageData"
             />
           </div>
           <div
-            class="sc-kTUwUJ eczQue"
+            class="sc-iQNlJl keVOuv"
           >
             <p
-              class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+              class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
               style="margin: 0px;"
             >
               ListPickerElementTitle
             </p>
             <p
-              class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+              class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
               style="margin: 0px;"
             >
               ListPickerElementSubtitle
@@ -1537,21 +1537,21 @@ Object {
           >
             <img
               alt="AnotherListPickerElementImageDescription"
-              class="sc-jtRfpW dbfmtq"
+              class="sc-epnACN ccJmEq"
               src="AnotherListPickerElementImageData"
             />
           </div>
           <div
-            class="sc-kTUwUJ eczQue"
+            class="sc-iQNlJl keVOuv"
           >
             <p
-              class="sc-bZQynM fraGhu sc-bYSBpT dtLGth"
+              class="sc-bZQynM fraGhu sc-gwVKww jNffcc"
               style="margin: 0px;"
             >
               AnotherListPickerElementTitle
             </p>
             <p
-              class="sc-bZQynM fraGhu sc-elJkPf iikENV"
+              class="sc-bZQynM fraGhu sc-hXRMBi hadkYb"
               style="margin: 0px;"
             >
               AnotherListPickerElementSubtitle
@@ -1641,7 +1641,6 @@ Object {
 .c2 {
   display: block;
   width: 100%;
-  padding: 14px 20px;
   margin-bottom: 10px;
   border: none;
   border-radius: 24px;
@@ -1651,6 +1650,7 @@ Object {
   line-height: 16px;
   font-weight: normal;
   padding: 0;
+  padding: 14px 20px;
   text-align: center;
   cursor: pointer;
   -webkit-transition: background-color 0.15s ease;
@@ -1736,7 +1736,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-lhVmIH lnsTsK"
+      class="sc-eTuwsz hjXiWX"
       data-testid="interactive-quickreply-message-title"
     >
       <p
@@ -1750,27 +1750,27 @@ Object {
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-cHGsZl buVXpA"
+        class="sc-cHGsZl hpzesu"
       >
         Great!
       </button>
       <button
-        class="sc-cHGsZl buVXpA"
+        class="sc-cHGsZl hpzesu"
       >
         Good
       </button>
       <button
-        class="sc-cHGsZl buVXpA"
+        class="sc-cHGsZl hpzesu"
       >
         Ok
       </button>
       <button
-        class="sc-cHGsZl buVXpA"
+        class="sc-cHGsZl hpzesu"
       >
         Poor
       </button>
       <button
-        class="sc-cHGsZl buVXpA"
+        class="sc-cHGsZl hpzesu"
       >
         Terrible!
       </button>

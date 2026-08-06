@@ -1,8 +1,28 @@
 import React from "react";
 import {FormattedMessage} from "react-intl";
 import PT from "prop-types";
+import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model";
 import {AuthenticationMessage} from './AuthenticationMessage'
+import {formatDateDisplay, formatTimeDisplay} from "../../../../utils/helper";
+
+const Timestamp = styled.div`
+  ${({ theme }) => theme.typography.supportingText};
+  color: ${({ theme }) => theme.globals.timestampColor};
+  text-align: center;
+  margin-bottom: ${({ theme }) => theme.spacing.micro};
+`;
+
+const TimestampDot = styled.span`
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.globals.timestampColor};
+  margin: 0 ${({ theme }) => theme.spacing.micro};
+  vertical-align: middle;
+`;
+
 export class SystemMessage extends React.PureComponent {
   static propTypes = {
     messageDetails: PT.object.isRequired,
@@ -10,6 +30,21 @@ export class SystemMessage extends React.PureComponent {
   };
 
   static defaultProps = {};
+
+  renderTimestamp = () => {
+    const transportDetails = this.props.messageDetails.transportDetails;
+    const sentTime = transportDetails && transportDetails.sentTime;
+    if (!sentTime) {
+      return null;
+    }
+    return (
+      <Timestamp>
+        {formatDateDisplay(sentTime)}
+        <TimestampDot />
+        {formatTimeDisplay(sentTime)}
+      </Timestamp>
+    );
+  };
 
   getMessageText = () => {
     console.log("SystemMessage getMessageText");
@@ -80,6 +115,11 @@ export class SystemMessage extends React.PureComponent {
   };
 
   render() {
-    return <>{this.getMessageText()}</>;
+    return (
+      <>
+        {this.renderTimestamp()}
+        {this.getMessageText()}
+      </>
+    );
   }
 }
