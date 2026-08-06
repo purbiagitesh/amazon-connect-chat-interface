@@ -1,31 +1,31 @@
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Bd.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Bd.ttf') format('truetype');
+  src: url('./brand-assets/fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Bd.woff2') format('woff2'),
+       url('./brand-assets/fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Bd.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Lt.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Lt.ttf') format('truetype');
+  src: url('./brand-assets/fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Lt.woff2') format('woff2'),
+       url('./brand-assets/fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Lt.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Md.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Md.ttf') format('truetype');
+  src: url('./brand-assets/fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Md.woff2') format('woff2'),
+       url('./brand-assets/fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Md.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvetica Neue LT Pro';
-  src: url('./brand-assets/Fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Roman.woff2') format('woff2'),
-       url('./brand-assets/Fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Roman.ttf') format('truetype');
+  src: url('./brand-assets/fonts/Helvetica Neue LT Pro/WOFF2/HelveticaNeueLTPro-Roman.woff2') format('woff2'),
+       url('./brand-assets/fonts/Helvetica Neue LT Pro/TTF/HelveticaNeueLTPro-Roman.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
