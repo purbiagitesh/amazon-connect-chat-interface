@@ -102,11 +102,11 @@ const PickerElementLink = styled.div`
   border: ${({ theme}) => theme.globals.baseBorder};
   background: ${({ theme}) => theme.palette.white};
   white-space: pre-line;
+  ${({ theme}) => theme.typography.label};
   padding-right: ${({ theme}) => theme.spacing.small};
   padding-left: ${({ theme}) => theme.spacing.small};
   padding-top: ${({ theme}) => theme.button.normal.padding};
   padding-bottom: ${({ theme}) => theme.button.normal.padding};
-  ${({ theme}) => theme.typography.label};
   text-decoration: none;
 
   &:last-child {

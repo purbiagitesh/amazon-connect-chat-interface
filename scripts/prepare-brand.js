@@ -225,7 +225,7 @@ function parseFontWeightStyle(fileName) {
 // brand-theme.css.
 // Font files are scanned from either brands/<brand>/Fonts or
 // brands/<brand>/assets/fonts, but prepare-brand.js copies both of those
-// source folders' *contents* into local-testing/brand-assets/Fonts. Strip
+// source folders' *contents* into local-testing/brand-assets/fonts. Strip
 // the source-root prefix so served URLs match where files actually land.
 function stripFontsSourcePrefix(relativePath) {
   const parts = relativePath.split('/').filter(Boolean);
@@ -248,7 +248,7 @@ function getFontFaceDescriptors(fontFiles, resolvedFontFamily, assetsBasePath = 
         family: resolvedFontFamily,
         format: FONT_FORMAT_MAP[font.ext] || 'truetype',
         ext: font.ext,
-        url: assetsBasePath + '/Fonts/' + stripFontsSourcePrefix(font.relativePath),
+        url: assetsBasePath + '/fonts/' + stripFontsSourcePrefix(font.relativePath),
         weight,
         style
       };
@@ -592,10 +592,10 @@ function prepareAllBrands() {
       copyDirSync(brandThemeSrcDir, path.join(brandOutDir, 'theme'));
     }
     if (fs.existsSync(brandFontsDir)) {
-      copyDirSync(brandFontsDir, path.join(brandOutDir, 'Fonts'));
+      copyDirSync(brandFontsDir, path.join(brandOutDir, 'fonts'));
     }
     if (fs.existsSync(brandAssetsFontsDir)) {
-      copyDirSync(brandAssetsFontsDir, path.join(brandOutDir, 'Fonts'));
+      copyDirSync(brandAssetsFontsDir, path.join(brandOutDir, 'fonts'));
     }
 
     const fontFiles = getBrandFontFiles(brandPath);
@@ -757,10 +757,10 @@ Examples:
 
   // Copy font files for brand-specific font families
   if (fs.existsSync(brandFontsDir)) {
-    copyDirSync(brandFontsDir, path.join(outputAssetsDir, 'Fonts'));
+    copyDirSync(brandFontsDir, path.join(outputAssetsDir, 'fonts'));
   }
   if (fs.existsSync(brandAssetsFontsDir)) {
-    copyDirSync(brandAssetsFontsDir, path.join(outputAssetsDir, 'Fonts'));
+    copyDirSync(brandAssetsFontsDir, path.join(outputAssetsDir, 'fonts'));
   }
   if (fs.existsSync(brandFontsDir) || fs.existsSync(brandAssetsFontsDir)) {
     console.log('  ✅ Copied font assets');

@@ -19,13 +19,13 @@ const ResponsesSection = styled.div`
 const QuickReplyOption = styled.button`
   display: block;
   width: 100%;
-  padding: 14px 20px;
   margin-bottom: 10px;
   border: none;
   border-radius: 24px;
   background-color: ${({theme}) => theme.componentPalette.quickReply.backgroundColor};
   color: ${({theme}) => theme.componentPalette.quickReply.textColor};
   ${({ theme}) => theme.typography.label};
+  padding: 14px 20px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.15s ease;

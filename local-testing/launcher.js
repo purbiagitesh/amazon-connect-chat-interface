@@ -1,62 +1,11 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: MIT-0
- *
- * Self-mounting chat launcher - the single script Tealium injects on each
- * brand's real website.
- *
- * This is the production counterpart of local-testing/hostedWidget.html's
- * bootstrap script. hostedWidget.html was where this logic was built and
- * tested (fast to iterate against in a browser); this file is the same
- * logic made deployable on its own, with two differences required because
- * a brand's real website is not a page we control:
- *
- *   1. It creates its OWN DOM (the "Chat now" button, the chat panel
- *      container, and their <style>) instead of assuming that markup
- *      already exists in the page - a brand's site has its own HTML, not
- *      ours.
- *   2. Every asset URL (brandInfo.json, the launcher icon, the chat bundle)
- *      is resolved as an ABSOLUTE url against THIS SCRIPT's own location,
- *      not a relative path. A relative fetch would resolve against the
- *      brand's website origin (where this script is merely injected),
- *      not the CDN this script and its sibling brand-assets/ actually live
- *      on - those are two different origins in production.
- *
- * Self-hosted chat interface (not AWS's hosted Communications Widget):
- * this script loads our own amazon-connect-chat-interface.js bundle
- * directly and drives it via connect.ChatInterface.init()/.initiateChat().
- * There is no AWS-hosted widget snippet/iframe involved, and therefore no
- * competing "native" start-chat call - the Lambda behind apiGatewayEndpoint
- * is the only thing that ever creates the contact. (An earlier version of
- * this file loaded AWS's hosted Communications Widget instead; that widget
- * always ran its own native start-chat regardless of any customStartChat
- * override, so contact attributes and the actual live session never lined
- * up with what this script's own Lambda created - see git history for that
- * approach if it's ever needed for reference.)
- *
- * Deployment: this file, amazon-connect-chat-interface.js, and brand-assets/
- * all get served from the SAME host/CDN (see scripts/build.js, which copies
- * all three into build/dist/). Tealium's tag on each brand's site is then
- * just:
- *   <script src="https://<that-host>/launcher.js"></script>
- * Nothing brand-specific lives in the tag itself - brand is resolved here,
- * at runtime, from window.utag_data.
- */
 (function () {
   'use strict';
 
-  // ─── Resolve our own base URL (see file header) ───
-  // Must be captured synchronously, at the top of the script's first
-  // execution - document.currentScript is only reliable before any async
-  // work (a Promise .then, a setTimeout, etc.) has run.
   var LAUNCHER_BASE_URL = (function () {
     var scriptUrl = null;
     if (document.currentScript && document.currentScript.src) {
       scriptUrl = document.currentScript.src;
     } else {
-      // Fallback for environments where document.currentScript isn't
-      // available (older browsers, or this script injected some other
-      // way) - find our own <script src> tag by filename.
       var scripts = document.getElementsByTagName('script');
       for (var i = scripts.length - 1; i >= 0; i--) {
         if (/launcher\.js(\?|$)/.test(scripts[i].src)) {
@@ -69,16 +18,38 @@
   })();
 
   function absoluteUrl(relativeOrAbsolute) {
-    // brandInfo.json's own fields (assets.logo, assets.icon, fontFaces[].url)
-    // are relative paths like "./brand-assets/<brand>/images/logo.svg" -
-    // resolve those (and our own fetch targets) against our base, not the
-    // host page's location.
     return new URL(relativeOrAbsolute, LAUNCHER_BASE_URL).href;
   }
 
-  var CHAT_PANEL_ID = 'amazon-connect-chat-panel';
+  // ─── Public API: window.connect.ChatWidget.open()/.close() ───
+  // Lets a vendor's own page code trigger the widget from entry points
+  // other than our launcher button (a banner CTA, a FAQ link, etc.).
+  // Defined synchronously, right here, so it's safe to call at ANY time -
+  // including immediately on page load, before our async bootstrap
+  // (utag_data wait + brandInfo fetch + bundle load, see bootstrap() below)
+  // has finished. An early call is queued and replayed automatically the
+  // moment setupWidget() wires up the real open/close functions.
+  var realOpenWidget = null;
+  var realCloseWidget = null;
+  var pendingOpenRequest = false;
 
-  // ─── DOM: create the launcher's CSS + markup (no pre-existing HTML assumed) ───
+  window.connect = window.connect || {};
+  window.connect.ChatWidget = {
+    open: function () {
+      if (realOpenWidget) {
+        realOpenWidget();
+      } else {
+        pendingOpenRequest = true;
+      }
+    },
+    close: function () {
+      if (realCloseWidget) {
+        realCloseWidget();
+      }
+    }
+  };
+
+  var CHAT_PANEL_ID = 'amazon-connect-chat-panel';
 
   var LAUNCHER_CSS = ''
     + '#chat-now-btn {'
@@ -115,38 +86,18 @@
     + '  flex-shrink: 0;'
     + '}'
     + '#chat-now-btn .btn-icon svg { width: 15px; height: 15px; }'
-    // Icon colors are driven by CSS, not baked into each brand's SVG file -
-    // every brand's launcher-icon.svg uses these same two class names with
-    // no fill attribute of its own, so re-coloring the icon globally never
-    // requires touching per-brand assets. The inner star (.chat-icon-fg)
-    // stays in sync with the launcher button's own background color - same
-    // --launcher-color-* variables, switching on hover/active exactly like
-    // the button itself does.
     + '#chat-now-btn .btn-icon svg .chat-icon-bg { fill: #ffffff; }'
     + '#chat-now-btn .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-default, #8B005D); }'
     + '#chat-now-btn:hover .btn-icon svg .chat-icon-fg,'
     + '#chat-now-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
     + '#chat-now-btn .btn-icon img { width: 15px; height: 15px; object-fit: contain; }'
     + '#chat-now-btn.widget-open { display: none !important; }'
-    // Chat panel: this is OUR OWN floating container (no AWS-managed iframe
-    // to style anymore) - amazon-connect-chat-interface.js's React app
-    // (App.js's "Page" element, className "connect-customer-interface")
-    // mounts directly inside it. Page has its own fixed 300px width/margin/
-    // shadow meant for being the sole content of an iframe document, so
-    // those are neutralized here in favor of this container's own chrome.
     + '#' + CHAT_PANEL_ID + ' {'
     + '  display: none;'
     + '  position: fixed;'
     + '  bottom: 24px;'
     + '  right: 24px;'
     + '  width: 330px;'
-    // Fixed pixel height, deliberately NOT a calc(100vh - ...) expression -
-    // that dynamic form was the suspected cause of the panel only
-    // rendering correctly while DevTools happened to be open: the bug
-    // reproduced specifically when the viewport grew *after* the panel was
-    // already open (DevTools closing), which a static bottom-anchored box
-    // should never be sensitive to. A plain fixed height has no viewport
-    // dependency to ever go stale on.
     + '  height: 520px;'
     + '  max-width: calc(100vw - 32px);'
     + '  background: #ffffff;'
@@ -163,10 +114,6 @@
     + '  box-shadow: none !important;'
     + '}';
 
-  // Fallback icon shown only until the resolved brand's own
-  // assets/images/launcher-icon.svg has been fetched and inlined by
-  // applyLauncherIcon() below - colors come purely from the CSS rules
-  // above, not from attributes on the paths themselves.
   var FALLBACK_ICON_SVG = ''
     + '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">'
     + '<path class="chat-icon-bg" d="M28 13.4826C28.0054 15.5762 27.5163 17.6414 26.5724 19.5102C25.4532 21.7495 23.7327 23.6329 21.6036 24.9496C19.4744 26.2663 17.0207 26.9643 14.5174 26.9652C12.4238 26.9707 10.3586 26.4816 8.48984 25.5377L1.25432 27.9495C0.510306 28.1975 -0.197519 27.4897 0.0504845 26.7457L2.46233 19.5102C1.51843 17.6414 1.0293 15.5762 1.03476 13.4826C1.03572 10.9793 1.73365 8.52557 3.05036 6.39643C4.36706 4.26729 6.25055 2.54678 8.48984 1.42761C10.3586 0.483724 12.4238 -0.00541329 14.5174 4.51875e-05H15.3104C18.6166 0.182444 21.7393 1.57792 24.0807 3.91929C26.4221 6.26066 27.8176 9.38338 28 12.6896V13.4826Z" />'
@@ -192,29 +139,15 @@
     return { btn: btn, panel: panel };
   }
 
-  // ─── Runtime brand resolution (single build, all brands) ───
-  // Brand is not baked in at build/deploy time. Instead we wait for
-  // window.utag_data (Tealium's data-layer global, set on every brand's
-  // site), resolve which brand/env it points to, fetch that brand's
-  // brandInfo.json (generated for every brand by
-  // `npm run prepare-brand -- --all`, see scripts/prepare-brand.js), and
-  // only then apply theming and reveal the launcher. The launcher and the
-  // chat window both carry brand styling, so nothing brand-specific may
-  // render before this resolves.
   var UTAG_POLL_INTERVAL_MS = 100;
   var UTAG_TIMEOUT_MS = 10000;
 
-  // Maps utag_data.ELC_ENV -> our brands/<brand>/config/env.<env>.json
-  // naming. Unrecognized values fall back to "prod".
   var ENV_MAP = {
     PROD: 'prod', PRODUCTION: 'prod',
     QA: 'qa', STAGE: 'qa', STAGING: 'qa',
     DEV: 'dev', DEVELOPMENT: 'dev'
   };
 
-  // Patch here if a brand's utag_data.brand value doesn't match its
-  // brands/<brand>/ folder name (needs verifying per brand against live
-  // utag_data - only "kilian" has been confirmed so far).
   var BRAND_ALIAS_MAP = {};
 
   function waitForUtagData(onReady, onTimeout) {
@@ -241,18 +174,6 @@
     return { brand: brand, env: env };
   }
 
-  // ─── Contact attributes for the Connect greeting flow ───
-  // Maps window.utag_data (Tealium's data-layer, same global brand
-  // resolution above reads from) to the contact attribute names the Connect
-  // flow's "Play prompt"/greeting block references. Sent once, as part of
-  // the StartChatContact request our own Lambda (apiGatewayEndpoint) makes -
-  // Connect persists Attributes for the life of the contact, so the flow's
-  // very first block already sees them.
-  // customerEmail/customerName/customerPhone are static placeholders until
-  // real utag_data keys for those are confirmed with the brand's site.
-  // customerLoggedIn is temporarily hardcoded to 'Yes' for testing; restore
-  // the utag_data.customer_state check once a real logged-in sample is
-  // available to verify against.
   function buildContactAttributes(utagData) {
     utagData = utagData || {};
     return {
@@ -276,9 +197,6 @@
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
   }
 
-  // Launcher color (Default/Hover/Pressed) is driven by the brand's
-  // Primary500/Primary800 tokens - same source the header background
-  // uses - so switching brands updates it with no code changes.
   function applyBrandColors(brandConfig) {
     var brandColors = brandConfig.colors || {};
     var launcherDefault = brandColors.primary500 || brandConfig.primaryColor;
@@ -293,14 +211,6 @@
     }
   }
 
-  // Swaps in the resolved brand's own launcher icon
-  // (config.launcherIconUrl or assets.icon, generated from
-  // brands/<brand>/assets/images/launcher-icon.svg by prepare-brand.js).
-  // SVGs are fetched and inlined (not used as an <img src>) so their
-  // internal .chat-icon-bg/.chat-icon-fg classes stay reachable by our
-  // CSS above - an <img> would treat the SVG as an opaque image with no
-  // way to theme its colors. Returns a Promise so the caller can wait
-  // for it before revealing the launcher (no flash of the fallback icon).
   function applyLauncherIcon(brandInfo, btn) {
     var brandConfig = (brandInfo && brandInfo.config) || {};
     var rawIconUrl = brandConfig.launcherIconUrl || (brandInfo.assets && brandInfo.assets.icon);
@@ -310,8 +220,6 @@
     var iconUrl = absoluteUrl(rawIconUrl);
 
     if (!/\.svg(\?|$)/i.test(iconUrl)) {
-      // Non-SVG (e.g. PNG) icons can't have internal colors themed -
-      // just swap in an <img>.
       iconSlot.innerHTML = '';
       var img = document.createElement('img');
       img.src = iconUrl;
@@ -337,9 +245,6 @@
     btn.classList.add('ready');
   }
 
-  // Loads our own chat interface bundle (this repo's src/index.js output) -
-  // attaches connect.ChatInterface.init/.initiateChat onto window.connect.
-  // No AWS-hosted script/iframe is involved.
   function loadChatInterfaceScript() {
     return new Promise(function (resolve, reject) {
       var s = document.createElement('script');
@@ -354,15 +259,44 @@
   }
 
   function setupWidget(brandInfo, btn, panel) {
+    if (brandInfo.config && Array.isArray(brandInfo.config.fontFaces)) {
+      brandInfo.config.fontFaces = brandInfo.config.fontFaces.map(function (face) {
+        return Object.assign({}, face, { url: absoluteUrl(face.url) });
+      });
+    }
+    // Same fix, same reason, for every brand asset (logo, avatar, sendIcon,
+    // icon): SendMessageButton.js, ChatMessage.js, and index.js's own
+    // logoConfig fallback all read these straight off
+    // window.__CHAT_BRAND_INFO__.assets.* and drop them directly into an
+    // <img src> with no resolution logic of their own - a relative path
+    // there resolves against the HOST PAGE's origin (wrong; brand-assets/
+    // only exists on our CDN), same bug fontFaces had. Resolving here once,
+    // before anything downstream reads brandInfo.assets, fixes every
+    // consumer at once. (Harmless no-op for assets.icon, which
+    // applyLauncherIcon() below already resolves independently -
+    // absoluteUrl() on an already-absolute url just returns it unchanged.)
+    if (brandInfo.assets) {
+      Object.keys(brandInfo.assets).forEach(function (key) {
+        if (brandInfo.assets[key]) {
+          brandInfo.assets[key] = absoluteUrl(brandInfo.assets[key]);
+        }
+      });
+    }
+    // headerConfig.logoUrl (Chat.js's <img src={hc.logoUrl}>) comes straight
+    // from a brand's env.*.json ("header.logoUrl") rather than anything
+    // prepare-brand.js generates/copies, so brands are expected to hardcode
+    // a full absolute URL there today. Resolving it defensively too costs
+    // nothing (a no-op on an already-absolute url) and closes the same gap
+    // in case a brand ever sets a relative path there instead.
+    if (brandInfo.config && brandInfo.config.header && brandInfo.config.header.logoUrl) {
+      brandInfo.config.header.logoUrl = absoluteUrl(brandInfo.config.header.logoUrl);
+    }
     window.__CHAT_BRAND_INFO__ = brandInfo;
     var brandConfig = brandInfo.config || {};
     var brandColors = brandConfig.colors || {};
 
     applyBrandColors(brandConfig);
 
-    // Mount the (initially idle) chat React app into our own panel - no
-    // network calls happen until initiateChat() is called below, so it's
-    // safe to do this eagerly rather than on first click.
     window.connect.ChatInterface.init({
       containerId: CHAT_PANEL_ID,
       headerConfig: brandConfig.header,
@@ -370,10 +304,6 @@
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
     });
-
-    // Tracks whether a chat is currently active, so re-clicking the
-    // launcher button while a session is live just toggles the panel
-    // instead of starting a second, unrelated contact.
     var hasActiveChat = false;
 
     function openPanel() {
@@ -398,9 +328,6 @@
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
       }, function onSuccess(chatSession) {
         hasActiveChat = true;
-        // Fires when the chat truly ends (customer or agent closes it) -
-        // reopening the panel afterward should start a fresh chat, not
-        // silently show the now-disconnected transcript.
         chatSession.onChatClose(function () {
           hasActiveChat = false;
           closePanel();
@@ -413,7 +340,6 @@
 
     btn.addEventListener('click', function () {
       if (panel.classList.contains('open')) {
-        // Minimize - does not end an active chat, so reopening resumes it.
         closePanel();
         return;
       }
@@ -422,6 +348,25 @@
         startChat();
       }
     });
+
+    // Idempotent "ensure open", wired up to window.connect.ChatWidget.open()
+    // above - unlike the launcher button's click handler (which toggles
+    // closed if already open), an external trigger elsewhere on the page
+    // should only ever open/reveal the widget, never accidentally close it.
+    function openWidget() {
+      if (panel.classList.contains('open')) return;
+      openPanel();
+      if (!hasActiveChat) {
+        startChat();
+      }
+    }
+
+    realOpenWidget = openWidget;
+    realCloseWidget = closePanel;
+    if (pendingOpenRequest) {
+      pendingOpenRequest = false;
+      openWidget();
+    }
 
     return applyLauncherIcon(brandInfo, btn).then(function () {
       revealLauncher(btn);
@@ -465,10 +410,6 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bootstrap);
   } else {
-    // DOMContentLoaded already fired by the time this script ran (e.g. it
-    // was injected late by a tag manager) - document.body already exists,
-    // so it's safe to run immediately instead of waiting for an event that
-    // already happened.
     bootstrap();
   }
 })();
