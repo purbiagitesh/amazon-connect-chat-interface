@@ -8,6 +8,7 @@ import TimePicker from "./InteractiveMessages/TimePicker";
 import QuickReply from "./InteractiveMessages/QuickReply";
 import Carousel from "./InteractiveMessages/Carousel";
 import OrderCarousel from "./InteractiveMessages/OrderCarousel";
+import CaseCarousel from "./InteractiveMessages/CaseCarousel";
 import ListConfirmation from "./InteractiveMessages/ListConfirmation";
 import ListSelection from "./InteractiveMessages/ListSelection";
 import ListSelectionStepper from "./InteractiveMessages/ListSelectionStepper";
@@ -213,6 +214,8 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <Carousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {
     return <OrderCarousel content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.CASE_CAROUSEL) {
+    return <CaseCarousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.LIST_CONFIRMATION) {
     return <ListConfirmation content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.LIST_SELECTION) {

@@ -188,7 +188,7 @@ const NavRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: ${CARD_WIDTH}px;
+  width: 100%;
 `;
 
 const NavButton = styled.button`
@@ -243,16 +243,27 @@ function SelectableCard({ card, expanded, onToggleExpand, selected, disabled, on
         <ItemList>
           {items.map((item, index) => (
             <ItemRow key={index}>
-              <ItemPrimaryText truncate={!expanded}>{item.primaryText}</ItemPrimaryText>
-              <ItemSecondaryText>{item.secondaryText}</ItemSecondaryText>
+              {item.labelAbove ? (
+                <>
+                  <ItemSecondaryText>{item.secondaryText}</ItemSecondaryText>
+                  <ItemPrimaryText truncate={!expanded}>{item.primaryText}</ItemPrimaryText>
+                </>
+              ) : (
+                <>
+                  <ItemPrimaryText truncate={!expanded}>{item.primaryText}</ItemPrimaryText>
+                  <ItemSecondaryText>{item.secondaryText}</ItemSecondaryText>
+                </>
+              )}
             </ItemRow>
           ))}
         </ItemList>
       </CardTop>
       <ButtonGroup>
-        <SecondaryCardButton disabled={disabled} onClick={onToggleExpand} data-testid={`${card.testId}-toggle`}>
-          {expanded ? toggleLabels.collapse : toggleLabels.expand}
-        </SecondaryCardButton>
+        {!card.hideToggle && (
+          <SecondaryCardButton disabled={disabled} onClick={onToggleExpand} data-testid={`${card.testId}-toggle`}>
+            {expanded ? toggleLabels.collapse : toggleLabels.expand}
+          </SecondaryCardButton>
+        )}
         <PrimaryCardButton disabled={disabled} onClick={onSelect} data-testid={`${card.testId}-select`}>
           {selectLabel}
         </PrimaryCardButton>
@@ -287,9 +298,12 @@ SelectionCarousel.propTypes = {
       id: PT.string.isRequired,
       testId: PT.string.isRequired,
       header: PT.shape({ title: PT.string, subtitle: PT.string }).isRequired,
-      items: PT.arrayOf(PT.shape({ primaryText: PT.string, secondaryText: PT.string })).isRequired,
+      items: PT.arrayOf(
+        PT.shape({ primaryText: PT.string, secondaryText: PT.string, labelAbove: PT.bool })
+      ).isRequired,
       collapsedItemCount: PT.number,
       toggleLabels: PT.shape({ expand: PT.string, collapse: PT.string }),
+      hideToggle: PT.bool,
       selectLabel: PT.string,
       onSelectMessage: PT.string.isRequired,
     })

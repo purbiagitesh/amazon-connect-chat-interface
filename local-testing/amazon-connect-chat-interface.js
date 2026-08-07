@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "5f06375ea030bb45ef67";
+/******/ 	var hotCurrentHash = "754811ec6985df5f82c9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136433,7 +136433,7 @@ module.exports = __webpack_require__.p + "static/media/ico_logo_dk.1fc21180.svg"
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/media/icon-disclaimer.ed4efba5.svg";
+module.exports = __webpack_require__.p + "static/media/icon-disclaimer.da1b3cba.svg";
 
 /***/ }),
 
@@ -141552,11 +141552,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InteractiveMessages_QuickReply__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./InteractiveMessages/QuickReply */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/QuickReply.js");
 /* harmony import */ var _InteractiveMessages_Carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./InteractiveMessages/Carousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/Carousel.js");
 /* harmony import */ var _InteractiveMessages_OrderCarousel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./InteractiveMessages/OrderCarousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/OrderCarousel.js");
-/* harmony import */ var _InteractiveMessages_ListConfirmation__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./InteractiveMessages/ListConfirmation */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListConfirmation.js");
-/* harmony import */ var _InteractiveMessages_ListSelection__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./InteractiveMessages/ListSelection */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelection.js");
-/* harmony import */ var _InteractiveMessages_ListSelectionStepper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./InteractiveMessages/ListSelectionStepper */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelectionStepper.js");
-/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _InteractiveMessages_CaseCarousel__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./InteractiveMessages/CaseCarousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.js");
+/* harmony import */ var _InteractiveMessages_ListConfirmation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./InteractiveMessages/ListConfirmation */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListConfirmation.js");
+/* harmony import */ var _InteractiveMessages_ListSelection__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./InteractiveMessages/ListSelection */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelection.js");
+/* harmony import */ var _InteractiveMessages_ListSelectionStepper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./InteractiveMessages/ListSelectionStepper */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelectionStepper.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 
 var _templateObject,
@@ -141584,7 +141585,8 @@ var _templateObject,
 
 
 
-var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
+
+var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
@@ -141603,31 +141605,31 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_16__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.title;
 });
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_16__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.body;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
-var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
   var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141661,7 +141663,7 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_16__["default
   var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_16__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.label;
 }, function (props) {
@@ -141737,7 +141739,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 201,
+          lineNumber: 202,
           columnNumber: 14
         }
       });
@@ -141751,7 +141753,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 203,
+          lineNumber: 204,
           columnNumber: 14
         }
       });
@@ -141762,7 +141764,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 205,
+          lineNumber: 206,
           columnNumber: 14
         }
       });
@@ -141777,7 +141779,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 211,
+        lineNumber: 212,
         columnNumber: 12
       }
     });
@@ -141788,7 +141790,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 213,
+        lineNumber: 214,
         columnNumber: 12
       }
     });
@@ -141799,40 +141801,51 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 215,
+        lineNumber: 216,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].CASE_CAROUSEL) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_CaseCarousel__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 218,
         columnNumber: 12
       }
     });
   } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].LIST_CONFIRMATION) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListConfirmation__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListConfirmation__WEBPACK_IMPORTED_MODULE_13__["default"], {
       content: content,
       addMessage: onAddMessage,
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 217,
+        lineNumber: 220,
         columnNumber: 12
       }
     });
   } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].LIST_SELECTION) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListSelection__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListSelection__WEBPACK_IMPORTED_MODULE_14__["default"], {
       content: content,
       addMessage: onAddMessage,
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 219,
+        lineNumber: 222,
         columnNumber: 12
       }
     });
   } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].LIST_SELECTION_STEPPER) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListSelectionStepper__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ListSelectionStepper__WEBPACK_IMPORTED_MODULE_15__["default"], {
       content: content,
       addMessage: onAddMessage,
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 221,
+        lineNumber: 224,
         columnNumber: 12
       }
     });
@@ -141843,7 +141856,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 223,
+        lineNumber: 226,
         columnNumber: 12
       }
     });
@@ -141854,7 +141867,7 @@ function InteractiveMessage(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 227,
+      lineNumber: 230,
       columnNumber: 5
     }
   }, renderTemplate());
@@ -141877,7 +141890,7 @@ function ReactiveImage(_ref23) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 242,
       columnNumber: 10
     }
   });
@@ -141893,25 +141906,25 @@ function HeaderText(_ref24) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 249,
+      lineNumber: 252,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_15__["RichMessageRenderer"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__["RichMessageRenderer"], {
     content: title,
     styledWrapper: Title,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 250,
+      lineNumber: 253,
       columnNumber: 7
     }
-  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_15__["RichMessageRenderer"], {
+  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__["RichMessageRenderer"], {
     content: subtitle,
     styledWrapper: Subtitle,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 251,
+      lineNumber: 254,
       columnNumber: 21
     }
   }));
@@ -141927,7 +141940,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 258,
+      lineNumber: 261,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -141936,7 +141949,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 266,
+      lineNumber: 269,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -141944,7 +141957,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 267,
+      lineNumber: 270,
       columnNumber: 7
     }
   }));
@@ -141959,7 +141972,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 274,
+      lineNumber: 277,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerOptionTitle, {
@@ -141967,7 +141980,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 275,
+      lineNumber: 278,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
@@ -141976,14 +141989,14 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 276,
+      lineNumber: 279,
       columnNumber: 9
     }
   }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ExternalLinkIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 279,
+      lineNumber: 282,
       columnNumber: 9
     }
   })));
@@ -142250,6 +142263,149 @@ function Carousel(_ref7) {
     }
   })));
 }
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.js":
+/*!***********************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.js ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CaseCarousel; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _SelectionCarousel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SelectionCarousel */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SelectionCarousel.js");
+/* harmony import */ var _CaseCarousel_mockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CaseCarousel.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.mockData.js");
+/* harmony import */ var _CaseCarousel_mockData__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_CaseCarousel_mockData__WEBPACK_IMPORTED_MODULE_4__);
+
+var _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\CaseCarousel.js";
+
+
+
+
+
+// Adapter for the "Find Case Number" flow - maps case-shaped VA content onto
+// the generic SelectionCarousel primitive. Per design this reuses the same
+// visual pattern as OrderCarousel.js (no new Figma design was needed for
+// Case Number), but stays its own adapter/component and template type so
+// each flow's data mapping is independent and neither can break the other.
+//
+// The VA sends this data today under templateType "ListPicker" with plain
+// {title, subtitle} elements (case number as title, "<ISO date> | <type>"
+// as subtitle, plus a no-subtitle "Help With Something Else" element) - see
+// the real payload this was built against. Reading that exact same
+// content.elements shape here means the only backend change needed to get
+// the carousel design is switching templateType to "CaseCarousel"; no new
+// fields required.
+var SUBTITLE_PATTERN = /^(.+?)\s*\|\s*(.+)$/;
+function formatCaseDate(isoTimestamp) {
+  var date = new Date(isoTimestamp);
+  if (isNaN(date.getTime())) return isoTimestamp;
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+function toTitleCase(text) {
+  return text.replace(/\w\S*/g, function (word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+}
+CaseCarousel.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+function CaseCarousel(_ref) {
+  var content = _ref.content,
+    addMessage = _ref.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // CaseCarousel.mockData.js. Swapping to the real VA JSON is a data change
+  // only, not a structural one.
+  var elements = content && content.elements || _CaseCarousel_mockData__WEBPACK_IMPORTED_MODULE_4__["MOCK_CASE_ELEMENTS"];
+  var cards = [];
+  var fallbackCtas = [];
+  elements.forEach(function (element, index) {
+    var match = element.subtitle && element.subtitle.match(SUBTITLE_PATTERN);
+    if (!match) {
+      // No parseable "<date> | <type>" subtitle (e.g. "Help With Something
+      // Else") - not a case, just a plain reply option like ListPicker
+      // would have rendered it as a list button.
+      fallbackCtas.push({
+        testId: "case-card-fallback-".concat(index),
+        label: element.title,
+        message: element.title
+      });
+      return;
+    }
+    var _match = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(match, 3),
+      isoDate = _match[1],
+      type = _match[2];
+    cards.push({
+      id: "case-".concat(element.title),
+      testId: "case-card-".concat(element.title),
+      header: {
+        title: "Case No. ".concat(element.title),
+        subtitle: "Date: ".concat(formatCaseDate(isoDate))
+      },
+      items: [{
+        labelAbove: true,
+        primaryText: toTitleCase(type),
+        secondaryText: "Related to:"
+      }],
+      hideToggle: true,
+      selectLabel: "Select this Case",
+      // Matches how a plain ListPicker element reply already works
+      // (createInteractiveMessagePayload sends selectedElement.title back
+      // as-is) so the VA side needs no change to recognize the selection.
+      onSelectMessage: element.title
+    });
+  });
+  var fallbackCard = fallbackCtas.length ? {
+    testId: "case-card-empty",
+    heading: "Need help with something else?",
+    ctas: fallbackCtas
+  } : undefined;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SelectionCarousel__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    cards: cards,
+    fallbackCard: fallbackCard,
+    addMessage: addMessage,
+    testIdPrefix: "case-carousel",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 77,
+      columnNumber: 5
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.mockData.js":
+/*!********************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/CaseCarousel.mockData.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Placeholder data for local/visual development, matches the real payload
+// shape the VA already sends today under templateType "ListPicker" (case
+// number as element.title, "<ISO date> | <type>" as element.subtitle, plus
+// a no-subtitle fallback element) - see CaseCarousel.js. CaseCarousel falls
+// back to this only when no content.elements is passed in.
+// export const MOCK_CASE_ELEMENTS = [
+//   { title: "16153037", subtitle: "2026-07-24T15:39:13.000+0000 | change order" },
+//   { title: "16153036", subtitle: "2026-07-24T15:39:02.000+0000 | cancel order" },
+//   { title: "Help With Something Else" },
+// ];
 
 /***/ }),
 
@@ -144372,7 +144528,7 @@ var FallbackCardHeading = styled_components__WEBPACK_IMPORTED_MODULE_5__["defaul
   var theme = _ref22.theme;
   return theme.globals.bodyFontColor;
 });
-var NavRow = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject20 || (_templateObject20 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: ", "px;\n"])), CARD_WIDTH);
+var NavRow = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject20 || (_templateObject20 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: 100%;\n"])));
 var NavButton = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].button(_templateObject21 || (_templateObject21 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 36px;\n  height: 36px;\n  padding: 10px;\n  border-radius: 50%;\n  box-sizing: border-box;\n  border: 1px solid ", ";\n  background: ", ";\n  color: ", ";\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: ", ";\n  opacity: ", ";\n\n  svg {\n    width: 8px;\n    height: 12px;\n  }\n"])), function (props) {
   return props.enabled ? props.theme.color.primary : "transparent";
 }, function (_ref23) {
@@ -144465,38 +144621,53 @@ function SelectableCard(_ref25) {
         lineNumber: 245,
         columnNumber: 13
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
+    }, item.labelAbove ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemSecondaryText, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 248,
+        columnNumber: 19
+      }
+    }, item.secondaryText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
       truncate: !expanded,
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 246,
-        columnNumber: 15
+        lineNumber: 249,
+        columnNumber: 19
+      }
+    }, item.primaryText)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
+      truncate: !expanded,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 253,
+        columnNumber: 19
       }
     }, item.primaryText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemSecondaryText, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 247,
-        columnNumber: 15
+        lineNumber: 254,
+        columnNumber: 19
       }
-    }, item.secondaryText));
+    }, item.secondaryText)));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ButtonGroup, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 252,
+      lineNumber: 261,
       columnNumber: 7
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SecondaryCardButton, {
+  }, !card.hideToggle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SecondaryCardButton, {
     disabled: disabled,
     onClick: onToggleExpand,
     "data-testid": "".concat(card.testId, "-toggle"),
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 253,
-      columnNumber: 9
+      lineNumber: 263,
+      columnNumber: 11
     }
   }, expanded ? toggleLabels.collapse : toggleLabels.expand), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PrimaryCardButton, {
     disabled: disabled,
@@ -144505,7 +144676,7 @@ function SelectableCard(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 256,
+      lineNumber: 267,
       columnNumber: 9
     }
   }, selectLabel)));
@@ -144521,21 +144692,21 @@ function FallbackSelectionCard(_ref26) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 266,
+      lineNumber: 277,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackCardHeading, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 267,
+      lineNumber: 278,
       columnNumber: 7
     }
   }, card.heading), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ButtonGroup, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 268,
+      lineNumber: 279,
       columnNumber: 7
     }
   }, card.ctas.map(function (cta) {
@@ -144549,7 +144720,7 @@ function FallbackSelectionCard(_ref26) {
       __self: _this2,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 270,
+        lineNumber: 281,
         columnNumber: 11
       }
     }, cta.label);
@@ -144565,13 +144736,15 @@ SelectionCarousel.propTypes = {
     }).isRequired,
     items: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
       primaryText: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
-      secondaryText: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
+      secondaryText: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
+      labelAbove: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.bool
     })).isRequired,
     collapsedItemCount: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.number,
     toggleLabels: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
       expand: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
       collapse: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
     }),
+    hideToggle: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.bool,
     selectLabel: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
     onSelectMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired
   })).isRequired,
@@ -144649,7 +144822,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 345,
+      lineNumber: 359,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardsScroller, {
@@ -144659,7 +144832,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 346,
+      lineNumber: 360,
       columnNumber: 7
     }
   }, cards.map(function (card) {
@@ -144678,7 +144851,7 @@ function SelectionCarousel(_ref27) {
       __self: _this3,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 348,
+        lineNumber: 362,
         columnNumber: 11
       }
     });
@@ -144691,14 +144864,14 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 359,
+      lineNumber: 373,
       columnNumber: 11
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 367,
+      lineNumber: 381,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavButton, {
@@ -144712,7 +144885,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 368,
+      lineNumber: 382,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
@@ -144720,14 +144893,14 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 375,
+      lineNumber: 389,
       columnNumber: 11
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Pagination, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 377,
+      lineNumber: 391,
       columnNumber: 9
     }
   }, Array.from({
@@ -144739,7 +144912,7 @@ function SelectionCarousel(_ref27) {
       __self: _this3,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 379,
+        lineNumber: 393,
         columnNumber: 13
       }
     });
@@ -144754,7 +144927,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 382,
+      lineNumber: 396,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
@@ -144762,7 +144935,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 389,
+      lineNumber: 403,
       columnNumber: 11
     }
   }))));
@@ -146732,6 +146905,7 @@ var InteractiveMessageType = {
   CAROUSEL: "Carousel",
   VIEW_RESOURCE: "ViewResource",
   ORDER_CAROUSEL: "OrderCarousel",
+  CASE_CAROUSEL: "CaseCarousel",
   LIST_CONFIRMATION: "ListConfirmation",
   LIST_SELECTION: "ListSelection",
   LIST_SELECTION_STEPPER: "ListSelectionStepper"
