@@ -55,7 +55,6 @@ Object {
 .c2 {
   display: block;
   width: 100%;
-  padding: 14px 20px;
   margin-bottom: 10px;
   border: none;
   border-radius: 24px;
@@ -65,6 +64,7 @@ Object {
   line-height: 16px;
   font-weight: normal;
   padding: 0;
+  padding: 14px 20px;
   text-align: center;
   cursor: pointer;
   -webkit-transition: background-color 0.15s ease;
@@ -135,27 +135,27 @@ Object {
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-cMhqgX behxKW"
+        class="sc-cMhqgX kaTTzS"
       >
         Great!
       </button>
       <button
-        class="sc-cMhqgX behxKW"
+        class="sc-cMhqgX kaTTzS"
       >
         Good
       </button>
       <button
-        class="sc-cMhqgX behxKW"
+        class="sc-cMhqgX kaTTzS"
       >
         Ok
       </button>
       <button
-        class="sc-cMhqgX behxKW"
+        class="sc-cMhqgX kaTTzS"
       >
         Poor
       </button>
       <button
-        class="sc-cMhqgX behxKW"
+        class="sc-cMhqgX kaTTzS"
       >
         Terrible!
       </button>

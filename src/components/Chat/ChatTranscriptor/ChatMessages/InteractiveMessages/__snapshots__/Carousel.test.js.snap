@@ -282,14 +282,14 @@ Object {
   border: 1px solid #DDDDDD;
   background: #FFFFFF;
   white-space: pre-line;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 0.45rem;
-  padding-bottom: 0.45rem;
   font-size: 12px;
   line-height: 16px;
   font-weight: normal;
   padding: 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -880,7 +880,7 @@ Object {
               </p>
             </button>
             <div
-              class="sc-epnACN ezoPyC"
+              class="sc-epnACN dgTzcP"
             >
               <p
                 class="sc-eNQAEJ iieVCa sc-iQNlJl gqudPY"
@@ -970,7 +970,7 @@ Object {
               </p>
             </button>
             <div
-              class="sc-epnACN ezoPyC"
+              class="sc-epnACN dgTzcP"
             >
               <p
                 class="sc-eNQAEJ iieVCa sc-iQNlJl gqudPY"
@@ -1053,7 +1053,7 @@ Object {
               </p>
             </button>
             <div
-              class="sc-epnACN ezoPyC"
+              class="sc-epnACN dgTzcP"
               data-testid="listElement2"
             >
               <p
