@@ -401,14 +401,26 @@ export class ParticipantMessage extends PureComponent {
     if (
       this.props.isLatestMessage &&
       this.props.messageDetails.content &&
-      this.props.messageDetails.content.type ===
-      ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE
+      (this.props.messageDetails.content.type ===
+        ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+        // CUSTOM_BOT participants can only send text/plain (see
+        // isInteractiveMessagePayload below) - this same JSON payload needs
+        // this Body styling regardless of which transport carried it, or
+        // Order/Case Carousel's own card background/padding gets layered
+        // underneath the bubble's default padded background.
+        isInteractiveMessagePayload(this.props.messageDetails.content.data))
     ) {
       bodyStyleConfig.hideDirectionArrow = true;
       bodyStyleConfig.removePadding = true;
 
       const { templateType } = JSON.parse(this.props.messageDetails.content.data);
-      if (templateType === InteractiveMessageType.VIEW_RESOURCE || templateType === InteractiveMessageType.QUICK_REPLY || templateType === InteractiveMessageType.CAROUSEL) {
+      if (
+        templateType === InteractiveMessageType.VIEW_RESOURCE ||
+        templateType === InteractiveMessageType.QUICK_REPLY ||
+        templateType === InteractiveMessageType.CAROUSEL ||
+        templateType === InteractiveMessageType.ORDER_CAROUSEL ||
+        templateType === InteractiveMessageType.CASE_CAROUSEL
+      ) {
         bodyStyleConfig.childWillAddBackground = true;
       }
     }
