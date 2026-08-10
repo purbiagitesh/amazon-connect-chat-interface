@@ -14,11 +14,9 @@
 function buildComponentPalette(colors = {}) {
   const primary = colors.primary || {};
   const featured = colors.featured || {};
-  const text = colors.text || {};
 
   const primary500 = colors.primary500 || primary['500'] || '#3F5773';
   const primary800 = colors.primary800 || primary['800'] || primary500;
-  const textDefault = text.default || '#1A1A1A';
 
   return {
     launcher: {
@@ -38,10 +36,23 @@ function buildComponentPalette(colors = {}) {
         hoverBackgroundColor: primary800,
       },
     },
+    // Chip (QuickReply options): per the Figma "Chips" spec, background/
+    // border/text colors are neutral and stay fixed across every brand -
+    // unlike the rest of this palette, these are literal, not derived from
+    // colors.primary/featured. Only the font-family (theme.typography.label,
+    // which doesn't set one) follows the brand's typeface.
     quickReply: {
-      backgroundColor: primary['100'] || primary500,
-      hoverBackgroundColor: primary['200'] || primary800,
-      textColor: textDefault,
+      backgroundColor: '#FFFFFF',
+      borderColor: '#1A1A1A',
+      textColor: '#1A1A1A',
+      hoverBackgroundColor: '#F2F2F2',
+      hoverBorderColor: '#1A1A1A',
+      activeBackgroundColor: '#D9D9D9',
+      activeBorderColor: '#D9D9D9',
+      focusBorderColor: '#6D9CCF',
+      disabledBackgroundColor: '#FBFBFB',
+      disabledBorderColor: '#DDDDDD',
+      disabledTextColor: '#BFBFBF',
     },
     timePicker: {
       confirmBackgroundColor: primary500,

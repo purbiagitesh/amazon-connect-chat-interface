@@ -142,10 +142,20 @@ const componentPalette = {
       hoverBackgroundColor: color.secondary,
     },
   },
+  // Chip (QuickReply options) - neutral across every brand per the Figma
+  // "Chips" spec, mirrors componentPalette.js's buildComponentPalette().
   quickReply: {
-    backgroundColor: "#D6D6FA",
-    hoverBackgroundColor: "#C4C4F8",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#1A1A1A",
     textColor: "#1A1A1A",
+    hoverBackgroundColor: "#F2F2F2",
+    hoverBorderColor: "#1A1A1A",
+    activeBackgroundColor: "#D9D9D9",
+    activeBorderColor: "#D9D9D9",
+    focusBorderColor: "#6D9CCF",
+    disabledBackgroundColor: "#FBFBFB",
+    disabledBorderColor: "#DDDDDD",
+    disabledTextColor: "#BFBFBF",
   },
   timePicker: {
     confirmBackgroundColor: "#3F5773",

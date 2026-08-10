@@ -1199,26 +1199,57 @@ Object {
 }
 
 .c2 {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 24px;
-  background-color: #D6D6FA;
-  color: #1A1A1A;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 4px;
+  width: auto;
+  min-height: 36px;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ac-widget-quickreply-border-color,#1A1A1A);
+  background-color: var(--ac-widget-quickreply-bg-color,#FFFFFF);
+  color: var(--ac-widget-quickreply-text-color,#1A1A1A);
   font-size: 12px;
   line-height: 16px;
   font-weight: normal;
   padding: 0;
-  padding: 14px 20px;
   text-align: center;
   cursor: pointer;
-  -webkit-transition: background-color 0.15s ease;
-  transition: background-color 0.15s ease;
+  -webkit-transition: background-color 0.15s ease,border-color 0.15s ease,color 0.15s ease;
+  transition: background-color 0.15s ease,border-color 0.15s ease,color 0.15s ease;
 }
 
-.c2:hover {
-  background-color: #C4C4F8;
+.c2:hover:not(:disabled) {
+  background-color: var(--ac-widget-quickreply-hover-bg-color,#F2F2F2);
+  border-color: var(--ac-widget-quickreply-hover-border-color,#1A1A1A);
+}
+
+.c2:focus-visible {
+  outline: 2px solid var(--ac-widget-quickreply-focus-border-color,#6D9CCF);
+  outline-offset: 1px;
+}
+
+.c2:active:not(:disabled) {
+  background-color: var(--ac-widget-quickreply-active-bg-color,#D9D9D9);
+  border-color: var(--ac-widget-quickreply-active-border-color,#D9D9D9);
+}
+
+.c2:disabled {
+  background-color: var(--ac-widget-quickreply-disabled-bg-color,#FBFBFB);
+  border-color: var(--ac-widget-quickreply-disabled-border-color,#DDDDDD);
+  color: var(--ac-widget-quickreply-disabled-text-color,#BFBFBF);
+  cursor: not-allowed;
 }
 
 .c0 {
@@ -1311,27 +1342,27 @@ Object {
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-cHGsZl hpzesu"
+        class="sc-cHGsZl dPmmVv"
       >
         Great!
       </button>
       <button
-        class="sc-cHGsZl hpzesu"
+        class="sc-cHGsZl dPmmVv"
       >
         Good
       </button>
       <button
-        class="sc-cHGsZl hpzesu"
+        class="sc-cHGsZl dPmmVv"
       >
         Ok
       </button>
       <button
-        class="sc-cHGsZl hpzesu"
+        class="sc-cHGsZl dPmmVv"
       >
         Poor
       </button>
       <button
-        class="sc-cHGsZl hpzesu"
+        class="sc-cHGsZl dPmmVv"
       >
         Terrible!
       </button>

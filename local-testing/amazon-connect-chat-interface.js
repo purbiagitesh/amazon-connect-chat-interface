@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "754811ec6985df5f82c9";
+/******/ 	var hotCurrentHash = "f6b75273de729d40d5f8";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -141089,12 +141089,18 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
 
       //Hack to simulate ChatJS response with attachment content types
       var bodyStyleConfig = {};
-      if (this.props.isLatestMessage && this.props.messageDetails.content && this.props.messageDetails.content.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE) {
+      if (this.props.isLatestMessage && this.props.messageDetails.content && (this.props.messageDetails.content.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+      // CUSTOM_BOT participants can only send text/plain (see
+      // isInteractiveMessagePayload below) - this same JSON payload needs
+      // this Body styling regardless of which transport carried it, or
+      // Order/Case Carousel's own card background/padding gets layered
+      // underneath the bubble's default padded background.
+      isInteractiveMessagePayload(this.props.messageDetails.content.data))) {
         bodyStyleConfig.hideDirectionArrow = true;
         bodyStyleConfig.removePadding = true;
         var _JSON$parse = JSON.parse(this.props.messageDetails.content.data),
           templateType = _JSON$parse.templateType;
-        if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].VIEW_RESOURCE || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CAROUSEL) {
+        if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].VIEW_RESOURCE || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].ORDER_CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CASE_CAROUSEL) {
           bodyStyleConfig.childWillAddBackground = true;
         }
       }
@@ -141129,7 +141135,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 445,
+          lineNumber: 457,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -141137,7 +141143,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 446,
+          lineNumber: 458,
           columnNumber: 9
         }
       }, this.renderHeader(!!avatarUrl)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
@@ -141149,7 +141155,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 447,
+          lineNumber: 459,
           columnNumber: 9
         }
       }, function (_ref27) {
@@ -141163,7 +141169,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 449,
+            lineNumber: 461,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -141171,7 +141177,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 460,
+          lineNumber: 472,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
@@ -141183,7 +141189,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 472,
+          lineNumber: 484,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
@@ -141193,14 +141199,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 473,
+          lineNumber: 485,
           columnNumber: 9
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 474,
+          lineNumber: 486,
           columnNumber: 9
         }
       }, mainMessage));
@@ -141222,7 +141228,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 488,
+            lineNumber: 500,
             columnNumber: 9
           }
         });
@@ -141239,14 +141245,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 500,
+                lineNumber: 512,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 500,
+              lineNumber: 512,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -141257,7 +141263,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 501,
+              lineNumber: 513,
               columnNumber: 13
             }
           }));
@@ -141268,7 +141274,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 511,
+            lineNumber: 523,
             columnNumber: 14
           }
         });
@@ -141284,7 +141290,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 519,
+            lineNumber: 531,
             columnNumber: 14
           }
         });
@@ -141296,7 +141302,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 524,
+            lineNumber: 536,
             columnNumber: 14
           }
         });
@@ -141309,7 +141315,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 529,
+            lineNumber: 541,
             columnNumber: 14
           }
         });
@@ -141319,7 +141325,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 532,
+          lineNumber: 544,
           columnNumber: 12
         }
       });
@@ -141334,14 +141340,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 540,
+          lineNumber: 552,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 541,
+          lineNumber: 553,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -141361,7 +141367,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 554,
+          lineNumber: 566,
           columnNumber: 7
         }
       }, "Retry");
@@ -141394,7 +141400,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 569,
+          lineNumber: 581,
           columnNumber: 7
         }
       }, this.props.content);
@@ -141432,7 +141438,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 596,
+          lineNumber: 608,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -141440,7 +141446,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 597,
+          lineNumber: 609,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -141448,7 +141454,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 598,
+          lineNumber: 610,
           columnNumber: 11
         }
       })));
@@ -141491,7 +141497,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 628,
+            lineNumber: 640,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141508,7 +141514,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 645,
+          lineNumber: 657,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -141629,7 +141635,7 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  ", ";\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141637,19 +141643,19 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default
   return theme.palette.white;
 }, function (_ref12) {
   var theme = _ref12.theme;
-  return theme.spacing.small;
+  return theme.typography.label;
 }, function (_ref13) {
   var theme = _ref13.theme;
   return theme.spacing.small;
 }, function (_ref14) {
   var theme = _ref14.theme;
-  return theme.button.normal.padding;
+  return theme.spacing.small;
 }, function (_ref15) {
   var theme = _ref15.theme;
   return theme.button.normal.padding;
 }, function (_ref16) {
   var theme = _ref16.theme;
-  return theme.typography.label;
+  return theme.button.normal.padding;
 }, function (_ref17) {
   var theme = _ref17.theme;
   return theme.spacing.mini;
@@ -144234,22 +144240,59 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   var theme = _ref2.theme;
   return theme.spacing.mini;
 });
-var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: block;\n  width: 100%;\n  padding: 14px 20px;\n  margin-bottom: 10px;\n  border: none;\n  border-radius: 24px;\n  background-color: ", ";\n  color: ", ";\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease;\n\n  &:hover {\n    background-color: ", ";\n  }\n"])), function (_ref3) {
+
+// Chip per Figma "Chips" spec: background/border/text colors are neutral
+// and fixed across every brand (see componentPalette.js's quickReply block -
+// only the font-family follows the brand's typeface, inherited globally via
+// theme.typography.label not setting one). Sized to content (inline-flex,
+// not the old block/width:100%) so chips wrap left-to-right like the Figma
+// reference instead of stacking one-per-row; the emoji/icon a caller wants
+// on either side is just part of element.title's text (no separate icon
+// field exists on quick-reply elements), and this flex layout keeps that
+// centered alongside the label either way.
+var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: ", ";\n  width: auto;\n  min-height: 36px;\n  box-sizing: border-box;\n  padding: 8px 16px;\n  border-radius: 999px;\n  border: 1px solid var(--ac-widget-quickreply-border-color, ", ");\n  background-color: var(--ac-widget-quickreply-bg-color, ", ");\n  color: var(--ac-widget-quickreply-text-color, ", ");\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;\n\n  &:hover:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-hover-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-hover-border-color, ", ");\n  }\n\n  &:focus-visible {\n    outline: 2px solid var(--ac-widget-quickreply-focus-border-color, ", ");\n    outline-offset: 1px;\n  }\n\n  &:active:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-active-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-active-border-color, ", ");\n  }\n\n  &:disabled {\n    background-color: var(--ac-widget-quickreply-disabled-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-disabled-border-color, ", ");\n    color: var(--ac-widget-quickreply-disabled-text-color, ", ");\n    cursor: not-allowed;\n  }\n"])), function (_ref3) {
   var theme = _ref3.theme;
-  return theme.componentPalette.quickReply.backgroundColor;
+  return theme.spacing.micro;
 }, function (_ref4) {
   var theme = _ref4.theme;
-  return theme.componentPalette.quickReply.textColor;
+  return theme.componentPalette.quickReply.borderColor;
 }, function (_ref5) {
   var theme = _ref5.theme;
-  return theme.typography.label;
+  return theme.componentPalette.quickReply.backgroundColor;
 }, function (_ref6) {
   var theme = _ref6.theme;
+  return theme.componentPalette.quickReply.textColor;
+}, function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.label;
+}, function (_ref8) {
+  var theme = _ref8.theme;
   return theme.componentPalette.quickReply.hoverBackgroundColor;
+}, function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.componentPalette.quickReply.hoverBorderColor;
+}, function (_ref10) {
+  var theme = _ref10.theme;
+  return theme.componentPalette.quickReply.focusBorderColor;
+}, function (_ref11) {
+  var theme = _ref11.theme;
+  return theme.componentPalette.quickReply.activeBackgroundColor;
+}, function (_ref12) {
+  var theme = _ref12.theme;
+  return theme.componentPalette.quickReply.activeBorderColor;
+}, function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.componentPalette.quickReply.disabledBackgroundColor;
+}, function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.componentPalette.quickReply.disabledBorderColor;
+}, function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.componentPalette.quickReply.disabledTextColor;
 });
-function ReplyElement(_ref7) {
-  var element = _ref7.element,
-    handleSelection = _ref7.handleSelection;
+function ReplyElement(_ref16) {
+  var element = _ref16.element,
+    handleSelection = _ref16.handleSelection;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "replyOptionCharLimit");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyOption, {
     onClick: function onClick() {
@@ -144260,7 +144303,7 @@ function ReplyElement(_ref7) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42,
+      lineNumber: 73,
       columnNumber: 5
     }
   }, title);
@@ -144269,10 +144312,10 @@ QuickReply.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
-function QuickReply(_ref8) {
+function QuickReply(_ref17) {
   var _this = this;
-  var content = _ref8.content,
-    addMessage = _ref8.addMessage;
+  var content = _ref17.content,
+    addMessage = _ref17.addMessage;
   var inputTitle = content.title,
     elements = content.elements;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
@@ -144283,7 +144326,7 @@ function QuickReply(_ref8) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59,
+      lineNumber: 90,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -144291,7 +144334,7 @@ function QuickReply(_ref8) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60,
+      lineNumber: 91,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ResponsesSection, {
@@ -144299,7 +144342,7 @@ function QuickReply(_ref8) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62,
+      lineNumber: 93,
       columnNumber: 7
     }
   }, elements.map(function (element, index) {
@@ -144310,7 +144353,7 @@ function QuickReply(_ref8) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 64,
+        lineNumber: 95,
         columnNumber: 11
       }
     });
@@ -149269,10 +149312,8 @@ function buildComponentPalette() {
   var colors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var primary = colors.primary || {};
   var featured = colors.featured || {};
-  var text = colors.text || {};
   var primary500 = colors.primary500 || primary['500'] || '#3F5773';
   var primary800 = colors.primary800 || primary['800'] || primary500;
-  var textDefault = text.default || '#1A1A1A';
   return {
     launcher: {
       color: primary500,
@@ -149291,10 +149332,23 @@ function buildComponentPalette() {
         hoverBackgroundColor: primary800
       }
     },
+    // Chip (QuickReply options): per the Figma "Chips" spec, background/
+    // border/text colors are neutral and stay fixed across every brand -
+    // unlike the rest of this palette, these are literal, not derived from
+    // colors.primary/featured. Only the font-family (theme.typography.label,
+    // which doesn't set one) follows the brand's typeface.
     quickReply: {
-      backgroundColor: primary['100'] || primary500,
-      hoverBackgroundColor: primary['200'] || primary800,
-      textColor: textDefault
+      backgroundColor: '#FFFFFF',
+      borderColor: '#1A1A1A',
+      textColor: '#1A1A1A',
+      hoverBackgroundColor: '#F2F2F2',
+      hoverBorderColor: '#1A1A1A',
+      activeBackgroundColor: '#D9D9D9',
+      activeBorderColor: '#D9D9D9',
+      focusBorderColor: '#6D9CCF',
+      disabledBackgroundColor: '#FBFBFB',
+      disabledBorderColor: '#DDDDDD',
+      disabledTextColor: '#BFBFBF'
     },
     timePicker: {
       confirmBackgroundColor: primary500,
@@ -149540,10 +149594,20 @@ var componentPalette = {
       hoverBackgroundColor: color.secondary
     }
   },
+  // Chip (QuickReply options) - neutral across every brand per the Figma
+  // "Chips" spec, mirrors componentPalette.js's buildComponentPalette().
   quickReply: {
-    backgroundColor: "#D6D6FA",
-    hoverBackgroundColor: "#C4C4F8",
-    textColor: "#1A1A1A"
+    backgroundColor: "#FFFFFF",
+    borderColor: "#1A1A1A",
+    textColor: "#1A1A1A",
+    hoverBackgroundColor: "#F2F2F2",
+    hoverBorderColor: "#1A1A1A",
+    activeBackgroundColor: "#D9D9D9",
+    activeBorderColor: "#D9D9D9",
+    focusBorderColor: "#6D9CCF",
+    disabledBackgroundColor: "#FBFBFB",
+    disabledBorderColor: "#DDDDDD",
+    disabledTextColor: "#BFBFBF"
   },
   timePicker: {
     confirmBackgroundColor: "#3F5773",
