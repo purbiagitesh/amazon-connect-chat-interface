@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "f85d3af76029f022830f";
+/******/ 	var hotCurrentHash = "6382cc69c66b2d02bfdd";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -142443,6 +142443,11 @@ function CaseCarousel(_ref) {
         secondaryText: "Related to:"
       }],
       hideToggle: true,
+      // Case cards only ever have one "Related to" line, unlike Order's
+      // multi-product list - drop SelectionCarousel's default 255px min
+      // height so the card hugs its (shorter) content instead of leaving a
+      // gap above the button.
+      minHeight: 0,
       selectLabel: "Select this Case",
       // Matches how a plain ListPicker element reply already works
       // (createInteractiveMessagePayload sends selectedElement.title back
@@ -142453,7 +142458,8 @@ function CaseCarousel(_ref) {
   var fallbackCard = fallbackCtas.length ? {
     testId: "case-card-empty",
     heading: "Need help with something else?",
-    ctas: fallbackCtas
+    ctas: fallbackCtas,
+    minHeight: 0
   } : undefined;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SelectionCarousel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     cards: cards,
@@ -142463,7 +142469,7 @@ function CaseCarousel(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77,
+      lineNumber: 82,
       columnNumber: 5
     }
   });
@@ -144560,7 +144566,10 @@ var CarouselShell = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].di
   return theme.spacing.small;
 });
 var CardsScroller = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: ", "px;\n  overflow-x: auto;\n  scroll-snap-type: x mandatory;\n  scroll-behavior: smooth;\n\n  ::-webkit-scrollbar {\n    display: none;\n  }\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n"])), CARD_GAP);
-var CardBase = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  box-sizing: border-box;\n  width: ", "px;\n  min-height: 255px;\n  scroll-snap-align: start;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-selection-card-border, ", ");\n  background: ", ";\n  opacity: ", ";\n  pointer-events: ", ";\n\n  ", "\n"])), CARD_WIDTH, function (_ref3) {
+var DEFAULT_CARD_MIN_HEIGHT = 255;
+var CardBase = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 0 0 auto;\n  box-sizing: border-box;\n  width: ", "px;\n  min-height: ", "px;\n  scroll-snap-align: start;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-selection-card-border, ", ");\n  background: ", ";\n  opacity: ", ";\n  pointer-events: ", ";\n\n  ", "\n"])), CARD_WIDTH, function (props) {
+  return props.minHeight != null ? props.minHeight : DEFAULT_CARD_MIN_HEIGHT;
+}, function (_ref3) {
   var theme = _ref3.theme;
   return theme.palette.alto;
 }, function (_ref4) {
@@ -144682,53 +144691,54 @@ function SelectableCard(_ref25) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardBase, {
     disabled: disabled,
     selected: selected,
+    minHeight: card.minHeight,
     "data-testid": card.testId,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 236,
+      lineNumber: 238,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardTop, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 237,
+      lineNumber: 239,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeader, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 238,
+      lineNumber: 240,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeaderTitle, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 241,
       columnNumber: 11
     }
   }, card.header.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardHeaderSubtitle, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 240,
+      lineNumber: 242,
       columnNumber: 11
     }
   }, card.header.subtitle)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Divider, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 242,
+      lineNumber: 244,
       columnNumber: 9
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemList, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 243,
+      lineNumber: 245,
       columnNumber: 9
     }
   }, items.map(function (item, index) {
@@ -144737,14 +144747,14 @@ function SelectableCard(_ref25) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 245,
+        lineNumber: 247,
         columnNumber: 13
       }
     }, item.labelAbove ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemSecondaryText, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 248,
+        lineNumber: 250,
         columnNumber: 19
       }
     }, item.secondaryText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
@@ -144752,7 +144762,7 @@ function SelectableCard(_ref25) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 249,
+        lineNumber: 251,
         columnNumber: 19
       }
     }, item.primaryText)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemPrimaryText, {
@@ -144760,14 +144770,14 @@ function SelectableCard(_ref25) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 253,
+        lineNumber: 255,
         columnNumber: 19
       }
     }, item.primaryText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ItemSecondaryText, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 254,
+        lineNumber: 256,
         columnNumber: 19
       }
     }, item.secondaryText)));
@@ -144775,7 +144785,7 @@ function SelectableCard(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 261,
+      lineNumber: 263,
       columnNumber: 7
     }
   }, !card.hideToggle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(SecondaryCardButton, {
@@ -144785,7 +144795,7 @@ function SelectableCard(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 263,
+      lineNumber: 265,
       columnNumber: 11
     }
   }, expanded ? toggleLabels.collapse : toggleLabels.expand), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PrimaryCardButton, {
@@ -144795,7 +144805,7 @@ function SelectableCard(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 267,
+      lineNumber: 269,
       columnNumber: 9
     }
   }, selectLabel)));
@@ -144807,25 +144817,26 @@ function FallbackSelectionCard(_ref26) {
     onCtaClick = _ref26.onCtaClick;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackCard, {
     disabled: disabled,
+    minHeight: card.minHeight,
     "data-testid": card.testId,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 277,
+      lineNumber: 279,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(FallbackCardHeading, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 278,
+      lineNumber: 280,
       columnNumber: 7
     }
   }, card.heading), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ButtonGroup, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 279,
+      lineNumber: 281,
       columnNumber: 7
     }
   }, card.ctas.map(function (cta) {
@@ -144839,7 +144850,7 @@ function FallbackSelectionCard(_ref26) {
       __self: _this2,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 281,
+        lineNumber: 283,
         columnNumber: 11
       }
     }, cta.label);
@@ -144865,7 +144876,8 @@ SelectionCarousel.propTypes = {
     }),
     hideToggle: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.bool,
     selectLabel: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
-    onSelectMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired
+    onSelectMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
+    minHeight: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.number
   })).isRequired,
   fallbackCard: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.shape({
     testId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string.isRequired,
@@ -144874,7 +144886,8 @@ SelectionCarousel.propTypes = {
       testId: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
       label: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string,
       message: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
-    })).isRequired
+    })).isRequired,
+    minHeight: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.number
   }),
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.func.isRequired,
   testIdPrefix: prop_types__WEBPACK_IMPORTED_MODULE_6___default.a.string
@@ -144941,7 +144954,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 359,
+      lineNumber: 363,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CardsScroller, {
@@ -144951,7 +144964,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 360,
+      lineNumber: 364,
       columnNumber: 7
     }
   }, cards.map(function (card) {
@@ -144970,7 +144983,7 @@ function SelectionCarousel(_ref27) {
       __self: _this3,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 362,
+        lineNumber: 366,
         columnNumber: 11
       }
     });
@@ -144983,14 +144996,14 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 373,
+      lineNumber: 377,
       columnNumber: 11
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 381,
+      lineNumber: 385,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NavButton, {
@@ -145004,7 +145017,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 382,
+      lineNumber: 386,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
@@ -145012,14 +145025,14 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 389,
+      lineNumber: 393,
       columnNumber: 11
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Pagination, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 391,
+      lineNumber: 395,
       columnNumber: 9
     }
   }, Array.from({
@@ -145031,7 +145044,7 @@ function SelectionCarousel(_ref27) {
       __self: _this3,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 393,
+        lineNumber: 397,
         columnNumber: 13
       }
     });
@@ -145046,7 +145059,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 396,
+      lineNumber: 400,
       columnNumber: 9
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronIcon, {
@@ -145054,7 +145067,7 @@ function SelectionCarousel(_ref27) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 403,
+      lineNumber: 407,
       columnNumber: 11
     }
   }))));

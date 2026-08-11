@@ -54,11 +54,13 @@ const CardsScroller = styled.div`
   scrollbar-width: none;
 `;
 
+const DEFAULT_CARD_MIN_HEIGHT = 255;
+
 const CardBase = styled.div`
   flex: 0 0 auto;
   box-sizing: border-box;
   width: ${CARD_WIDTH}px;
-  min-height: 255px;
+  min-height: ${(props) => (props.minHeight != null ? props.minHeight : DEFAULT_CARD_MIN_HEIGHT)}px;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -233,7 +235,7 @@ function SelectableCard({ card, expanded, onToggleExpand, selected, disabled, on
   const items = expanded ? card.items : card.items.slice(0, collapsedItemCount);
 
   return (
-    <CardBase disabled={disabled} selected={selected} data-testid={card.testId}>
+    <CardBase disabled={disabled} selected={selected} minHeight={card.minHeight} data-testid={card.testId}>
       <CardTop>
         <CardHeader>
           <CardHeaderTitle>{card.header.title}</CardHeaderTitle>
@@ -274,7 +276,7 @@ function SelectableCard({ card, expanded, onToggleExpand, selected, disabled, on
 
 function FallbackSelectionCard({ card, disabled, onCtaClick }) {
   return (
-    <FallbackCard disabled={disabled} data-testid={card.testId}>
+    <FallbackCard disabled={disabled} minHeight={card.minHeight} data-testid={card.testId}>
       <FallbackCardHeading>{card.heading}</FallbackCardHeading>
       <ButtonGroup>
         {card.ctas.map((cta) => (
@@ -306,12 +308,14 @@ SelectionCarousel.propTypes = {
       hideToggle: PT.bool,
       selectLabel: PT.string,
       onSelectMessage: PT.string.isRequired,
+      minHeight: PT.number,
     })
   ).isRequired,
   fallbackCard: PT.shape({
     testId: PT.string.isRequired,
     heading: PT.string.isRequired,
     ctas: PT.arrayOf(PT.shape({ testId: PT.string, label: PT.string, message: PT.string })).isRequired,
+    minHeight: PT.number,
   }),
   addMessage: PT.func.isRequired,
   testIdPrefix: PT.string,
