@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "f6b75273de729d40d5f8";
+/******/ 	var hotCurrentHash = "f85d3af76029f022830f";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -140601,12 +140601,13 @@ var _templateObject,
   _templateObject10,
   _templateObject11,
   _templateObject12,
+  _this = undefined,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
   _templateObject13,
   _templateObject14,
   _templateObject15,
-  _this = undefined,
-  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\ChatMessage.js",
-  _templateObject16;
+  _templateObject16,
+  _templateObject17;
 
 
 
@@ -140639,6 +140640,17 @@ function getClientAvatarUrl() {
     // window.parent is cross-origin; client info isn't reachable
   }
   return null;
+}
+
+// Only a real human agent (ParticipantRole "AGENT") is an Advisor. Everything
+// else incoming - the Lex/CUSTOM_BOT participant (DisplayName "BOT") AND
+// SYSTEM participant messages like the "Please wait while I connect you with
+// an advisor" queueing message - is still the Virtual Assistant experience
+// and should keep showing the brand's avatar, not the generic Advisor icon
+// (see modelUtils.isParticipantAgentOrCustomer for the same AGENT/CUSTOMER
+// role check used elsewhere for read receipts).
+function isAdvisorSender(messageDetails) {
+  return messageDetails.participantRole === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["PARTICIPANT_TYPES"].AGENT;
 }
 var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", " ", ";\n  word-break: break-word;\n  white-space: pre-line;\n  overflow: auto;\n  text-align: ", ";\n"])), function (_ref) {
   var theme = _ref.theme;
@@ -140715,55 +140727,101 @@ var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_
   return theme.spacing.mini;
 });
 
-// Only rendered when a client has an avatar asset configured (see
+// Only rendered for incoming messages (see render() below). Virtual
+// Assistant messages get the brand's own avatar asset (see
 // window.__CHAT_BRAND_INFO__.assets.avatar, populated by
-// scripts/prepare-client.js). Clients without one keep the original
-// single-column message layout untouched.
+// scripts/prepare-brand.js); a customer's own messages keep the original
+// single-column layout untouched.
 var MessageRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n"])), function (_ref15) {
   var theme = _ref15.theme;
   return theme.spacing.mini;
 });
 var AvatarImg = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
-var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
-var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref16) {
+// Advisor (live agent) icon: per spec this is NOT a per-brand asset - the
+// white person glyph is identical across every brand, only the circle's
+// background adapts to the brand's primary color. Reuses the same CSS var
+// generateBrandThemeCss() writes for the header background so it can never
+// drift out of sync with the rest of the brand's theme.
+var AdvisorAvatar = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: var(--ac-widget-color-primary-500, ", ");\n"])), function (_ref16) {
   var theme = _ref16.theme;
-  return theme.typography.supportingText;
-}, function (_ref17) {
+  return theme.color.primary;
+});
+var AdvisorIcon = function AdvisorIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("svg", {
+    width: "18",
+    height: "18",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    "aria-hidden": "true",
+    focusable: "false",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 176,
+      columnNumber: 3
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("circle", {
+    cx: "12",
+    cy: "8",
+    r: "4",
+    fill: "#FFFFFF",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 177,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("path", {
+    d: "M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8",
+    fill: "#FFFFFF",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 178,
+      columnNumber: 5
+    }
+  }));
+};
+var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
+var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref17) {
   var theme = _ref17.theme;
-  return theme.globals.textSecondaryColor;
+  return theme.typography.supportingText;
 }, function (_ref18) {
   var theme = _ref18.theme;
+  return theme.globals.textSecondaryColor;
+}, function (_ref19) {
+  var theme = _ref19.theme;
   return theme.spacing.mini;
 });
-var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref19) {
-  var theme = _ref19.theme;
+var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref20) {
+  var theme = _ref20.theme;
   return theme.typography.supportingText;
 }, function (props) {
   return props.theme.chatTranscriptor.msgStatusWidth;
-}, function (_ref20) {
-  var theme = _ref20.theme;
-  return theme.spacing.small;
 }, function (_ref21) {
   var theme = _ref21.theme;
   return theme.spacing.small;
 }, function (_ref22) {
   var theme = _ref22.theme;
-  return theme.spacing.micro;
+  return theme.spacing.small;
 }, function (_ref23) {
   var theme = _ref23.theme;
+  return theme.spacing.micro;
+}, function (_ref24) {
+  var theme = _ref24.theme;
   return theme.palette.red;
 });
-TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref24) {
-  var theme = _ref24.theme;
-  return theme.typography.inlineButton;
-}, function (_ref25) {
+TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref25) {
   var theme = _ref25.theme;
+  return theme.typography.inlineButton;
+}, function (_ref26) {
+  var theme = _ref26.theme;
   return theme.spacing.micro;
 });
-var ErrorFallback = function ErrorFallback(_ref26) {
-  var error = _ref26.error,
-    resetErrorBoundary = _ref26.resetErrorBoundary,
-    InteractiveMessageType = _ref26.InteractiveMessageType;
+var ErrorFallback = function ErrorFallback(_ref27) {
+  var error = _ref27.error,
+    resetErrorBoundary = _ref27.resetErrorBoundary,
+    InteractiveMessageType = _ref27.InteractiveMessageType;
   var metricName = InteractiveMessageType + "_ERROR";
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, _constants_global__WEBPACK_IMPORTED_MODULE_19__["CSM_CATEGORY"].UI, false);
@@ -140774,14 +140832,14 @@ var ErrorFallback = function ErrorFallback(_ref26) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 179,
+      lineNumber: 213,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 180,
+      lineNumber: 214,
       columnNumber: 7
     }
   }, "Something went wrong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
@@ -140789,7 +140847,7 @@ var ErrorFallback = function ErrorFallback(_ref26) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 181,
+      lineNumber: 215,
       columnNumber: 7
     }
   }, "Reload Editor"));
@@ -140869,7 +140927,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 269,
+          lineNumber: 303,
           columnNumber: 34
         }
       });
@@ -140879,21 +140937,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 273,
+              lineNumber: 307,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(StatusText, {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 274,
+              lineNumber: 308,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 275,
+              lineNumber: 309,
               columnNumber: 15
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140902,7 +140960,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 276,
+              lineNumber: 310,
               columnNumber: 17
             }
           }))));
@@ -140912,7 +140970,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 286,
+              lineNumber: 320,
               columnNumber: 34
             }
           }, this.timestampToDisplayable(transportDetails.sentTime, isOutgoingMsg));
@@ -140922,21 +140980,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 290,
+              lineNumber: 324,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 291,
+              lineNumber: 325,
               columnNumber: 13
             }
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 292,
+              lineNumber: 326,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140945,7 +141003,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 293,
+              lineNumber: 327,
               columnNumber: 15
             }
           })));
@@ -140955,7 +141013,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 302,
+              lineNumber: 336,
               columnNumber: 34
             }
           });
@@ -140964,14 +141022,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 305,
+          lineNumber: 339,
           columnNumber: 7
         }
       }, !hideSenderName && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 307,
+          lineNumber: 341,
           columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140980,14 +141038,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 308,
+          lineNumber: 342,
           columnNumber: 13
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 314,
+          lineNumber: 348,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -141011,14 +141069,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 331,
+          lineNumber: 365,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 332,
+          lineNumber: 366,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141028,7 +141086,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 333,
+          lineNumber: 367,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141038,7 +141096,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 338,
+          lineNumber: 372,
           columnNumber: 36
         }
       })));
@@ -141085,7 +141143,9 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         direction = _this$props$messageDe7.direction,
         error = _this$props$messageDe7.error;
       var messageStyle = direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? this.props.outgoingMsgStyle : this.props.incomingMsgStyle;
-      var avatarUrl = direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Incoming && getClientAvatarUrl();
+      var isIncoming = direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Incoming;
+      var showAdvisorIcon = isIncoming && isAdvisorSender(this.props.messageDetails);
+      var avatarUrl = isIncoming && !showAdvisorIcon && getClientAvatarUrl();
 
       //Hack to simulate ChatJS response with attachment content types
       var bodyStyleConfig = {};
@@ -141135,7 +141195,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 457,
+          lineNumber: 493,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -141143,10 +141203,10 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 458,
+          lineNumber: 497,
           columnNumber: 9
         }
-      }, this.renderHeader(!!avatarUrl)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
+      }, this.renderHeader(false)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
         onChange: function onChange(inView) {
           return _this3.setState({
             inView: inView
@@ -141155,11 +141215,11 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 459,
+          lineNumber: 498,
           columnNumber: 9
         }
-      }, function (_ref27) {
-        var ref = _ref27.ref;
+      }, function (_ref28) {
+        var ref = _ref28.ref;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, Object.assign({
           "data-testid": "message-body",
           direction: direction,
@@ -141169,7 +141229,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 461,
+            lineNumber: 500,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -141177,11 +141237,11 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 472,
+          lineNumber: 511,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
-      if (!avatarUrl) {
+      if (!avatarUrl && !showAdvisorIcon) {
         return mainMessage;
       }
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageRow, {
@@ -141189,24 +141249,40 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 484,
+          lineNumber: 523,
           columnNumber: 7
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
+      }, avatarUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
         src: avatarUrl,
         alt: "",
-        "data-testid": "customer-chat-avatar",
+        "data-testid": "virtual-assistant-avatar",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 485,
-          columnNumber: 9
+          lineNumber: 525,
+          columnNumber: 11
         }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AdvisorAvatar, {
+        "aria-hidden": "true",
+        "data-testid": "advisor-avatar",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 486,
+          lineNumber: 527,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AdvisorIcon, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 528,
+          columnNumber: 13
+        }
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 531,
           columnNumber: 9
         }
       }, mainMessage));
@@ -141228,7 +141304,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 500,
+            lineNumber: 545,
             columnNumber: 9
           }
         });
@@ -141245,14 +141321,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 512,
+                lineNumber: 557,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 512,
+              lineNumber: 557,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
@@ -141263,7 +141339,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 513,
+              lineNumber: 558,
               columnNumber: 13
             }
           }));
@@ -141274,7 +141350,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 523,
+            lineNumber: 568,
             columnNumber: 14
           }
         });
@@ -141290,7 +141366,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 531,
+            lineNumber: 576,
             columnNumber: 14
           }
         });
@@ -141302,7 +141378,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 536,
+            lineNumber: 581,
             columnNumber: 14
           }
         });
@@ -141315,7 +141391,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 541,
+            lineNumber: 586,
             columnNumber: 14
           }
         });
@@ -141325,7 +141401,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 544,
+          lineNumber: 589,
           columnNumber: 12
         }
       });
@@ -141340,14 +141416,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 552,
+          lineNumber: 597,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 553,
+          lineNumber: 598,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -141367,7 +141443,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 566,
+          lineNumber: 611,
           columnNumber: 7
         }
       }, "Retry");
@@ -141400,7 +141476,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 581,
+          lineNumber: 626,
           columnNumber: 7
         }
       }, this.props.content);
@@ -141408,7 +141484,7 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
   }]);
   return PlainTextMessage;
 }(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
+var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
   return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "right" : "left";
 });
 
@@ -141438,7 +141514,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 608,
+          lineNumber: 653,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
@@ -141446,7 +141522,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 609,
+          lineNumber: 654,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
@@ -141454,7 +141530,7 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 610,
+          lineNumber: 655,
           columnNumber: 11
         }
       })));
@@ -141497,7 +141573,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 640,
+            lineNumber: 685,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141514,7 +141590,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 657,
+          lineNumber: 702,
           columnNumber: 12
         }
       }, this.renderContent());

@@ -11,6 +11,7 @@ import {
   Status,
   Direction,
   InteractiveMessageType,
+  PARTICIPANT_TYPES,
 } from "../../datamodel/Model";
 import { ErrorBoundary } from 'react-error-boundary';
 import { Icon, TypingLoader } from "connect-core";
@@ -37,6 +38,17 @@ function getClientAvatarUrl() {
     // window.parent is cross-origin; client info isn't reachable
   }
   return null;
+}
+
+// Only a real human agent (ParticipantRole "AGENT") is an Advisor. Everything
+// else incoming - the Lex/CUSTOM_BOT participant (DisplayName "BOT") AND
+// SYSTEM participant messages like the "Please wait while I connect you with
+// an advisor" queueing message - is still the Virtual Assistant experience
+// and should keep showing the brand's avatar, not the generic Advisor icon
+// (see modelUtils.isParticipantAgentOrCustomer for the same AGENT/CUSTOMER
+// role check used elsewhere for read receipts).
+function isAdvisorSender(messageDetails) {
+  return messageDetails.participantRole === PARTICIPANT_TYPES.AGENT;
 }
 
 export const MessageBox = styled.div`
@@ -128,10 +140,11 @@ const ErrorText = styled.div`
   }
 `;
 
-// Only rendered when a client has an avatar asset configured (see
+// Only rendered for incoming messages (see render() below). Virtual
+// Assistant messages get the brand's own avatar asset (see
 // window.__CHAT_BRAND_INFO__.assets.avatar, populated by
-// scripts/prepare-client.js). Clients without one keep the original
-// single-column message layout untouched.
+// scripts/prepare-brand.js); a customer's own messages keep the original
+// single-column layout untouched.
 const MessageRow = styled.div`
   display: flex;
   align-items: flex-end;
@@ -144,6 +157,27 @@ const AvatarImg = styled.img`
   flex-shrink: 0;
   object-fit: cover;
 `;
+// Advisor (live agent) icon: per spec this is NOT a per-brand asset - the
+// white person glyph is identical across every brand, only the circle's
+// background adapts to the brand's primary color. Reuses the same CSS var
+// generateBrandThemeCss() writes for the header background so it can never
+// drift out of sync with the rest of the brand's theme.
+const AdvisorAvatar = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ac-widget-color-primary-500, ${({ theme }) => theme.color.primary});
+`;
+const AdvisorIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="8" r="4" fill="#FFFFFF" />
+    <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="#FFFFFF" />
+  </svg>
+);
 const MessageContent = styled.div`
   flex: 1;
   min-width: 0;
@@ -394,7 +428,9 @@ export class ParticipantMessage extends PureComponent {
       direction === Direction.Outgoing
         ? this.props.outgoingMsgStyle
         : this.props.incomingMsgStyle;
-    const avatarUrl = direction === Direction.Incoming && getClientAvatarUrl();
+    const isIncoming = direction === Direction.Incoming;
+    const showAdvisorIcon = isIncoming && isAdvisorSender(this.props.messageDetails);
+    const avatarUrl = isIncoming && !showAdvisorIcon && getClientAvatarUrl();
 
     //Hack to simulate ChatJS response with attachment content types
     const bodyStyleConfig = {};
@@ -455,7 +491,10 @@ export class ParticipantMessage extends PureComponent {
 
     const mainMessage = (
       <MessageContainer direction={direction} data-testid="main-message">
-        <Header data-testid="message-header">{this.renderHeader(!!avatarUrl)}</Header>
+        {/* Sender name always stays visible next to the timestamp, same as
+            before any avatar/icon was configured for this brand - the icon
+            is purely additive, never a replacement for the label. */}
+        <Header data-testid="message-header">{this.renderHeader(false)}</Header>
         <InView onChange={(inView) => this.setState({ inView })}>
           {({ ref }) => (
             <Body
@@ -476,13 +515,19 @@ export class ParticipantMessage extends PureComponent {
       </MessageContainer>
     );
 
-    if (!avatarUrl) {
+    if (!avatarUrl && !showAdvisorIcon) {
       return mainMessage;
     }
 
     return (
       <MessageRow data-testid="main-message-row">
-        <AvatarImg src={avatarUrl} alt="" data-testid="customer-chat-avatar" />
+        {avatarUrl ? (
+          <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" />
+        ) : (
+          <AdvisorAvatar aria-hidden="true" data-testid="advisor-avatar">
+            <AdvisorIcon />
+          </AdvisorAvatar>
+        )}
         <MessageContent>{mainMessage}</MessageContent>
       </MessageRow>
     );
