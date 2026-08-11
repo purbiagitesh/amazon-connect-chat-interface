@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "6382cc69c66b2d02bfdd";
+/******/ 	var hotCurrentHash = "b092fe2d1787d0b56744";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -142419,10 +142419,13 @@ function CaseCarousel(_ref) {
     if (!match) {
       // No parseable "<date> | <type>" subtitle (e.g. "Help With Something
       // Else") - not a case, just a plain reply option like ListPicker
-      // would have rendered it as a list button.
+      // would have rendered it as a list button. Figma shows a shorter
+      // "Something else" label; the reply text still sends the VA's own
+      // element.title back unchanged so the bot side needs no change to
+      // recognize the selection.
       fallbackCtas.push({
         testId: "case-card-fallback-".concat(index),
-        label: element.title,
+        label: "Something else",
         message: element.title
       });
       return;
@@ -142469,7 +142472,7 @@ function CaseCarousel(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82,
+      lineNumber: 85,
       columnNumber: 5
     }
   });

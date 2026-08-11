@@ -47,8 +47,11 @@ export default function CaseCarousel({ content, addMessage }) {
     if (!match) {
       // No parseable "<date> | <type>" subtitle (e.g. "Help With Something
       // Else") - not a case, just a plain reply option like ListPicker
-      // would have rendered it as a list button.
-      fallbackCtas.push({ testId: `case-card-fallback-${index}`, label: element.title, message: element.title });
+      // would have rendered it as a list button. Figma shows a shorter
+      // "Something else" label; the reply text still sends the VA's own
+      // element.title back unchanged so the bot side needs no change to
+      // recognize the selection.
+      fallbackCtas.push({ testId: `case-card-fallback-${index}`, label: "Something else", message: element.title });
       return;
     }
     const [, isoDate, type] = match;
