@@ -33,12 +33,12 @@ const QuickReplyOption = styled.button`
   width: auto;
   min-height: 36px;
   box-sizing: border-box;
-  padding: 8px 16px;
   border-radius: 999px;
   border: 1px solid var(--ac-widget-quickreply-border-color, ${({theme}) => theme.componentPalette.quickReply.borderColor});
   background-color: var(--ac-widget-quickreply-bg-color, ${({theme}) => theme.componentPalette.quickReply.backgroundColor});
   color: var(--ac-widget-quickreply-text-color, ${({theme}) => theme.componentPalette.quickReply.textColor});
   ${({ theme}) => theme.typography.label};
+  padding: 8px 16px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;

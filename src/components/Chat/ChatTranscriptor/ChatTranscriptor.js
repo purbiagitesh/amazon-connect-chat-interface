@@ -91,9 +91,11 @@ export default class ChatTranscriptor extends PureComponent {
     }
 
     let textAlign = "left";
+    const isOutgoing = itemDetails.transportDetails && itemDetails.transportDetails.direction === Direction.Outgoing;
 
     if (itemDetails.type === PARTICIPANT_MESSAGE) {
       config = Object.assign({}, config, transcriptConfig.participantMessageConfig);
+      textAlign = isOutgoing ? "right" : "left";
       additionalProps = {
         mediaOperations: {
           addMessage: this.props.addMessage,
@@ -105,6 +107,7 @@ export default class ChatTranscriptor extends PureComponent {
       }
     } else if (itemDetails.type === ATTACHMENT_MESSAGE) {
       config = Object.assign({}, config, transcriptConfig.attachmentMessageConfig);
+      textAlign = isOutgoing ? "right" : "left";
       additionalProps = {
         mediaOperations: {
           downloadAttachment: this.props.downloadAttachment
