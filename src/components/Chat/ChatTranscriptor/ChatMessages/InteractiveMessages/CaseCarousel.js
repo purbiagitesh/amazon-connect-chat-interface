@@ -61,6 +61,11 @@ export default function CaseCarousel({ content, addMessage }) {
       },
       items: [{ labelAbove: true, primaryText: toTitleCase(type), secondaryText: "Related to:" }],
       hideToggle: true,
+      // Case cards only ever have one "Related to" line, unlike Order's
+      // multi-product list - drop SelectionCarousel's default 255px min
+      // height so the card hugs its (shorter) content instead of leaving a
+      // gap above the button.
+      minHeight: 0,
       selectLabel: "Select this Case",
       // Matches how a plain ListPicker element reply already works
       // (createInteractiveMessagePayload sends selectedElement.title back
@@ -70,7 +75,7 @@ export default function CaseCarousel({ content, addMessage }) {
   });
 
   const fallbackCard = fallbackCtas.length
-    ? { testId: "case-card-empty", heading: "Need help with something else?", ctas: fallbackCtas }
+    ? { testId: "case-card-empty", heading: "Need help with something else?", ctas: fallbackCtas, minHeight: 0 }
     : undefined;
 
   return (
