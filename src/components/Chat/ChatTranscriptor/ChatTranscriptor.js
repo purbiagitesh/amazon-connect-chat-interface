@@ -9,6 +9,7 @@ import {
   MessageBox,
   ParticipantMessage,
   ParticipantTyping,
+  isAdvisorSender,
 } from "./ChatMessages/ChatMessage";
 import {SystemMessage} from "./ChatMessages/SystemMessage";
 import ChatTranscriptScroller from "./ChatTranscriptScroller";
@@ -67,7 +68,30 @@ export default class ChatTranscriptor extends PureComponent {
     });
   };
 
+  // Which "avatar category" a transcript item belongs to, so consecutive
+  // messages in the same category can share one avatar instead of each
+  // drawing its own. Keyed by category (assistant/advisor), not exact
+  // participantId/displayName - SYSTEM_MESSAGE and BOT are different
+  // senders technically, but both are the Virtual Assistant to the customer
+  // and use the same brand avatar (isAdvisorSender only flags a real AGENT
+  // as "advisor"). Returns null for anything that never shows an avatar
+  // (outgoing customer messages, system/event dividers).
+  avatarGroupKey = (itemDetails) => {
+    if (itemDetails.type !== PARTICIPANT_MESSAGE && itemDetails.type !== ATTACHMENT_MESSAGE) {
+      return null;
+    }
+    if (!itemDetails.transportDetails || itemDetails.transportDetails.direction !== Direction.Incoming) {
+      return null;
+    }
+    return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
+  };
+
   renderMessage = (itemDetails, isLatestMessage) => {
+    // Found via indexOf (identity match on the same array this.props.transcript
+    // already is) rather than threading an extra arg through the .map() call
+    // below - keeps that call untouched and this method self-contained.
+    const ownIndex = this.props.transcript.indexOf(itemDetails);
+    const previousItemDetails = ownIndex > 0 ? this.props.transcript[ownIndex - 1] : null;
     const itemId = itemDetails.id;
     const version = itemDetails.version;
     const messageReceiptType = itemDetails.transportDetails && itemDetails.transportDetails.messageReceiptType ? 
@@ -92,6 +116,10 @@ export default class ChatTranscriptor extends PureComponent {
 
     let textAlign = "left";
 
+    const currentGroupKey = this.avatarGroupKey(itemDetails);
+    const previousGroupKey = previousItemDetails ? this.avatarGroupKey(previousItemDetails) : null;
+    const showAvatar = currentGroupKey === null || currentGroupKey !== previousGroupKey;
+
     if (itemDetails.type === PARTICIPANT_MESSAGE) {
       config = Object.assign({}, config, transcriptConfig.participantMessageConfig);
       additionalProps = {
@@ -102,6 +130,7 @@ export default class ChatTranscriptor extends PureComponent {
         textInputRef: this.props.textInputRef,
         isLatestMessage,
         sendReadReceipt: this.props.sendReadReceipt,
+        showAvatar,
       }
     } else if (itemDetails.type === ATTACHMENT_MESSAGE) {
       config = Object.assign({}, config, transcriptConfig.attachmentMessageConfig);
@@ -111,6 +140,7 @@ export default class ChatTranscriptor extends PureComponent {
         },
         isLatestMessage,
         sendReadReceipt: this.props.sendReadReceipt,
+        showAvatar,
       }
     } else if (modelUtils.isRecognizedEvent(itemDetails.content.type)) {
       config = Object.assign({}, config, transcriptConfig.systemMessageConfig);

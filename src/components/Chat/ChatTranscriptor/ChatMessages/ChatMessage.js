@@ -47,14 +47,13 @@ function getClientAvatarUrl() {
 // and should keep showing the brand's avatar, not the generic Advisor icon
 // (see modelUtils.isParticipantAgentOrCustomer for the same AGENT/CUSTOMER
 // role check used elsewhere for read receipts).
-function isAdvisorSender(messageDetails) {
+export function isAdvisorSender(messageDetails) {
   return messageDetails.participantRole === PARTICIPANT_TYPES.AGENT;
 }
 
 export const MessageBox = styled.div`
   padding: ${({ theme }) => theme.globals.basePadding} ${({ theme }) => theme.spacing.base};
   word-break: break-word;
-  white-space: pre-line;
   overflow: auto;
   text-align: ${(props) => props.textAlign};
 `;
@@ -178,6 +177,14 @@ const AdvisorIcon = () => (
     <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="#FFFFFF" />
   </svg>
 );
+// Invisible stand-in for AvatarImg/AdvisorAvatar on a continuation message
+// (showAvatar === false) - keeps the same 32px + gap indentation as the
+// group's first message instead of the content jumping flush left once its
+// own avatar is suppressed.
+const AvatarSpacer = styled.div`
+  width: 32px;
+  flex-shrink: 0;
+`;
 const MessageContent = styled.div`
   flex: 1;
   min-width: 0;
@@ -259,6 +266,12 @@ export class ParticipantMessage extends PureComponent {
     isLatestMessage: PT.bool,
     shouldShowMessageReceipts: PT.bool,
     sendReadReceipt: PT.func.isRequired,
+    // Consecutive messages from the same assistant/advisor "sender" share a
+    // single avatar (set by ChatTranscriptor based on the previous transcript
+    // item) - explicitly false means "this message is a continuation of the
+    // previous one, don't draw a second avatar". Omitted/true keeps the
+    // original per-message behavior, so existing callers/tests are unaffected.
+    showAvatar: PT.bool,
   };
 
   constructor(props) {
@@ -429,8 +442,12 @@ export class ParticipantMessage extends PureComponent {
         ? this.props.outgoingMsgStyle
         : this.props.incomingMsgStyle;
     const isIncoming = direction === Direction.Incoming;
-    const showAdvisorIcon = isIncoming && isAdvisorSender(this.props.messageDetails);
-    const avatarUrl = isIncoming && !showAdvisorIcon && getClientAvatarUrl();
+    // ChatTranscriptor passes showAvatar === false when the previous
+    // transcript item was also an incoming assistant/advisor message - draws
+    // one avatar per consecutive group instead of one per message.
+    const isConsecutiveContinuation = isIncoming && this.props.showAvatar === false;
+    const showAdvisorIcon = isIncoming && !isConsecutiveContinuation && isAdvisorSender(this.props.messageDetails);
+    const avatarUrl = isIncoming && !isConsecutiveContinuation && !showAdvisorIcon && getClientAvatarUrl();
 
     //Hack to simulate ChatJS response with attachment content types
     const bodyStyleConfig = {};
@@ -515,7 +532,7 @@ export class ParticipantMessage extends PureComponent {
       </MessageContainer>
     );
 
-    if (!avatarUrl && !showAdvisorIcon) {
+    if (!avatarUrl && !showAdvisorIcon && !isConsecutiveContinuation) {
       return mainMessage;
     }
 
@@ -523,10 +540,12 @@ export class ParticipantMessage extends PureComponent {
       <MessageRow data-testid="main-message-row">
         {avatarUrl ? (
           <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" />
-        ) : (
+        ) : showAdvisorIcon ? (
           <AdvisorAvatar aria-hidden="true" data-testid="advisor-avatar">
             <AdvisorIcon />
           </AdvisorAvatar>
+        ) : (
+          <AvatarSpacer aria-hidden="true" data-testid="avatar-spacer" />
         )}
         <MessageContent>{mainMessage}</MessageContent>
       </MessageRow>
