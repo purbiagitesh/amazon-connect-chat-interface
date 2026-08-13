@@ -21,14 +21,6 @@
     return new URL(relativeOrAbsolute, LAUNCHER_BASE_URL).href;
   }
 
-  // ─── Public API: window.connect.ChatWidget.open()/.close() ───
-  // Lets a vendor's own page code trigger the widget from entry points
-  // other than our launcher button (a banner CTA, a FAQ link, etc.).
-  // Defined synchronously, right here, so it's safe to call at ANY time -
-  // including immediately on page load, before our async bootstrap
-  // (utag_data wait + brandInfo fetch + bundle load, see bootstrap() below)
-  // has finished. An early call is queued and replayed automatically the
-  // moment setupWidget() wires up the real open/close functions.
   var realOpenWidget = null;
   var realCloseWidget = null;
   var pendingOpenRequest = false;
@@ -145,7 +137,8 @@
   var ENV_MAP = {
     PROD: 'prod', PRODUCTION: 'prod',
     QA: 'qa', STAGE: 'qa', STAGING: 'qa',
-    DEV: 'dev', DEVELOPMENT: 'dev'
+    DEV: 'dev', DEVELOPMENT: 'dev',
+    NOPROD: 'NOPROD'
   };
 
   var BRAND_ALIAS_MAP = {};
@@ -264,17 +257,6 @@
         return Object.assign({}, face, { url: absoluteUrl(face.url) });
       });
     }
-    // Same fix, same reason, for every brand asset (logo, avatar, sendIcon,
-    // icon): SendMessageButton.js, ChatMessage.js, and index.js's own
-    // logoConfig fallback all read these straight off
-    // window.__CHAT_BRAND_INFO__.assets.* and drop them directly into an
-    // <img src> with no resolution logic of their own - a relative path
-    // there resolves against the HOST PAGE's origin (wrong; brand-assets/
-    // only exists on our CDN), same bug fontFaces had. Resolving here once,
-    // before anything downstream reads brandInfo.assets, fixes every
-    // consumer at once. (Harmless no-op for assets.icon, which
-    // applyLauncherIcon() below already resolves independently -
-    // absoluteUrl() on an already-absolute url just returns it unchanged.)
     if (brandInfo.assets) {
       Object.keys(brandInfo.assets).forEach(function (key) {
         if (brandInfo.assets[key]) {
@@ -282,12 +264,6 @@
         }
       });
     }
-    // headerConfig.logoUrl (Chat.js's <img src={hc.logoUrl}>) comes straight
-    // from a brand's env.*.json ("header.logoUrl") rather than anything
-    // prepare-brand.js generates/copies, so brands are expected to hardcode
-    // a full absolute URL there today. Resolving it defensively too costs
-    // nothing (a no-op on an already-absolute url) and closes the same gap
-    // in case a brand ever sets a relative path there instead.
     if (brandInfo.config && brandInfo.config.header && brandInfo.config.header.logoUrl) {
       brandInfo.config.header.logoUrl = absoluteUrl(brandInfo.config.header.logoUrl);
     }
@@ -349,10 +325,6 @@
       }
     });
 
-    // Idempotent "ensure open", wired up to window.connect.ChatWidget.open()
-    // above - unlike the launcher button's click handler (which toggles
-    // closed if already open), an external trigger elsewhere on the page
-    // should only ever open/reveal the widget, never accidentally close it.
     function openWidget() {
       if (panel.classList.contains('open')) return;
       openPanel();

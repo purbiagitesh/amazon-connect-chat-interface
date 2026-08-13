@@ -20,14 +20,6 @@
     return new URL(relativeOrAbsolute, LAUNCHER_BASE_URL).href;
   }
 
-  // ─── Public API: window.connect.ChatWidget.open()/.close() ───
-  // Lets a vendor's own page code trigger the widget from entry points
-  // other than our launcher button (a banner CTA, a FAQ link, etc.).
-  // Defined synchronously, right here, so it's safe to call at ANY time -
-  // including immediately on page load, before our async bootstrap
-  // (utag_data wait + brandInfo fetch + bundle load, see bootstrap() below)
-  // has finished. An early call is queued and replayed automatically the
-  // moment setupWidget() wires up the real open/close functions.
   var realOpenWidget = null;
   var realCloseWidget = null;
   var pendingOpenRequest = false;
@@ -144,7 +136,8 @@
   var ENV_MAP = {
     PROD: 'prod', PRODUCTION: 'prod',
     QA: 'qa', STAGE: 'qa', STAGING: 'qa',
-    DEV: 'dev', DEVELOPMENT: 'dev'
+    DEV: 'dev', DEVELOPMENT: 'dev',
+    NOPROD: 'NOPROD'
   };
   var BRAND_ALIAS_MAP = {};
 
@@ -257,30 +250,11 @@
   }
 
   function setupWidget(brandInfo, btn, panel) {
-    // Resolve fontFaces[].url (relative paths like "./brand-assets/<brand>/Fonts/...")
-    // against our own base (LAUNCHER_BASE_URL, via absoluteUrl) before handing
-    // brandInfo off to the React bundle. The bundle's own resolveFontFaces()
-    // (src/index.js) falls back to resolving against window.location.href,
-    // which is the *host page's* URL (the brand's website) - wrong origin
-    // entirely, since brand-assets/ only exists on our CDN. Pre-resolving
-    // here to an absolute URL makes that fallback a no-op (new URL() ignores
-    // its base argument once the input is already absolute).
     if (brandInfo.config && Array.isArray(brandInfo.config.fontFaces)) {
       brandInfo.config.fontFaces = brandInfo.config.fontFaces.map(function (face) {
         return Object.assign({}, face, { url: absoluteUrl(face.url) });
       });
     }
-    // Same fix, same reason, for every brand asset (logo, avatar, sendIcon,
-    // icon): SendMessageButton.js, ChatMessage.js, and index.js's own
-    // logoConfig fallback all read these straight off
-    // window.__CHAT_BRAND_INFO__.assets.* and drop them directly into an
-    // <img src> with no resolution logic of their own - a relative path
-    // there resolves against the HOST PAGE's origin (wrong; brand-assets/
-    // only exists on our CDN), same bug fontFaces had. Resolving here once,
-    // before anything downstream reads brandInfo.assets, fixes every
-    // consumer at once. (Harmless no-op for assets.icon, which
-    // applyLauncherIcon() below already resolves independently -
-    // absoluteUrl() on an already-absolute url just returns it unchanged.)
     if (brandInfo.assets) {
       Object.keys(brandInfo.assets).forEach(function (key) {
         if (brandInfo.assets[key]) {
@@ -288,12 +262,6 @@
         }
       });
     }
-    // headerConfig.logoUrl (Chat.js's <img src={hc.logoUrl}>) comes straight
-    // from a brand's env.*.json ("header.logoUrl") rather than anything
-    // prepare-brand.js generates/copies, so brands are expected to hardcode
-    // a full absolute URL there today. Resolving it defensively too costs
-    // nothing (a no-op on an already-absolute url) and closes the same gap
-    // in case a brand ever sets a relative path there instead.
     if (brandInfo.config && brandInfo.config.header && brandInfo.config.header.logoUrl) {
       brandInfo.config.header.logoUrl = absoluteUrl(brandInfo.config.header.logoUrl);
     }
@@ -303,9 +271,6 @@
 
     applyBrandColors(brandConfig);
 
-    // Mount the (initially idle) chat React app into our own panel - no
-    // network calls happen until initiateChat() is called below, so it's
-    // safe to do this eagerly rather than on first click.
     window.connect.ChatInterface.init({
       containerId: CHAT_PANEL_ID,
       headerConfig: brandConfig.header,
@@ -314,9 +279,6 @@
         : undefined,
     });
 
-    // Tracks whether a chat is currently active, so re-clicking the
-    // launcher button while a session is live just toggles the panel
-    // instead of starting a second, unrelated contact.
     var hasActiveChat = false;
 
     function openPanel() {
@@ -341,9 +303,6 @@
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
       }, function onSuccess(chatSession) {
         hasActiveChat = true;
-        // Fires when the chat truly ends (customer or agent closes it) -
-        // reopening the panel afterward should start a fresh chat, not
-        // silently show the now-disconnected transcript.
         chatSession.onChatClose(function () {
           hasActiveChat = false;
           closePanel();
@@ -356,7 +315,6 @@
 
     btn.addEventListener('click', function () {
       if (panel.classList.contains('open')) {
-        // Minimize - does not end an active chat, so reopening resumes it.
         closePanel();
         return;
       }
@@ -366,10 +324,6 @@
       }
     });
 
-    // Idempotent "ensure open", wired up to window.connect.ChatWidget.open()
-    // above - unlike the launcher button's click handler (which toggles
-    // closed if already open), an external trigger elsewhere on the page
-    // should only ever open/reveal the widget, never accidentally close it.
     function openWidget() {
       if (panel.classList.contains('open')) return;
       openPanel();
