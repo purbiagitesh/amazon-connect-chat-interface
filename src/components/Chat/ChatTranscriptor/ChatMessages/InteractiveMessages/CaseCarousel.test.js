@@ -34,12 +34,22 @@ describe("CaseCarousel", () => {
     expect(within(card).queryByTestId("case-card-16153037-toggle")).not.toBeInTheDocument();
   });
 
-  it("renders elements without a parseable subtitle as a fallback CTA, not a case card", () => {
+  it("renders elements without a parseable subtitle as a fallback CTA showing a shortened label, not a case card", () => {
     renderCarousel();
 
     expect(screen.getByTestId("case-card-empty")).toBeInTheDocument();
-    expect(screen.getByText("Help With Something Else")).toBeInTheDocument();
-    expect(screen.queryByTestId("case-card-Help With Something Else")).not.toBeInTheDocument();
+    expect(screen.getByText("Something else")).toBeInTheDocument();
+    expect(screen.queryByText("Help With Something Else")).not.toBeInTheDocument();
+  });
+
+  it("still sends the VA's original element title as the reply when the fallback CTA is clicked", () => {
+    const { addMessage } = renderCarousel();
+
+    fireEvent.click(screen.getByText("Something else"));
+
+    expect(addMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ text: "Help With Something Else" })
+    );
   });
 
   it("sends the element title back as plain text on select, matching ListPicker's own reply shape", () => {
