@@ -71,6 +71,15 @@ function buildComponentPalette(colors = {}) {
     disclaimer: {
       activeBackgroundColor: featured['200'] || featured['100'] || primary500,
     },
+    // Product name hyperlink (SingleProduct widget): neutral per spec
+    // ("blue and underlined ... consistent across all brands"), so - like
+    // quickReply above - this is literal rather than derived from `colors`.
+    // Keeps theme.componentPalette.productLink identical for every brand.
+    productLink: {
+      default: '#0958D9',
+      hover: '#1677FF',
+      pressed: '#002C8C',
+    },
   };
 }
 

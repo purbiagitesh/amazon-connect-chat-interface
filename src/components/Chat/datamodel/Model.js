@@ -113,6 +113,8 @@ export const InteractiveMessageType = {
   LIST_CONFIRMATION: "ListConfirmation",
   LIST_SELECTION: "ListSelection",
   LIST_SELECTION_STEPPER: "ListSelectionStepper",
+  SINGLE_PRODUCT: "SingleProduct",
+  PRODUCT_SELECTOR: "ProductSelector",
 };
 
 export const InteractiveMessageSelectionType = {
