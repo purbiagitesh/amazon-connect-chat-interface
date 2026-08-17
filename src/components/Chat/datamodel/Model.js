@@ -115,6 +115,7 @@ export const InteractiveMessageType = {
   LIST_SELECTION_STEPPER: "ListSelectionStepper",
   SINGLE_PRODUCT: "SingleProduct",
   PRODUCT_SELECTOR: "ProductSelector",
+  SHADE_SELECTOR: "ShadeSelector",
 };
 
 export const InteractiveMessageSelectionType = {

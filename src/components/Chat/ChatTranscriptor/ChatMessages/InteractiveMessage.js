@@ -14,6 +14,7 @@ import ListSelection from "./InteractiveMessages/ListSelection";
 import ListSelectionStepper from "./InteractiveMessages/ListSelectionStepper";
 import SingleProduct from "./InteractiveMessages/SingleProduct";
 import ProductSelector from "./InteractiveMessages/ProductSelector";
+import ShadeSelector from "./InteractiveMessages/ShadeSelector";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
@@ -228,6 +229,8 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <SingleProduct content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.PRODUCT_SELECTOR) {
     return <ProductSelector content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.SHADE_SELECTOR) {
+    return <ShadeSelector content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.VIEW_RESOURCE) {
     return <connect-view-renderer data-testid="connect-view-renderer" ref={ref} />
   }
