@@ -123,6 +123,13 @@ export const InteractiveMessageSelectionType = {
   HYPERLINK: "hyperlink" // clickable link element - no response sent to lex bot
 }
 
+// Optional QuickReply content.displayStyle marker set by the bot response.
+// "rating" renders compact chips (element.icon + element.value) instead of
+// the full element.title text, per the Figma "Feedback Flow Chips" spec.
+export const QuickReplyDisplayStyle = {
+  RATING: "rating",
+};
+
 export const Status = {
   Sending: "Sending",
   SendSuccess: "SendSuccess",

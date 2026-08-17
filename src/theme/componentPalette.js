@@ -45,12 +45,17 @@ function buildComponentPalette(colors = {}) {
       backgroundColor: '#FFFFFF',
       borderColor: '#1A1A1A',
       textColor: '#1A1A1A',
-      hoverBackgroundColor: '#F2F2F2',
-      hoverBorderColor: '#1A1A1A',
-      activeBackgroundColor: '#D9D9D9',
-      activeBorderColor: '#D9D9D9',
-      focusBorderColor: '#6D9CCF',
-      disabledBackgroundColor: '#FBFBFB',
+      // Hover/active are filled chips (border matches background) per the
+      // updated Figma "Chips" spec - color-surface-button-secondary-hover/
+      // pressed tokens.
+      hoverBackgroundColor: '#D9D9D9',
+      hoverBorderColor: '#D9D9D9',
+      activeBackgroundColor: '#BFBFBF',
+      activeBorderColor: '#BFBFBF',
+      // color-borders-focus-primary
+      focusBorderColor: '#0958D9',
+      // color-surface-button-secondary-disabled
+      disabledBackgroundColor: '#F0F0F0',
       disabledBorderColor: '#DDDDDD',
       disabledTextColor: '#BFBFBF',
     },
