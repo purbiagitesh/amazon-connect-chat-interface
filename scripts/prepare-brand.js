@@ -180,10 +180,6 @@ const FONT_FORMAT_MAP = {
   otf: 'opentype'
 };
 
-// Preferred src ordering within a single @font-face block (browsers use the
-// first source they can load, so list the most efficient formats first).
-const FONT_FORMAT_PRIORITY = ['woff2', 'woff', 'otf', 'ttf'];
-
 const FONT_WEIGHT_MAP = {
   thin: 100, th: 100, hairline: 100,
   extralight: 200, ultralight: 200,
@@ -255,34 +251,6 @@ function getFontFaceDescriptors(fontFiles, resolvedFontFamily, assetsBasePath = 
     });
 }
 
-function generateFontFaceCss(fontFamilyString, fontFiles, resolvedFontFamily = null) {
-  const fontFamily = resolvedFontFamily || getResolvedFontFamily(fontFamilyString, fontFiles);
-  const descriptors = getFontFaceDescriptors(fontFiles, fontFamily);
-  if (!descriptors.length) {
-    return '';
-  }
-
-  // Group by weight/style so each distinct font file (Bold, Light, Medium, ...)
-  // gets its own @font-face rule instead of being squashed into a single
-  // normal-weight rule where the browser silently picks just one file.
-  const byWeightStyle = descriptors.reduce((acc, font) => {
-    const key = font.weight + '|' + font.style;
-    acc[key] = acc[key] || [];
-    acc[key].push(font);
-    return acc;
-  }, {});
-
-  return Object.keys(byWeightStyle).map(key => {
-    const group = byWeightStyle[key];
-    const {weight, style} = group[0];
-    const sources = [].concat(group)
-      .sort((a, b) => FONT_FORMAT_PRIORITY.indexOf(a.ext) - FONT_FORMAT_PRIORITY.indexOf(b.ext))
-      .map(font => "url('" + font.url + "') format('" + font.format + "')")
-      .join(',\n       ');
-    return "@font-face {\n  font-family: '" + fontFamily + "';\n  src: " + sources + ";\n  font-weight: " + weight + ";\n  font-style: " + style + ";\n}\n";
-  }).join('\n') + '\n';
-}
-
 function getBrandFontFiles(brandPath) {
   const supported = ['.ttf', '.woff', '.woff2', '.otf'];
   const candidateDirs = [
@@ -338,10 +306,10 @@ function getBrandFontFiles(brandPath) {
 // secondary/featured, text, background) so any consumer (React theme,
 // header, launcher) can reach any value, not just the two flattened fields
 // below. primary500/primary800 are kept alongside the full object purely
-// for the older consumers (Chat.js header, hostedWidget.html launcher,
-// generateBrandThemeCss) that only ever needed those two - falls back to
-// widget.primaryColor / a hardcoded default so brands without colors.json
-// yet still render something sane.
+// for the older consumers (Chat.js header, hostedWidget.html launcher)
+// that only ever needed those two - falls back to widget.primaryColor / a
+// hardcoded default so brands without colors.json yet still render
+// something sane.
 function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   const colorsPath = path.join(brandThemeDir, 'colors.json');
   let colors = {};
@@ -356,69 +324,6 @@ function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   const primary500 = primary['500'] || widgetConfig.primaryColor || '#3F5773';
   const primary800 = primary['800'] || primary500;
   return {...colors, primary500, primary800};
-}
-
-// Reads the optional colors.json `bubbles.customer` / `bubbles.agent` keys
-// (see brands/_template/theme/colors.json for the documented shape). Brands
-// that haven't set these yet fall back to the pre-existing behavior -
-// customer bubble = primary brand color, agent bubble = neutral gray - so
-// adding this feature required no changes to any brand that hasn't opted in.
-function getBubbleColors(colorPalette, primaryColor, headerTextColor) {
-  const bubbles = colorPalette.bubbles || {};
-  const customer = bubbles.customer || {};
-  const agent = bubbles.agent || {};
-  return {
-    customerBg: customer.background || primaryColor,
-    customerText: customer.text || headerTextColor,
-    agentBg: agent.background || '#F5F5F5',
-    agentText: agent.text || '#333333',
-  };
-}
-
-function generateBrandThemeCss(widgetConfig, headerConfig, outputPath, fontFiles = [], resolvedFontFamily = null, colorPalette = {}) {
-  const primaryColor = colorPalette.primary500 || widgetConfig.primaryColor || '#3F51B5';
-  const primary800 = colorPalette.primary800 || primaryColor;
-  const secondaryColor = widgetConfig.secondaryColor || '#FF4081';
-  const headerTextColor = widgetConfig.headerTextColor || '#FFFFFF';
-  const fontFamily = resolvedFontFamily || getResolvedFontFamily(widgetConfig.fontFamily, fontFiles);
-  const bubbleColors = getBubbleColors(colorPalette, primaryColor, headerTextColor);
-
-  // Header background is driven entirely by the brand's Primary500 token so
-  // it can never drift out of sync with the rest of the brand's theme.
-  const headerBg = primaryColor;
-  const headerTitleColor = (headerConfig && headerConfig.textColor) || headerTextColor;
-  const headerSubtitleColor = (headerConfig && headerConfig.subtitleColor) || 'rgba(255,255,255,0.70)';
-
-  const fontFaceCss = generateFontFaceCss(fontFamily, fontFiles, fontFamily);
-  const content = fontFaceCss + ':root {\n' +
-    '  --ac-widget-color-primary-500: ' + primaryColor + ';\n' +
-    '  --ac-widget-color-primary-800: ' + primary800 + ';\n' +
-    '  --ac-widget-header-backgroundcolor: ' + primaryColor + ';\n' +
-    '  --ac-widget-header-textcolor: ' + headerTextColor + ';\n' +
-    '  --ac-widget-footer-backgroundcolor: ' + secondaryColor + ';\n' +
-    '  --ac-widget-footer-button-backgroundcolor: ' + secondaryColor + ';\n' +
-    '  --ac-widget-footer-button-textcolor: ' + headerTextColor + ';\n' +
-    '  --ac-widget-global-typeface: ' + fontFamily + ';\n' +
-    '  --ac-widget-transcript-customer-bubble-color: ' + bubbleColors.customerBg + ';\n' +
-    '  --ac-widget-transcript-customer-textcolor: ' + bubbleColors.customerText + ';\n' +
-    '  --ac-widget-transcript-agent-bubble-color: ' + bubbleColors.agentBg + ';\n' +
-    '  --ac-widget-transcript-agent-textcolor: ' + bubbleColors.agentText + ';\n\n' +
-    '  /* ── Chat Header ── */\n' +
-    '  --header-bg:             ' + headerBg + ';\n' +
-    '  --header-text-color:     ' + headerTitleColor + ';\n' +
-    '  --header-subtitle-color: ' + headerSubtitleColor + ';\n' +
-    '  --header-padding:        14px 16px;\n' +
-    '  --header-logo-size:      40px;\n' +
-    '  --header-title-size:     13px;\n' +
-    '  --header-title-weight:   600;\n' +
-    '  --header-title-spacing:  0.08em;\n' +
-    '  --header-subtitle-size:  11px;\n' +
-    '  --header-subtitle-maxw:  260px;\n' +
-    '  --header-close-size:     22px;\n' +
-    '}\n';
-
-  fs.writeFileSync(outputPath, content);
-  console.log('  ✅ Generated brand-theme.css');
 }
 
 // Looks inside brands/<brand>/assets - the same folder copyDirSync() publishes
@@ -519,21 +424,6 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
   }
 
   return info;
-}
-
-// Generate brand info file for runtime reference (single-brand mode)
-function generateBrandInfo(brandName, envName, config, outputPath, logoUrl, fontFiles = [], resolvedFontFamily = null, colorPalette = {}, avatarUrl = null, sendIconUrl = null, iconUrl = null) {
-  const info = buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles, resolvedFontFamily, colorPalette, avatarUrl, sendIconUrl, './brand-assets', iconUrl);
-
-  const content = `/**
- * Current Brand Configuration
- * Auto-generated - Do not edit manually
- */
-window.__CHAT_BRAND_INFO__ = ${JSON.stringify(info, null, 2)};
-`;
-
-  fs.writeFileSync(outputPath, content);
-  console.log(`  ✅ Generated brandInfo.js`);
 }
 
 // List every real brand folder name under brands/ (skips _template etc.)
@@ -776,14 +666,8 @@ Examples:
   console.log('  🔎 Resolved font family:', resolvedFontFamily);
 
   // Generate configuration files
-  const logoUrl = getBrandLogoUrl(brandPath);
-  const avatarUrl = getClientAvatarUrl(brandPath);
-  const sendIconUrl = getClientSendIconUrl(brandPath);
-  const iconUrl = getBrandLauncherIconUrl(brandPath);
   const colorPalette = getBrandColorPalette(brandThemeDir, config.widget);
   console.log('  🔎 Resolved color palette:', colorPalette);
-  generateBrandInfo(brandName, envName, config, path.join(localTestingDir, 'brandInfo.js'), logoUrl, fontFiles, resolvedFontFamily, colorPalette, avatarUrl, sendIconUrl, iconUrl);
-  generateBrandThemeCss(config.widget, config.header || {}, path.join(localTestingDir, 'brand-theme.css'), fontFiles, resolvedFontFamily, colorPalette);
   const envStateFile = path.join(__dirname, '..', '.brand-env');
   fs.writeFileSync(envStateFile, JSON.stringify({brand: brandName, env: envName}, null, 2));
   console.log('  ✅ Saved current brand/env state');

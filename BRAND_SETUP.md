@@ -49,9 +49,9 @@ npm run prepare-brand -- --brand=my-brand --env=dev
 ```
 
 This copies the brand's assets/theme into `local-testing/brand-assets/` and generates:
-- `local-testing/brandInfo.js` (sets `window.__CHAT_BRAND_INFO__`)
-- `local-testing/brand-theme.css`
 - `.brand-env` (remembers the last-prepared brand/env at the repo root)
+
+Note: `launcher.js` (the actual runtime, loaded by `local-testing/hostedWidget.html`) resolves brand/env itself at runtime and fetches `local-testing/brand-assets/<brand>/<env>/brandInfo.json` - a *namespaced* path this single-brand command does not generate. Run `npm run prepare-brand:all` at least once (regenerates it for every brand/env) before testing in `hostedWidget.html`.
 
 List available brands at any time:
 
