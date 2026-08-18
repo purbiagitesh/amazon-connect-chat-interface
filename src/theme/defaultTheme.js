@@ -167,6 +167,16 @@ const componentPalette = {
   disclaimer: {
     activeBackgroundColor: color.secondary,
   },
+  // Product name hyperlink (SingleProduct widget): per spec, "blue and
+  // underlined ... consistent across all brands" - literal, not derived
+  // from a brand's colors.json, same treatment as quickReply above. Mirrored
+  // in componentPalette.js's buildComponentPalette() so it stays neutral
+  // once a real brand replaces this default object at runtime.
+  productLink: {
+    default: "#0958D9",
+    hover: "#1677FF",
+    pressed: "#002C8C",
+  },
 }
 
 const globals = {

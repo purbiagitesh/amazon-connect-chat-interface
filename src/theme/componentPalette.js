@@ -45,12 +45,17 @@ function buildComponentPalette(colors = {}) {
       backgroundColor: '#FFFFFF',
       borderColor: '#1A1A1A',
       textColor: '#1A1A1A',
-      hoverBackgroundColor: '#F2F2F2',
-      hoverBorderColor: '#1A1A1A',
-      activeBackgroundColor: '#D9D9D9',
-      activeBorderColor: '#D9D9D9',
-      focusBorderColor: '#6D9CCF',
-      disabledBackgroundColor: '#FBFBFB',
+      // Hover/active are filled chips (border matches background) per the
+      // updated Figma "Chips" spec - color-surface-button-secondary-hover/
+      // pressed tokens.
+      hoverBackgroundColor: '#D9D9D9',
+      hoverBorderColor: '#D9D9D9',
+      activeBackgroundColor: '#BFBFBF',
+      activeBorderColor: '#BFBFBF',
+      // color-borders-focus-primary
+      focusBorderColor: '#0958D9',
+      // color-surface-button-secondary-disabled
+      disabledBackgroundColor: '#F0F0F0',
       disabledBorderColor: '#DDDDDD',
       disabledTextColor: '#BFBFBF',
     },
@@ -70,6 +75,15 @@ function buildComponentPalette(colors = {}) {
     // would fail text contrast as a background fill).
     disclaimer: {
       activeBackgroundColor: featured['200'] || featured['100'] || primary500,
+    },
+    // Product name hyperlink (SingleProduct widget): neutral per spec
+    // ("blue and underlined ... consistent across all brands"), so - like
+    // quickReply above - this is literal rather than derived from `colors`.
+    // Keeps theme.componentPalette.productLink identical for every brand.
+    productLink: {
+      default: '#0958D9',
+      hover: '#1677FF',
+      pressed: '#002C8C',
     },
   };
 }

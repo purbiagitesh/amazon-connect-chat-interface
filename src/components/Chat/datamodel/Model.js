@@ -113,12 +113,22 @@ export const InteractiveMessageType = {
   LIST_CONFIRMATION: "ListConfirmation",
   LIST_SELECTION: "ListSelection",
   LIST_SELECTION_STEPPER: "ListSelectionStepper",
+  SINGLE_PRODUCT: "SingleProduct",
+  PRODUCT_SELECTOR: "ProductSelector",
+  SHADE_SELECTOR: "ShadeSelector",
 };
 
 export const InteractiveMessageSelectionType = {
   ACTION: "action", // default - user clicks button and responds to lex box
   HYPERLINK: "hyperlink" // clickable link element - no response sent to lex bot
 }
+
+// Optional QuickReply content.displayStyle marker set by the bot response.
+// "rating" renders compact chips (element.icon + element.value) instead of
+// the full element.title text, per the Figma "Feedback Flow Chips" spec.
+export const QuickReplyDisplayStyle = {
+  RATING: "rating",
+};
 
 export const Status = {
   Sending: "Sending",
