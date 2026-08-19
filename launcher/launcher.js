@@ -26,6 +26,7 @@
 
   window.connect = window.connect || {};
   window.connect.ChatWidget = {
+    ready: false,
     open: function () {
       if (realOpenWidget) {
         realOpenWidget();
@@ -43,62 +44,78 @@
   var CHAT_PANEL_ID = 'amazon-connect-chat-panel';
 
   var LAUNCHER_CSS = ''
-    + '#chat-now-btn {'
-    + '  display: none;'
-    + '  position: fixed;'
-    + '  bottom: 24px;'
-    + '  right: 24px;'
-    + '  background-color: var(--launcher-color-default, #8B005D);'
-    + '  color: #ffffff;'
-    + '  border: none;'
-    + '  border-radius: 50px;'
-    + '  padding: 8px 15px;'
-    + '  font-size: 14px;'
-    + '  font-weight: 600;'
-    + '  cursor: pointer;'
-    + '  align-items: center;'
-    + '  gap: 10px;'
-    + '  box-shadow: var(--launcher-shadow, 0 4px 16px rgba(139, 0, 93, 0.4));'
-    + '  z-index: 9999;'
-    + '  font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;'
-    + '  transition: background-color 0.2s ease, transform 0.15s ease;'
+    + '#amazon-connect-launcher-btn {'
+    + '  all: initial;'
+    + '  box-sizing: border-box !important;'
+    + '  display: none !important;'
+    + '  position: fixed !important;'
+    + '  bottom: 24px !important;'
+    + '  right: 24px !important;'
+    + '  top: auto !important;'
+    + '  left: auto !important;'
+    + '  width: auto !important;'
+    + '  height: 48px !important;'
+    + '  max-height: 48px !important;'
+    + '  margin: 0 !important;'
+    + '  background-color: var(--launcher-color-default, #8B005D) !important;'
+    + '  color: #ffffff !important;'
+    + '  border: none !important;'
+    + '  border-radius: 50px !important;'
+    + '  padding: 8px 15px !important;'
+    + '  font-size: 14px !important;'
+    + '  font-weight: 600 !important;'
+    + '  line-height: normal !important;'
+    + '  cursor: pointer !important;'
+    + '  align-items: center !important;'
+    + '  gap: 10px !important;'
+    + '  box-shadow: var(--launcher-shadow, 0 4px 16px rgba(139, 0, 93, 0.4)) !important;'
+    + '  z-index: 9999 !important;'
+    + '  font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif !important;'
+    + '  transition: background-color 0.2s ease, transform 0.15s ease !important;'
     + '}'
-    + '#chat-now-btn.ready { display: flex; }'
-    + '#chat-now-btn:hover { background-color: var(--launcher-color-active, #a3006e); transform: scale(1.04); }'
-    + '#chat-now-btn:active { background-color: var(--launcher-color-active, #a3006e); transform: scale(0.97); }'
-    + '#chat-now-btn .btn-icon {'
-    + '  display: flex;'
-    + '  align-items: center;'
-    + '  justify-content: center;'
-    + '  background: rgba(255, 255, 255, 0.2);'
-    + '  border-radius: 50%;'
-    + '  width: 28px;'
-    + '  height: 28px;'
-    + '  flex-shrink: 0;'
+    + '#amazon-connect-launcher-btn.ready { display: flex !important; }'
+    + '#amazon-connect-launcher-btn:hover { background-color: var(--launcher-color-active, #a3006e) !important; transform: scale(1.04); }'
+    + '#amazon-connect-launcher-btn:active { background-color: var(--launcher-color-active, #a3006e) !important; transform: scale(0.97); }'
+    + '#amazon-connect-launcher-btn .btn-icon {'
+    + '  box-sizing: border-box !important;'
+    + '  display: flex !important;'
+    + '  align-items: center !important;'
+    + '  justify-content: center !important;'
+    + '  background: rgba(255, 255, 255, 0.2) !important;'
+    + '  border-radius: 50% !important;'
+    + '  width: 28px !important;'
+    + '  height: 28px !important;'
+    + '  flex-shrink: 0 !important;'
+    + '  margin: 0 !important;'
+    + '  padding: 0 !important;'
     + '}'
-    + '#chat-now-btn .btn-icon svg { width: 15px; height: 15px; }'
-    + '#chat-now-btn .btn-icon svg .chat-icon-bg { fill: #ffffff; }'
-    + '#chat-now-btn .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-default, #8B005D); }'
-    + '#chat-now-btn:hover .btn-icon svg .chat-icon-fg,'
-    + '#chat-now-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
-    + '#chat-now-btn .btn-icon img { width: 15px; height: 15px; object-fit: contain; }'
-    + '#chat-now-btn.widget-open { display: none !important; }'
+    + '#amazon-connect-launcher-btn .btn-icon svg { width: 15px !important; height: 15px !important; }'
+    + '#amazon-connect-launcher-btn .btn-icon svg .chat-icon-bg { fill: #ffffff; }'
+    + '#amazon-connect-launcher-btn .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-default, #8B005D); }'
+    + '#amazon-connect-launcher-btn:hover .btn-icon svg .chat-icon-fg,'
+    + '#amazon-connect-launcher-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
+    + '#amazon-connect-launcher-btn .btn-icon img { width: 15px !important; height: 15px !important; object-fit: contain; }'
+    + '#amazon-connect-launcher-btn.widget-open { display: none !important; }'
     + '#' + CHAT_PANEL_ID + ' {'
-    + '  display: none;'
-    + '  position: fixed;'
-    + '  bottom: 24px;'
-    + '  right: 24px;'
-    + '  width: 335px;'
-    + '  height: 585px;'
-    + '  max-width: calc(100vw - 32px);'
-    + '  background: #ffffff;'
-    + '  border-radius: 24px;'
-    + '  overflow: hidden;'
-    + '  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);'
-    + '  z-index: 9998;'
-    + '  max-height: 100%;'
+    + '  box-sizing: border-box !important;'
+    + '  display: none !important;'
+    + '  position: fixed !important;'
+    + '  bottom: 24px !important;'
+    + '  right: 24px !important;'
+    + '  top: auto !important;'
+    + '  left: auto !important;'
+    + '  margin: 0 !important;'
+    + '  width: 335px !important;'
+    + '  height: 585px !important;'
+    + '  max-width: calc(100vw - 32px) !important;'
+    + '  max-height: calc(100vh - 32px) !important;'
+    + '  background: #ffffff !important;'
+    + '  border-radius: 24px !important;'
+    + '  overflow: hidden !important;'
+    + '  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;'
+    + '  z-index: 9998 !important;'
     + '}'
-    + '#' + CHAT_PANEL_ID + '.open { display: block; }'
+    + '#' + CHAT_PANEL_ID + '.open { display: block !important; }'
     + '#' + CHAT_PANEL_ID + ' .connect-customer-interface {'
     + '  width: 100% !important;'
     + '  height: 100% !important;'
@@ -119,7 +136,7 @@
     document.head.appendChild(style);
 
     var btn = document.createElement('button');
-    btn.id = 'chat-now-btn';
+    btn.id = 'amazon-connect-launcher-btn';
     btn.setAttribute('aria-label', 'Open chat');
     btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span>Chat now';
     document.body.appendChild(btn);
@@ -178,6 +195,8 @@
       customerPhone: '8107281183',
       brandRegion: utagData.region_code || '',
       brandLocation: utagData.locale || '',
+      languageCode: utagData.language_code || '',
+      countryCode: utagData.country_code || '',
       channel: 'Chat'
     };
   }
@@ -372,7 +391,16 @@
 
     Promise.all([scriptLoaded, brandInfoLoaded])
       .then(function (results) {
-        return setupWidget(results[1], dom.btn, dom.panel);
+        var brandInfo = results[1];
+        return setupWidget(brandInfo, dom.btn, dom.panel).then(function () {
+          window.connect.ChatWidget.ready = true;
+          document.dispatchEvent(new CustomEvent('elc:chatWidgetReady', {
+            detail: {
+              brand: brandInfo.brand,
+              env: brandInfo.environment
+            }
+          }));
+        });
       })
       .catch(function (err) {
         console.warn('[chat-widget] failed to initialize - launcher will remain hidden.', err);
