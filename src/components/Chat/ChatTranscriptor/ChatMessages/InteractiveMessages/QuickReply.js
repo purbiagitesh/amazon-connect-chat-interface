@@ -16,28 +16,38 @@ const ResponsesSection = styled.div`
   justify-content: flex-end;
 `;
 
-// Chip per Figma "Chips" spec: background/border/text colors are neutral
-// and fixed across every brand (see componentPalette.js's quickReply block -
-// only the font-family follows the brand's typeface, inherited globally via
-// theme.typography.label not setting one). Sized to content (inline-flex,
-// not the old block/width:100%) so chips wrap left-to-right like the Figma
-// reference instead of stacking one-per-row. For content.displayStyle
-// "rating" quick replies, the content is a face/digit glyph (see the
-// RATING_VALUE_ICONS icons below) rather than the full element.title.
+// Rating chips (all 5 values) stay on a single row - per the Figma
+// reference they never wrap - rather than falling back to ResponsesSection's
+// wrap. Tighter gap so 5 fixed 48px-wide chips fit typical widget widths;
+// overflow-x is a safety net (horizontal scroll instead of wrapping) if the
+// widget is ever narrower than that.
+const RatingResponsesSection = styled(ResponsesSection)`
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: ${({ theme}) => theme.spacing.micro};
+`;
+
+// Chip per Figma "Chips" spec: width 48 / height 36 (min-width 48px, hugs
+// larger content), padding sp-10 (theme.spacing.small), gap 4
+// (theme.spacing.micro), border-radius rd-16, border-width br-1. Colors are
+// neutral and fixed across every brand (see componentPalette.js's
+// quickReply block) - only the font-family follows the brand's typeface,
+// inherited globally via theme.typography.label not setting one.
 const QuickReplyOption = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: ${({ theme}) => theme.spacing.micro};
   width: auto;
+  min-width: 48px;
   min-height: 36px;
   box-sizing: border-box;
-  border-radius: 999px;
+  border-radius: 16px;
   border: 1px solid var(--ac-widget-quickreply-border-color, ${({theme}) => theme.componentPalette.quickReply.borderColor});
   background-color: var(--ac-widget-quickreply-bg-color, ${({theme}) => theme.componentPalette.quickReply.backgroundColor});
   color: var(--ac-widget-quickreply-text-color, ${({theme}) => theme.componentPalette.quickReply.textColor});
   ${({ theme}) => theme.typography.label};
-  padding: 8px 16px;
+  padding: ${({ theme}) => theme.spacing.small};
   text-align: center;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -65,15 +75,25 @@ const QuickReplyOption = styled.button`
   }
 `;
 
+// Rating chips render the glyph at its native 48x36 Figma export size with
+// no extra button padding, since the glyph's own path coordinates already
+// bake in that spacing (its content sits ~10px inset within the 48x36
+// frame - the same sp-10 padding QuickReplyOption applies for text chips).
+// Adding theme.spacing.small on top of that would double the padding.
+const RatingChipOption = styled(QuickReplyOption)`
+  padding: 0;
+`;
+
 // Rating chip glyphs (Figma "Feedback Flow Chips" spec, values "1"-"5").
 // Each is the face/digit content only - the pill background/border from the
-// Figma export is dropped since QuickReplyOption already draws that chrome
-// (and animates it per hover/focus/pressed/disabled state); fill is
-// currentColor so the glyph follows the button's own text color instead of
-// being pinned to the Figma export's static #1A1A1A.
+// Figma export is dropped since QuickReplyOption/RatingChipOption already
+// draws that chrome (and animates it per hover/focus/pressed/disabled
+// state); fill is currentColor so the glyph follows the button's own text
+// color instead of being pinned to the Figma export's static #1A1A1A.
+// Sized at its native 48x36 export dimensions - see RatingChipOption above.
 const ChipIcon = styled.svg`
-  width: 27px;
-  height: 20px;
+  width: 48px;
+  height: 36px;
   flex-shrink: 0;
 `;
 
@@ -132,6 +152,17 @@ const RATING_VALUE_ICONS = {
 };
 const RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
 
+// Some bot integrations don't set element.value at all (just a descriptive
+// title like "1 Very Dissatisfied") - fall back to the leading digit in the
+// title so rating chips still resolve to the right icon either way.
+function getElementRatingValue(element) {
+  if (element.value !== undefined && element.value !== null) {
+    return String(element.value);
+  }
+  const match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
+  return match ? match[1] : undefined;
+}
+
 // Bot responses aren't required to set content.displayStyle explicitly - if
 // the elements are exactly the 1-5 rating scale (regardless of order), treat
 // it as a rating QuickReply automatically so existing bot payloads render
@@ -139,7 +170,7 @@ const RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
 function isRatingElements(elements) {
   return Array.isArray(elements) &&
     elements.length === RATING_VALUES.length &&
-    RATING_VALUES.every((value) => elements.some((element) => element.value === value));
+    RATING_VALUES.every((value) => elements.some((element) => getElementRatingValue(element) === value));
 }
 
 function ReplyElement({element, handleSelection, isRatingStyle}) {
@@ -148,15 +179,16 @@ function ReplyElement({element, handleSelection, isRatingStyle}) {
   // instead of the full descriptive title. The full title is still sent as
   // the reply text so the bot/transcript keep the descriptive wording
   // (e.g. "1 Very Dissatisfied").
-  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[element.value] : null;
+  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  const Option = RatingIcon ? RatingChipOption : QuickReplyOption;
 
   return (
-    <QuickReplyOption
+    <Option
       onClick={() => handleSelection({ text: element.title})}
       aria-label={RatingIcon ? title : undefined}
     >
       {RatingIcon ? <RatingIcon /> : title}
-    </QuickReplyOption>
+    </Option>
   );
 }
 
@@ -169,13 +201,14 @@ export default function QuickReply({content, addMessage}) {
   const {title: inputTitle, elements, displayStyle} = content;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.QUICK_REPLY, "titleCharLimit");
   const isRatingStyle = displayStyle === QuickReplyDisplayStyle.RATING || isRatingElements(elements);
+  const Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
 
   return (
     <>
       <MessageBody addChildBackgroundStyles={true} data-testid="interactive-quickreply-message-title" applySpeechBubbleCaret={true}>
         <RichMessageRenderer content={title} />
       </MessageBody>
-      <ResponsesSection data-testid="interactive-quickreply-response-section">
+      <Section data-testid="interactive-quickreply-response-section">
         {elements.map((element, index) => (
           <ReplyElement
             element={element}
@@ -184,7 +217,7 @@ export default function QuickReply({content, addMessage}) {
             key={index}
           />
         ))}
-      </ResponsesSection>
+      </Section>
     </>
   );
 }

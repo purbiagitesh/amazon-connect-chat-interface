@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "70878ff364bd51177ac3";
+/******/ 	var hotCurrentHash = "0405b8312dfe08af8306";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -141664,8 +141664,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InteractiveMessages_ListConfirmation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./InteractiveMessages/ListConfirmation */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListConfirmation.js");
 /* harmony import */ var _InteractiveMessages_ListSelection__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./InteractiveMessages/ListSelection */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelection.js");
 /* harmony import */ var _InteractiveMessages_ListSelectionStepper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./InteractiveMessages/ListSelectionStepper */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ListSelectionStepper.js");
-/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _InteractiveMessages_SingleProduct__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./InteractiveMessages/SingleProduct */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.js");
+/* harmony import */ var _InteractiveMessages_ProductSelector__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./InteractiveMessages/ProductSelector */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.js");
+/* harmony import */ var _InteractiveMessages_ShadeSelector__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./InteractiveMessages/ShadeSelector */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 
 var _templateObject,
@@ -141694,7 +141697,10 @@ var _templateObject,
 
 
 
-var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
+
+
+
+var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
@@ -141713,31 +141719,31 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.title;
 });
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.body;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
-var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
   var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  ", ";\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  ", ";\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141771,7 +141777,7 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_17__["default
   var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_17__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.label;
 }, function (props) {
@@ -141847,7 +141853,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 202,
+          lineNumber: 205,
           columnNumber: 14
         }
       });
@@ -141861,7 +141867,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 204,
+          lineNumber: 207,
           columnNumber: 14
         }
       });
@@ -141872,7 +141878,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 206,
+          lineNumber: 209,
           columnNumber: 14
         }
       });
@@ -141887,7 +141893,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 212,
+        lineNumber: 215,
         columnNumber: 12
       }
     });
@@ -141898,7 +141904,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 214,
+        lineNumber: 217,
         columnNumber: 12
       }
     });
@@ -141909,7 +141915,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 216,
+        lineNumber: 219,
         columnNumber: 12
       }
     });
@@ -141920,7 +141926,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 218,
+        lineNumber: 221,
         columnNumber: 12
       }
     });
@@ -141931,7 +141937,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 220,
+        lineNumber: 223,
         columnNumber: 12
       }
     });
@@ -141942,7 +141948,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 222,
+        lineNumber: 225,
         columnNumber: 12
       }
     });
@@ -141953,7 +141959,40 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 224,
+        lineNumber: 227,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].SINGLE_PRODUCT) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_SingleProduct__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 229,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].PRODUCT_SELECTOR) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ProductSelector__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 231,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].SHADE_SELECTOR) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ShadeSelector__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 233,
         columnNumber: 12
       }
     });
@@ -141964,7 +142003,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 226,
+        lineNumber: 235,
         columnNumber: 12
       }
     });
@@ -141975,7 +142014,7 @@ function InteractiveMessage(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 230,
+      lineNumber: 239,
       columnNumber: 5
     }
   }, renderTemplate());
@@ -141998,7 +142037,7 @@ function ReactiveImage(_ref23) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 242,
+      lineNumber: 251,
       columnNumber: 10
     }
   });
@@ -142014,25 +142053,25 @@ function HeaderText(_ref24) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 252,
+      lineNumber: 261,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__["RichMessageRenderer"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__["RichMessageRenderer"], {
     content: title,
     styledWrapper: Title,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 253,
+      lineNumber: 262,
       columnNumber: 7
     }
-  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_16__["RichMessageRenderer"], {
+  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__["RichMessageRenderer"], {
     content: subtitle,
     styledWrapper: Subtitle,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 254,
+      lineNumber: 263,
       columnNumber: 21
     }
   }));
@@ -142048,7 +142087,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 261,
+      lineNumber: 270,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -142057,7 +142096,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 269,
+      lineNumber: 278,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -142065,7 +142104,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 270,
+      lineNumber: 279,
       columnNumber: 7
     }
   }));
@@ -142080,7 +142119,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 277,
+      lineNumber: 286,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerOptionTitle, {
@@ -142088,7 +142127,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 278,
+      lineNumber: 287,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
@@ -142097,14 +142136,14 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 279,
+      lineNumber: 288,
       columnNumber: 9
     }
   }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ExternalLinkIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 282,
+      lineNumber: 291,
       columnNumber: 9
     }
   })));
@@ -144311,6 +144350,469 @@ function Panel(_ref6) {
 
 /***/ }),
 
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.js":
+/*!**************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.js ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductSelector; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _ProductSelector_mockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductSelector.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.mockData.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+
+
+var _templateObject,
+  _templateObject2,
+  _templateObject3,
+  _templateObject4,
+  _templateObject5,
+  _templateObject6,
+  _templateObject7,
+  _templateObject8,
+  _templateObject9,
+  _templateObject10,
+  _templateObject11,
+  _templateObject12,
+  _templateObject13,
+  _templateObject14,
+  _templateObject15,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\ProductSelector.js",
+  _templateObject16,
+  _templateObject17,
+  _templateObject18;
+
+
+
+
+
+
+// Fully self-contained widget - deliberately does not import from
+// ListPrimitives.js/SingleProduct.js/Checkbox.js, even though the card
+// chrome and CTA styling are visually close to that family. Keeps this
+// widget free to evolve (or be deleted) without touching any other widget.
+
+// Fixed 230px card per the Product Selector figma spec.
+var CARD_WIDTH = 230;
+
+// Card chrome (background/border) is neutral per spec and stays fixed across
+// brands. Reuses the same --ac-widget-selection-card-border override the
+// other card widgets already expose, so a host page only has one var to
+// theme for card borders.
+var CardShell = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  box-sizing: border-box;\n  width: ", "px;\n  max-width: ", "px;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-selection-card-border, ", ");\n  background: ", ";\n"])), CARD_WIDTH, CARD_WIDTH, function (_ref) {
+  var theme = _ref.theme;
+  return theme.palette.alto;
+}, function (_ref2) {
+  var theme = _ref2.theme;
+  return theme.palette.white;
+});
+var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])));
+var CardHeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.typography.h3;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.globals.bodyFontColor;
+});
+var CardHeaderSubtitle = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.typography.label;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.globals.textSecondaryColor;
+});
+
+// Neutral divider color, exposed via --color-borders-main-default per this
+// widget's own "Border" spec, falling back to the spec'd #D9D9D9.
+var Divider = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border-top: 1px solid var(--color-borders-main-default, #d9d9d9);\n"])));
+var ProductList = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n"])));
+var ProductRow = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  align-items: flex-start;\n  gap: 8px;\n"])));
+var ProductTextColumn = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1 1 auto;\n  min-width: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])));
+
+// Product name is a hyperlink and, per spec, keeps the same blue/underline
+// styling across every brand - color comes from theme.componentPalette.
+// productLink (defaultTheme.js / componentPalette.js), which is neutral by
+// design, not derived from a brand's colors.json. Each state is additionally
+// exposed via a CSS var as a host override escape hatch - the default is
+// identical everywhere unless a host page opts in.
+// Note: Figma's "text-decoration-offset/-thickness: 0%" map to CSS
+// text-underline-offset/text-decoration-thickness "auto", which is already
+// the browser default - left unset here rather than pinned to a literal 0
+// (which would render as no visible underline).
+var ProductNameLink = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].a(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  display: block;\n  font-weight: 700;\n  letter-spacing: 0;\n  text-decoration: underline;\n  text-decoration-style: solid;\n  text-decoration-skip-ink: auto;\n  color: var(--color-text-link-default, ", ");\n  overflow-wrap: break-word;\n  cursor: pointer;\n\n  &:hover {\n    color: var(--color-text-link-hover, ", ");\n  }\n\n  &:active {\n    color: var(--color-text-link-pressed, ", ");\n  }\n"])), function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.title;
+}, function (_ref8) {
+  var theme = _ref8.theme;
+  return theme.componentPalette.productLink.default;
+}, function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.componentPalette.productLink.hover;
+}, function (_ref10) {
+  var theme = _ref10.theme;
+  return theme.componentPalette.productLink.pressed;
+});
+var ProductPrice = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  font-weight: 700;\n  color: ", ";\n"])), function (_ref11) {
+  var theme = _ref11.theme;
+  return theme.typography.body;
+}, function (_ref12) {
+  var theme = _ref12.theme;
+  return theme.globals.bodyFontColor;
+});
+var ProductMetaText = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.typography.label;
+}, function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.globals.textSecondaryColor;
+});
+
+// Real (visually-hidden) radio input drives :checked so keyboard/screen-
+// reader behavior and single-select grouping (shared `name`) come for free;
+// the visible ring is a sibling styled off it rather than a custom click
+// handler re-implementing native radio semantics.
+var HiddenRadio = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].input(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: absolute;\n  opacity: 0;\n  width: 22px;\n  height: 22px;\n  margin: 0;\n  cursor: ", ";\n"])), function (props) {
+  return props.disabled ? "not-allowed" : "pointer";
+});
+
+// Center dot only exists/colors in when checked - per spec ("Unchecked is
+// neutral ... once checked, the color INSIDE the radio button will turn
+// into a brand-specific color"), the outer ring itself never changes color,
+// unlike Checkbox's full-fill treatment.
+var RadioDot = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background: transparent;\n"])));
+var RadioRing = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  display: inline-block;\n  box-sizing: border-box;\n  width: 22px;\n  height: 22px;\n  border-radius: 50%;\n  border: 1px solid ", ";\n  background: transparent;\n  pointer-events: none;\n\n  ", ":checked + & ", " {\n    background: var(--ac-widget-selection-card-select-bg, ", ");\n  }\n\n  ", ":disabled + & {\n    opacity: 0.5;\n  }\n"])), function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.palette.alto;
+}, HiddenRadio, RadioDot, function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+}, HiddenRadio);
+var RadioWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].label(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  display: inline-flex;\n  width: 22px;\n  height: 22px;\n  flex: 0 0 auto;\n  margin-top: 2px;\n"])));
+function ProductRadio(_ref17) {
+  var checked = _ref17.checked,
+    onChange = _ref17.onChange,
+    name = _ref17.name,
+    ariaLabel = _ref17.ariaLabel,
+    testId = _ref17.testId;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(RadioWrapper, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 175,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(HiddenRadio, {
+    type: "radio",
+    name: name,
+    checked: !!checked,
+    onChange: onChange,
+    "aria-label": ariaLabel,
+    "data-testid": testId,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 176,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(RadioRing, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 184,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(RadioDot, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 185,
+      columnNumber: 9
+    }
+  })));
+}
+ProductRadio.propTypes = {
+  checked: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+  onChange: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  name: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,
+  ariaLabel: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  testId: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+};
+var CtaGroup = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])));
+var ctaButtonBase = "\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n  width: 100%;\n  min-height: 36px;\n  padding: 10px 8px;\n  border-radius: 16px;\n  border: none;\n  box-sizing: border-box;\n";
+
+// Disabled (no product selected yet) swaps to the neutral bg rather than
+// dimming the brand color, matching the figma mock (flat grey while
+// disabled, not a faded brand color) - same treatment as the List widget
+// family's PrimaryCtaButton.
+var PrimaryCtaButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", "\n  ", ";\n  color: ", ";\n  cursor: pointer;\n  background: var(--ac-widget-selection-card-select-bg, ", ");\n\n  &:disabled {\n    background: ", ";\n    cursor: not-allowed;\n  }\n"])), ctaButtonBase, function (_ref18) {
+  var theme = _ref18.theme;
+  return theme.typography.body;
+}, function (_ref19) {
+  var theme = _ref19.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref20) {
+  var theme = _ref20.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+}, function (_ref21) {
+  var theme = _ref21.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+});
+var SecondaryCtaButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject18 || (_templateObject18 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", "\n  ", ";\n  color: ", ";\n  cursor: pointer;\n  background: ", ";\n"])), ctaButtonBase, function (_ref22) {
+  var theme = _ref22.theme;
+  return theme.typography.body;
+}, function (_ref23) {
+  var theme = _ref23.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref24) {
+  var theme = _ref24.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+});
+function formatPrice(product) {
+  var min = Number(product.priceMin);
+  var max = Number(product.priceMax);
+  if (!Number.isFinite(min)) return "";
+  if (!Number.isFinite(max) || max === min) return "$".concat(min.toFixed(2));
+  return "$".concat(min.toFixed(2), " - $").concat(max.toFixed(2));
+}
+
+// Prioritizes shade count when available, otherwise falls back to size
+// count - same precedence rule as the SingleProduct widget.
+function formatCount(product) {
+  if (product.shadeCount != null) {
+    return "".concat(product.shadeCount, " Shade").concat(product.shadeCount === 1 ? "" : "s");
+  }
+  if (product.sizeCount != null) {
+    return "".concat(product.sizeCount, " Size").concat(product.sizeCount === 1 ? "" : "s");
+  }
+  return "";
+}
+ProductSelector.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
+};
+function ProductSelector(_ref25) {
+  var _this = this;
+  var content = _ref25.content,
+    addMessage = _ref25.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // ProductSelector.mockData.js. Swapping to the real VA JSON is a data
+  // change only, not a structural one.
+  var data = content || _ProductSelector_mockData__WEBPACK_IMPORTED_MODULE_5__["MOCK_PRODUCT_SELECTOR"];
+  var title = data.title,
+    subtitle = data.subtitle,
+    products = data.products;
+  var checkAvailabilityLabel = data.checkAvailabilityLabel || "Check availability";
+  var enterAnotherLabel = data.enterAnotherLabel || "Enter another product";
+  var enterAnotherMessage = data.enterAnotherMessage || enterAnotherLabel;
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(null),
+    _useState2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    selectedId = _useState2[0],
+    setSelectedId = _useState2[1];
+  function respond(text) {
+    addMessage({
+      text: text,
+      type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_6__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+    });
+  }
+  function handleCheckAvailability() {
+    var selected = products.find(function (product) {
+      return product.id === selectedId;
+    });
+    if (!selected) return;
+    respond(selected.name);
+  }
+  function handleEnterAnother() {
+    respond(enterAnotherMessage);
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardShell, {
+    "data-testid": "product-selector",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 295,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeader, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 296,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeaderTitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 297,
+      columnNumber: 9
+    }
+  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeaderSubtitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 298,
+      columnNumber: 9
+    }
+  }, subtitle)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Divider, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 300,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductList, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 301,
+      columnNumber: 7
+    }
+  }, products.map(function (product) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductRow, {
+      key: product.id,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 303,
+        columnNumber: 11
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductRadio, {
+      checked: selectedId === product.id,
+      onChange: function onChange() {
+        return setSelectedId(product.id);
+      },
+      name: "product-selector",
+      ariaLabel: product.name,
+      testId: "product-selector-radio-".concat(product.id),
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 304,
+        columnNumber: 13
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductTextColumn, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 311,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductNameLink, {
+      href: product.url,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      "data-testid": "product-selector-link-".concat(product.id),
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 312,
+        columnNumber: 15
+      }
+    }, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductPrice, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 320,
+        columnNumber: 15
+      }
+    }, formatPrice(product)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ProductMetaText, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 321,
+        columnNumber: 15
+      }
+    }, formatCount(product))));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CtaGroup, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 326,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PrimaryCtaButton, {
+    disabled: !selectedId,
+    onClick: handleCheckAvailability,
+    "data-testid": "product-selector-check-availability",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 327,
+      columnNumber: 9
+    }
+  }, checkAvailabilityLabel), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(SecondaryCtaButton, {
+    onClick: handleEnterAnother,
+    "data-testid": "product-selector-enter-another",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 334,
+      columnNumber: 9
+    }
+  }, enterAnotherLabel)));
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.mockData.js":
+/*!***********************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.mockData.js ***!
+  \***********************************************************************************************************/
+/*! exports provided: MOCK_PRODUCT_SELECTOR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOCK_PRODUCT_SELECTOR", function() { return MOCK_PRODUCT_SELECTOR; });
+// Placeholder data for local/visual development - ProductSelector falls
+// back to this only when no runtime content is passed in.
+var MOCK_PRODUCT_SELECTOR = {
+  title: "Which product are you checking?",
+  subtitle: "Select one of the options.",
+  products: [{
+    id: "p1",
+    name: "Double Wear Soft Glow Matte Cushion Makeup SPF 36 + Refill",
+    url: "https://www.esteelauder.com/product/double-wear-soft-glow-matte-cushion",
+    priceMin: 52.0,
+    priceMax: 52.0,
+    shadeCount: 5
+  }, {
+    id: "p2",
+    name: "Double Wear Stay-in-Place Matte Powder Foundation",
+    url: "https://www.esteelauder.com/product/double-wear-stay-in-place-matte-powder",
+    priceMin: 52.0,
+    priceMax: 120.0,
+    sizeCount: 5
+  }, {
+    id: "p3",
+    name: "Double Wear Maximum Cover Camouflage Foundation for Face and Body SPF 15",
+    url: "https://www.esteelauder.com/product/double-wear-maximum-cover",
+    priceMin: 52.0,
+    priceMax: 52.0,
+    shadeCount: 5
+  }, {
+    id: "p4",
+    name: "Double Wear Stay-in-Place 24-Hour Concealer",
+    url: "https://www.esteelauder.com/product/double-wear-concealer",
+    priceMin: 52.0,
+    priceMax: 120.0,
+    sizeCount: 2
+  }],
+  checkAvailabilityLabel: "Check availability",
+  enterAnotherLabel: "Enter another product"
+};
+
+/***/ }),
+
 /***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/QuickReply.js":
 /*!*********************************************************************************************!*\
   !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/QuickReply.js ***!
@@ -144335,6 +144837,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var _templateObject,
   _templateObject2,
+  _templateObject3,
+  _templateObject4,
+  _templateObject5,
   _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\QuickReply.js";
 
 
@@ -144352,84 +144857,333 @@ var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"]
   return theme.spacing.mini;
 });
 
-// Chip per Figma "Chips" spec: background/border/text colors are neutral
-// and fixed across every brand (see componentPalette.js's quickReply block -
-// only the font-family follows the brand's typeface, inherited globally via
-// theme.typography.label not setting one). Sized to content (inline-flex,
-// not the old block/width:100%) so chips wrap left-to-right like the Figma
-// reference instead of stacking one-per-row; the emoji/icon a caller wants
-// on either side is just part of element.title's text (no separate icon
-// field exists on quick-reply elements), and this flex layout keeps that
-// centered alongside the label either way.
-var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: ", ";\n  width: auto;\n  min-height: 36px;\n  box-sizing: border-box;\n  padding: 8px 16px;\n  border-radius: 999px;\n  border: 1px solid var(--ac-widget-quickreply-border-color, ", ");\n  background-color: var(--ac-widget-quickreply-bg-color, ", ");\n  color: var(--ac-widget-quickreply-text-color, ", ");\n  ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;\n\n  &:hover:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-hover-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-hover-border-color, ", ");\n  }\n\n  &:focus-visible {\n    outline: 2px solid var(--ac-widget-quickreply-focus-border-color, ", ");\n    outline-offset: 1px;\n  }\n\n  &:active:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-active-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-active-border-color, ", ");\n  }\n\n  &:disabled {\n    background-color: var(--ac-widget-quickreply-disabled-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-disabled-border-color, ", ");\n    color: var(--ac-widget-quickreply-disabled-text-color, ", ");\n    cursor: not-allowed;\n  }\n"])), function (_ref3) {
+// Rating chips (all 5 values) stay on a single row - per the Figma
+// reference they never wrap - rather than falling back to ResponsesSection's
+// wrap. Tighter gap so 5 fixed 48px-wide chips fit typical widget widths;
+// overflow-x is a safety net (horizontal scroll instead of wrapping) if the
+// widget is ever narrower than that.
+var RatingResponsesSection = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(ResponsesSection)(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  flex-wrap: nowrap;\n  overflow-x: auto;\n  gap: ", ";\n"])), function (_ref3) {
   var theme = _ref3.theme;
   return theme.spacing.micro;
-}, function (_ref4) {
+});
+
+// Chip per Figma "Chips" spec: width 48 / height 36 (min-width 48px, hugs
+// larger content), padding sp-10 (theme.spacing.small), gap 4
+// (theme.spacing.micro), border-radius rd-16, border-width br-1. Colors are
+// neutral and fixed across every brand (see componentPalette.js's
+// quickReply block) - only the font-family follows the brand's typeface,
+// inherited globally via theme.typography.label not setting one.
+var QuickReplyOption = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: ", ";\n  width: auto;\n  min-width: 48px;\n  min-height: 36px;\n  box-sizing: border-box;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-quickreply-border-color, ", ");\n  background-color: var(--ac-widget-quickreply-bg-color, ", ");\n  color: var(--ac-widget-quickreply-text-color, ", ");\n  ", ";\n  padding: ", ";\n  text-align: center;\n  cursor: pointer;\n  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;\n\n  &:hover:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-hover-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-hover-border-color, ", ");\n  }\n\n  &:focus-visible {\n    outline: 2px solid var(--ac-widget-quickreply-focus-border-color, ", ");\n    outline-offset: 1px;\n  }\n\n  &:active:not(:disabled) {\n    background-color: var(--ac-widget-quickreply-active-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-active-border-color, ", ");\n  }\n\n  &:disabled {\n    background-color: var(--ac-widget-quickreply-disabled-bg-color, ", ");\n    border-color: var(--ac-widget-quickreply-disabled-border-color, ", ");\n    color: var(--ac-widget-quickreply-disabled-text-color, ", ");\n    cursor: not-allowed;\n  }\n"])), function (_ref4) {
   var theme = _ref4.theme;
-  return theme.componentPalette.quickReply.borderColor;
+  return theme.spacing.micro;
 }, function (_ref5) {
   var theme = _ref5.theme;
-  return theme.componentPalette.quickReply.backgroundColor;
+  return theme.componentPalette.quickReply.borderColor;
 }, function (_ref6) {
   var theme = _ref6.theme;
-  return theme.componentPalette.quickReply.textColor;
+  return theme.componentPalette.quickReply.backgroundColor;
 }, function (_ref7) {
   var theme = _ref7.theme;
-  return theme.typography.label;
+  return theme.componentPalette.quickReply.textColor;
 }, function (_ref8) {
   var theme = _ref8.theme;
-  return theme.componentPalette.quickReply.hoverBackgroundColor;
+  return theme.typography.label;
 }, function (_ref9) {
   var theme = _ref9.theme;
-  return theme.componentPalette.quickReply.hoverBorderColor;
+  return theme.spacing.small;
 }, function (_ref10) {
   var theme = _ref10.theme;
-  return theme.componentPalette.quickReply.focusBorderColor;
+  return theme.componentPalette.quickReply.hoverBackgroundColor;
 }, function (_ref11) {
   var theme = _ref11.theme;
-  return theme.componentPalette.quickReply.activeBackgroundColor;
+  return theme.componentPalette.quickReply.hoverBorderColor;
 }, function (_ref12) {
   var theme = _ref12.theme;
-  return theme.componentPalette.quickReply.activeBorderColor;
+  return theme.componentPalette.quickReply.focusBorderColor;
 }, function (_ref13) {
   var theme = _ref13.theme;
-  return theme.componentPalette.quickReply.disabledBackgroundColor;
+  return theme.componentPalette.quickReply.activeBackgroundColor;
 }, function (_ref14) {
   var theme = _ref14.theme;
-  return theme.componentPalette.quickReply.disabledBorderColor;
+  return theme.componentPalette.quickReply.activeBorderColor;
 }, function (_ref15) {
   var theme = _ref15.theme;
+  return theme.componentPalette.quickReply.disabledBackgroundColor;
+}, function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.componentPalette.quickReply.disabledBorderColor;
+}, function (_ref17) {
+  var theme = _ref17.theme;
   return theme.componentPalette.quickReply.disabledTextColor;
 });
-function ReplyElement(_ref16) {
-  var element = _ref16.element,
-    handleSelection = _ref16.handleSelection;
+
+// Rating chips render the glyph at its native 48x36 Figma export size with
+// no extra button padding, since the glyph's own path coordinates already
+// bake in that spacing (its content sits ~10px inset within the 48x36
+// frame - the same sp-10 padding QuickReplyOption applies for text chips).
+// Adding theme.spacing.small on top of that would double the padding.
+var RatingChipOption = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(QuickReplyOption)(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: 0;\n"])));
+
+// Rating chip glyphs (Figma "Feedback Flow Chips" spec, values "1"-"5").
+// Each is the face/digit content only - the pill background/border from the
+// Figma export is dropped since QuickReplyOption/RatingChipOption already
+// draws that chrome (and animates it per hover/focus/pressed/disabled
+// state); fill is currentColor so the glyph follows the button's own text
+// color instead of being pinned to the Figma export's static #1A1A1A.
+// Sized at its native 48x36 export dimensions - see RatingChipOption above.
+var ChipIcon = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].svg(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 48px;\n  height: 36px;\n  flex-shrink: 0;\n"])));
+function SadFaceOneIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChipIcon, Object.assign({
+    viewBox: "0 0 48 36",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 102,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M20.333 17.3333C20.8853 17.3333 21.333 16.8856 21.333 16.3333C21.333 15.7811 20.8853 15.3333 20.333 15.3333C19.7807 15.3333 19.333 15.7811 19.333 16.3333C19.333 16.8856 19.7807 17.3333 20.333 17.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 103,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M15.6663 17.3333C16.2186 17.3333 16.6663 16.8856 16.6663 16.3333C16.6663 15.7811 16.2186 15.3333 15.6663 15.3333C15.1141 15.3333 14.6663 15.7811 14.6663 16.3333C14.6663 16.8856 15.1141 17.3333 15.6663 17.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 104,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M17.9997 19.3333C16.4463 19.3333 15.1197 20.3 14.5863 21.6667H15.6997C16.1597 20.8733 17.013 20.3333 17.9997 20.3333C18.9863 20.3333 19.833 20.8733 20.2997 21.6667H21.413C20.8797 20.3 19.553 19.3333 17.9997 19.3333ZM17.993 11.3333C14.313 11.3333 11.333 14.32 11.333 18C11.333 21.68 14.313 24.6667 17.993 24.6667C21.6797 24.6667 24.6663 21.68 24.6663 18C24.6663 14.32 21.6797 11.3333 17.993 11.3333ZM17.9997 23.3333C15.053 23.3333 12.6663 20.9467 12.6663 18C12.6663 15.0533 15.053 12.6667 17.9997 12.6667C20.9463 12.6667 23.333 15.0533 23.333 18C23.333 20.9467 20.9463 23.3333 17.9997 23.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 105,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M34.786 22H33.658V16.084H31.918V15.34C32.83 15.34 33.434 15.104 33.73 14.632C33.866 14.424 33.95 14.184 33.982 13.912H34.786V22Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 106,
+      columnNumber: 7
+    }
+  }));
+}
+function NumberTwoIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChipIcon, Object.assign({
+    viewBox: "0 0 48 36",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 113,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M26.742 22H21.45L21.462 20.968C21.574 20.912 21.742 20.82 21.966 20.692C22.59 20.292 23.254 19.76 23.958 19.096C24.446 18.648 24.83 18.208 25.11 17.776C25.39 17.336 25.53 16.852 25.53 16.324C25.53 15.844 25.394 15.468 25.122 15.196C24.858 14.916 24.486 14.776 24.006 14.776C23.454 14.776 23.05 14.94 22.794 15.268C22.73 15.356 22.658 15.5 22.578 15.7C22.514 15.916 22.482 16.14 22.482 16.372C22.482 16.628 22.53 16.948 22.626 17.332H21.57C21.474 17.004 21.426 16.684 21.426 16.372C21.426 15.556 21.678 14.92 22.182 14.464C22.654 14.048 23.274 13.84 24.042 13.84C24.73 13.84 25.31 14.04 25.782 14.44C26.358 14.92 26.646 15.572 26.646 16.396C26.646 17.236 26.282 18.064 25.554 18.88C25.298 19.176 24.994 19.472 24.642 19.768C24.322 20.048 24.006 20.3 23.694 20.524C23.51 20.652 23.234 20.836 22.866 21.076H26.742V22Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 114,
+      columnNumber: 7
+    }
+  }));
+}
+function NumberThreeIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChipIcon, Object.assign({
+    viewBox: "0 0 48 36",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 121,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M26.85 19.744C26.85 20.36 26.642 20.876 26.226 21.292C25.722 21.812 24.986 22.072 24.018 22.072C23.866 22.072 23.714 22.064 23.562 22.048C23.418 22.04 23.202 22 22.914 21.928C22.634 21.856 22.386 21.76 22.17 21.64C21.954 21.512 21.738 21.32 21.522 21.064C21.314 20.8 21.166 20.492 21.078 20.14C21.022 19.924 20.99 19.652 20.982 19.324H22.062C22.11 19.74 22.158 20.02 22.206 20.164C22.438 20.796 23.022 21.112 23.958 21.112C24.07 21.112 24.174 21.108 24.27 21.1C24.374 21.092 24.522 21.064 24.714 21.016C24.906 20.96 25.066 20.888 25.194 20.8C25.33 20.704 25.45 20.56 25.554 20.368C25.666 20.168 25.722 19.932 25.722 19.66C25.722 19.324 25.63 19.044 25.446 18.82C25.182 18.476 24.658 18.304 23.874 18.304C23.634 18.304 23.394 18.316 23.154 18.34L23.166 17.368C24.03 17.44 24.646 17.352 25.014 17.104C25.358 16.872 25.53 16.536 25.53 16.096C25.53 15.824 25.458 15.584 25.314 15.376C25.018 14.944 24.546 14.728 23.898 14.728C23.314 14.728 22.882 14.952 22.602 15.4C22.45 15.656 22.358 16.064 22.326 16.624L21.258 16.576C21.29 16.104 21.342 15.748 21.414 15.508C21.51 15.212 21.646 14.956 21.822 14.74C21.998 14.516 22.174 14.348 22.35 14.236C22.534 14.124 22.738 14.036 22.962 13.972C23.186 13.908 23.366 13.872 23.502 13.864C23.638 13.848 23.774 13.84 23.91 13.84C24.334 13.84 24.734 13.904 25.11 14.032C25.414 14.136 25.67 14.28 25.878 14.464C26.094 14.648 26.25 14.848 26.346 15.064C26.442 15.272 26.51 15.46 26.55 15.628C26.59 15.788 26.61 15.944 26.61 16.096C26.61 16.616 26.482 17.028 26.226 17.332C26.114 17.476 25.914 17.636 25.626 17.812C25.81 17.892 25.974 17.988 26.118 18.1C26.606 18.5 26.85 19.048 26.85 19.744Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 122,
+      columnNumber: 7
+    }
+  }));
+}
+function NumberFourIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChipIcon, Object.assign({
+    viewBox: "0 0 48 36",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 129,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M26.886 20.056H25.71V22H24.666V20.056H21.006V19.084L24.87 13.912H25.71V19.144H26.886V20.056ZM24.714 15.52L22.098 19.144H24.666L24.714 15.52Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 130,
+      columnNumber: 7
+    }
+  }));
+}
+function HappyFaceFiveIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChipIcon, Object.assign({
+    viewBox: "0 0 48 36",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 137,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M16.802 19.168C16.802 19.768 16.646 20.324 16.334 20.836C16.022 21.34 15.594 21.692 15.05 21.892C14.73 22.012 14.362 22.072 13.946 22.072C13.522 22.072 13.138 22.012 12.794 21.892C12.458 21.764 12.186 21.6 11.978 21.4C11.77 21.192 11.606 20.996 11.486 20.812C11.374 20.628 11.282 20.44 11.21 20.248C11.146 20.048 11.098 19.792 11.066 19.48L12.134 19.408C12.15 19.592 12.206 19.804 12.302 20.044C12.494 20.532 12.802 20.86 13.226 21.028C13.426 21.108 13.654 21.148 13.91 21.148C14.182 21.148 14.426 21.1 14.642 21.004C14.922 20.884 15.166 20.672 15.374 20.368C15.582 20.064 15.686 19.652 15.686 19.132C15.686 18.86 15.658 18.636 15.602 18.46C15.538 18.22 15.418 18.004 15.242 17.812C15.074 17.62 14.878 17.48 14.654 17.392C14.414 17.312 14.174 17.272 13.934 17.272C13.566 17.272 13.258 17.356 13.01 17.524C12.946 17.556 12.87 17.616 12.782 17.704C12.582 17.896 12.434 18.1 12.338 18.316H11.366L11.63 13.912H16.226V14.86H12.446L12.338 16.984C12.866 16.544 13.462 16.328 14.126 16.336C14.534 16.336 14.902 16.408 15.23 16.552C15.726 16.776 16.11 17.128 16.382 17.608C16.662 18.088 16.802 18.608 16.802 19.168Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 138,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M32.333 17.3333C32.8853 17.3333 33.333 16.8856 33.333 16.3333C33.333 15.7811 32.8853 15.3333 32.333 15.3333C31.7807 15.3333 31.333 15.7811 31.333 16.3333C31.333 16.8856 31.7807 17.3333 32.333 17.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 139,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M27.6663 17.3333C28.2186 17.3333 28.6663 16.8856 28.6663 16.3333C28.6663 15.7811 28.2186 15.3333 27.6663 15.3333C27.1141 15.3333 26.6663 15.7811 26.6663 16.3333C26.6663 16.8856 27.1141 17.3333 27.6663 17.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 140,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
+    d: "M29.9997 20.6667C29.013 20.6667 28.1663 20.1267 27.6997 19.3333H26.5863C27.1197 20.7 28.4463 21.6667 29.9997 21.6667C31.553 21.6667 32.8797 20.7 33.413 19.3333H32.2997C31.833 20.1267 30.9863 20.6667 29.9997 20.6667ZM29.993 11.3333C26.313 11.3333 23.333 14.32 23.333 18C23.333 21.68 26.313 24.6667 29.993 24.6667C33.6797 24.6667 36.6663 21.68 36.6663 18C36.6663 14.32 33.6797 11.3333 29.993 11.3333ZM29.9997 23.3333C27.053 23.3333 24.6663 20.9467 24.6663 18C24.6663 15.0533 27.053 12.6667 29.9997 12.6667C32.9463 12.6667 35.333 15.0533 35.333 18C35.333 20.9467 32.9463 23.3333 29.9997 23.3333Z",
+    fill: "currentColor",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 141,
+      columnNumber: 7
+    }
+  }));
+}
+var RATING_VALUE_ICONS = {
+  "1": SadFaceOneIcon,
+  "2": NumberTwoIcon,
+  "3": NumberThreeIcon,
+  "4": NumberFourIcon,
+  "5": HappyFaceFiveIcon
+};
+var RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
+
+// Some bot integrations don't set element.value at all (just a descriptive
+// title like "1 Very Dissatisfied") - fall back to the leading digit in the
+// title so rating chips still resolve to the right icon either way.
+function getElementRatingValue(element) {
+  if (element.value !== undefined && element.value !== null) {
+    return String(element.value);
+  }
+  var match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
+  return match ? match[1] : undefined;
+}
+
+// Bot responses aren't required to set content.displayStyle explicitly - if
+// the elements are exactly the 1-5 rating scale (regardless of order), treat
+// it as a rating QuickReply automatically so existing bot payloads render
+// the Figma chip icons without a bot-side change.
+function isRatingElements(elements) {
+  return Array.isArray(elements) && elements.length === RATING_VALUES.length && RATING_VALUES.every(function (value) {
+    return elements.some(function (element) {
+      return getElementRatingValue(element) === value;
+    });
+  });
+}
+function ReplyElement(_ref18) {
+  var element = _ref18.element,
+    handleSelection = _ref18.handleSelection,
+    isRatingStyle = _ref18.isRatingStyle;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "replyOptionCharLimit");
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyOption, {
+  // Rating chips show the Figma face/digit glyph for the element's value
+  // instead of the full descriptive title. The full title is still sent as
+  // the reply text so the bot/transcript keep the descriptive wording
+  // (e.g. "1 Very Dissatisfied").
+  var RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  var Option = RatingIcon ? RatingChipOption : QuickReplyOption;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
     onClick: function onClick() {
       return handleSelection({
         text: element.title
       });
     },
+    "aria-label": RatingIcon ? title : undefined,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 73,
+      lineNumber: 186,
       columnNumber: 5
     }
-  }, title);
+  }, RatingIcon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RatingIcon, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 190,
+      columnNumber: 21
+    }
+  }) : title);
 }
 QuickReply.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
-function QuickReply(_ref17) {
+function QuickReply(_ref19) {
   var _this = this;
-  var content = _ref17.content,
-    addMessage = _ref17.addMessage;
+  var content = _ref19.content,
+    addMessage = _ref19.addMessage;
   var inputTitle = content.title,
-    elements = content.elements;
+    elements = content.elements,
+    displayStyle = content.displayStyle;
   var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
+  var isRatingStyle = displayStyle === _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["QuickReplyDisplayStyle"].RATING || isRatingElements(elements);
+  var Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_6__["MessageBody"], {
     addChildBackgroundStyles: true,
     "data-testid": "interactive-quickreply-message-title",
@@ -144437,7 +145191,7 @@ function QuickReply(_ref17) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90,
+      lineNumber: 208,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -144445,26 +145199,27 @@ function QuickReply(_ref17) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91,
+      lineNumber: 209,
       columnNumber: 9
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ResponsesSection, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Section, {
     "data-testid": "interactive-quickreply-response-section",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93,
+      lineNumber: 211,
       columnNumber: 7
     }
   }, elements.map(function (element, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ReplyElement, {
       element: element,
       handleSelection: addMessage,
+      isRatingStyle: isRatingStyle,
       key: index,
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 95,
+        lineNumber: 213,
         columnNumber: 11
       }
     });
@@ -145101,6 +145856,730 @@ function SelectionCarousel(_ref27) {
     }
   }))));
 }
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.js":
+/*!************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.js ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ShadeSelector; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _ShadeSelector_mockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ShadeSelector.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.mockData.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+
+
+var _templateObject,
+  _templateObject2,
+  _templateObject3,
+  _templateObject4,
+  _templateObject5,
+  _templateObject6,
+  _templateObject7,
+  _templateObject8,
+  _templateObject9,
+  _templateObject10,
+  _templateObject11,
+  _templateObject12,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\ShadeSelector.js",
+  _templateObject13;
+
+
+
+
+
+
+// Fully self-contained widget - deliberately does not import from
+// ListPrimitives.js/ProductSelector.js/SingleProduct.js, matching the
+// convention those widgets already established (see ProductSelector.js's
+// header comment). Keeps this widget free to evolve independently.
+
+// Fixed 230px card per the Shade Selector figma spec.
+var CARD_WIDTH = 230;
+
+// Card content (everything below the 16px padding) is 198px wide per spec -
+// every inner block below is sized to that, not to CARD_WIDTH directly.
+var CONTENT_WIDTH = 198;
+
+// Card chrome (background/border) is neutral per spec and stays fixed across
+// brands. Reuses the same --color-borders-main-default override ProductSelector
+// already exposes for its divider, so a host page only has one var to theme
+// neutral card borders with.
+var CardShell = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  box-sizing: border-box;\n  width: ", "px;\n  max-width: ", "px;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--color-borders-main-default, #d9d9d9);\n  background: ", ";\n"])), CARD_WIDTH, CARD_WIDTH, function (_ref) {
+  var theme = _ref.theme;
+  return theme.palette.white;
+});
+var CardHeader = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: ", "px;\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])), CONTENT_WIDTH);
+
+// Text color/size is neutral per spec; font-family is intentionally left
+// unset by theme.typography.h3/label so it inherits the brand's typeface
+// (see defaultTheme.js's "Canonical widget text styles" note) - this is how
+// "Font is brand-specific, color is neutral" is satisfied without hardcoding
+// a brand font here.
+var CardHeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref2) {
+  var theme = _ref2.theme;
+  return theme.typography.h3;
+}, function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.globals.bodyFontColor;
+});
+var CardHeaderSubtitle = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.typography.label;
+}, function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.globals.textSecondaryColor;
+});
+
+// Single bordered box that contains both the always-visible trigger row and
+// the (conditionally rendered) option list, matching the figma mock where
+// the border wraps both as one control rather than two stacked cards.
+// Collapsed height is fixed to the trigger's 36px; expanded height is capped
+// at the spec's 216px and the option list scrolls internally past that.
+var DropdownBox = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  box-sizing: border-box;\n  width: ", "px;\n  display: flex;\n  flex-direction: column;\n  border-radius: 16px;\n  border: 1px solid\n    var(--color-borders-main-darker, ", ");\n  overflow: hidden;\n  ", "\n"])), CONTENT_WIDTH, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.componentPalette.quickReply.borderColor;
+}, function (props) {
+  return props.open ? "max-height: 216px;" : "height: 36px;";
+});
+var Trigger = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  box-sizing: border-box;\n  flex: 0 0 auto;\n  width: 100%;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  padding: 0 8px;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n  ", ";\n  color: ", ";\n"])), function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.body;
+}, function (_ref8) {
+  var theme = _ref8.theme;
+  return theme.globals.bodyFontColor;
+});
+var TriggerLabel = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1 1 auto;\n  min-width: 0;\n  text-align: left;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n"])));
+var OptionsList = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].ul(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  list-style: none;\n  margin: 0;\n  padding: 0 8px 8px;\n  flex: 1 1 auto;\n  min-height: 0;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n"])));
+
+// Selected option is bolded rather than re-colored - keeps the neutral
+// "Card and dropdown" color rule intact while still distinguishing the
+// current shade, same non-color-based selected-state treatment used
+// elsewhere (e.g. ProductSelector's radio dot only fills, never recolors
+// the option row itself).
+var Option = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].li(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  box-sizing: border-box;\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 8px;\n  border-radius: 8px;\n  cursor: pointer;\n  ", ";\n  color: ", ";\n  font-weight: ", ";\n  background: ", ";\n\n  &:hover {\n    background: var(--ac-widget-shade-selector-option-hover-bg, #f2f2f2);\n  }\n"])), function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.typography.body;
+}, function (_ref10) {
+  var theme = _ref10.theme;
+  return theme.globals.bodyFontColor;
+}, function (props) {
+  return props.selected ? "700" : "400";
+}, function (props) {
+  return props.selected ? "var(--ac-widget-shade-selector-option-selected-bg, #f7f7f7)" : "transparent";
+});
+var OptionLabel = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 1 1 auto;\n  min-width: 0;\n  overflow-wrap: break-word;\n"])));
+
+// Swatch is only rendered when a shade has color data (see ShadeSelector
+// below) - "If swatch data is unavailable, the dropdown will display shade
+// names only" per spec, same optional-swatch pattern SingleProduct.js
+// already uses for product.shadeColor.
+var ShadeSwatch = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject11 || (_templateObject11 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex-shrink: 0;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  background: ", ";\n"])), function (props) {
+  return props.color;
+});
+var ChevronWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject12 || (_templateObject12 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  flex: 0 0 auto;\n  display: inline-flex;\n  color: ", ";\n  transform: rotate(", "deg);\n  transition: transform 0.15s ease;\n"])), function (_ref11) {
+  var theme = _ref11.theme;
+  return theme.globals.textSecondaryColor;
+}, function (props) {
+  return props.open ? "180" : "0";
+});
+function ChevronDown(_ref12) {
+  var open = _ref12.open;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ChevronWrapper, {
+    open: open,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 164,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("svg", {
+    width: "12",
+    height: "8",
+    viewBox: "0 0 12 8",
+    xmlns: "http://www.w3.org/2000/svg",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 165,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("polygon", {
+    fill: "currentColor",
+    points: "0 1.41 1.41 0 6 4.59 10.59 0 12 1.41 6 7.41",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 166,
+      columnNumber: 9
+    }
+  })));
+}
+ChevronDown.propTypes = {
+  open: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
+};
+var ctaButtonBase = "\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n  width: 100%;\n  min-width: 48px;\n  min-height: 36px;\n  padding: 10px 8px;\n  border-radius: 16px;\n  border: none;\n  box-sizing: border-box;\n";
+
+// Reuses the same --ac-widget-selection-card-select-bg accent var as the
+// ProductSelector/SingleProduct primary CTAs, so brands theme one CTA color
+// across every card widget rather than a new var per widget.
+var ConfirmButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", "\n  ", ";\n  color: ", ";\n  cursor: pointer;\n  background: var(--ac-widget-selection-card-select-bg, ", ");\n\n  &:disabled {\n    background: ", ";\n    cursor: not-allowed;\n  }\n"])), ctaButtonBase, function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.typography.body;
+}, function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+}, function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+});
+ShadeSelector.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
+};
+function ShadeSelector(_ref17) {
+  var _this = this;
+  var content = _ref17.content,
+    addMessage = _ref17.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // ShadeSelector.mockData.js. Swapping to the real VA JSON is a data
+  // change only, not a structural one.
+  var data = content || _ShadeSelector_mockData__WEBPACK_IMPORTED_MODULE_5__["MOCK_SHADE_SELECTOR"];
+  var title = data.title,
+    subtitle = data.subtitle,
+    shades = data.shades;
+  var confirmLabel = data.confirmLabel || "Confirm";
+
+  // Per spec: "the widget displays a shade dropdown field with the first
+  // available shade pre-selected."
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(shades[0] && shades[0].id),
+    _useState2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    selectedId = _useState2[0],
+    setSelectedId = _useState2[1];
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+    _useState4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    open = _useState4[0],
+    setOpen = _useState4[1];
+  var dropdownRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])(null);
+  var triggerRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])(null);
+  var selectedShade = shades.find(function (shade) {
+    return shade.id === selectedId;
+  });
+
+  // Closes on outside click - scoped to the dropdown box only (not the
+  // whole card) so clicking Confirm while the list is open still closes it
+  // first, same as a native <select>.
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    if (!open) return undefined;
+    function handleOutsideClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return function () {
+      return document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [open]);
+  function respond(text) {
+    addMessage({
+      text: text,
+      type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_6__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+    });
+  }
+  function selectShade(shade) {
+    setSelectedId(shade.id);
+    setOpen(false);
+    if (triggerRef.current) triggerRef.current.focus();
+  }
+  function handleTriggerKeyDown(event) {
+    if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setOpen(true);
+    } else if (event.key === "Escape") {
+      setOpen(false);
+    }
+  }
+  function handleOptionKeyDown(event, shade) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      selectShade(shade);
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      setOpen(false);
+      if (triggerRef.current) triggerRef.current.focus();
+    }
+  }
+  function handleConfirm() {
+    if (!selectedShade) return;
+    respond(selectedShade.name);
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardShell, {
+    "data-testid": "shade-selector",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 278,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeader, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 279,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeaderTitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 280,
+      columnNumber: 9
+    }
+  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardHeaderSubtitle, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 281,
+      columnNumber: 9
+    }
+  }, subtitle)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(DropdownBox, {
+    open: open,
+    ref: dropdownRef,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 283,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Trigger, {
+    type: "button",
+    ref: triggerRef,
+    "aria-haspopup": "listbox",
+    "aria-expanded": open,
+    onClick: function onClick() {
+      return setOpen(function (prev) {
+        return !prev;
+      });
+    },
+    onKeyDown: handleTriggerKeyDown,
+    "data-testid": "shade-selector-trigger",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 284,
+      columnNumber: 9
+    }
+  }, selectedShade && selectedShade.color && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ShadeSwatch, {
+    color: selectedShade.color,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 293,
+      columnNumber: 52
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(TriggerLabel, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 294,
+      columnNumber: 11
+    }
+  }, selectedShade ? selectedShade.name : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ChevronDown, {
+    open: open,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 295,
+      columnNumber: 11
+    }
+  })), open && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptionsList, {
+    role: "listbox",
+    "aria-label": title,
+    "data-testid": "shade-selector-listbox",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 298,
+      columnNumber: 11
+    }
+  }, shades.map(function (shade) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
+      key: shade.id,
+      role: "option",
+      tabIndex: 0,
+      "aria-selected": shade.id === selectedId,
+      selected: shade.id === selectedId,
+      onClick: function onClick() {
+        return selectShade(shade);
+      },
+      onKeyDown: function onKeyDown(event) {
+        return handleOptionKeyDown(event, shade);
+      },
+      "data-testid": "shade-selector-option-".concat(shade.id),
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 300,
+        columnNumber: 15
+      }
+    }, shade.color && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ShadeSwatch, {
+      color: shade.color,
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 310,
+        columnNumber: 33
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptionLabel, {
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 311,
+        columnNumber: 17
+      }
+    }, shade.name));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ConfirmButton, {
+    disabled: !selectedShade,
+    onClick: handleConfirm,
+    "data-testid": "shade-selector-confirm",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 317,
+      columnNumber: 7
+    }
+  }, confirmLabel));
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.mockData.js":
+/*!*********************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.mockData.js ***!
+  \*********************************************************************************************************/
+/*! exports provided: MOCK_SHADE_SELECTOR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOCK_SHADE_SELECTOR", function() { return MOCK_SHADE_SELECTOR; });
+// Placeholder data for local/visual development - ShadeSelector falls back
+// to this only when no runtime content is passed in. `color` is optional per
+// shade: when the backend can't resolve swatch imagery/color data for a
+// shade, omit it and the dropdown falls back to a name-only row.
+var MOCK_SHADE_SELECTOR = {
+  title: "Which shade are you looking for?",
+  subtitle: "Select one of the options.",
+  shades: [{
+    id: "s1",
+    name: "812 Change the World",
+    color: "#4B2E2C"
+  }, {
+    id: "s2",
+    name: "333 Persuasive",
+    color: "#B24A34"
+  }, {
+    id: "s3",
+    name: "421 Stay Neutral",
+    color: "#C98A63"
+  }, {
+    id: "s4",
+    name: "220 Wheat",
+    color: "#D9A876"
+  }, {
+    id: "s5",
+    name: "130 Ivory Beige",
+    color: "#E8C7A0"
+  }, {
+    id: "s6",
+    name: "620 Ecru Beige",
+    color: "#C9B08C"
+  }],
+  confirmLabel: "Confirm"
+};
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.js":
+/*!************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.js ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SingleProduct; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _SingleProduct_mockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SingleProduct.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.mockData.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+
+var _templateObject,
+  _templateObject2,
+  _templateObject3,
+  _templateObject4,
+  _templateObject5,
+  _templateObject6,
+  _templateObject7,
+  _templateObject8,
+  _templateObject9,
+  _templateObject10,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\SingleProduct.js";
+
+
+
+
+
+
+// Fixed 200px card per the Single Product figma spec - unlike the List
+// widget family (230px), this width does not change across brands, viewport,
+// or device.
+var CARD_WIDTH = 200;
+
+// Card chrome (background/border) is neutral per spec and stays fixed across
+// brands. Reuses the same --ac-widget-selection-card-border override the
+// List/Carousel widget families already expose, so a host page only has one
+// var to theme for card borders.
+var SingleProductCardShell = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  box-sizing: border-box;\n  width: ", "px;\n  max-width: ", "px;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 16px;\n  border-radius: 16px;\n  border: 1px solid var(--ac-widget-selection-card-border, ", ");\n  background: ", ";\n"])), CARD_WIDTH, CARD_WIDTH, function (_ref) {
+  var theme = _ref.theme;
+  return theme.palette.alto;
+}, function (_ref2) {
+  var theme = _ref2.theme;
+  return theme.palette.white;
+});
+
+// Product name is a hyperlink and, per spec, keeps the same blue/underline
+// styling across every brand - color comes from theme.componentPalette.
+// productLink (defaultTheme.js / componentPalette.js), which is neutral by
+// design, not derived from a brand's colors.json. Each state is additionally
+// exposed via a CSS var as a host override escape hatch (same pattern as
+// ChatComposer/Disclaimer.js's link color) - the default is identical
+// everywhere unless a host page opts in.
+// Note: Figma's "text-decoration-offset/-thickness: 0%" map to CSS
+// text-underline-offset/text-decoration-thickness "auto", which is already
+// the browser default - left unset here rather than pinned to a literal 0
+// (which would render as no visible underline).
+var ProductNameLink = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].a(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", ";\n  display: block;\n  font-weight: 700;\n  letter-spacing: 0;\n  text-decoration: underline;\n  text-decoration-style: solid;\n  text-decoration-skip-ink: auto;\n  color: var(--color-text-link-default, ", ");\n  overflow-wrap: break-word;\n  cursor: pointer;\n\n  &:hover {\n    color: var(--color-text-link-hover, ", ");\n  }\n\n  &:active {\n    color: var(--color-text-link-pressed, ", ");\n  }\n"])), function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.typography.title;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.componentPalette.productLink.default;
+}, function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.componentPalette.productLink.hover;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.componentPalette.productLink.pressed;
+});
+var ProductPrice = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", ";\n  font-weight: 700;\n  color: ", ";\n"])), function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.body;
+}, function (_ref8) {
+  var theme = _ref8.theme;
+  return theme.globals.bodyFontColor;
+});
+var ShadeRow = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  width: 100%;\n"])));
+var ShadeSwatch = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].span(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  flex-shrink: 0;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  background: ", ";\n"])), function (props) {
+  return props.color;
+});
+var ShadeLabel = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", ";\n  color: ", ";\n  overflow-wrap: break-word;\n"])), function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.typography.body;
+}, function (_ref10) {
+  var theme = _ref10.theme;
+  return theme.globals.bodyFontColor;
+});
+
+// Neutral divider color is spec'd literally (#D9D9D9), same as the List
+// widget family's divider.
+var Divider = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  border-top: 1px solid #d9d9d9;\n"])));
+var CtaGroup = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n"])));
+var ctaButtonBase = "\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n  width: 100%;\n  min-height: 36px;\n  padding: 10px 8px;\n  border-radius: 16px;\n  border: none;\n  box-sizing: border-box;\n";
+
+// Reuses the same --ac-widget-selection-card-select-bg accent var as the
+// List widget family's PrimaryCtaButton, so brands theme one CTA color
+// across every card widget.
+var PrimaryCtaButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", "\n  ", ";\n  color: ", ";\n  cursor: pointer;\n  background: var(--ac-widget-selection-card-select-bg, ", ");\n"])), ctaButtonBase, function (_ref11) {
+  var theme = _ref11.theme;
+  return theme.typography.body;
+}, function (_ref12) {
+  var theme = _ref12.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref13) {
+  var theme = _ref13.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+});
+var SecondaryCtaButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject10 || (_templateObject10 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  ", "\n  ", ";\n  color: ", ";\n  cursor: pointer;\n  background: ", ";\n"])), ctaButtonBase, function (_ref14) {
+  var theme = _ref14.theme;
+  return theme.typography.body;
+}, function (_ref15) {
+  var theme = _ref15.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref16) {
+  var theme = _ref16.theme;
+  return theme.chatTranscriptor.incomingMsgBg;
+});
+function getShadeOrSize(product) {
+  return product.shade || product.size;
+}
+SingleProduct.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+function SingleProduct(_ref17) {
+  var content = _ref17.content,
+    addMessage = _ref17.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // SingleProduct.mockData.js. Swapping to the real VA JSON is a data
+  // change only, not a structural one.
+  var product = content && content.product || _SingleProduct_mockData__WEBPACK_IMPORTED_MODULE_4__["MOCK_PRODUCT"];
+  var yesLabel = product.yesLabel || "Yes";
+  var noLabel = product.noLabel || "No";
+  var yesMessage = product.yesMessage || "Yes";
+  var noMessage = product.noMessage || "No";
+  var shadeOrSize = getShadeOrSize(product);
+  function respond(text) {
+    addMessage({
+      text: text,
+      type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(SingleProductCardShell, {
+    "data-testid": "single-product",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 157,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ProductNameLink, {
+    href: product.url,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    "data-testid": "single-product-link",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 158,
+      columnNumber: 7
+    }
+  }, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ProductPrice, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 166,
+      columnNumber: 7
+    }
+  }, product.price), shadeOrSize && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ShadeRow, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 168,
+      columnNumber: 9
+    }
+  }, product.shade && product.shadeColor && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ShadeSwatch, {
+    color: product.shadeColor,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 169,
+      columnNumber: 51
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ShadeLabel, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 170,
+      columnNumber: 11
+    }
+  }, shadeOrSize)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Divider, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 173,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CtaGroup, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 174,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(PrimaryCtaButton, {
+    onClick: function onClick() {
+      return respond(yesMessage);
+    },
+    "data-testid": "single-product-yes",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 175,
+      columnNumber: 9
+    }
+  }, yesLabel), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(SecondaryCtaButton, {
+    onClick: function onClick() {
+      return respond(noMessage);
+    },
+    "data-testid": "single-product-no",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 178,
+      columnNumber: 9
+    }
+  }, noLabel)));
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.mockData.js":
+/*!*********************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.mockData.js ***!
+  \*********************************************************************************************************/
+/*! exports provided: MOCK_PRODUCT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOCK_PRODUCT", function() { return MOCK_PRODUCT; });
+// Placeholder data for local/visual development, same approach as
+// ListConfirmation.mockData.js - SingleProduct falls back to this only when
+// no content.product is passed in, so swapping to the real VA JSON later
+// requires no structural changes.
+var MOCK_PRODUCT = {
+  name: "Pure Color Melt-On Glosstick Lip Gloss",
+  url: "https://www.esteelauder.com/product/pure-color-melt-on-glosstick",
+  price: "$38.00",
+  shade: "890 Melted Tangerine",
+  shadeColor: "#C1440E",
+  size: null,
+  yesLabel: "Yes",
+  noLabel: "No",
+  yesMessage: "Yes, that's the product I'm looking for",
+  noMessage: "No, that's not the product I'm looking for"
+};
 
 /***/ }),
 
@@ -146136,11 +147615,13 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         });
       }
       var textAlign = "left";
+      var isOutgoing = itemDetails.transportDetails && itemDetails.transportDetails.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_14__["Direction"].Outgoing;
       var currentGroupKey = _this2.avatarGroupKey(itemDetails);
       var previousGroupKey = previousItemDetails ? _this2.avatarGroupKey(previousItemDetails) : null;
       var showAvatar = currentGroupKey === null || currentGroupKey !== previousGroupKey;
       if (itemDetails.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_14__["PARTICIPANT_MESSAGE"]) {
         config = Object.assign({}, config, transcriptConfig.participantMessageConfig);
+        textAlign = isOutgoing ? "right" : "left";
         additionalProps = {
           mediaOperations: {
             addMessage: _this2.props.addMessage,
@@ -146153,6 +147634,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         };
       } else if (itemDetails.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_14__["ATTACHMENT_MESSAGE"]) {
         config = Object.assign({}, config, transcriptConfig.attachmentMessageConfig);
+        textAlign = isOutgoing ? "right" : "left";
         additionalProps = {
           mediaOperations: {
             downloadAttachment: _this2.props.downloadAttachment
@@ -146169,7 +147651,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
           __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 149,
+            lineNumber: 152,
             columnNumber: 14
           }
         });
@@ -146186,7 +147668,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 160,
+          lineNumber: 163,
           columnNumber: 7
         }
       }, config.isHTML ? react_render_html__WEBPACK_IMPORTED_MODULE_15___default()(content) : content);
@@ -146202,7 +147684,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 172,
+          lineNumber: 175,
           columnNumber: 7
         }
       });
@@ -146228,14 +147710,14 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 190,
+          lineNumber: 193,
           columnNumber: 7
         }
       }, (this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].CONNECTED || this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].ACW || this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(TranscriptBody, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 200,
+          lineNumber: 203,
           columnNumber: 13
         }
       }, this.props.transcript.map(function (item, idx) {
@@ -146969,7 +148451,7 @@ var AUTHENTICATION_POPUP_HEIGHT = 600;
 /*!************************************************!*\
   !*** ./src/components/Chat/datamodel/Model.js ***!
   \************************************************/
-/*! exports provided: PARTICIPANT_MESSAGE, CHAT_EVENT, ATTACHMENT_MESSAGE, PARTICIPANT_TYPES, ContentType, ATTACHMENT_ACCEPT_CONTENT_TYPES, InteractiveMessageType, InteractiveMessageSelectionType, Status, AttachmentStatus, Direction, AttachmentErrorType, TransportDetails, ItemDetails */
+/*! exports provided: PARTICIPANT_MESSAGE, CHAT_EVENT, ATTACHMENT_MESSAGE, PARTICIPANT_TYPES, ContentType, ATTACHMENT_ACCEPT_CONTENT_TYPES, InteractiveMessageType, InteractiveMessageSelectionType, QuickReplyDisplayStyle, Status, AttachmentStatus, Direction, AttachmentErrorType, TransportDetails, ItemDetails */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -146982,6 +148464,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTACHMENT_ACCEPT_CONTENT_TYPES", function() { return ATTACHMENT_ACCEPT_CONTENT_TYPES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InteractiveMessageType", function() { return InteractiveMessageType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InteractiveMessageSelectionType", function() { return InteractiveMessageSelectionType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuickReplyDisplayStyle", function() { return QuickReplyDisplayStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Status", function() { return Status; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AttachmentStatus", function() { return AttachmentStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Direction", function() { return Direction; });
@@ -147096,12 +148579,22 @@ var InteractiveMessageType = {
   CASE_CAROUSEL: "CaseCarousel",
   LIST_CONFIRMATION: "ListConfirmation",
   LIST_SELECTION: "ListSelection",
-  LIST_SELECTION_STEPPER: "ListSelectionStepper"
+  LIST_SELECTION_STEPPER: "ListSelectionStepper",
+  SINGLE_PRODUCT: "SingleProduct",
+  PRODUCT_SELECTOR: "ProductSelector",
+  SHADE_SELECTOR: "ShadeSelector"
 };
 var InteractiveMessageSelectionType = {
   ACTION: "action",
   // default - user clicks button and responds to lex box
   HYPERLINK: "hyperlink" // clickable link element - no response sent to lex bot
+};
+
+// Optional QuickReply content.displayStyle marker set by the bot response.
+// "rating" renders compact chips (element.icon + element.value) instead of
+// the full element.title text, per the Figma "Feedback Flow Chips" spec.
+var QuickReplyDisplayStyle = {
+  RATING: "rating"
 };
 var Status = {
   Sending: "Sending",
@@ -149486,12 +150979,17 @@ function buildComponentPalette() {
       backgroundColor: '#FFFFFF',
       borderColor: '#1A1A1A',
       textColor: '#1A1A1A',
-      hoverBackgroundColor: '#F2F2F2',
-      hoverBorderColor: '#1A1A1A',
-      activeBackgroundColor: '#D9D9D9',
-      activeBorderColor: '#D9D9D9',
-      focusBorderColor: '#6D9CCF',
-      disabledBackgroundColor: '#FBFBFB',
+      // Hover/active are filled chips (border matches background) per the
+      // updated Figma "Chips" spec - color-surface-button-secondary-hover/
+      // pressed tokens.
+      hoverBackgroundColor: '#D9D9D9',
+      hoverBorderColor: '#D9D9D9',
+      activeBackgroundColor: '#BFBFBF',
+      activeBorderColor: '#BFBFBF',
+      // color-borders-focus-primary
+      focusBorderColor: '#0958D9',
+      // color-surface-button-secondary-disabled
+      disabledBackgroundColor: '#F0F0F0',
       disabledBorderColor: '#DDDDDD',
       disabledTextColor: '#BFBFBF'
     },
@@ -149511,6 +151009,15 @@ function buildComponentPalette() {
     // would fail text contrast as a background fill).
     disclaimer: {
       activeBackgroundColor: featured['200'] || featured['100'] || primary500
+    },
+    // Product name hyperlink (SingleProduct widget): neutral per spec
+    // ("blue and underlined ... consistent across all brands"), so - like
+    // quickReply above - this is literal rather than derived from `colors`.
+    // Keeps theme.componentPalette.productLink identical for every brand.
+    productLink: {
+      default: '#0958D9',
+      hover: '#1677FF',
+      pressed: '#002C8C'
     }
   };
 }
@@ -149763,6 +151270,16 @@ var componentPalette = {
   },
   disclaimer: {
     activeBackgroundColor: color.secondary
+  },
+  // Product name hyperlink (SingleProduct widget): per spec, "blue and
+  // underlined ... consistent across all brands" - literal, not derived
+  // from a brand's colors.json, same treatment as quickReply above. Mirrored
+  // in componentPalette.js's buildComponentPalette() so it stays neutral
+  // once a real brand replaces this default object at runtime.
+  productLink: {
+    default: "#0958D9",
+    hover: "#1677FF",
+    pressed: "#002C8C"
   }
 };
 var globals = {
