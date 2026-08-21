@@ -119,6 +119,12 @@ const Body = styled.div`
   margin-top: ${(props) => props.theme.spacing.mini};
   border-radius: 18px;
   position: relative;
+
+  /* MessageBox sets text-align: right on outgoing messages purely to push
+     this inline-block bubble to the right edge of the row - since
+     text-align is inherited, that value otherwise leaks into the message
+     text itself and right-aligns wrapped lines inside the bubble. */
+  text-align: left;
 `;
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
