@@ -202,6 +202,55 @@ function isViewMessage(message) {
   }
 }
 
+// QuickReply is the only interactive template whose CTA buttons should lock
+// the composer's free-text input - other templates (ListPicker links,
+// ViewResource forms, etc.) don't guarantee a response ever comes back
+// (e.g. hyperlink options), which would leave the composer stuck disabled.
+// Matches both a native Lex-sent interactive message and the same JSON sent
+// as text/plain by a custom-bot Lambda (see isInteractiveMessagePayload in
+// ChatMessage.js for the same dual-shape handling).
+function isPendingQuickReplyMessage(message) {
+  try {
+    if (!message.content || typeof message.content.data !== "string") {
+      return false;
+    }
+    const parsed = JSON.parse(message.content.data);
+    if (parsed.templateType !== InteractiveMessageType.QUICK_REPLY) {
+      return false;
+    }
+    return (
+      message.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+      (typeof parsed.data === "object" && parsed.data !== null &&
+        typeof parsed.data.content === "object" && parsed.data.content !== null)
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
+// The paperclip icon stays hidden until the bot's current step explicitly
+// asks for a file - set via `attachmentExpected: true` alongside the
+// existing title/elements fields in the interactive message's `content`
+// object (data.content), the same envelope used by QuickReply/Panel/etc.
+// Works for any templateType (a step can ask for a file alongside buttons,
+// or on its own), and for both a native Lex-sent interactive message and the
+// same JSON sent as text/plain by a custom-bot Lambda.
+function isAttachmentExpectedMessage(message) {
+  try {
+    if (!message.content || typeof message.content.data !== "string") {
+      return false;
+    }
+    const parsed = JSON.parse(message.content.data);
+    const isInteractiveShaped =
+      message.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+      (typeof parsed.data === "object" && parsed.data !== null &&
+        typeof parsed.data.content === "object" && parsed.data.content !== null);
+    return isInteractiveShaped && parsed.data.content.attachmentExpected === true;
+  } catch (e) {
+    return false;
+  }
+}
+
 var modelUtils = {
   createItemFromIncoming: createItemFromIncoming,
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
@@ -215,6 +264,8 @@ var modelUtils = {
   isParticipantAgentOrCustomer: isParticipantAgentOrCustomer,
   createViewMessageData: createViewMessageData,
   isViewMessage: isViewMessage,
+  isPendingQuickReplyMessage: isPendingQuickReplyMessage,
+  isAttachmentExpectedMessage: isAttachmentExpectedMessage,
 };
 
 export {modelUtils};

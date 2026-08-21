@@ -45,6 +45,12 @@ describe("when window.connect is not defined", () => {
       contactStatus: "connected",
       typedMessage: "",
       composerConfig: {attachmentsEnabled: true},
+      // The attach icon only shows once the bot's current step asks for a
+      // file (see modelUtils.isAttachmentExpectedMessage) - most of these
+      // tests exercise the attach mechanics themselves, so default it on
+      // here; "Should not be able to see the paperclip icon..." below covers
+      // the gated-off cases explicitly.
+      attachmentStepActive: true,
     };
     navigator.__defineGetter__("userAgent", function () {
       return "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X)";
@@ -58,6 +64,12 @@ describe("when window.connect is not defined", () => {
 
   test("Should not be able to see the paperclip icon without permission", () => {
     mockProps.composerConfig.attachmentsEnabled = false;
+    renderElement(mockProps);
+    expect(mockComposer.queryByTestId("customer-chat-file-select")).toBeNull();
+  });
+
+  test("Should not be able to see the paperclip icon when the current step doesn't need an attachment", () => {
+    mockProps.attachmentStepActive = false;
     renderElement(mockProps);
     expect(mockComposer.queryByTestId("customer-chat-file-select")).toBeNull();
   });

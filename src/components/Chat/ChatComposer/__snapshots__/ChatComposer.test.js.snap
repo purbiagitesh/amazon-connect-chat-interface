@@ -296,6 +296,10 @@ Object {
   color: transparent;
 }
 
+.c10:disabled {
+  cursor: not-allowed;
+}
+
 .c14 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -583,7 +587,7 @@ Object {
         >
           <textarea
             aria-label="Type a message"
-            class="sc-cMljjf eoXgmh"
+            class="sc-cMljjf fQLzEC"
             data-testid="customer-chat-text-input"
             maxlength="200"
             placeholder="Type a message"
@@ -1040,6 +1044,10 @@ Object {
   color: transparent;
 }
 
+.c10:disabled {
+  cursor: not-allowed;
+}
+
 .c14 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1328,7 +1336,7 @@ Object {
         >
           <textarea
             aria-label="Type a message"
-            class="sc-cMljjf eoXgmh"
+            class="sc-cMljjf fQLzEC"
             data-testid="customer-chat-text-input"
             maxlength="200"
             placeholder="Type a message"

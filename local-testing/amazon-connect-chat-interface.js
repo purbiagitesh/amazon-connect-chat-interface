@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "03265de0fc9f934e0403";
+/******/ 	var hotCurrentHash = "0dbf129b020335ca3c41";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136481,12 +136481,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_global__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../constants/global */ "./src/constants/global.js");
 /* harmony import */ var _ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ChatTranscriptor */ "./src/components/Chat/ChatTranscriptor/index.js");
 /* harmony import */ var _ChatComposer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ChatComposer */ "./src/components/Chat/ChatComposer/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var connect_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! connect-core */ "./src/components/core/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_render_html__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-render-html */ "./node_modules/react-render-html/index.js");
-/* harmony import */ var react_render_html__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_render_html__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _datamodel_Utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./datamodel/Utils */ "./src/components/Chat/datamodel/Utils.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var connect_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! connect-core */ "./src/components/core/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_render_html__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-render-html */ "./node_modules/react-render-html/index.js");
+/* harmony import */ var react_render_html__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_render_html__WEBPACK_IMPORTED_MODULE_17__);
 
 
 
@@ -136513,13 +136514,14 @@ var _templateObject,
 
 
 
-var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px; // to match the border with figma frame\n  overflow: hidden;\n"])));
-var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, auto);\n  max-height: min(115px, 21.2%);\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  flex-shrink: 0;\n"])));
-var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n"])));
-var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding: 0;\n  border-radius: 24px 24px 0 0;\n  overflow: hidden;\n"])));
-var BrandIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 16px 0;\n  flex-shrink: 0;\n"])));
-var BrandIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__["default"].img(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
-var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_15__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_14__["Text"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
+
+var ChatWrapper = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  border-radius: 24px; // to match the border with figma frame\n  overflow: hidden;\n"])));
+var ParentHeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  margin: 0;\n  padding: 0;\n  order: 1;\n  height: var(--ac-widget-global-headerheight, auto);\n  max-height: min(115px, 21.2%);\n  border-radius: 12px 12px 0 0;\n  overflow: hidden;\n  flex-shrink: 0;\n"])));
+var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  order: 2;\n  margin: 0;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  flex: 1 1 auto;\n  min-height: 0;\n"])));
+var HeaderWrapper = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding: 0;\n  border-radius: 24px 24px 0 0;\n  overflow: hidden;\n"])));
+var BrandIconWrapper = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 16px 0;\n  flex-shrink: 0;\n"])));
+var BrandIcon = styled_components__WEBPACK_IMPORTED_MODULE_16__["default"].img(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  max-height: var(--ac-widget-logo-max-height, 61px);\n  max-width: var(--ac-widget-logo-max-width, 99%);\n"])));
+var WelcomeText = Object(styled_components__WEBPACK_IMPORTED_MODULE_16__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_15__["Text"])(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  padding-bottom: 10px;\n"])));
 var defaultHeaderConfig = {
   isHTML: false,
   render: function render(config) {
@@ -136533,17 +136535,17 @@ var defaultHeaderConfig = {
     var bgColor = colors.primary500 || hc.backgroundColor || '#3F5773';
     var textColor = hc.textColor || '#ffffff';
     var subtitleColor = hc.subtitleColor || 'rgba(255,255,255,0.70)';
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(HeaderWrapper, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(HeaderWrapper, {
       style: {
         background: bgColor
       },
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 83,
+        lineNumber: 84,
         columnNumber: 7
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", {
       style: {
         display: 'flex',
         alignItems: 'center',
@@ -136553,10 +136555,10 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 84,
+        lineNumber: 85,
         columnNumber: 9
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", {
       style: {
         display: 'flex',
         alignItems: 'center',
@@ -136565,10 +136567,10 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 90,
+        lineNumber: 91,
         columnNumber: 11
       }
-    }, hc.logoUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("img", {
+    }, hc.logoUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("img", {
       src: hc.logoUrl,
       alt: "",
       style: {
@@ -136581,17 +136583,17 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 92,
+        lineNumber: 93,
         columnNumber: 15
       }
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 104,
+        lineNumber: 105,
         columnNumber: 13
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", {
       style: {
         color: textColor,
         fontSize: '16px',
@@ -136602,10 +136604,10 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 105,
+        lineNumber: 106,
         columnNumber: 15
       }
-    }, hc.title || ''), hc.subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+    }, hc.title || ''), hc.subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("div", {
       style: {
         color: subtitleColor,
         fontSize: '10px',
@@ -136617,10 +136619,10 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 115,
+        lineNumber: 116,
         columnNumber: 17
       }
-    }, hc.subtitle))), hc.showCloseButton && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("button", {
+    }, hc.subtitle))), hc.showCloseButton && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement("button", {
       onClick: function onClick() {
         return config.onEndChat && config.onEndChat();
       },
@@ -136638,7 +136640,7 @@ var defaultHeaderConfig = {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 129,
+        lineNumber: 130,
         columnNumber: 13
       }
     }, "\xD7")));
@@ -136656,12 +136658,12 @@ function Header(_ref) {
     onEndChat: onEndChat
   });
   if (config.isHTML) {
-    return react_render_html__WEBPACK_IMPORTED_MODULE_16___default()(config.render());
+    return react_render_html__WEBPACK_IMPORTED_MODULE_17___default()(config.render());
   } else {
     return config.render(config);
   }
 }
-var textInputRef = react__WEBPACK_IMPORTED_MODULE_13___default.a.createRef();
+var textInputRef = react__WEBPACK_IMPORTED_MODULE_14___default.a.createRef();
 var Chat = /*#__PURE__*/function (_Component) {
   Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__["default"])(Chat, _Component);
   function Chat(props) {
@@ -136755,23 +136757,29 @@ var Chat = /*#__PURE__*/function (_Component) {
         disclaimerConfig = _this$props.disclaimerConfig,
         logoConfig = _this$props.logoConfig;
       console.log('MESSAGES', this.state.transcript);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(ChatWrapper, {
+      // A QuickReply message awaiting a response locks the free-text input -
+      // once the customer answers (or a new bot message arrives), that
+      // response becomes the latest transcript item and the composer
+      // re-enables itself automatically.
+      var lastTranscriptItem = this.state.transcript[this.state.transcript.length - 1];
+      var isComposerLocked = !!lastTranscriptItem && _datamodel_Utils__WEBPACK_IMPORTED_MODULE_13__["modelUtils"].isPendingQuickReplyMessage(lastTranscriptItem);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ChatWrapper, {
         "data-testid": "amazon-connect-chat-wrapper",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 241,
+          lineNumber: 248,
           columnNumber: 7
         }
-      }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTING || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(ParentHeaderWrapper, {
+      }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTING || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ParentHeaderWrapper, {
         className: "header",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 244,
+          lineNumber: 251,
           columnNumber: 11
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Header, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(Header, {
         headerConfig: headerConfig,
         logoConfig: logoConfig,
         onEndChat: function onEndChat() {
@@ -136780,33 +136788,33 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 245,
-          columnNumber: 13
-        }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(ChatComposerWrapper, {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 248,
-          columnNumber: 9
-        }
-      }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ACW || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && logoConfig && logoConfig.sourceUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(BrandIconWrapper, {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
           lineNumber: 252,
           columnNumber: 13
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(BrandIcon, {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ChatComposerWrapper, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 255,
+          columnNumber: 9
+        }
+      }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ACW || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && logoConfig && logoConfig.sourceUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(BrandIconWrapper, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 259,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(BrandIcon, {
         src: logoConfig.sourceUrl,
         alt: logoConfig.altText || '',
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 253,
+          lineNumber: 260,
           columnNumber: 15
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__["default"], {
         loadPreviousTranscript: function loadPreviousTranscript() {
           return chatSession.loadPreviousTranscript();
         },
@@ -136828,10 +136836,10 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 256,
+          lineNumber: 263,
           columnNumber: 11
         }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_ChatComposer__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_ChatComposer__WEBPACK_IMPORTED_MODULE_12__["default"], {
         contactStatus: this.state.contactStatus,
         contactId: chatSession.contactId,
         addMessage: function addMessage(contactId, data) {
@@ -136846,17 +136854,18 @@ var Chat = /*#__PURE__*/function (_Component) {
         composerConfig: composerConfig,
         disclaimerConfig: disclaimerConfig,
         textInputRef: textInputRef,
+        disabled: isComposerLocked,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 268,
+          lineNumber: 275,
           columnNumber: 11
         }
       })));
     }
   }]);
   return Chat;
-}(react__WEBPACK_IMPORTED_MODULE_13__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_14__["Component"]);
 Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Chat, "propTypes", {
   chatSession: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object.isRequired,
   composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
@@ -136997,8 +137006,8 @@ function getCharacterCounterText(intl, count, maxLength, hasError) {
   });
 }
 var ChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin: 0;\n  padding: 0;\n"])));
-var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  background: var(--ac-widget-composer-background, ", ");\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
-  return props.theme.palette.white;
+var DefaultChatComposerWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  background: ", ";\n  border: ", ";\n  border-radius: var(--ac-widget-composer-border-radius, 24px);\n  margin: var(--ac-widget-composer-margin, 8px 16px 16px);\n\n  @media (max-width: 360px) {\n    margin: var(--ac-widget-composer-margin-small, 8px 10px 10px);\n  }\n"])), function (props) {
+  return props.disabled ? "var(--color-surface-background-disabled-disabled, #F0F0F0)" : "var(--ac-widget-composer-background, ".concat(props.theme.palette.white, ")");
 }, function (props) {
   return props.hasError ? "var(--ac-widget-composer-error-border, 1px solid ".concat(props.theme.palette.red, ")") : "var(--ac-widget-composer-border, 1px solid ".concat(props.theme.palette.lightGray, ")");
 });
@@ -137025,7 +137034,7 @@ var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["defaul
 }, function (props) {
   return props.theme.spacing.mini;
 });
-var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: ", ";\n  /* Reserves room for the right-aligned attach + send icon cluster\n     (ComposerRightIcons) so typed text never runs underneath it. */\n  padding-right: var(--ac-widget-composer-icons-clearance, 84px);\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n"])), function (props) {
+var TextInput = Object(styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(react_textarea_autosize__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  flex: 1;\n  outline: none;\n  user-select: text;\n  word-break: break-word;\n  font-family: inherit;\n  padding: ", ";\n  padding-left: ", ";\n  /* Reserves room for the right-aligned attach + send icon cluster\n     (ComposerRightIcons) so typed text never runs underneath it. */\n  padding-right: var(--ac-widget-composer-icons-clearance, 84px);\n  background: transparent;\n  line-height: 1.5rem;\n  overflow-y: auto;\n  min-height: 39px;\n  z-index: 2;\n  resize: none;\n  letter-spacing: ", ";\n  font-size: var(--ac-widget-composer-fontsize, var(--ac-widget-global-fontsize, 16px));\n  border: none;\n\n  /* Figma shows no scrollbar past the 5-line cap; keep the box scrollable\n     (text beyond 5 lines must stay reachable) but hide the scrollbar chrome. */\n  scrollbar-width: none;\n  -ms-overflow-style: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n\n  &::placeholder {\n    color: ", ";\n  }\n\n  &:focus::placeholder {\n    color: transparent;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"])), function (props) {
   return props.theme.spacing.small;
 }, function (props) {
   return props.theme.spacing.base;
@@ -137079,7 +137088,7 @@ function ChevronLeftIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 345,
+      lineNumber: 351,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137091,7 +137100,7 @@ function ChevronLeftIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 346,
+      lineNumber: 352,
       columnNumber: 7
     }
   }));
@@ -137104,7 +137113,7 @@ function ChevronRightIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 353,
+      lineNumber: 359,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137116,7 +137125,7 @@ function ChevronRightIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 354,
+      lineNumber: 360,
       columnNumber: 7
     }
   }));
@@ -137133,7 +137142,7 @@ function ImagePlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 364,
+      lineNumber: 370,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137142,7 +137151,7 @@ function ImagePlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 365,
+      lineNumber: 371,
       columnNumber: 7
     }
   }));
@@ -137159,7 +137168,7 @@ function VideoPlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 375,
+      lineNumber: 381,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -137171,7 +137180,7 @@ function VideoPlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 376,
+      lineNumber: 382,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137180,7 +137189,7 @@ function VideoPlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 377,
+      lineNumber: 383,
       columnNumber: 7
     }
   }));
@@ -137196,7 +137205,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 386,
+      lineNumber: 392,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -137207,7 +137216,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 387,
+      lineNumber: 393,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137218,7 +137227,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 388,
+      lineNumber: 394,
       columnNumber: 7
     }
   }));
@@ -137236,7 +137245,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 397,
+      lineNumber: 403,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("rect", {
@@ -137250,7 +137259,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 398,
+      lineNumber: 404,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -137261,7 +137270,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 399,
+      lineNumber: 405,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137270,7 +137279,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 400,
+      lineNumber: 406,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -137281,7 +137290,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 401,
+      lineNumber: 407,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137292,7 +137301,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 402,
+      lineNumber: 408,
       columnNumber: 7
     }
   }));
@@ -137312,10 +137321,12 @@ ChatComposer.propTypes = {
   contactStatus: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.string.isRequired,
   onTypingValidityTime: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.number,
   composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
-  disclaimerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object
+  disclaimerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool
 };
 ChatComposer.defaultProps = {
-  onTypingValidityTime: 10 * 1000
+  onTypingValidityTime: 10 * 1000,
+  disabled: false
 };
 function ChatComposer(_ref3) {
   var _this = this;
@@ -137327,7 +137338,8 @@ function ChatComposer(_ref3) {
     onTypingValidityTime = _ref3.onTypingValidityTime,
     textInputRef = _ref3.textInputRef,
     composerConfig = _ref3.composerConfig,
-    disclaimerConfig = _ref3.disclaimerConfig;
+    disclaimerConfig = _ref3.disclaimerConfig,
+    disabled = _ref3.disabled;
   var logger;
   var mobileJitter;
   if (window.connect && window.connect.LogManager) {
@@ -137637,16 +137649,17 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 730,
+      lineNumber: 738,
       columnNumber: 5
     }
   });
   var defaultComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(DefaultChatComposerWrapper, {
     hasError: isAtCharacterLimit,
+    disabled: disabled,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 742,
+      lineNumber: 750,
       columnNumber: 5
     }
   }, composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaAttachmentsRow, {
@@ -137654,7 +137667,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 744,
+      lineNumber: 752,
       columnNumber: 9
     }
   }, canScrollMediaLeft && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ScrollArrowButton, {
@@ -137666,14 +137679,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 746,
+      lineNumber: 754,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronLeftIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 747,
+      lineNumber: 755,
       columnNumber: 15
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipScrollArea, {
@@ -137682,7 +137695,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 750,
+      lineNumber: 758,
       columnNumber: 11
     }
   }, mediaAttachments.map(function (entry) {
@@ -137691,7 +137704,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 752,
+        lineNumber: 760,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipVisual, {
@@ -137699,7 +137712,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 753,
+        lineNumber: 761,
         columnNumber: 17
       }
     }, entry.previewUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
@@ -137708,21 +137721,21 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 755,
+        lineNumber: 763,
         columnNumber: 21
       }
     }) : entry.isVideo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(VideoPlaceholderIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 757,
+        lineNumber: 765,
         columnNumber: 21
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ImagePlaceholderIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 759,
+        lineNumber: 767,
         columnNumber: 21
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipRemoveButton, {
@@ -137734,14 +137747,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 762,
+        lineNumber: 770,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RemoveBadgeIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 767,
+        lineNumber: 775,
         columnNumber: 19
       }
     })));
@@ -137754,21 +137767,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 773,
+      lineNumber: 781,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronRightIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 774,
+      lineNumber: 782,
       columnNumber: 15
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerInputRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 779,
+      lineNumber: 787,
       columnNumber: 7
     }
   }, documentAttachments.map(function (entry) {
@@ -137777,21 +137790,21 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 781,
+        lineNumber: 789,
         columnNumber: 13
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 782,
+        lineNumber: 790,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 783,
+        lineNumber: 791,
         columnNumber: 17
       }
     }, entry.file.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -137802,14 +137815,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 784,
+        lineNumber: 792,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CloseIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 785,
+        lineNumber: 793,
         columnNumber: 19
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
@@ -137819,7 +137832,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 786,
+        lineNumber: 794,
         columnNumber: 21
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137828,7 +137841,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 787,
+        lineNumber: 795,
         columnNumber: 23
       }
     }))))));
@@ -137847,17 +137860,18 @@ function ChatComposer(_ref3) {
     spellCheck: "true",
     maxLength: maxLength,
     maxRows: DEFAULT_COMPOSER_MAX_ROWS,
+    disabled: disabled,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 794,
+      lineNumber: 802,
       columnNumber: 11
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerRightIcons, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 813,
+      lineNumber: 822,
       columnNumber: 11
     }
   }, composerConfig && composerConfig.attachmentsEnabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipContainer, {
@@ -137873,7 +137887,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 815,
+      lineNumber: 824,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -137881,7 +137895,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 826,
+      lineNumber: 835,
       columnNumber: 17
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
@@ -137889,21 +137903,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 827,
+      lineNumber: 836,
       columnNumber: 19
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 828,
+      lineNumber: 837,
       columnNumber: 21
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachMediaIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 829,
+      lineNumber: 838,
       columnNumber: 23
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -137919,7 +137933,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 831,
+      lineNumber: 840,
       columnNumber: 21
     }
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -137928,7 +137942,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 846,
+      lineNumber: 855,
       columnNumber: 13
     }
   })))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CharacterCounter, {
@@ -137937,7 +137951,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 851,
+      lineNumber: 860,
       columnNumber: 7
     }
   }, characterCounterText));
@@ -137952,7 +137966,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 865,
+      lineNumber: 874,
       columnNumber: 5
     }
   }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_Disclaimer__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -137964,14 +137978,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 867,
+      lineNumber: 876,
       columnNumber: 9
     }
   }), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(DisclaimerText, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 881,
+      lineNumber: 890,
       columnNumber: 9
     }
   }, "Virtual Assistant is AI and can make mistakes."));
@@ -148821,6 +148835,28 @@ function isViewMessage(message) {
     return false;
   }
 }
+
+// QuickReply is the only interactive template whose CTA buttons should lock
+// the composer's free-text input - other templates (ListPicker links,
+// ViewResource forms, etc.) don't guarantee a response ever comes back
+// (e.g. hyperlink options), which would leave the composer stuck disabled.
+// Matches both a native Lex-sent interactive message and the same JSON sent
+// as text/plain by a custom-bot Lambda (see isInteractiveMessagePayload in
+// ChatMessage.js for the same dual-shape handling).
+function isPendingQuickReplyMessage(message) {
+  try {
+    if (!message.content || typeof message.content.data !== "string") {
+      return false;
+    }
+    var parsed = JSON.parse(message.content.data);
+    if (parsed.templateType !== _Model__WEBPACK_IMPORTED_MODULE_2__["InteractiveMessageType"].QUICK_REPLY) {
+      return false;
+    }
+    return message.content.type === _Model__WEBPACK_IMPORTED_MODULE_2__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || typeof parsed.data === "object" && parsed.data !== null && typeof parsed.data.content === "object" && parsed.data.content !== null;
+  } catch (e) {
+    return false;
+  }
+}
 var modelUtils = {
   createItemFromIncoming: createItemFromIncoming,
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
@@ -148833,7 +148869,8 @@ var modelUtils = {
   isTypeMessageOrAttachment: isTypeMessageOrAttachment,
   isParticipantAgentOrCustomer: isParticipantAgentOrCustomer,
   createViewMessageData: createViewMessageData,
-  isViewMessage: isViewMessage
+  isViewMessage: isViewMessage,
+  isPendingQuickReplyMessage: isPendingQuickReplyMessage
 };
 
 

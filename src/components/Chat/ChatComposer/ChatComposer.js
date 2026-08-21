@@ -82,7 +82,9 @@ const DefaultChatComposerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background: var(--ac-widget-composer-background, ${(props) => props.theme.palette.white});
+  background: ${(props) => props.disabled
+    ? "var(--color-surface-background-disabled-disabled, #F0F0F0)"
+    : `var(--ac-widget-composer-background, ${props.theme.palette.white})`};
   border: ${(props) => props.hasError
     ? `var(--ac-widget-composer-error-border, 1px solid ${props.theme.palette.red})`
     : `var(--ac-widget-composer-border, 1px solid ${props.theme.palette.lightGray})`};
@@ -216,6 +218,10 @@ const TextInput = styled(TextareaAutosize)`
 
   &:focus::placeholder {
     color: transparent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
@@ -429,13 +435,17 @@ ChatComposer.propTypes = {
   onTypingValidityTime: PT.number,
   composerConfig: PT.object,
   disclaimerConfig: PT.object,
+  disabled: PT.bool,
+  attachmentStepActive: PT.bool,
 };
 
 ChatComposer.defaultProps = {
   onTypingValidityTime: 10 * 1000,
+  disabled: false,
+  attachmentStepActive: false,
 };
 
-export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig, disclaimerConfig}) {
+export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig, disclaimerConfig, disabled, attachmentStepActive}) {
   let logger;
   let mobileJitter;
   if (window.connect && window.connect.LogManager) {
@@ -729,7 +739,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   const richMessagingComposer = (
     <RichTextEditor
       allowedFileContentTypes={ATTACHMENT_ACCEPT_CONTENT_TYPES}
-      attachmentsEnabled={composerConfig && composerConfig.attachmentsEnabled}
+      attachmentsEnabled={composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive}
       sendMessage={sendMarkdownMessage}
       sendAttachment={sendAttachmentGivenFile}
       placeholder={placeholder}
@@ -739,7 +749,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
 
   const defaultComposer = (
     <>
-    <DefaultChatComposerWrapper hasError={isAtCharacterLimit}>
+    <DefaultChatComposerWrapper hasError={isAtCharacterLimit} disabled={disabled}>
       {composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && (
         <MediaAttachmentsRow data-testid="customer-chat-media-attachments">
           {canScrollMediaLeft && (
@@ -806,12 +816,13 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             spellCheck="true"
             maxLength={maxLength}
             maxRows={DEFAULT_COMPOSER_MAX_ROWS}
+            disabled={disabled}
           />
           {/* Figma pins the attach icon immediately to the left of send,
               both right-aligned in the pill - grouped in one cluster rather
               than splitting attach (left) and send (right) across the row. */}
           <ComposerRightIcons>
-            {composerConfig && composerConfig.attachmentsEnabled && (
+            {composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && (
               <PaperClipContainer
                 tabIndex={0}
                 data-testid="customer-chat-attachment-icon"
