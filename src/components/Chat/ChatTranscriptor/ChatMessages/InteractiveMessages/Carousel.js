@@ -153,7 +153,7 @@ export default function Carousel({content, addMessage}) {
 
   return (
     <>
-      <MessageBody addChildBackgroundStyles={true} data-testid='interactive-carousel-message-title' applySpeechBubbleCaret={true}>
+      <MessageBody addChildBackgroundStyles={true} data-testid='interactive-carousel-message-title'>
         <RichMessageRenderer content={title} />
       </MessageBody>
 

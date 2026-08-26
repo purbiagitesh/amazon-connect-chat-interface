@@ -190,7 +190,7 @@
     return {
       brand: utagData.brand || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
-      customerLoggedIn: 'Yes',
+      customerLoggedIn: 'No',
       customerId: utagData.USER_ID || '',
       customerEmail: 'purbiagitesh@gmail.com',
       customerName: 'Gitesh',

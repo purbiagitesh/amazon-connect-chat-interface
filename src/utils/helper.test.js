@@ -4,7 +4,8 @@ import {
   truncateElementFromLimit,
   truncateStrFromCharLimit,
   constructGuidesRendererUrl,
-  setupGuidesRenderer
+  setupGuidesRenderer,
+  safeParseInteractiveMessageJSON,
 } from "./helper";
 import {InteractiveMessageType} from "../components/Chat/datamodel/Model";
 
@@ -183,6 +184,53 @@ describe("truncateStrFromCharLimit util", () => {
     ["<div style=\"background-image: url(\'javascript:alert(\'XSS attack!\');\')\"></div>", "<div style=\"background-image: url('javascript:alert('XSS attack!');')\"></div>"],
   ])("should detect and remove any malicious XSS attack snippets", (rawStr, expectedCleanStr) => {
     expect(truncateStrFromCharLimit(rawStr, InteractiveMessageType.PANEL, "titleCharLimit")).toEqual(expectedCleanStr);
+  });
+});
+
+/**
+ * Covers the parsing boundary used by ChatMessage.js's isInteractiveMessagePayload
+ * and renderContent - message.content.data must resolve to an object.
+ */
+describe("safeParseInteractiveMessageJSON", () => {
+  it("parses a valid JSON interactive message", () => {
+    const validJson = '{"templateType":"QuickReply","version":"1.0","data":{"content":{"title":"Hi","elements":[{"title":"Yes"},{"title":"No"}]}}}';
+    expect(safeParseInteractiveMessageJSON(validJson)).toEqual(JSON.parse(validJson));
+  });
+
+  it("does not corrupt an apostrophe inside message text (no blind ' -> \" replace)", () => {
+    // Python's repr() switches a string's own delimiter to " whenever its
+    // content contains an apostrophe - e.g. "don't" - rather than escaping
+    // it, so the converter has to track quote type per-string, not replace
+    // every ' globally.
+    const withApostrophe = "{'templateType': 'QuickReply', 'data': {'content': {'title': \"Don't worry, I can help\", 'elements': [{'title': 'Yes'}]}}}";
+    const parsed = safeParseInteractiveMessageJSON(withApostrophe);
+    expect(parsed.data.content.title).toEqual("Don't worry, I can help");
+  });
+
+  it("repairs the current backend's Python-style QuickReply payload", () => {
+    // Exact shape currently sent by the backend: single-quoted dict/string
+    // literals, result-wrapper already removed on their side.
+    const currentBackendPayload =
+      "{'templateType': 'QuickReply', 'version': '1.0', 'data': {'content': {'title': 'To assist you further, please confirm if you would like me to check the status of your order?\\n\\n**Yes** | **No**\\n', 'elements': [{'title': 'Yes'}, {'title': 'No'}]}}, 'metadata': {}}";
+
+    const parsed = safeParseInteractiveMessageJSON(currentBackendPayload);
+
+    expect(parsed.templateType).toEqual("QuickReply");
+    expect(parsed.data.content.title).toEqual(
+      "To assist you further, please confirm if you would like me to check the status of your order?\n\n**Yes** | **No**\n"
+    );
+    expect(parsed.data.content.elements).toEqual([{ title: "Yes" }, { title: "No" }]);
+  });
+
+  it("returns undefined for an invalid/unrecognized payload instead of guessing", () => {
+    expect(safeParseInteractiveMessageJSON("{not valid json at all}")).toBeUndefined();
+    expect(safeParseInteractiveMessageJSON("also not json")).toBeUndefined();
+    expect(safeParseInteractiveMessageJSON(null)).toBeUndefined();
+  });
+
+  it("returns undefined for an existing plain-text/system message, unaffected by the repair path", () => {
+    const plainText = "I'm a generative AI virtual assistant.\nThis chat may be recorded and shared with our service providers.";
+    expect(safeParseInteractiveMessageJSON(plainText)).toBeUndefined();
   });
 });
 

@@ -18,7 +18,7 @@ import { Icon, TypingLoader } from "connect-core";
 import { InteractiveMessage } from "./InteractiveMessage";
 import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
 import { InView } from "react-intersection-observer";
-import { shouldDisplayMessageForType } from "../../../../utils/helper";
+import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON } from "../../../../utils/helper";
 import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
@@ -49,6 +49,32 @@ function getClientAvatarUrl() {
 // role check used elsewhere for read receipts).
 export function isAdvisorSender(messageDetails) {
   return messageDetails.participantRole === PARTICIPANT_TYPES.AGENT;
+}
+
+// Same brand title the top header bar renders (see Chat.js's
+// defaultHeaderConfig, which reads this same window.__CHAT_BRAND_INFO__.config
+// .header.title, itself populated from each brand's config/env.*.json
+// "title" field, e.g. "Estee Lauder Virtual Assistant"). Reused here so the
+// per-message sender label matches the header instead of showing the raw
+// Connect participant DisplayName ("SYSTEM_MESSAGE"/"BOT").
+function getVirtualAssistantName() {
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config && window.__CHAT_BRAND_INFO__.config.header) {
+    return window.__CHAT_BRAND_INFO__.config.header.title;
+  }
+  try {
+    if (
+      window.parent &&
+      window.parent !== window &&
+      window.parent.__CHAT_BRAND_INFO__ &&
+      window.parent.__CHAT_BRAND_INFO__.config &&
+      window.parent.__CHAT_BRAND_INFO__.config.header
+    ) {
+      return window.parent.__CHAT_BRAND_INFO__.config.header.title;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
 }
 
 export const MessageBox = styled.div`
@@ -243,15 +269,7 @@ const INTERACTIVE_MESSAGE_TEMPLATE_TYPES = Object.values(InteractiveMessageType)
 // message (matched via contentType above) and this same JSON sent as
 // text/plain by a custom-bot Lambda end up rendering identically.
 function isInteractiveMessagePayload(content) {
-  if (typeof content !== "string") {
-    return false;
-  }
-  let parsed;
-  try {
-    parsed = JSON.parse(content);
-  } catch (e) {
-    return false;
-  }
+  const parsed = safeParseInteractiveMessageJSON(content);
   return (
     typeof parsed === "object" &&
     parsed !== null &&
@@ -315,6 +333,12 @@ export class ParticipantMessage extends PureComponent {
     let displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
     if (isOutgoingMsg && authenticatedParticipantDisplayName) {
       displayName = authenticatedParticipantDisplayName;
+    } else if (!isOutgoingMsg && !isAdvisorSender(this.props.messageDetails)) {
+      // SYSTEM/BOT participant (raw DisplayName "SYSTEM_MESSAGE"/"BOT") is
+      // the Virtual Assistant experience, same as the avatar logic in
+      // render() below - label it with the brand's name instead of the raw
+      // Connect DisplayName.
+      displayName = getVirtualAssistantName() || displayName;
     }
     const transportDetails = this.props.messageDetails.transportDetails;
     const statusStringPrefix = "connect-chat-transport-status-";
@@ -472,7 +496,7 @@ export class ParticipantMessage extends PureComponent {
       bodyStyleConfig.hideDirectionArrow = true;
       bodyStyleConfig.removePadding = true;
 
-      const { templateType } = JSON.parse(this.props.messageDetails.content.data);
+      const { templateType } = safeParseInteractiveMessageJSON(this.props.messageDetails.content.data) || {};
       if (
         templateType === InteractiveMessageType.VIEW_RESOURCE ||
         templateType === InteractiveMessageType.QUICK_REPLY ||
@@ -575,7 +599,7 @@ export class ParticipantMessage extends PureComponent {
     }
 
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) {
-      const { data, templateType } = JSON.parse(content);
+      const { data, templateType } = safeParseInteractiveMessageJSON(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)
         return (

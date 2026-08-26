@@ -26,6 +26,8 @@ const MessageBody = styled.div`
   ${props => props.addChildBackgroundStyles ? `
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
     padding: 14px;
+    border: none;
+    border-radius: 18px;
   ` : ""}
 
   ${props => props.isCarouselElem ? `
@@ -36,22 +38,6 @@ const MessageBody = styled.div`
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
     display: flex;
     flex-direction: column;
-  ` : ""}
-
-  ${props => props.applySpeechBubbleCaret ? `
-    position: relative;
-
-    &:after {
-      display: block;
-      content: " ";
-      position: absolute;
-      left: -6px;
-      bottom: 4px;
-      border-radius: 2px;
-      border-left: 10px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 9px solid ${props.theme.chatTranscriptor.incomingMsgBg};
-    }
   ` : ""}
 
   button {

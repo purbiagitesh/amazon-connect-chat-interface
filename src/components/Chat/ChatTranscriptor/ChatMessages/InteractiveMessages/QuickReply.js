@@ -205,7 +205,7 @@ export default function QuickReply({content, addMessage}) {
 
   return (
     <>
-      <MessageBody addChildBackgroundStyles={true} data-testid="interactive-quickreply-message-title" applySpeechBubbleCaret={true}>
+      <MessageBody addChildBackgroundStyles={true} data-testid="interactive-quickreply-message-title">
         <RichMessageRenderer content={title} />
       </MessageBody>
       <Section data-testid="interactive-quickreply-response-section">

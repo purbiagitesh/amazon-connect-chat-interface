@@ -77,6 +77,93 @@ export function createInteractiveMessagePayload(
   return payload;
 }
 
+// Recognizes only the one shape we repair - our backend's Python
+// str(dict)/repr(dict) output, which opens with a single-quoted key, e.g.
+// {'templateType': ...}. Anything else that fails JSON.parse (plain chat
+// text, corrupted data, etc.) is left alone rather than guessed at.
+function isKnownMalformedFormat(str) {
+  return /^\s*\{\s*'/.test(str);
+}
+
+// Converts that one known malformed shape's quote delimiters into valid
+// JSON. Not a blind ' -> " replace - apostrophes can legitimately appear
+// inside message text (e.g. "don't"), and Python's repr() already handles
+// that by switching a string's own delimiter to " whenever its content
+// contains an apostrophe. So this only has to track whichever quote
+// character opened the current string and copy through to its matching
+// close, decoding \n along the way (the one escape the payload uses for
+// its title's embedded line breaks).
+function convertKnownMalformedFormatToJSON(input) {
+  let out = "";
+  let i = 0;
+  while (i < input.length) {
+    const ch = input[i];
+    if (ch === "'" || ch === '"') {
+      const quote = ch;
+      let value = "";
+      i++;
+      while (i < input.length && input[i] !== quote) {
+        if (input[i] === "\\" && i + 1 < input.length) {
+          value += input[i + 1] === "n" ? "\n" : input[i + 1];
+          i += 2;
+        } else {
+          value += input[i];
+          i++;
+        }
+      }
+      i++; // consume closing quote
+      out += JSON.stringify(value);
+    } else {
+      out += ch;
+      i++;
+    }
+  }
+  return out;
+}
+
+/**
+ * Parses `message.content.data`:
+ *
+ *   content.data
+ *       |
+ *       v
+ *   JSON.parse()
+ *       |
+ *   success --> existing renderer
+ *       | failure
+ *       v
+ *   known BE malformed format?
+ *       | yes                    | no
+ *       v                        v
+ *   controlled conversion    existing renderer
+ *   -> JSON.parse()          (undefined - falls through to
+ *       |                     the existing plain-text path)
+ *       v
+ *   existing renderer
+ *
+ * @param {string} data
+ * @returns {object|undefined} parsed payload, or undefined if it's neither
+ *   valid JSON nor the one recognized malformed shape
+ */
+export function safeParseInteractiveMessageJSON(data) {
+  if (typeof data !== "string") {
+    return undefined;
+  }
+  try {
+    return JSON.parse(data);
+  } catch (e) {
+    // fall through - only the recognized malformed shape gets converted
+  }
+  if (!isKnownMalformedFormat(data)) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(convertKnownMalformedFormatToJSON(data));
+  } catch (e) {
+    return undefined;
+  }
+}
+
 /**
  * Frontend validations for interactive messages
  *  - Client will always receive a valid template to render
