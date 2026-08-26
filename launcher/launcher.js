@@ -27,6 +27,8 @@
   window.connect = window.connect || {};
   window.connect.ChatWidget = {
     ready: false,
+    launcherElement: null,
+    panelElement: null,
     open: function () {
       if (realOpenWidget) {
         realOpenWidget();
@@ -192,7 +194,6 @@
       customerId: utagData.USER_ID || '',
       customerEmail: 'purbiagitesh@gmail.com',
       customerName: 'Gitesh',
-      customerPhone: '8107281183',
       brandRegion: utagData.region_code || '',
       brandLocation: utagData.locale || '',
       languageCode: utagData.language_code || '',
@@ -394,10 +395,14 @@
         var brandInfo = results[1];
         return setupWidget(brandInfo, dom.btn, dom.panel).then(function () {
           window.connect.ChatWidget.ready = true;
+          window.connect.ChatWidget.launcherElement = dom.btn;
+          window.connect.ChatWidget.panelElement = dom.panel;
           document.dispatchEvent(new CustomEvent('elc:chatWidgetReady', {
             detail: {
               brand: brandInfo.brand,
-              env: brandInfo.environment
+              env: brandInfo.environment,
+              launcherElement: dom.btn,
+              panelElement: dom.panel
             }
           }));
         });
