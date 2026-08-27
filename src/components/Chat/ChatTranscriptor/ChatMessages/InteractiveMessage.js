@@ -25,9 +25,10 @@ const MessageBody = styled.div`
 
   ${props => props.addChildBackgroundStyles ? `
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
-    padding: 14px;
+    padding: ${props.theme.spacing.small};
     border: none;
-    border-radius: 18px;
+    border-radius: 16px;
+    ${props.capWidth ? "max-width: 200px;" : ""}
   ` : ""}
 
   ${props => props.isCarouselElem ? `
@@ -137,10 +138,14 @@ InteractiveMessage.propTypes = {
   templateType: PT.string.isRequired,
   addMessage: PT.func.isRequired,
   isCarouselElem: PT.bool,
-  templateIdentifier: PT.string
+  templateIdentifier: PT.string,
+  // QUICK_REPLY only: "bubble" / "actions" to render just one half of the
+  // template (ChatMessage places the title bubble beside the avatar and the
+  // controls in a full-width row below it).
+  renderPart: PT.oneOf(["bubble", "actions"])
 };
 
-export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier}) {
+export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
   const [responseSelected, setResponseSelected] = useState(false);
   const ref = useRef();
 
@@ -198,7 +203,7 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
 
   // Render ViewResource, QuickReply and Carousel outside of <MessageBody />
   if (templateType === InteractiveMessageType.QUICK_REPLY) {
-    return <QuickReply content={content} addMessage={onAddMessage} />
+    return <QuickReply content={content} addMessage={onAddMessage} renderPart={renderPart} />
   } else if (templateType === InteractiveMessageType.CAROUSEL) {
     return <Carousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {

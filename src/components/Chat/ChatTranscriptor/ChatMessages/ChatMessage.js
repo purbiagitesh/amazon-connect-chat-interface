@@ -141,10 +141,27 @@ const Body = styled.div`
 
   ${({ theme }) => theme.typography.body};
 
-  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.medium)};
+  /* Message bubble sizing per Figma (padding sp-10, radius rd-16, max-width
+     200) - applies to every incoming/outgoing bubble, typed text and
+     interactive responses alike. Interactive-message containers (Carousel,
+     ListPicker, etc. - identified by removePadding) are exempt: they
+     intentionally fill the available width for their own internal layout
+     and manage their own padding. */
+  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.small)};
   margin-top: ${(props) => props.theme.spacing.mini};
-  border-radius: 18px;
+  border-radius: 16px;
+  max-width: ${(props) => (props.removePadding ? "none" : "200px")};
   position: relative;
+
+  /* A plain-text/response bubble must hug its own text width rather than
+     the default block behavior of stretching to fill MessageContainer's
+     resolved width - since that width is set by the widest of Header/Body/
+     Footer, a short message ("Yes") under a wider Header row ("Gitesh
+     2:37 PM") would otherwise show as a bubble background stretched well
+     past its own text. Interactive-message containers (Carousel, ListPicker,
+     etc. - identified by removePadding) are exempt: they intentionally fill
+     the available width for their own internal layout. */
+    display: ${(props) => (props.removePadding ? "block" : "inline-block")};
 
   /* MessageBox sets text-align: right on outgoing messages purely to push
      this inline-block bubble to the right edge of the row - since
@@ -155,8 +172,8 @@ const Body = styled.div`
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
 // instead of stretching across the full transcript width. Both customer
-// (outgoing) and VA/agent (incoming) bubbles now share the same uncapped
-// behavior - width just follows content up to the transcript's full width.
+// (outgoing) and VA/agent (incoming) bubbles share the same sizing - see
+// Body's max-width above for the actual Figma cap.
 const MessageContainer = styled.div`
   display: inline-block;
   max-width: 100%;
@@ -220,6 +237,20 @@ const AvatarSpacer = styled.div`
 const MessageContent = styled.div`
   flex: 1;
   min-width: 0;
+`;
+// Holds a QuickReply's option chips / rating scale when they are lifted out
+// of the message bubble so the avatar can align to the bubble instead of the
+// controls (see render()). The left inset exactly reproduces the avatar
+// column - 32px avatar (AvatarImg/AdvisorAvatar/AvatarSpacer width) plus
+// MessageRow's gap - so the controls stay in the identical horizontal
+// position they occupied inside MessageContent. No vertical margin: the
+// controls' own top padding provides the same gap below the bubble as
+// before. When there is no avatar column (indented === false) it is flush
+// with the bubble, matching the pre-change layout for that case.
+const QuickReplyActionsRow = styled.div`
+  &[data-indented="true"] {
+    padding-left: calc(32px + ${({ theme }) => theme.spacing.mini});
+  }
 `;
 const StatusText = styled.span`
   ${({ theme }) => theme.typography.supportingText};
@@ -507,6 +538,7 @@ export class ParticipantMessage extends PureComponent {
         bodyStyleConfig.childWillAddBackground = true;
       }
     }
+
     let content, contentType;
     if (this.props.messageDetails.type === ATTACHMENT_MESSAGE) {
       //Use Attachments data as content if available
@@ -536,6 +568,25 @@ export class ParticipantMessage extends PureComponent {
       }
     }
 
+    // A latest-message QuickReply is rendered in two halves: the title bubble
+    // stays inside the message body (so the avatar aligns to it, like every
+    // other message), and the option/rating controls render just below in
+    // QuickReplyActionsRow - same width and position they had in the bubble,
+    // just no longer dragging the avatar down beside them.
+    const interactiveParsed =
+      this.props.isLatestMessage &&
+      this.props.messageDetails.type !== ATTACHMENT_MESSAGE &&
+      (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+        isInteractiveMessagePayload(content))
+        ? safeParseInteractiveMessageJSON(content)
+        : null;
+    const quickReplyContent =
+      interactiveParsed &&
+      interactiveParsed.templateType === InteractiveMessageType.QUICK_REPLY &&
+      interactiveParsed.data
+        ? interactiveParsed.data.content
+        : null;
+
     const mainMessage = (
       <MessageContainer direction={direction} data-testid="main-message">
         {/* Sender name always stays visible next to the timestamp, same as
@@ -562,11 +613,11 @@ export class ParticipantMessage extends PureComponent {
       </MessageContainer>
     );
 
-    if (!avatarUrl && !showAdvisorIcon && !isConsecutiveContinuation) {
-      return mainMessage;
-    }
+    const hasAvatarColumn = !!avatarUrl || showAdvisorIcon || isConsecutiveContinuation;
 
-    return (
+    const messageRow = !hasAvatarColumn ? (
+      mainMessage
+    ) : (
       <MessageRow data-testid="main-message-row">
         {avatarUrl ? (
           <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" />
@@ -579,6 +630,29 @@ export class ParticipantMessage extends PureComponent {
         )}
         <MessageContent>{mainMessage}</MessageContent>
       </MessageRow>
+    );
+
+    if (!quickReplyContent) {
+      return messageRow;
+    }
+
+    // QuickReply option/rating controls: full width below the avatar+bubble
+    // row, inset to line up exactly where they sat inside the bubble.
+    return (
+      <React.Fragment>
+        {messageRow}
+        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn}>
+          <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={InteractiveMessageType.QUICK_REPLY} />}>
+            <InteractiveMessage
+              content={quickReplyContent}
+              templateType={InteractiveMessageType.QUICK_REPLY}
+              addMessage={this.props.mediaOperations.addMessage}
+              textInputRef={this.props.textInputRef}
+              renderPart="actions"
+            />
+          </ErrorBoundary>
+        </QuickReplyActionsRow>
+      </React.Fragment>
     );
   }
 
@@ -609,6 +683,9 @@ export class ParticipantMessage extends PureComponent {
               templateType={templateType}
               addMessage={this.props.mediaOperations.addMessage}
               textInputRef={this.props.textInputRef}
+              // QuickReply's controls render below the bubble (see render());
+              // here inside the bubble we only want its title.
+              renderPart={templateType === InteractiveMessageType.QUICK_REPLY ? "bubble" : undefined}
             />
           </ErrorBoundary>
         )
@@ -622,6 +699,12 @@ export class ParticipantMessage extends PureComponent {
       let { action, data } = JSON.parse(content);
       if (!action.trim() && data)
         action = data.content;
+      return <PlainTextMessage content={action} />
+    }
+    if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE &&
+      JSON.parse(content).templateType === InteractiveMessageType.QUICK_REPLY) {
+      // a submitted QuickReply answer - render just the chosen option's text
+      const { action } = JSON.parse(content);
       return <PlainTextMessage content={action} />
     }
 

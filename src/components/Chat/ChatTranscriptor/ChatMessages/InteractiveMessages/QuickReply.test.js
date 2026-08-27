@@ -2,7 +2,7 @@ import React from "react";
 import {screen, render, fireEvent} from "@testing-library/react";
 import {ThemeProvider} from "../../../../../theme";
 import QuickReply from "./QuickReply";
-import {InteractiveMessageType} from "../../../datamodel/Model";
+import {ContentType, InteractiveMessageType} from "../../../datamodel/Model";
 import * as helpers from '../../../../../utils/helper';
 
 const QUICK_REPLY_CONSTRAINTS = helpers.INTERACTIVE_MESSAGE_CONSTRAINTS[InteractiveMessageType.QUICK_REPLY];
@@ -76,7 +76,12 @@ describe("<QuickReply />", () => {
     fireEvent.click(screen.getByText(replyToChoose));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({
-      text: replyToChoose,
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: replyToChoose,
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
     });
   });
 
@@ -134,7 +139,12 @@ describe("<QuickReply />", () => {
     fireEvent.click(screen.getByText(truncatedPickerOption));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({
-      text: longPickerOption,
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: longPickerOption,
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
     });
   });
 });

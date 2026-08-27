@@ -106,8 +106,8 @@
     + '  top: auto !important;'
     + '  left: auto !important;'
     + '  margin: 0 !important;'
-    + '  width: 335px !important;'
-    + '  height: 585px !important;'
+    + '  width: 330px !important;'
+    + '  height: 660px !important;'
     + '  max-width: calc(100vw - 32px) !important;'
     + '  max-height: calc(100vh - 32px) !important;'
     + '  background: #ffffff !important;'
@@ -191,7 +191,7 @@
       brand: utagData.brand || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
       customerLoggedIn: 'No',
-      customerId: utagData.USER_ID || '',
+      customerId: utagData.USER_ID || '',// stringfy
       customerEmail: 'purbiagitesh@gmail.com',
       customerName: 'Gitesh',
       customerPhone: '8107281183',

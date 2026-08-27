@@ -176,9 +176,9 @@ Object {
   border: 1px solid #DDDDDD;
   border-radius: 6px;
   background: #EDEDED;
-  padding: 14px;
+  padding: 10px;
   border: none;
-  border-radius: 18px;
+  border-radius: 16px;
 }
 
 .c0 button {
@@ -773,7 +773,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-gJWqzi ihQmre"
+      class="sc-gJWqzi jmLJqp"
       data-testid="interactive-carousel-message-title"
     >
       <p
