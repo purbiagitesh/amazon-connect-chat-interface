@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "d16369a669b1e073c225";
+/******/ 	var hotCurrentHash = "e553b30e50463f3dd779";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -139488,6 +139488,13 @@ var ChatSession = /*#__PURE__*/function () {
               type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE
             };
           }
+
+          // Feedback-flow QuickReply answers go out as plain text (so the
+          // contact flow / Lex can intent-match them) instead of the
+          // interactive.response envelope. Keyed off the incoming prompt's
+          // `metadata` marker (or displayStyle "rating"), never off which
+          // component rendered it - see flattenFeedbackQuickReplyResponse.
+          data = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_10__["flattenFeedbackQuickReplyResponse"])(data, lastIncomingMessageData);
         } catch (e) {
           console.debug("Unable to parse message.content.data. Skipping check for previous view message");
         }
@@ -145080,7 +145087,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102,
+      lineNumber: 106,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145089,7 +145096,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103,
+      lineNumber: 107,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145098,7 +145105,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104,
+      lineNumber: 108,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145107,7 +145114,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 105,
+      lineNumber: 109,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145116,7 +145123,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106,
+      lineNumber: 110,
       columnNumber: 7
     }
   }));
@@ -145131,7 +145138,7 @@ function NumberTwoIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 113,
+      lineNumber: 117,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145140,7 +145147,7 @@ function NumberTwoIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 114,
+      lineNumber: 118,
       columnNumber: 7
     }
   }));
@@ -145155,7 +145162,7 @@ function NumberThreeIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121,
+      lineNumber: 125,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145164,7 +145171,7 @@ function NumberThreeIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122,
+      lineNumber: 126,
       columnNumber: 7
     }
   }));
@@ -145179,7 +145186,7 @@ function NumberFourIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129,
+      lineNumber: 133,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145188,7 +145195,7 @@ function NumberFourIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130,
+      lineNumber: 134,
       columnNumber: 7
     }
   }));
@@ -145203,7 +145210,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 141,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145212,7 +145219,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 142,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145221,7 +145228,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 143,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145230,7 +145237,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 144,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145239,7 +145246,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 145,
       columnNumber: 7
     }
   }));
@@ -145251,30 +145258,6 @@ var RATING_VALUE_ICONS = {
   "4": NumberFourIcon,
   "5": HappyFaceFiveIcon
 };
-var RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
-
-// Some bot integrations don't set element.value at all (just a descriptive
-// title like "1 Very Dissatisfied") - fall back to the leading digit in the
-// title so rating chips still resolve to the right icon either way.
-function getElementRatingValue(element) {
-  if (element.value !== undefined && element.value !== null) {
-    return String(element.value);
-  }
-  var match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
-  return match ? match[1] : undefined;
-}
-
-// Bot responses aren't required to set content.displayStyle explicitly - if
-// the elements are exactly the 1-5 rating scale (regardless of order), treat
-// it as a rating QuickReply automatically so existing bot payloads render
-// the Figma chip icons without a bot-side change.
-function isRatingElements(elements) {
-  return Array.isArray(elements) && elements.length === RATING_VALUES.length && RATING_VALUES.every(function (value) {
-    return elements.some(function (element) {
-      return getElementRatingValue(element) === value;
-    });
-  });
-}
 function ReplyElement(_ref18) {
   var element = _ref18.element,
     handleSelection = _ref18.handleSelection,
@@ -145284,13 +145267,13 @@ function ReplyElement(_ref18) {
   // instead of the full descriptive title. The full title is still sent as
   // the reply text so the bot/transcript keep the descriptive wording
   // (e.g. "1 Very Dissatisfied").
-  var RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  var RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["getQuickReplyElementRatingValue"])(element)] : null;
   var Option = RatingIcon ? RatingChipOption : QuickReplyOption;
 
-  // Tagged as an INTERACTIVE_RESPONSE (same convention InteractiveMessage.js
-  // uses for ViewResource) so ChatMessage.js can identify this transcript
-  // item as a submitted QuickReply answer and give it the compact Figma
-  // pill bubble instead of the standard message bubble sizing.
+  // The component always emits the structured INTERACTIVE_RESPONSE envelope.
+  // Feedback-flow answers are flattened to plain text centrally in
+  // ChatSession (flattenFeedbackQuickReplyResponse) - that decision needs the
+  // incoming prompt's metadata, which this component never receives.
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
     onClick: function onClick() {
       return handleSelection({
@@ -145306,14 +145289,14 @@ function ReplyElement(_ref18) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 190,
+      lineNumber: 172,
       columnNumber: 5
     }
   }, RatingIcon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RatingIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 201,
+      lineNumber: 183,
       columnNumber: 21
     }
   }) : title);
@@ -145340,7 +145323,7 @@ function QuickReplyTitle(_ref19) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 221,
+      lineNumber: 203,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
@@ -145348,7 +145331,7 @@ function QuickReplyTitle(_ref19) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 222,
+      lineNumber: 204,
       columnNumber: 7
     }
   }));
@@ -145359,16 +145342,15 @@ function QuickReplyActions(_ref20) {
   var _this = this;
   var content = _ref20.content,
     addMessage = _ref20.addMessage;
-  var elements = content.elements,
-    displayStyle = content.displayStyle;
-  var isRatingStyle = displayStyle === _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["QuickReplyDisplayStyle"].RATING || isRatingElements(elements);
+  var elements = content.elements;
+  var isRatingStyle = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["isRatingQuickReply"])(content);
   var Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Section, {
     "data-testid": "interactive-quickreply-response-section",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 233,
+      lineNumber: 215,
       columnNumber: 5
     }
   }, elements.map(function (element, index) {
@@ -145380,7 +145362,7 @@ function QuickReplyActions(_ref20) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 235,
+        lineNumber: 217,
         columnNumber: 9
       }
     });
@@ -145396,7 +145378,7 @@ function QuickReply(_ref21) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 248,
+        lineNumber: 230,
         columnNumber: 12
       }
     });
@@ -145408,7 +145390,7 @@ function QuickReply(_ref21) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 251,
+        lineNumber: 233,
         columnNumber: 12
       }
     });
@@ -145418,7 +145400,7 @@ function QuickReply(_ref21) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 255,
+      lineNumber: 237,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyActions, {
@@ -145427,7 +145409,7 @@ function QuickReply(_ref21) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 256,
+      lineNumber: 238,
       columnNumber: 7
     }
   }));
@@ -151969,7 +151951,7 @@ function parseJSON(response) {
 /*!*****************************!*\
   !*** ./src/utils/helper.js ***!
   \*****************************/
-/*! exports provided: shouldDisplayMessageForType, getTimeFromTimeStamp, formatTimeDisplay, formatDateDisplay, createInteractiveMessagePayload, safeParseInteractiveMessageJSON, INTERACTIVE_MESSAGE_CONSTRAINTS, truncateStrFromCharLimit, constructGuidesRendererUrl, setupGuidesRenderer */
+/*! exports provided: shouldDisplayMessageForType, getTimeFromTimeStamp, formatTimeDisplay, formatDateDisplay, createInteractiveMessagePayload, safeParseInteractiveMessageJSON, INTERACTIVE_MESSAGE_CONSTRAINTS, truncateStrFromCharLimit, RATING_QUICK_REPLY_VALUES, getQuickReplyElementRatingValue, isRatingQuickReply, isFeedbackFlowQuickReply, flattenFeedbackQuickReplyResponse, constructGuidesRendererUrl, setupGuidesRenderer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -151982,6 +151964,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "safeParseInteractiveMessageJSON", function() { return safeParseInteractiveMessageJSON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERACTIVE_MESSAGE_CONSTRAINTS", function() { return INTERACTIVE_MESSAGE_CONSTRAINTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "truncateStrFromCharLimit", function() { return truncateStrFromCharLimit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RATING_QUICK_REPLY_VALUES", function() { return RATING_QUICK_REPLY_VALUES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQuickReplyElementRatingValue", function() { return getQuickReplyElementRatingValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRatingQuickReply", function() { return isRatingQuickReply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFeedbackFlowQuickReply", function() { return isFeedbackFlowQuickReply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flattenFeedbackQuickReplyResponse", function() { return flattenFeedbackQuickReplyResponse; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "constructGuidesRendererUrl", function() { return constructGuidesRendererUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupGuidesRenderer", function() { return setupGuidesRenderer; });
 /* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
@@ -152203,7 +152190,130 @@ var truncateStrFromCharLimit = function truncateStrFromCharLimit(str, Interactiv
   }
 };
 
-/** 
+/* -------------------------------------------------------------------------
+ * QuickReply rating / feedback handling
+ *
+ * Shared by the render path (QuickReply.js shows the Figma face/digit chip
+ * glyphs for these) and the send path (buildQuickReplyResponsePayload below,
+ * which flattens the answer to plain text so Connect/Lex intent matching
+ * fires the same way it does for a free-typed reply).
+ * ---------------------------------------------------------------------- */
+
+// The fixed 1-5 feedback scale.
+var RATING_QUICK_REPLY_VALUES = ["1", "2", "3", "4", "5"];
+
+/**
+ * Resolves a QuickReply element to its rating value ("1".."5"), or undefined.
+ * Some bot integrations don't set element.value at all (just a descriptive
+ * title like "1 Very Dissatisfied") - fall back to the leading digit in the
+ * title so a rating scale still resolves either way.
+ */
+function getQuickReplyElementRatingValue(element) {
+  if (element && element.value !== undefined && element.value !== null) {
+    return String(element.value);
+  }
+  var match = /^\s*([1-5])(?!\d)/.exec(element && element.title || "");
+  return match ? match[1] : undefined;
+}
+
+/**
+ * Render-path check: should this QuickReply show the Figma face/digit rating
+ * chips? True when the bot marks it explicitly (content.displayStyle ===
+ * "rating") OR its elements are exactly the 1-5 scale (regardless of order),
+ * so existing bot payloads get the chip icons without a bot-side change.
+ *
+ * This is intentionally looser than isFeedbackRatingQuickReply below - it only
+ * affects how the chips look, never the wire format of the response.
+ *
+ * @param {object} content - a QuickReply content object (title, elements,
+ *   displayStyle).
+ * @returns {boolean}
+ */
+function isRatingQuickReply(content) {
+  if (!content || typeof content !== "object") {
+    return false;
+  }
+  if (content.displayStyle === _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["QuickReplyDisplayStyle"].RATING) {
+    return true;
+  }
+  var elements = content.elements;
+  return Array.isArray(elements) && elements.length === RATING_QUICK_REPLY_VALUES.length && RATING_QUICK_REPLY_VALUES.every(function (value) {
+    return elements.some(function (element) {
+      return getQuickReplyElementRatingValue(element) === value;
+    });
+  });
+}
+
+/**
+ * Send-path check: should a tap on this QuickReply go out as plain text
+ * instead of the interactive.response envelope?
+ *
+ * True when the interactive payload carries a feedback-flow `metadata` marker
+ * (`nucId` / `actionExpected`, which the feedback BE attaches to every prompt
+ * in the flow - rating scales AND the Yes/No resolution question) OR the bot
+ * set the explicit `content.displayStyle === "rating"` marker.
+ *
+ * Any other QuickReply - from LEX / VA or any integration that sends neither
+ * signal - keeps the interactive.response contract untouched.
+ *
+ * @param {object} content - a QuickReply content object.
+ * @param {object} [metadata] - the interactive payload's top-level `metadata`
+ *   object (sibling of `data`), if any.
+ * @returns {boolean}
+ */
+function isFeedbackFlowQuickReply(content, metadata) {
+  if (metadata && typeof metadata === "object" && (metadata.nucId != null || metadata.actionExpected != null)) {
+    return true;
+  }
+  return !!content && typeof content === "object" && content.displayStyle === _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["QuickReplyDisplayStyle"].RATING;
+}
+
+/**
+ * Rewrites an outgoing QuickReply interactive.response to plain text when the
+ * prompt it answers belongs to the feedback flow, so Connect/Lex runs intent
+ * matching on the answer ("2 Dissatisfied", "Yes") exactly as it would for a
+ * free-typed reply.
+ *
+ * The QuickReply component always emits the structured interactive.response
+ * envelope; the decision to flatten lives here (called from ChatSession)
+ * because it depends on the *incoming* prompt's payload - specifically its
+ * `metadata` marker, which the component never receives. Any response that is
+ * not a QuickReply interactive.response, or whose prompt is not a feedback-
+ * flow QuickReply (LEX / VA and every other integration), is returned
+ * unchanged.
+ *
+ * @param {{text: string, type: string}} outgoingData - the message about to be sent.
+ * @param {object} [lastIncomingInteractive] - the last incoming interactive
+ *   payload, already JSON-parsed ({templateType, data: {content}, metadata}).
+ * @returns {{text: string, type: string}} the original data, or a text/plain rewrite.
+ */
+function flattenFeedbackQuickReplyResponse(outgoingData, lastIncomingInteractive) {
+  if (!outgoingData || outgoingData.type !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE) {
+    return outgoingData;
+  }
+  var parsedOutgoing;
+  try {
+    parsedOutgoing = JSON.parse(outgoingData.text);
+  } catch (e) {
+    return outgoingData;
+  }
+  if (!parsedOutgoing || parsedOutgoing.templateType !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].QUICK_REPLY || typeof parsedOutgoing.action !== "string") {
+    return outgoingData;
+  }
+  if (!lastIncomingInteractive || lastIncomingInteractive.templateType !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].QUICK_REPLY) {
+    return outgoingData;
+  }
+  var incomingContent = lastIncomingInteractive.data && lastIncomingInteractive.data.content;
+  if (!isFeedbackFlowQuickReply(incomingContent, lastIncomingInteractive.metadata)) {
+    return outgoingData;
+  }
+  return {
+    text: parsedOutgoing.action,
+    type: _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+  };
+}
+
+/**
  * Generates the url to fetch guides renderer
  */
 var constructGuidesRendererUrl = function constructGuidesRendererUrl(instanceAlias, rendererVersion) {

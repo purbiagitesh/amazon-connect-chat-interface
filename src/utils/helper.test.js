@@ -6,8 +6,12 @@ import {
   constructGuidesRendererUrl,
   setupGuidesRenderer,
   safeParseInteractiveMessageJSON,
+  isRatingQuickReply,
+  isFeedbackFlowQuickReply,
+  getQuickReplyElementRatingValue,
+  flattenFeedbackQuickReplyResponse,
 } from "./helper";
-import {InteractiveMessageType} from "../components/Chat/datamodel/Model";
+import {ContentType, InteractiveMessageType, QuickReplyDisplayStyle} from "../components/Chat/datamodel/Model";
 
 describe("createInteractiveMessagePayload addMessage helper", () => {
   const MOCK_TEMPLATE_IDENTIFIER = "pickerList001";
@@ -231,6 +235,128 @@ describe("safeParseInteractiveMessageJSON", () => {
   it("returns undefined for an existing plain-text/system message, unaffected by the repair path", () => {
     const plainText = "I'm a generative AI virtual assistant.\nThis chat may be recorded and shared with our service providers.";
     expect(safeParseInteractiveMessageJSON(plainText)).toBeUndefined();
+  });
+});
+
+describe("QuickReply rating detection & response payload", () => {
+  const ratingElements = [
+    {title: "1 Very Dissatisfied"},
+    {title: "2 Dissatisfied"},
+    {title: "3 Neutral"},
+    {title: "4 Satisfied"},
+    {title: "5 Very Satisfied"},
+  ];
+  const nonRatingContent = {
+    title: "How was your experience?",
+    elements: [{title: "Great!"}, {title: "Good"}, {title: "Ok"}, {title: "Poor"}, {title: "Terrible!"}],
+  };
+
+  describe("getQuickReplyElementRatingValue", () => {
+    it("uses element.value when present", () => {
+      expect(getQuickReplyElementRatingValue({value: 3, title: "whatever"})).toBe("3");
+    });
+    it("falls back to the leading digit of the title", () => {
+      expect(getQuickReplyElementRatingValue({title: "2 Dissatisfied"})).toBe("2");
+    });
+    it("returns undefined when neither yields a 1-5 value", () => {
+      expect(getQuickReplyElementRatingValue({title: "Good"})).toBeUndefined();
+      expect(getQuickReplyElementRatingValue({})).toBeUndefined();
+    });
+  });
+
+  describe("isRatingQuickReply (render-path, looser)", () => {
+    it("is true when displayStyle is 'rating'", () => {
+      expect(isRatingQuickReply({displayStyle: QuickReplyDisplayStyle.RATING, elements: []})).toBe(true);
+    });
+    it("is true when elements are the 1-5 scale (any order, no displayStyle)", () => {
+      expect(isRatingQuickReply({elements: [...ratingElements].reverse()})).toBe(true);
+    });
+    it("is false for a regular QuickReply", () => {
+      expect(isRatingQuickReply(nonRatingContent)).toBe(false);
+    });
+    it("is false for non-object input", () => {
+      expect(isRatingQuickReply(undefined)).toBe(false);
+      expect(isRatingQuickReply(null)).toBe(false);
+    });
+  });
+
+  describe("isFeedbackFlowQuickReply (send-path)", () => {
+    it("is true when the payload carries a metadata marker (nucId / actionExpected)", () => {
+      expect(isFeedbackFlowQuickReply({elements: [{title: "Yes"}, {title: "No"}]}, {nucId: "NUC17", actionExpected: "resolution_feedback"})).toBe(true);
+      expect(isFeedbackFlowQuickReply(nonRatingContent, {actionExpected: "resolution_feedback"})).toBe(true);
+    });
+    it("is true for the explicit displayStyle 'rating' marker even with no metadata", () => {
+      expect(isFeedbackFlowQuickReply({displayStyle: QuickReplyDisplayStyle.RATING, elements: ratingElements})).toBe(true);
+    });
+    it("is false for an auto-detected 1-5 scale with neither signal", () => {
+      expect(isFeedbackFlowQuickReply({elements: ratingElements})).toBe(false);
+    });
+    it("is false for a regular QuickReply / empty metadata / non-object input", () => {
+      expect(isFeedbackFlowQuickReply(nonRatingContent)).toBe(false);
+      expect(isFeedbackFlowQuickReply(nonRatingContent, {})).toBe(false);
+      expect(isFeedbackFlowQuickReply(undefined)).toBe(false);
+    });
+  });
+
+  describe("flattenFeedbackQuickReplyResponse", () => {
+    const qrResponse = (action) => ({
+      text: JSON.stringify({templateType: InteractiveMessageType.QUICK_REPLY, version: "1.0", action}),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+    });
+    const ratingPrompt = {
+      templateType: InteractiveMessageType.QUICK_REPLY,
+      version: "1.0",
+      data: {content: {title: "Rate us", displayStyle: "rating", elements: ratingElements}},
+      metadata: {nucId: "NUC17", actionExpected: "rating_selection"},
+    };
+    const yesNoPrompt = {
+      templateType: InteractiveMessageType.QUICK_REPLY,
+      version: "1.0",
+      data: {content: {title: "Resolved on first contact?", elements: [{title: "Yes"}, {title: "No"}]}},
+      metadata: {nucId: "NUC17", actionExpected: "resolution_feedback"},
+    };
+    const plainPrompt = {
+      templateType: InteractiveMessageType.QUICK_REPLY,
+      version: "1.0",
+      data: {content: nonRatingContent},
+    };
+
+    it("flattens a rating answer to plain text (the action value)", () => {
+      expect(flattenFeedbackQuickReplyResponse(qrResponse("2 Dissatisfied"), ratingPrompt)).toEqual({
+        text: "2 Dissatisfied",
+        type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+
+    it("flattens the Yes/No resolution answer (metadata marker, no displayStyle)", () => {
+      expect(flattenFeedbackQuickReplyResponse(qrResponse("Yes"), yesNoPrompt)).toEqual({
+        text: "Yes",
+        type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+
+    it("leaves a non-feedback QuickReply response untouched", () => {
+      const out = qrResponse("Great!");
+      expect(flattenFeedbackQuickReplyResponse(out, plainPrompt)).toBe(out);
+    });
+
+    it("leaves a plain-text outgoing message untouched", () => {
+      const out = {text: "just typing", type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN};
+      expect(flattenFeedbackQuickReplyResponse(out, ratingPrompt)).toBe(out);
+    });
+
+    it("leaves a non-QuickReply interactive.response untouched", () => {
+      const out = {
+        text: JSON.stringify({templateType: InteractiveMessageType.VIEW_RESOURCE, action: "x"}),
+        type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+      };
+      expect(flattenFeedbackQuickReplyResponse(out, ratingPrompt)).toBe(out);
+    });
+
+    it("leaves the response untouched when there is no last incoming interactive payload", () => {
+      const out = qrResponse("2 Dissatisfied");
+      expect(flattenFeedbackQuickReplyResponse(out, undefined)).toBe(out);
+    });
   });
 });
 

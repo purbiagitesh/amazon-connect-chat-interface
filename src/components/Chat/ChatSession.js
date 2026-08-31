@@ -2,7 +2,7 @@ import "amazon-connect-chatjs";
 import {CONTACT_STATUS} from "../../constants/global";
 import {modelUtils} from "./datamodel/Utils";
 import {ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE, AttachmentErrorType, PARTICIPANT_TYPES, InteractiveMessageType} from "./datamodel/Model";
-import {getTimeFromTimeStamp} from "../../utils/helper";
+import {getTimeFromTimeStamp, flattenFeedbackQuickReplyResponse} from "../../utils/helper";
 import Eventbus from './eventbus';
 import isJson from "is-json";
 
@@ -327,6 +327,13 @@ class ChatSession {
           temp_message = JSON.stringify(temp_message);
           data = {text: temp_message, type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE};
         }
+
+        // Feedback-flow QuickReply answers go out as plain text (so the
+        // contact flow / Lex can intent-match them) instead of the
+        // interactive.response envelope. Keyed off the incoming prompt's
+        // `metadata` marker (or displayStyle "rating"), never off which
+        // component rendered it - see flattenFeedbackQuickReplyResponse.
+        data = flattenFeedbackQuickReplyResponse(data, lastIncomingMessageData);
       } catch (e) {
         console.debug(`Unable to parse message.content.data. Skipping check for previous view message`);
       }

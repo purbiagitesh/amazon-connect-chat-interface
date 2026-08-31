@@ -4,8 +4,12 @@ import PT from "prop-types";
 import {RichMessageRenderer} from "../../../RichMessageComponents";
 import {Button} from "connect-core";
 import {MessageBody} from "../InteractiveMessage";
-import {truncateStrFromCharLimit} from "../../../../../utils/helper";
-import {ContentType, InteractiveMessageType, QuickReplyDisplayStyle} from "../../../datamodel/Model";
+import {
+  truncateStrFromCharLimit,
+  getQuickReplyElementRatingValue,
+  isRatingQuickReply,
+} from "../../../../../utils/helper";
+import {ContentType, InteractiveMessageType} from "../../../datamodel/Model";
 
 const ResponsesSection = styled.div`
   padding: ${({ theme}) => theme.spacing.base} 0;
@@ -150,28 +154,6 @@ const RATING_VALUE_ICONS = {
   "4": NumberFourIcon,
   "5": HappyFaceFiveIcon,
 };
-const RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
-
-// Some bot integrations don't set element.value at all (just a descriptive
-// title like "1 Very Dissatisfied") - fall back to the leading digit in the
-// title so rating chips still resolve to the right icon either way.
-function getElementRatingValue(element) {
-  if (element.value !== undefined && element.value !== null) {
-    return String(element.value);
-  }
-  const match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
-  return match ? match[1] : undefined;
-}
-
-// Bot responses aren't required to set content.displayStyle explicitly - if
-// the elements are exactly the 1-5 rating scale (regardless of order), treat
-// it as a rating QuickReply automatically so existing bot payloads render
-// the Figma chip icons without a bot-side change.
-function isRatingElements(elements) {
-  return Array.isArray(elements) &&
-    elements.length === RATING_VALUES.length &&
-    RATING_VALUES.every((value) => elements.some((element) => getElementRatingValue(element) === value));
-}
 
 function ReplyElement({element, handleSelection, isRatingStyle}) {
   const title = truncateStrFromCharLimit( element.title, InteractiveMessageType.QUICK_REPLY, "replyOptionCharLimit");
@@ -179,13 +161,13 @@ function ReplyElement({element, handleSelection, isRatingStyle}) {
   // instead of the full descriptive title. The full title is still sent as
   // the reply text so the bot/transcript keep the descriptive wording
   // (e.g. "1 Very Dissatisfied").
-  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getQuickReplyElementRatingValue(element)] : null;
   const Option = RatingIcon ? RatingChipOption : QuickReplyOption;
 
-  // Tagged as an INTERACTIVE_RESPONSE (same convention InteractiveMessage.js
-  // uses for ViewResource) so ChatMessage.js can identify this transcript
-  // item as a submitted QuickReply answer and give it the compact Figma
-  // pill bubble instead of the standard message bubble sizing.
+  // The component always emits the structured INTERACTIVE_RESPONSE envelope.
+  // Feedback-flow answers are flattened to plain text centrally in
+  // ChatSession (flattenFeedbackQuickReplyResponse) - that decision needs the
+  // incoming prompt's metadata, which this component never receives.
   return (
     <Option
       onClick={() => handleSelection({
@@ -226,8 +208,8 @@ export function QuickReplyTitle({content}) {
 
 // The tappable option chips / 1-5 rating scale.
 export function QuickReplyActions({content, addMessage}) {
-  const {elements, displayStyle} = content;
-  const isRatingStyle = displayStyle === QuickReplyDisplayStyle.RATING || isRatingElements(elements);
+  const {elements} = content;
+  const isRatingStyle = isRatingQuickReply(content);
   const Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
   return (
     <Section data-testid="interactive-quickreply-response-section">
