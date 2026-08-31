@@ -15,6 +15,7 @@ import ListSelectionStepper from "./InteractiveMessages/ListSelectionStepper";
 import SingleProduct from "./InteractiveMessages/SingleProduct";
 import ProductSelector from "./InteractiveMessages/ProductSelector";
 import ShadeSelector from "./InteractiveMessages/ShadeSelector";
+import ReshipCaseCreation from "./InteractiveMessages/ReshipCaseCreation";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
@@ -222,6 +223,8 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <ProductSelector content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.SHADE_SELECTOR) {
     return <ShadeSelector content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.RESHIP_CASE_CREATION) {
+    return <ReshipCaseCreation content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.VIEW_RESOURCE) {
     return <connect-view-renderer data-testid="connect-view-renderer" ref={ref} />
   }

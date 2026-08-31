@@ -190,15 +190,16 @@
     return {
       brand: utagData.brand || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
-      customerLoggedIn: 'No',
+      customerLoggedIn: 'Yes',
       customerId: utagData.USER_ID || '',// stringfy
       customerEmail: 'purbiagitesh@gmail.com',
       customerName: 'Gitesh',
-      customerPhone: '8107281183',
-      brandRegion: utagData.region_code || '',
+      //customerPhone: '8107281183',
+      //brandRegion: utagData.region_code || '',
+      region_code:utagData.region_code || '',
       brandLocation: utagData.locale || '',
-      languageCode: utagData.language_code || '',
-      countryCode: utagData.country_code || '',
+      language_code: utagData.language_code || '',
+      country_code: utagData.country_code || '',
       channel: 'Chat'
     };
   }

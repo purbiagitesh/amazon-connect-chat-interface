@@ -194,6 +194,10 @@ export const INTERACTIVE_MESSAGE_CONSTRAINTS = {
   [InteractiveMessageType.QUICK_REPLY]: {
     titleCharLimit: 400,
     replyOptionCharLimit: 200,
+  },
+  [InteractiveMessageType.RESHIP_CASE_CREATION]: {
+    titleCharLimit: 400,
+    replyOptionCharLimit: 200,
   }
 }
 

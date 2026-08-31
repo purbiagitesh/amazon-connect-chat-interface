@@ -533,7 +533,8 @@ export class ParticipantMessage extends PureComponent {
         templateType === InteractiveMessageType.QUICK_REPLY ||
         templateType === InteractiveMessageType.CAROUSEL ||
         templateType === InteractiveMessageType.ORDER_CAROUSEL ||
-        templateType === InteractiveMessageType.CASE_CAROUSEL
+        templateType === InteractiveMessageType.CASE_CAROUSEL ||
+        templateType === InteractiveMessageType.RESHIP_CASE_CREATION
       ) {
         bodyStyleConfig.childWillAddBackground = true;
       }
@@ -589,10 +590,11 @@ export class ParticipantMessage extends PureComponent {
 
     const mainMessage = (
       <MessageContainer direction={direction} data-testid="main-message">
-        {/* Sender name always stays visible next to the timestamp, same as
-            before any avatar/icon was configured for this brand - the icon
-            is purely additive, never a replacement for the label. */}
-        <Header data-testid="message-header">{this.renderHeader(false)}</Header>
+        {/* Incoming (Virtual Assistant / advisor) messages keep the sender
+            name next to the timestamp. Outgoing (customer's own) messages
+            show only the timestamp per Figma - the customer already knows
+            who they are, so the "Customer"/own-name label is redundant. */}
+        <Header data-testid="message-header">{this.renderHeader(direction === Direction.Outgoing)}</Header>
         <InView onChange={(inView) => this.setState({ inView })}>
           {({ ref }) => (
             <Body
@@ -760,11 +762,58 @@ class PlainTextMessage extends PureComponent {
   }
 }
 
-const ParticipantTypingBox = styled(MessageBox)`
-  > ${Body}{
-    display: inline-block;
-    float: ${props =>
-    props.direction === Direction.Outgoing ? "right" : "left"}
+// Typing indicator, per Figma "typing indicator message bubble":
+//   width 66, height 30, max-width 200, padding sp-10 (theme.spacing.small),
+//   dot gap 8, border-radius rd-16 (16px), opacity 1.
+// Deliberately isolated from MessageBox/Body so real message bubbles are
+// left untouched - the only thing shared with a real bubble is the
+// brand-driven background, pulled from the same CSS vars / theme tokens
+// Body uses (see Body above) so VA and consumer indicators stay in sync
+// with their message bubbles for every brand.
+const TypingRow = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: ${({ theme }) => theme.spacing.mini};
+  margin-top: ${({ theme }) => theme.spacing.mini};
+  /* Consumer (outgoing) indicator sits at the right edge with no avatar;
+     VA/advisor (incoming) sits at the left next to the brand avatar. */
+  ${(props) => (props.direction === Direction.Outgoing ? "flex-direction: row-reverse;" : "")};
+`;
+
+const TypingAvatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+`;
+
+// Keeps the dots aligned with the assistant's message column when the brand
+// avatar asset is missing (same 32px width as TypingAvatar).
+const TypingAvatarSpacer = styled.div`
+  width: 32px;
+  flex-shrink: 0;
+`;
+
+const TypingBubble = styled.div`
+  --incomingMsgBg-background-color: ${(props) => props.theme.chatTranscriptor.incomingMsgBg};
+  --outgoingMsgBg-background-color: ${(props) => props.theme.chatTranscriptor.outgoingMsgBg};
+
+  box-sizing: border-box;
+  width: 66px;
+  height: 30px;
+  max-width: 200px;
+  padding: ${({ theme }) => theme.spacing.small};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  border-radius: 16px;
+
+  ${(props) =>
+    props.direction === Direction.Outgoing
+      ? `background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));`
+      : `background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));`};
 `;
 
 // Renders the "participant is composing" bubble (see ChatSession.js's
@@ -772,25 +821,28 @@ const ParticipantTypingBox = styled(MessageBox)`
 // shown on an onTyping event, auto-expires after 12s if no follow-up
 // signal arrives, and is cleared the instant a real message lands in the
 // transcript so this bubble is replaced by the actual one).
-// Reuses the same Body styled-component as a real message, so the bubble
-// background is already brand-driven for free via
-// theme.chatTranscriptor.outgoingMsgBg/incomingMsgBg - no extra theming
-// needed here. The dot color below is NOT brand-driven though (hardcoded
-// white/black) - it happens to contrast against every brand's bubble
-// today only because outgoing text/agent text defaults are white/near-black;
-// a brand with a light customer-bubble color would need this revisited.
+// The dot color is a fixed neutral grey to match the Figma spec (grey dots
+// on both the light-neutral VA bubble and the brand-color consumer bubble);
+// a brand with a very dark consumer-bubble color would need this revisited.
 export class ParticipantTyping extends PureComponent {
   render() {
+    const isOutgoing = this.props.direction === Direction.Outgoing;
+    const avatarUrl = getClientAvatarUrl();
     return (
-      <ParticipantTypingBox direction={this.props.direction}>
-        <Body direction={this.props.direction}>
-          <TypingLoader
-            color={
-              this.props.direction === Direction.Outgoing ? "#fff" : "#000"
-            }
-          />
-        </Body>
-      </ParticipantTypingBox>
+      <TypingRow direction={this.props.direction} data-testid="participant-typing">
+        {!isOutgoing &&
+          (avatarUrl ? (
+            <TypingAvatar src={avatarUrl} alt="" data-testid="virtual-assistant-typing-avatar" />
+          ) : (
+            <TypingAvatarSpacer aria-hidden="true" />
+          ))}
+        <TypingBubble direction={this.props.direction} aria-label="typing" role="status">
+          {/* margin 4 => 8px between dots to match Figma gap: 8; size kept
+              at 7 so all three dots + gaps fit the fixed 66x30 bubble
+              (66 - 20 padding = 46 >= 3*7 + 2*8 + 2*4 outer margins). */}
+          <TypingLoader size={7} margin={4} color="#767676" />
+        </TypingBubble>
+      </TypingRow>
     );
   }
 }
