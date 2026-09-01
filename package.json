@@ -18,7 +18,8 @@
     "not op_mini all"
   ],
   "scripts": {
-    "build": "npm run coverage && node scripts/build.js",
+    "build": "node scripts/build.js",
+    "build:with-tests": "npm run coverage && node scripts/build.js",
     "release": "npm run build",
     "debug": "npm run dev-build && node scripts/copyToOutput.js",
     "dev-build": "cross-env NODE_ENV=development npx webpack --config configuration/webpack.config.dev.js",
