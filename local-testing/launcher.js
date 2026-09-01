@@ -187,10 +187,10 @@
     return { brand: brand, env: env };
   }
 
-  function buildContactAttributes(utagData) {
+  function buildContactAttributes(brandInfo, utagData) {
     utagData = utagData || {};
     return {
-      brand: utagData.brand || '',
+      brand: brandInfo.config.title || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
       customerLoggedIn: 'Yes',
       customerId: utagData.USER_ID || '',
@@ -314,7 +314,7 @@
     }
 
     function startChat() {
-      var contactAttributes = buildContactAttributes(window.utag_data);
+      var contactAttributes = buildContactAttributes(brandInfo, window.utag_data);
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
