@@ -28,6 +28,8 @@
   window.connect = window.connect || {};
   window.connect.ChatWidget = {
     ready: false,
+    launcherElement: null,
+    panelElement: null,
     open: function () {
       if (realOpenWidget) {
         realOpenWidget();
@@ -185,17 +187,15 @@
     return { brand: brand, env: env };
   }
 
-  function buildContactAttributes(utagData) {
+  function buildContactAttributes(brandInfo, utagData) {
     utagData = utagData || {};
     return {
-      brand: utagData.brand || '',
+      brand: brandInfo.config.title || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
       customerLoggedIn: 'Yes',
       customerId: utagData.USER_ID || '',// stringfy
       customerEmail: 'purbiagitesh@gmail.com',
       customerName: 'Gitesh',
-      //customerPhone: '8107281183',
-      //brandRegion: utagData.region_code || '',
       region_code:utagData.region_code || '',
       brandLocation: utagData.locale || '',
       language_code: utagData.language_code || '',
@@ -314,7 +314,7 @@
     }
 
     function startChat() {
-      var contactAttributes = buildContactAttributes(window.utag_data);
+      var contactAttributes = buildContactAttributes(brandInfo, window.utag_data);
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
@@ -396,10 +396,14 @@
         var brandInfo = results[1];
         return setupWidget(brandInfo, dom.btn, dom.panel).then(function () {
           window.connect.ChatWidget.ready = true;
+          window.connect.ChatWidget.launcherElement = dom.btn;
+          window.connect.ChatWidget.panelElement = dom.panel;
           document.dispatchEvent(new CustomEvent('elc:chatWidgetReady', {
             detail: {
               brand: brandInfo.brand,
-              env: brandInfo.environment
+              env: brandInfo.environment,
+              launcherElement: dom.btn,
+              panelElement: dom.panel
             }
           }));
         });
