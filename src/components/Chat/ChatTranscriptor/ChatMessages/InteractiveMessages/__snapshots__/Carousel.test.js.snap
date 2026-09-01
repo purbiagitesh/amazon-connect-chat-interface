@@ -176,20 +176,9 @@ Object {
   border: 1px solid #DDDDDD;
   border-radius: 6px;
   background: #EDEDED;
-  padding: 14px;
-  position: relative;
-}
-
-.c0:after {
-  display: block;
-  content: " ";
-  position: absolute;
-  left: -6px;
-  bottom: 4px;
-  border-radius: 2px;
-  border-left: 10px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 9px solid #EDEDED;
+  padding: 10px;
+  border: none;
+  border-radius: 16px;
 }
 
 .c0 button {
@@ -784,7 +773,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-iQKALj kecajg"
+      class="sc-gJWqzi jmLJqp"
       data-testid="interactive-carousel-message-title"
     >
       <p
@@ -794,14 +783,14 @@ Object {
       </p>
     </div>
     <button
-      class="sc-hMqMXs XYEwv sc-hZSUBg gGhODH"
+      class="sc-hMqMXs XYEwv sc-krDsej ZNtWX"
       data-selected="false"
       data-testid="interactive-carousel-scroll-left-btn"
       direction="left"
       type="default"
     >
       <div
-        class="sc-cMhqgX jWvShR"
+        class="sc-dTdPqK fcvcGK"
         direction="left"
       >
         <svg
@@ -828,31 +817,31 @@ Object {
       </div>
     </button>
     <div
-      class="sc-bsbRJL dYELCy"
+      class="sc-bHwgHz lbJCwI"
       data-testid="interactive-carousel-response-section"
     >
       <div
-        class="sc-iQKALj kXEomU"
+        class="sc-gJWqzi hzVERx"
         data-testid="asdf0001"
       >
         <div
-          class="sc-gwVKww cuUqYB"
+          class="sc-laTMn hVpeXY"
         >
           <p
-            class="sc-eNQAEJ iieVCa sc-bwCtUz ipCJaA"
+            class="sc-eNQAEJ iieVCa sc-rBLzX GbkYg"
             style="margin: 0px;"
           >
             Flight
           </p>
           <p
-            class="sc-eNQAEJ iieVCa sc-hrWEMg gBbxRX"
+            class="sc-eNQAEJ iieVCa sc-bMvGRv kNOEXH"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-hXRMBi fYNRJq"
+          class="sc-hGoxap lfxWZg"
         >
           <div>
             <button
@@ -862,7 +851,7 @@ Object {
               value="Purchase Ticket"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 Purchase Ticket
               </p>
@@ -874,16 +863,16 @@ Object {
               value="View All Destinations"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 View All Destinations
               </p>
             </button>
             <div
-              class="sc-epnACN dgTzcP"
+              class="sc-fjmCvl bhwaSi"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl gqudPY"
+                class="sc-eNQAEJ iieVCa sc-TFwJa hOsQIz"
               >
                 <a
                   href="https://example.com"
@@ -913,7 +902,7 @@ Object {
         </div>
       </div>
       <div
-        class="sc-iQKALj kXEomU"
+        class="sc-gJWqzi hzVERx"
         data-testid="asdf0002"
       >
         <div
@@ -921,28 +910,28 @@ Object {
         >
           <img
             alt="Hotel Destination"
-            class="sc-eTuwsz jyEqdB"
+            class="sc-CtfFt kgPqnJ"
             src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/a1/9c/80/essentia-luxury-hotel.jpg?w=700&h=-1&s=1"
           />
         </div>
         <div
-          class="sc-gwVKww cuUqYB"
+          class="sc-laTMn hVpeXY"
         >
           <p
-            class="sc-eNQAEJ iieVCa sc-bwCtUz ipCJaA"
+            class="sc-eNQAEJ iieVCa sc-rBLzX GbkYg"
             style="margin: 0px;"
           >
             Hotel
           </p>
           <p
-            class="sc-eNQAEJ iieVCa sc-hrWEMg gBbxRX"
+            class="sc-eNQAEJ iieVCa sc-bMvGRv kNOEXH"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-hXRMBi fYNRJq"
+          class="sc-hGoxap lfxWZg"
         >
           <div>
             <button
@@ -952,7 +941,7 @@ Object {
               value="Book Room"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 Book Room
               </p>
@@ -964,16 +953,16 @@ Object {
               value="View All Listings"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 View All Listings
               </p>
             </button>
             <div
-              class="sc-epnACN dgTzcP"
+              class="sc-fjmCvl bhwaSi"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl gqudPY"
+                class="sc-eNQAEJ iieVCa sc-TFwJa hOsQIz"
               >
                 <a
                   href="https://example.com"
@@ -1003,27 +992,27 @@ Object {
         </div>
       </div>
       <div
-        class="sc-iQKALj kXEomU"
+        class="sc-gJWqzi hzVERx"
         data-testid="asdf0003"
       >
         <div
-          class="sc-gwVKww cuUqYB"
+          class="sc-laTMn hVpeXY"
         >
           <p
-            class="sc-eNQAEJ iieVCa sc-bwCtUz ipCJaA"
+            class="sc-eNQAEJ iieVCa sc-rBLzX GbkYg"
             style="margin: 0px;"
           >
             Dining
           </p>
           <p
-            class="sc-eNQAEJ iieVCa sc-hrWEMg gBbxRX"
+            class="sc-eNQAEJ iieVCa sc-bMvGRv kNOEXH"
             style="margin: 0px;"
           >
             Select an option:
           </p>
         </div>
         <div
-          class="sc-hXRMBi fYNRJq"
+          class="sc-hGoxap lfxWZg"
         >
           <div>
             <button
@@ -1034,7 +1023,7 @@ Object {
               value="Book Table"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 Book Table
               </p>
@@ -1047,17 +1036,17 @@ Object {
               value="View Popular Entrees"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl fvPvNE"
+                class="sc-eNQAEJ iieVCa sc-TFwJa jtmCrQ"
               >
                 View Popular Entrees
               </p>
             </button>
             <div
-              class="sc-epnACN dgTzcP"
+              class="sc-fjmCvl bhwaSi"
               data-testid="listElement2"
             >
               <p
-                class="sc-eNQAEJ iieVCa sc-iQNlJl gqudPY"
+                class="sc-eNQAEJ iieVCa sc-TFwJa hOsQIz"
               >
                 <a
                   href="https://example.com"
@@ -1088,14 +1077,14 @@ Object {
       </div>
     </div>
     <button
-      class="sc-hMqMXs XYEwv sc-hZSUBg jCIjyp"
+      class="sc-hMqMXs XYEwv sc-krDsej ivBhMT"
       data-selected="false"
       data-testid="interactive-carousel-scroll-right-btn"
       direction="right"
       type="default"
     >
       <div
-        class="sc-cMhqgX cTuXij"
+        class="sc-dTdPqK eQogQe"
         direction="right"
       >
         <svg

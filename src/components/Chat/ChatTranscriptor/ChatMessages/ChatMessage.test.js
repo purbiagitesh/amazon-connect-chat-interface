@@ -343,5 +343,42 @@ describe("ChatMessage", () => {
 
       expect(screen.getByText("hello world")).toBeInTheDocument();
     });
+
+    it("should render a submitted QuickReply answer as plain text with the Figma bubble sizing", () => {
+      renderComponent({
+        transportDetails: {
+          status: "SendSuccess",
+          direction: "Outgoing",
+          sentTime: 1654950925, // 6/11/2022
+        },
+        content: {
+          data: JSON.stringify({templateType: "QuickReply", version: "1.0", action: "Yes"}),
+          type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+        },
+      }, {isLatestMessage: true});
+
+      expect(screen.getByText("Yes")).toBeInTheDocument();
+      const messageBody = screen.getByTestId("message-body");
+      expect(messageBody).toHaveStyle("border-radius: 16px");
+      expect(messageBody).toHaveStyle("max-width: 200px");
+    });
+
+    it("should apply the same Figma bubble sizing to a normal typed message", () => {
+      renderComponent({
+        transportDetails: {
+          status: "SendSuccess",
+          direction: "Outgoing",
+          sentTime: 1654950925, // 6/11/2022
+        },
+        content: {
+          data: "Yes",
+          type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+        },
+      });
+
+      const messageBody = screen.getByTestId("message-body");
+      expect(messageBody).toHaveStyle("border-radius: 16px");
+      expect(messageBody).toHaveStyle("max-width: 200px");
+    });
   });
 });

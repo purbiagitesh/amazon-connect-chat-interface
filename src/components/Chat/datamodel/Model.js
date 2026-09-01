@@ -116,6 +116,7 @@ export const InteractiveMessageType = {
   SINGLE_PRODUCT: "SingleProduct",
   PRODUCT_SELECTOR: "ProductSelector",
   SHADE_SELECTOR: "ShadeSelector",
+  RESHIP_CASE_CREATION: "ReshipCaseCreation",
 };
 
 export const InteractiveMessageSelectionType = {

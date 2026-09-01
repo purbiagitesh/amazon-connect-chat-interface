@@ -27,7 +27,7 @@ describe("SystemMessage", () => {
         wrapper = null;
     });
  
-    it("should render joined event successfully", () => {
+    it("should not render the 'has joined the chat' text for a joined event", () => {
         const joinedEvent = {
             content: {
                 type: ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_JOINED,
@@ -35,7 +35,8 @@ describe("SystemMessage", () => {
             displayName: TEST_DISPLAY_NAME,
         }
         wrapper = createSystemMessage(joinedEvent);
-        expect(wrapper.html()).toContain(`${TEST_DISPLAY_NAME} has joined the chat`);
+        expect(wrapper.html()).not.toContain("has joined the chat");
+        expect(wrapper.html()).not.toContain(TEST_DISPLAY_NAME);
     });
 
     it("should render auth initiated event successfully", () => {
@@ -106,14 +107,16 @@ describe("SystemMessage", () => {
         expect(wrapper.html()).toContain(`${TEST_DISPLAY_NAME} has returned`);
     });
  
-    it("should render end event successfully", () => {
+    it("should not render anything for the chat ended event (hidden per Figma)", () => {
         const endEvent = {
             content: {
                 type: ContentType.EVENT_CONTENT_TYPE.CHAT_ENDED,
-            }
+            },
+            transportDetails: { sentTime: 1600000000 },
         }
         wrapper = createSystemMessage(endEvent);
-        expect(wrapper.html()).toContain('Chat has ended!');
+        expect(wrapper.html()).toBe('');
+        expect(wrapper.html()).not.toContain('Chat has ended!');
     });
  
     it("should render empty string if event type is unknown successfully", () => {

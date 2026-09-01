@@ -7,20 +7,10 @@ Object {
   border: 1px solid #DDDDDD;
   border-radius: 6px;
   background: #EDEDED;
-  padding: 14px;
-  position: relative;
-}
-
-.c0:after {
-  display: block;
-  content: " ";
-  position: absolute;
-  left: -6px;
-  bottom: 4px;
-  border-radius: 2px;
-  border-left: 10px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 9px solid #EDEDED;
+  padding: 10px;
+  border: none;
+  border-radius: 16px;
+  max-width: 200px;
 }
 
 .c0 button {
@@ -46,10 +36,10 @@ Object {
   -ms-flex-direction: row;
   flex-direction: row;
   gap: 6px;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
 .c2 {
@@ -67,10 +57,10 @@ Object {
   justify-content: center;
   gap: 4px;
   width: auto;
+  min-width: 48px;
   min-height: 36px;
   box-sizing: border-box;
-  padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 16px;
   border: 1px solid var(--ac-widget-quickreply-border-color,#1A1A1A);
   background-color: var(--ac-widget-quickreply-bg-color,#FFFFFF);
   color: var(--ac-widget-quickreply-text-color,#1A1A1A);
@@ -78,6 +68,7 @@ Object {
   line-height: 16px;
   font-weight: normal;
   padding: 0;
+  padding: 10px;
   text-align: center;
   cursor: pointer;
   -webkit-transition: background-color 0.15s ease,border-color 0.15s ease,color 0.15s ease;
@@ -152,7 +143,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-bwCtUz krZBkA"
+      class="sc-fhYwyz gtngpv"
       data-testid="interactive-quickreply-message-title"
     >
       <p
@@ -162,31 +153,31 @@ Object {
       </p>
     </div>
     <div
-      class="sc-hZSUBg dRZIjt"
+      class="sc-fjmCvl cLwiWi"
       data-testid="interactive-quickreply-response-section"
     >
       <button
-        class="sc-cMhqgX fePDqo"
+        class="sc-bHwgHz kADGCq"
       >
         Great!
       </button>
       <button
-        class="sc-cMhqgX fePDqo"
+        class="sc-bHwgHz kADGCq"
       >
         Good
       </button>
       <button
-        class="sc-cMhqgX fePDqo"
+        class="sc-bHwgHz kADGCq"
       >
         Ok
       </button>
       <button
-        class="sc-cMhqgX fePDqo"
+        class="sc-bHwgHz kADGCq"
       >
         Poor
       </button>
       <button
-        class="sc-cMhqgX fePDqo"
+        class="sc-bHwgHz kADGCq"
       >
         Terrible!
       </button>

@@ -166,15 +166,17 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
   });
   const termsOfUseLabel = intl.formatMessage({
     id: "disclaimer.termsOfUse",
-    defaultMessage: "Terms of Use",
+    defaultMessage: "Terms & Conditions",
   });
 
   const text = intl.formatMessage(
     {
       id: "disclaimer.recordingNotice",
       defaultMessage:
-        "This chat may be recorded and shared with our service providers to support your experience. " +
-        "By sending a message, you agree to our {privacyPolicyLink} and {termsOfUseLink}.",
+         // ICU message syntax only treats paired tags (<br></br>) as rich-text
+         // nodes that invoke the `br` resolver below; self-closing <br/> is
+         // parsed as a literal string and would render as visible text.
+         "Virtual Assistant is AI-powered and can make mistakes. While I strive for accuracy, please confirm any relevant information. We and our service providers will record and retain a transcript of this chat to provide, support, and improve your experience. This service is not directed to, and should not be used by, individuals who are under the age of majority in their jurisdiction of residence. <br></br><br></br> By sending a message, you agree to our {termsOfUseLink} and consent to the collection, use, and other processing of your personal information for the purpose of responding to your inquiry, including generating personalised product recommendations using automated tools. To learn more about Estée Lauder's privacy practices and your privacy rights, please review our {privacyPolicyLink}.",
     },
     {
       // Always rendered with link styling (blue + underline) per spec, even
@@ -201,6 +203,12 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
           {termsOfUseLabel}
         </Link>
       ),
+      // white-space: nowrap (collapsed Text below) stops wrapping but still
+      // honors an explicit <br> as a forced break, which would push the rest
+      // of the message onto a visible second line past the ellipsis. Only
+      // render a real line break in the expanded view; collapse it to a
+      // space otherwise so the single-line truncation stays intact.
+      br: () => (expanded ? <br /> : " "),
     }
   );
 

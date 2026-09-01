@@ -83,6 +83,14 @@ export default class ChatTranscriptor extends PureComponent {
     if (!itemDetails.transportDetails || itemDetails.transportDetails.direction !== Direction.Incoming) {
       return null;
     }
+    // The SYSTEM_MESSAGE disclaimer is a standalone notice, not part of the
+    // assistant's conversational flow - give it a per-message key so it
+    // neither shares an avatar with, nor suppresses the avatar of, the BOT
+    // welcome message that immediately follows it (otherwise that welcome
+    // message renders an AvatarSpacer instead of the brand avatar).
+    if (itemDetails.displayName === "SYSTEM_MESSAGE") {
+      return `system-notice-${itemDetails.id}`;
+    }
     return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
   };
 

@@ -6,6 +6,13 @@ import {ContentType} from "../../datamodel/Model";
 import {AuthenticationMessage} from './AuthenticationMessage'
 import {formatDateDisplay, formatTimeDisplay} from "../../../../utils/helper";
 
+// Events that arrive from Connect but are hidden entirely per Figma - no
+// text and no date/time divider. CHAT_ENDED still fires (contact status is
+// handled elsewhere), it just isn't surfaced in the transcript.
+const HIDDEN_EVENT_TYPES = [
+  ContentType.EVENT_CONTENT_TYPE.CHAT_ENDED,
+];
+
 const Timestamp = styled.div`
   ${({ theme }) => theme.typography.supportingText};
   color: ${({ theme }) => theme.globals.timestampColor};
@@ -54,14 +61,10 @@ export class SystemMessage extends React.PureComponent {
     const content = this.props.messageDetails.content;
     switch (type) {
       case ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_JOINED:
-        name = this.props.messageDetails.displayName;
-        return <FormattedMessage
-          id="transcriptor.joinedChat"
-          defaultMessage="{name} has joined the chat"
-          values={{
-            name
-          }}
-      />;
+        // Per Figma, the "{name} has joined the chat" line is not shown - only
+        // the date/time divider from renderTimestamp() stays. Returning null
+        // here keeps the timestamp but drops the dynamic text.
+        return null;
       case ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_LEFT:
         name = this.props.messageDetails.displayName;
         return <FormattedMessage
@@ -115,6 +118,13 @@ export class SystemMessage extends React.PureComponent {
   };
 
   render() {
+    // Some events (e.g. CHAT_ENDED) are hidden completely - no divider at all.
+    if (HIDDEN_EVENT_TYPES.includes(this.props.messageDetails.content.type)) {
+      return null;
+    }
+    // Otherwise the date/time divider always renders; getMessageText() may
+    // return null (e.g. PARTICIPANT_JOINED) so only the timestamp shows for
+    // that event.
     return (
       <>
         {this.renderTimestamp()}
