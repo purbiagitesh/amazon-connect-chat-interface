@@ -507,8 +507,25 @@ export class ParticipantMessage extends PureComponent {
     // transcript item was also an incoming assistant/advisor message - draws
     // one avatar per consecutive group instead of one per message.
     const isConsecutiveContinuation = isIncoming && this.props.showAvatar === false;
-    const showAdvisorIcon = isIncoming && !isConsecutiveContinuation && isAdvisorSender(this.props.messageDetails);
-    const avatarUrl = isIncoming && !isConsecutiveContinuation && !showAdvisorIcon && getClientAvatarUrl();
+    // Per Figma the brand avatar tags only the text message that introduces a
+    // Carousel/OrderCarousel/CaseCarousel - the carousel row itself shows no
+    // avatar. It still occupies the same avatar column (AvatarSpacer) so the
+    // carousel keeps its exact current position/width - nothing else moves.
+    const isCarouselMessage =
+      this.props.messageDetails.type !== ATTACHMENT_MESSAGE &&
+      !!this.props.messageDetails.content &&
+      (this.props.messageDetails.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+        isInteractiveMessagePayload(this.props.messageDetails.content.data)) &&
+      [
+        InteractiveMessageType.CAROUSEL,
+        InteractiveMessageType.ORDER_CAROUSEL,
+        InteractiveMessageType.CASE_CAROUSEL,
+      ].includes((safeParseInteractiveMessageJSON(this.props.messageDetails.content.data) || {}).templateType);
+    const suppressOwnAvatar = isIncoming && isCarouselMessage;
+    const showAdvisorIcon =
+      isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && isAdvisorSender(this.props.messageDetails);
+    const avatarUrl =
+      isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && !showAdvisorIcon && getClientAvatarUrl();
 
     //Hack to simulate ChatJS response with attachment content types
     const bodyStyleConfig = {};
@@ -615,7 +632,7 @@ export class ParticipantMessage extends PureComponent {
       </MessageContainer>
     );
 
-    const hasAvatarColumn = !!avatarUrl || showAdvisorIcon || isConsecutiveContinuation;
+    const hasAvatarColumn = !!avatarUrl || showAdvisorIcon || isConsecutiveContinuation || suppressOwnAvatar;
 
     const messageRow = !hasAvatarColumn ? (
       mainMessage
