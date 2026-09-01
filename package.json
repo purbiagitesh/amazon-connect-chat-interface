@@ -97,7 +97,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.9.2",
-    "@emotion/core": "^10.0.35",
+    "@emotion/core": "^11.0.0",
     "@svgr/webpack": "^6.2.1",
     "@types/jest": "^28.0.0",
     "amazon-connect-chatjs": "^3.0.3",
