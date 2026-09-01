@@ -4,8 +4,12 @@ import PT from "prop-types";
 import {RichMessageRenderer} from "../../../RichMessageComponents";
 import {Button} from "connect-core";
 import {MessageBody} from "../InteractiveMessage";
-import {truncateStrFromCharLimit} from "../../../../../utils/helper";
-import {InteractiveMessageType, QuickReplyDisplayStyle} from "../../../datamodel/Model";
+import {
+  truncateStrFromCharLimit,
+  getQuickReplyElementRatingValue,
+  isRatingQuickReply,
+} from "../../../../../utils/helper";
+import {ContentType, InteractiveMessageType} from "../../../datamodel/Model";
 
 const ResponsesSection = styled.div`
   padding: ${({ theme}) => theme.spacing.base} 0;
@@ -13,7 +17,7 @@ const ResponsesSection = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
   gap: ${({ theme}) => theme.spacing.mini};
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
 
 // Rating chips (all 5 values) stay on a single row - per the Figma
@@ -150,28 +154,6 @@ const RATING_VALUE_ICONS = {
   "4": NumberFourIcon,
   "5": HappyFaceFiveIcon,
 };
-const RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
-
-// Some bot integrations don't set element.value at all (just a descriptive
-// title like "1 Very Dissatisfied") - fall back to the leading digit in the
-// title so rating chips still resolve to the right icon either way.
-function getElementRatingValue(element) {
-  if (element.value !== undefined && element.value !== null) {
-    return String(element.value);
-  }
-  const match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
-  return match ? match[1] : undefined;
-}
-
-// Bot responses aren't required to set content.displayStyle explicitly - if
-// the elements are exactly the 1-5 rating scale (regardless of order), treat
-// it as a rating QuickReply automatically so existing bot payloads render
-// the Figma chip icons without a bot-side change.
-function isRatingElements(elements) {
-  return Array.isArray(elements) &&
-    elements.length === RATING_VALUES.length &&
-    RATING_VALUES.every((value) => elements.some((element) => getElementRatingValue(element) === value));
-}
 
 function ReplyElement({element, handleSelection, isRatingStyle}) {
   const title = truncateStrFromCharLimit( element.title, InteractiveMessageType.QUICK_REPLY, "replyOptionCharLimit");
@@ -179,12 +161,23 @@ function ReplyElement({element, handleSelection, isRatingStyle}) {
   // instead of the full descriptive title. The full title is still sent as
   // the reply text so the bot/transcript keep the descriptive wording
   // (e.g. "1 Very Dissatisfied").
-  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  const RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getQuickReplyElementRatingValue(element)] : null;
   const Option = RatingIcon ? RatingChipOption : QuickReplyOption;
 
+  // The component always emits the structured INTERACTIVE_RESPONSE envelope.
+  // Feedback-flow answers are flattened to plain text centrally in
+  // ChatSession (flattenFeedbackQuickReplyResponse) - that decision needs the
+  // incoming prompt's metadata, which this component never receives.
   return (
     <Option
-      onClick={() => handleSelection({ text: element.title})}
+      onClick={() => handleSelection({
+        text: JSON.stringify({
+          templateType: InteractiveMessageType.QUICK_REPLY,
+          version: "1.0",
+          action: element.title,
+        }),
+        type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+      })}
       aria-label={RatingIcon ? title : undefined}
     >
       {RatingIcon ? <RatingIcon /> : title}
@@ -195,29 +188,54 @@ function ReplyElement({element, handleSelection, isRatingStyle}) {
 QuickReply.propTypes = {
   content: PT.object.isRequired,
   addMessage: PT.func.isRequired,
+  // "bubble" -> render only the title bubble, "actions" -> render only the
+  // option/rating controls, undefined -> render both (default, unchanged).
+  // ChatMessage renders the two halves separately so the message avatar sits
+  // beside the title bubble instead of beside the tall controls row - the
+  // controls keep the exact same width/position they had inside the bubble.
+  renderPart: PT.oneOf(["bubble", "actions"]),
 };
 
-export default function QuickReply({content, addMessage}) {
-  const {title: inputTitle, elements, displayStyle} = content;
-  const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.QUICK_REPLY, "titleCharLimit");
-  const isRatingStyle = displayStyle === QuickReplyDisplayStyle.RATING || isRatingElements(elements);
-  const Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
+// The grey title bubble ("How was your experience?" / the rating prompt).
+export function QuickReplyTitle({content}) {
+  const title = truncateStrFromCharLimit(content.title, InteractiveMessageType.QUICK_REPLY, "titleCharLimit");
+  return (
+    <MessageBody addChildBackgroundStyles={true} capWidth={true} data-testid="interactive-quickreply-message-title">
+      <RichMessageRenderer content={title} />
+    </MessageBody>
+  );
+}
 
+// The tappable option chips / 1-5 rating scale.
+export function QuickReplyActions({content, addMessage}) {
+  const {elements} = content;
+  const isRatingStyle = isRatingQuickReply(content);
+  const Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
+  return (
+    <Section data-testid="interactive-quickreply-response-section">
+      {elements.map((element, index) => (
+        <ReplyElement
+          element={element}
+          handleSelection={addMessage}
+          isRatingStyle={isRatingStyle}
+          key={index}
+        />
+      ))}
+    </Section>
+  );
+}
+
+export default function QuickReply({content, addMessage, renderPart}) {
+  if (renderPart === "bubble") {
+    return <QuickReplyTitle content={content} />;
+  }
+  if (renderPart === "actions") {
+    return <QuickReplyActions content={content} addMessage={addMessage} />;
+  }
   return (
     <>
-      <MessageBody addChildBackgroundStyles={true} data-testid="interactive-quickreply-message-title" applySpeechBubbleCaret={true}>
-        <RichMessageRenderer content={title} />
-      </MessageBody>
-      <Section data-testid="interactive-quickreply-response-section">
-        {elements.map((element, index) => (
-          <ReplyElement
-            element={element}
-            handleSelection={addMessage}
-            isRatingStyle={isRatingStyle}
-            key={index}
-          />
-        ))}
-      </Section>
+      <QuickReplyTitle content={content} />
+      <QuickReplyActions content={content} addMessage={addMessage} />
     </>
   );
 }

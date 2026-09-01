@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "0dbf129b020335ca3c41";
+/******/ 	var hotCurrentHash = "395522029eedf07161fa";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -136763,12 +136763,16 @@ var Chat = /*#__PURE__*/function (_Component) {
       // re-enables itself automatically.
       var lastTranscriptItem = this.state.transcript[this.state.transcript.length - 1];
       var isComposerLocked = !!lastTranscriptItem && _datamodel_Utils__WEBPACK_IMPORTED_MODULE_13__["modelUtils"].isPendingQuickReplyMessage(lastTranscriptItem);
+      // The attach icon stays hidden until the bot's current step explicitly
+      // asks for a file (attachmentExpected: true on the latest interactive
+      // message) - see modelUtils.isAttachmentExpectedMessage.
+      var isAttachmentStepActive = !!lastTranscriptItem && _datamodel_Utils__WEBPACK_IMPORTED_MODULE_13__["modelUtils"].isAttachmentExpectedMessage(lastTranscriptItem);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ChatWrapper, {
         "data-testid": "amazon-connect-chat-wrapper",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 248,
+          lineNumber: 252,
           columnNumber: 7
         }
       }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTING || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ParentHeaderWrapper, {
@@ -136776,7 +136780,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 251,
+          lineNumber: 255,
           columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(Header, {
@@ -136788,21 +136792,21 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 252,
+          lineNumber: 256,
           columnNumber: 13
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(ChatComposerWrapper, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 255,
+          lineNumber: 259,
           columnNumber: 9
         }
       }, (this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].CONNECTED || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ACW || this.state.contactStatus === _constants_global__WEBPACK_IMPORTED_MODULE_10__["CONTACT_STATUS"].ENDED) && logoConfig && logoConfig.sourceUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(BrandIconWrapper, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 259,
+          lineNumber: 263,
           columnNumber: 13
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(BrandIcon, {
@@ -136811,7 +136815,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 260,
+          lineNumber: 264,
           columnNumber: 15
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_ChatTranscriptor__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -136836,7 +136840,7 @@ var Chat = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 263,
+          lineNumber: 267,
           columnNumber: 11
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_14___default.a.createElement(_ChatComposer__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -136855,10 +136859,11 @@ var Chat = /*#__PURE__*/function (_Component) {
         disclaimerConfig: disclaimerConfig,
         textInputRef: textInputRef,
         disabled: isComposerLocked,
+        attachmentStepActive: isAttachmentStepActive,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 275,
+          lineNumber: 279,
           columnNumber: 11
         }
       })));
@@ -137322,11 +137327,13 @@ ChatComposer.propTypes = {
   onTypingValidityTime: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.number,
   composerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
   disclaimerConfig: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.object,
-  disabled: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool,
+  attachmentStepActive: prop_types__WEBPACK_IMPORTED_MODULE_8___default.a.bool
 };
 ChatComposer.defaultProps = {
   onTypingValidityTime: 10 * 1000,
-  disabled: false
+  disabled: false,
+  attachmentStepActive: false
 };
 function ChatComposer(_ref3) {
   var _this = this;
@@ -137339,7 +137346,8 @@ function ChatComposer(_ref3) {
     textInputRef = _ref3.textInputRef,
     composerConfig = _ref3.composerConfig,
     disclaimerConfig = _ref3.disclaimerConfig,
-    disabled = _ref3.disabled;
+    disabled = _ref3.disabled,
+    attachmentStepActive = _ref3.attachmentStepActive;
   var logger;
   var mobileJitter;
   if (window.connect && window.connect.LogManager) {
@@ -137641,7 +137649,7 @@ function ChatComposer(_ref3) {
   var characterCounterText = getCharacterCounterText(intl, message.length, maxLength, isAtCharacterLimit);
   var richMessagingComposer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_13__["RichTextEditor"], {
     allowedFileContentTypes: _datamodel_Model__WEBPACK_IMPORTED_MODULE_14__["ATTACHMENT_ACCEPT_CONTENT_TYPES"],
-    attachmentsEnabled: composerConfig && composerConfig.attachmentsEnabled,
+    attachmentsEnabled: composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive,
     sendMessage: sendMarkdownMessage,
     sendAttachment: sendAttachmentGivenFile,
     placeholder: placeholder,
@@ -137649,7 +137657,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 738,
+      lineNumber: 740,
       columnNumber: 5
     }
   });
@@ -137659,7 +137667,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 750,
+      lineNumber: 752,
       columnNumber: 5
     }
   }, composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaAttachmentsRow, {
@@ -137667,7 +137675,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 752,
+      lineNumber: 754,
       columnNumber: 9
     }
   }, canScrollMediaLeft && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ScrollArrowButton, {
@@ -137679,14 +137687,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 754,
+      lineNumber: 756,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronLeftIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 755,
+      lineNumber: 757,
       columnNumber: 15
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipScrollArea, {
@@ -137695,7 +137703,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 758,
+      lineNumber: 760,
       columnNumber: 11
     }
   }, mediaAttachments.map(function (entry) {
@@ -137704,7 +137712,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 760,
+        lineNumber: 762,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipVisual, {
@@ -137712,7 +137720,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 761,
+        lineNumber: 763,
         columnNumber: 17
       }
     }, entry.previewUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
@@ -137721,21 +137729,21 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 763,
+        lineNumber: 765,
         columnNumber: 21
       }
     }) : entry.isVideo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(VideoPlaceholderIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 765,
+        lineNumber: 767,
         columnNumber: 21
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ImagePlaceholderIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 767,
+        lineNumber: 769,
         columnNumber: 21
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipRemoveButton, {
@@ -137747,14 +137755,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 770,
+        lineNumber: 772,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RemoveBadgeIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 775,
+        lineNumber: 777,
         columnNumber: 19
       }
     })));
@@ -137767,21 +137775,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 781,
+      lineNumber: 783,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronRightIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 782,
+      lineNumber: 784,
       columnNumber: 15
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerInputRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 787,
+      lineNumber: 789,
       columnNumber: 7
     }
   }, documentAttachments.map(function (entry) {
@@ -137790,21 +137798,21 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 789,
+        lineNumber: 791,
         columnNumber: 13
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 790,
+        lineNumber: 792,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 791,
+        lineNumber: 793,
         columnNumber: 17
       }
     }, entry.file.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -137815,14 +137823,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 792,
+        lineNumber: 794,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CloseIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 793,
+        lineNumber: 795,
         columnNumber: 19
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
@@ -137832,7 +137840,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 794,
+        lineNumber: 796,
         columnNumber: 21
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -137841,7 +137849,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 795,
+        lineNumber: 797,
         columnNumber: 23
       }
     }))))));
@@ -137864,17 +137872,17 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 802,
+      lineNumber: 804,
       columnNumber: 11
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerRightIcons, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 822,
+      lineNumber: 824,
       columnNumber: 11
     }
-  }, composerConfig && composerConfig.attachmentsEnabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipContainer, {
+  }, composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipContainer, {
     tabIndex: 0,
     "data-testid": "customer-chat-attachment-icon",
     onKeyDown: function onKeyDown(e) {
@@ -137887,7 +137895,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 824,
+      lineNumber: 826,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -137895,7 +137903,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 835,
+      lineNumber: 837,
       columnNumber: 17
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
@@ -137903,21 +137911,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 836,
+      lineNumber: 838,
       columnNumber: 19
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 837,
+      lineNumber: 839,
       columnNumber: 21
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachMediaIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 838,
+      lineNumber: 840,
       columnNumber: 23
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -137933,7 +137941,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 840,
+      lineNumber: 842,
       columnNumber: 21
     }
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -137942,7 +137950,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 855,
+      lineNumber: 857,
       columnNumber: 13
     }
   })))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CharacterCounter, {
@@ -137951,7 +137959,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 860,
+      lineNumber: 862,
       columnNumber: 7
     }
   }, characterCounterText));
@@ -137966,7 +137974,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 874,
+      lineNumber: 876,
       columnNumber: 5
     }
   }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_Disclaimer__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -137978,14 +137986,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 876,
+      lineNumber: 878,
       columnNumber: 9
     }
   }), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(DisclaimerText, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 890,
+      lineNumber: 892,
       columnNumber: 9
     }
   }, "Virtual Assistant is AI and can make mistakes."));
@@ -138160,6 +138168,7 @@ function ExpandLessIcon(props) {
   }));
 }
 function Disclaimer(_ref) {
+  var _this = this;
   var expanded = _ref.expanded,
     onToggleExpand = _ref.onToggleExpand,
     highlighted = _ref.highlighted,
@@ -138172,11 +138181,15 @@ function Disclaimer(_ref) {
   });
   var termsOfUseLabel = intl.formatMessage({
     id: "disclaimer.termsOfUse",
-    defaultMessage: "Terms of Use"
+    defaultMessage: "Terms & Conditions"
   });
   var text = intl.formatMessage({
     id: "disclaimer.recordingNotice",
-    defaultMessage: "This chat may be recorded and shared with our service providers to support your experience. " + "By sending a message, you agree to our {privacyPolicyLink} and {termsOfUseLink}."
+    defaultMessage:
+    // ICU message syntax only treats paired tags (<br></br>) as rich-text
+    // nodes that invoke the `br` resolver below; self-closing <br/> is
+    // parsed as a literal string and would render as visible text.
+    "Virtual Assistant is AI-powered and can make mistakes. While I strive for accuracy, please confirm any relevant information. We and our service providers will record and retain a transcript of this chat to provide, support, and improve your experience. This service is not directed to, and should not be used by, individuals who are under the age of majority in their jurisdiction of residence. <br></br><br></br> By sending a message, you agree to our {termsOfUseLink} and consent to the collection, use, and other processing of your personal information for the purpose of responding to your inquiry, including generating personalised product recommendations using automated tools. To learn more about Estée Lauder's privacy practices and your privacy rights, please review our {privacyPolicyLink}."
   }, {
     // Always rendered with link styling (blue + underline) per spec, even
     // before a brand has a real URL configured - an <a> with no href is
@@ -138190,7 +138203,7 @@ function Disclaimer(_ref) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 185,
+        lineNumber: 187,
         columnNumber: 9
       }
     }, privacyPolicyLabel),
@@ -138202,10 +138215,25 @@ function Disclaimer(_ref) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 195,
+        lineNumber: 197,
         columnNumber: 9
       }
-    }, termsOfUseLabel)
+    }, termsOfUseLabel),
+    // white-space: nowrap (collapsed Text below) stops wrapping but still
+    // honors an explicit <br> as a forced break, which would push the rest
+    // of the message onto a visible second line past the ellipsis. Only
+    // render a real line break in the expanded view; collapse it to a
+    // space otherwise so the single-line truncation stays intact.
+    br: function br() {
+      return expanded ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", {
+        __self: _this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 211,
+          columnNumber: 29
+        }
+      }) : " ";
+    }
   });
   var toggleLabel = intl.formatMessage({
     id: expanded ? "disclaimer.showLess" : "disclaimer.showMore",
@@ -138217,14 +138245,14 @@ function Disclaimer(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 213,
+      lineNumber: 221,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(IconWrapper, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 214,
+      lineNumber: 222,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ShieldIcon, {
@@ -138232,14 +138260,14 @@ function Disclaimer(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 215,
+      lineNumber: 223,
       columnNumber: 9
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Body, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 217,
+      lineNumber: 225,
       columnNumber: 7
     }
   }, expanded ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ToggleButton, {
@@ -138251,14 +138279,14 @@ function Disclaimer(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 220,
+      lineNumber: 228,
       columnNumber: 13
     }
   }, toggleLabel, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ExpandLessIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 228,
+      lineNumber: 236,
       columnNumber: 15
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Text, {
@@ -138266,21 +138294,21 @@ function Disclaimer(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 230,
+      lineNumber: 238,
       columnNumber: 13
     }
   }, text)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(CollapsedRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 233,
+      lineNumber: 241,
       columnNumber: 11
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Text, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 234,
+      lineNumber: 242,
       columnNumber: 13
     }
   }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ToggleButton, {
@@ -138291,14 +138319,14 @@ function Disclaimer(_ref) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 235,
+      lineNumber: 243,
       columnNumber: 13
     }
   }, toggleLabel, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ExpandMoreIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 242,
+      lineNumber: 250,
       columnNumber: 15
     }
   })))));
@@ -139480,6 +139508,13 @@ var ChatSession = /*#__PURE__*/function () {
               type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_9__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE
             };
           }
+
+          // Feedback-flow QuickReply answers go out as plain text (so the
+          // contact flow / Lex can intent-match them) instead of the
+          // interactive.response envelope. Keyed off the incoming prompt's
+          // `metadata` marker (or displayStyle "rating"), never off which
+          // component rendered it - see flattenFeedbackQuickReplyResponse.
+          data = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_10__["flattenFeedbackQuickReplyResponse"])(data, lastIncomingMessageData);
         } catch (e) {
           console.debug("Unable to parse message.content.data. Skipping check for previous view message");
         }
@@ -140623,7 +140658,11 @@ var _templateObject,
   _templateObject15,
   _templateObject16,
   _templateObject17,
-  _templateObject18;
+  _templateObject18,
+  _templateObject19,
+  _templateObject20,
+  _templateObject21,
+  _templateObject22;
 
 
 
@@ -140668,6 +140707,26 @@ function getClientAvatarUrl() {
 function isAdvisorSender(messageDetails) {
   return messageDetails.participantRole === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["PARTICIPANT_TYPES"].AGENT;
 }
+
+// Same brand title the top header bar renders (see Chat.js's
+// defaultHeaderConfig, which reads this same window.__CHAT_BRAND_INFO__.config
+// .header.title, itself populated from each brand's config/env.*.json
+// "title" field, e.g. "Estee Lauder Virtual Assistant"). Reused here so the
+// per-message sender label matches the header instead of showing the raw
+// Connect participant DisplayName ("SYSTEM_MESSAGE"/"BOT").
+function getVirtualAssistantName() {
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config && window.__CHAT_BRAND_INFO__.config.header) {
+    return window.__CHAT_BRAND_INFO__.config.header.title;
+  }
+  try {
+    if (window.parent && window.parent !== window && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.config && window.parent.__CHAT_BRAND_INFO__.config.header) {
+      return window.parent.__CHAT_BRAND_INFO__.config.header.title;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
+}
 var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  padding: ", " ", ";\n  word-break: break-word;\n  overflow: auto;\n  text-align: ", ";\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.basePadding;
@@ -140706,7 +140765,7 @@ var Footer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_tem
   return theme.spacing.mini;
 });
 Footer.MessageReceipt = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  float: right;\n"])));
-var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  ", ";\n\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 18px;\n  position: relative;\n\n  /* MessageBox sets text-align: right on outgoing messages purely to push\n     this inline-block bubble to the right edge of the row - since\n     text-align is inherited, that value otherwise leaks into the message\n     text itself and right-aligns wrapped lines inside the bubble. */\n  text-align: left;\n"])), function (props) {
+var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n  \n  ", ";\n\n  ", ";\n\n  ", ";\n\n  ", "\n\n  ", ";\n\n  /* Message bubble sizing per Figma (padding sp-10, radius rd-16, max-width\n     200) - applies to every incoming/outgoing bubble, typed text and\n     interactive responses alike. Interactive-message containers (Carousel,\n     ListPicker, etc. - identified by removePadding) are exempt: they\n     intentionally fill the available width for their own internal layout\n     and manage their own padding. */\n  padding: ", ";\n  margin-top: ", ";\n  border-radius: 16px;\n  max-width: ", ";\n  position: relative;\n\n  /* A plain-text/response bubble must hug its own text width rather than\n     the default block behavior of stretching to fill MessageContainer's\n     resolved width - since that width is set by the widest of Header/Body/\n     Footer, a short message (\"Yes\") under a wider Header row (\"Gitesh\n     2:37 PM\") would otherwise show as a bubble background stretched well\n     past its own text. Interactive-message containers (Carousel, ListPicker,\n     etc. - identified by removePadding) are exempt: they intentionally fill\n     the available width for their own internal layout. */\n    display: ", ";\n\n  /* MessageBox sets text-align: right on outgoing messages purely to push\n     this inline-block bubble to the right edge of the row - since\n     text-align is inherited, that value otherwise leaks into the message\n     text itself and right-aligns wrapped lines inside the bubble. */\n  text-align: left;\n"])), function (props) {
   return props.theme.chatTranscriptor.incomingMsgBg;
 }, function (props) {
   return props.theme.chatTranscriptor.outgoingMsgBg;
@@ -140722,15 +140781,19 @@ var Body = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templ
   var theme = _ref11.theme;
   return theme.typography.body;
 }, function (props) {
-  return props.removePadding ? 0 : props.theme.spacing.medium;
+  return props.removePadding ? 0 : props.theme.spacing.small;
 }, function (props) {
   return props.theme.spacing.mini;
+}, function (props) {
+  return props.removePadding ? "none" : "200px";
+}, function (props) {
+  return props.removePadding ? "block" : "inline-block";
 });
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
 // instead of stretching across the full transcript width. Both customer
-// (outgoing) and VA/agent (incoming) bubbles now share the same uncapped
-// behavior - width just follows content up to the transcript's full width.
+// (outgoing) and VA/agent (incoming) bubbles share the same sizing - see
+// Body's max-width above for the actual Figma cap.
 var MessageContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: inline-block;\n  max-width: 100%;\n"])));
 var ErrorText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject9 || (_templateObject9 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  display: flex;\n  > img {\n    margin-right: ", ";\n  }\n"])), function (_ref12) {
   var theme = _ref12.theme;
@@ -140773,7 +140836,7 @@ var AdvisorIcon = function AdvisorIcon() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 181,
+      lineNumber: 224,
       columnNumber: 3
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("circle", {
@@ -140784,7 +140847,7 @@ var AdvisorIcon = function AdvisorIcon() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 182,
+      lineNumber: 225,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("path", {
@@ -140793,7 +140856,7 @@ var AdvisorIcon = function AdvisorIcon() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 183,
+      lineNumber: 226,
       columnNumber: 5
     }
   }));
@@ -140804,45 +140867,58 @@ var AdvisorIcon = function AdvisorIcon() {
 // own avatar is suppressed.
 var AvatarSpacer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject13 || (_templateObject13 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  flex-shrink: 0;\n"])));
 var MessageContent = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject14 || (_templateObject14 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  flex: 1;\n  min-width: 0;\n"])));
-var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref17) {
+// Holds a QuickReply's option chips / rating scale when they are lifted out
+// of the message bubble so the avatar can align to the bubble instead of the
+// controls (see render()). The left inset exactly reproduces the avatar
+// column - 32px avatar (AvatarImg/AdvisorAvatar/AvatarSpacer width) plus
+// MessageRow's gap - so the controls stay in the identical horizontal
+// position they occupied inside MessageContent. No vertical margin: the
+// controls' own top padding provides the same gap below the bubble as
+// before. When there is no avatar column (indented === false) it is flush
+// with the bubble, matching the pre-change layout for that case.
+var QuickReplyActionsRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject15 || (_templateObject15 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  &[data-indented=\"true\"] {\n    padding-left: calc(32px + ", ");\n  }\n"])), function (_ref17) {
   var theme = _ref17.theme;
-  return theme.typography.supportingText;
-}, function (_ref18) {
-  var theme = _ref18.theme;
-  return theme.globals.textSecondaryColor;
-}, function (_ref19) {
-  var theme = _ref19.theme;
   return theme.spacing.mini;
 });
-var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref20) {
+var StatusText = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject16 || (_templateObject16 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  color: ", ";\n  padding-right: ", ";\n"])), function (_ref18) {
+  var theme = _ref18.theme;
+  return theme.typography.supportingText;
+}, function (_ref19) {
+  var theme = _ref19.theme;
+  return theme.globals.textSecondaryColor;
+}, function (_ref20) {
   var theme = _ref20.theme;
+  return theme.spacing.mini;
+});
+var TransportErrorMessage = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n  padding: ", " ", " ", ";\n\n  span {\n    color: ", ";\n  }\n"])), function (_ref21) {
+  var theme = _ref21.theme;
   return theme.typography.supportingText;
 }, function (props) {
   return props.theme.chatTranscriptor.msgStatusWidth;
-}, function (_ref21) {
-  var theme = _ref21.theme;
-  return theme.spacing.small;
 }, function (_ref22) {
   var theme = _ref22.theme;
   return theme.spacing.small;
 }, function (_ref23) {
   var theme = _ref23.theme;
-  return theme.spacing.micro;
+  return theme.spacing.small;
 }, function (_ref24) {
   var theme = _ref24.theme;
+  return theme.spacing.micro;
+}, function (_ref25) {
+  var theme = _ref25.theme;
   return theme.palette.red;
 });
-TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject17 || (_templateObject17 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref25) {
-  var theme = _ref25.theme;
-  return theme.typography.inlineButton;
-}, function (_ref26) {
+TransportErrorMessage.RetryButton = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].a(_templateObject18 || (_templateObject18 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  ", ";\n  margin-left: ", ";\n"])), function (_ref26) {
   var theme = _ref26.theme;
+  return theme.typography.inlineButton;
+}, function (_ref27) {
+  var theme = _ref27.theme;
   return theme.spacing.micro;
 });
-var ErrorFallback = function ErrorFallback(_ref27) {
-  var error = _ref27.error,
-    resetErrorBoundary = _ref27.resetErrorBoundary,
-    InteractiveMessageType = _ref27.InteractiveMessageType;
+var ErrorFallback = function ErrorFallback(_ref28) {
+  var error = _ref28.error,
+    resetErrorBoundary = _ref28.resetErrorBoundary,
+    InteractiveMessageType = _ref28.InteractiveMessageType;
   var metricName = InteractiveMessageType + "_ERROR";
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, _constants_global__WEBPACK_IMPORTED_MODULE_19__["CSM_CATEGORY"].UI, false);
@@ -140853,14 +140929,14 @@ var ErrorFallback = function ErrorFallback(_ref27) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 226,
+      lineNumber: 283,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 227,
+      lineNumber: 284,
       columnNumber: 7
     }
   }, "Something went wrong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("button", {
@@ -140868,7 +140944,7 @@ var ErrorFallback = function ErrorFallback(_ref27) {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 228,
+      lineNumber: 285,
       columnNumber: 7
     }
   }, "Reload Editor"));
@@ -140886,15 +140962,7 @@ var INTERACTIVE_MESSAGE_TEMPLATE_TYPES = Object.values(_datamodel_Model__WEBPACK
 // message (matched via contentType above) and this same JSON sent as
 // text/plain by a custom-bot Lambda end up rendering identically.
 function isInteractiveMessagePayload(content) {
-  if (typeof content !== "string") {
-    return false;
-  }
-  var parsed;
-  try {
-    parsed = JSON.parse(content);
-  } catch (e) {
-    return false;
-  }
+  var parsed = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_21__["safeParseInteractiveMessageJSON"])(content);
   return typeof parsed === "object" && parsed !== null && INTERACTIVE_MESSAGE_TEMPLATE_TYPES.includes(parsed.templateType) && typeof parsed.data === "object" && parsed.data !== null && typeof parsed.data.content === "object" && parsed.data.content !== null;
 }
 var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
@@ -140941,6 +141009,12 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
       var displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
       if (isOutgoingMsg && authenticatedParticipantDisplayName) {
         displayName = authenticatedParticipantDisplayName;
+      } else if (!isOutgoingMsg && !isAdvisorSender(this.props.messageDetails)) {
+        // SYSTEM/BOT participant (raw DisplayName "SYSTEM_MESSAGE"/"BOT") is
+        // the Virtual Assistant experience, same as the avatar logic in
+        // render() below - label it with the brand's name instead of the raw
+        // Connect DisplayName.
+        displayName = getVirtualAssistantName() || displayName;
       }
       var transportDetails = this.props.messageDetails.transportDetails;
       var statusStringPrefix = "connect-chat-transport-status-";
@@ -140948,7 +141022,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 322,
+          lineNumber: 377,
           columnNumber: 34
         }
       });
@@ -140958,21 +141032,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 326,
+              lineNumber: 381,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(StatusText, {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 327,
+              lineNumber: 382,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 328,
+              lineNumber: 383,
               columnNumber: 15
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -140981,7 +141055,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 329,
+              lineNumber: 384,
               columnNumber: 17
             }
           }))));
@@ -140991,7 +141065,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 339,
+              lineNumber: 394,
               columnNumber: 34
             }
           }, this.timestampToDisplayable(transportDetails.sentTime, isOutgoingMsg));
@@ -141001,21 +141075,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 343,
+              lineNumber: 398,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["Icon"], {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 344,
+              lineNumber: 399,
               columnNumber: 13
             }
           }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 345,
+              lineNumber: 400,
               columnNumber: 13
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141024,7 +141098,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 346,
+              lineNumber: 401,
               columnNumber: 15
             }
           })));
@@ -141034,7 +141108,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 355,
+              lineNumber: 410,
               columnNumber: 34
             }
           });
@@ -141043,14 +141117,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 358,
+          lineNumber: 413,
           columnNumber: 7
         }
       }, !hideSenderName && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Sender, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 360,
+          lineNumber: 415,
           columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141059,14 +141133,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 361,
+          lineNumber: 416,
           columnNumber: 13
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header.Status, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 367,
+          lineNumber: 422,
           columnNumber: 9
         }
       }, transportStatusElement));
@@ -141090,14 +141164,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 384,
+          lineNumber: 439,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Footer.MessageReceipt, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 385,
+          lineNumber: 440,
           columnNumber: 9
         }
       }, lastReadReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141107,7 +141181,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 386,
+          lineNumber: 441,
           columnNumber: 31
         }
       }), lastDeliveredReceipt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_10__["FormattedMessage"], {
@@ -141117,7 +141191,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 391,
+          lineNumber: 446,
           columnNumber: 36
         }
       })));
@@ -141169,8 +141243,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
       // transcript item was also an incoming assistant/advisor message - draws
       // one avatar per consecutive group instead of one per message.
       var isConsecutiveContinuation = isIncoming && this.props.showAvatar === false;
-      var showAdvisorIcon = isIncoming && !isConsecutiveContinuation && isAdvisorSender(this.props.messageDetails);
-      var avatarUrl = isIncoming && !isConsecutiveContinuation && !showAdvisorIcon && getClientAvatarUrl();
+      // Per Figma the brand avatar tags only the text message that introduces a
+      // Carousel/OrderCarousel/CaseCarousel - the carousel row itself shows no
+      // avatar. It still occupies the same avatar column (AvatarSpacer) so the
+      // carousel keeps its exact current position/width - nothing else moves.
+      var isCarouselMessage = this.props.messageDetails.type !== _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ATTACHMENT_MESSAGE"] && !!this.props.messageDetails.content && (this.props.messageDetails.content.type === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(this.props.messageDetails.content.data)) && [_datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CAROUSEL, _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].ORDER_CAROUSEL, _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CASE_CAROUSEL].includes((Object(_utils_helper__WEBPACK_IMPORTED_MODULE_21__["safeParseInteractiveMessageJSON"])(this.props.messageDetails.content.data) || {}).templateType);
+      var suppressOwnAvatar = isIncoming && isCarouselMessage;
+      var showAdvisorIcon = isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && isAdvisorSender(this.props.messageDetails);
+      var avatarUrl = isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && !showAdvisorIcon && getClientAvatarUrl();
 
       //Hack to simulate ChatJS response with attachment content types
       var bodyStyleConfig = {};
@@ -141183,9 +141263,9 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
       isInteractiveMessagePayload(this.props.messageDetails.content.data))) {
         bodyStyleConfig.hideDirectionArrow = true;
         bodyStyleConfig.removePadding = true;
-        var _JSON$parse = JSON.parse(this.props.messageDetails.content.data),
-          templateType = _JSON$parse.templateType;
-        if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].VIEW_RESOURCE || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].ORDER_CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CASE_CAROUSEL) {
+        var _ref29 = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_21__["safeParseInteractiveMessageJSON"])(this.props.messageDetails.content.data) || {},
+          templateType = _ref29.templateType;
+        if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].VIEW_RESOURCE || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].ORDER_CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].CASE_CAROUSEL || templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].RESHIP_CASE_CREATION) {
           bodyStyleConfig.childWillAddBackground = true;
         }
       }
@@ -141214,13 +141294,21 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           return null;
         }
       }
+
+      // A latest-message QuickReply is rendered in two halves: the title bubble
+      // stays inside the message body (so the avatar aligns to it, like every
+      // other message), and the option/rating controls render just below in
+      // QuickReplyActionsRow - same width and position they had in the bubble,
+      // just no longer dragging the avatar down beside them.
+      var interactiveParsed = this.props.isLatestMessage && this.props.messageDetails.type !== _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ATTACHMENT_MESSAGE"] && (contentType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) ? Object(_utils_helper__WEBPACK_IMPORTED_MODULE_21__["safeParseInteractiveMessageJSON"])(content) : null;
+      var quickReplyContent = interactiveParsed && interactiveParsed.templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY && interactiveParsed.data ? interactiveParsed.data.content : null;
       var mainMessage = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContainer, {
         direction: direction,
         "data-testid": "main-message",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 516,
+          lineNumber: 609,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Header, {
@@ -141228,10 +141316,10 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 520,
+          lineNumber: 614,
           columnNumber: 9
         }
-      }, this.renderHeader(false)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
+      }, this.renderHeader(direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_intersection_observer__WEBPACK_IMPORTED_MODULE_20__["InView"], {
         onChange: function onChange(inView) {
           return _this3.setState({
             inView: inView
@@ -141240,11 +141328,11 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 521,
+          lineNumber: 615,
           columnNumber: 9
         }
-      }, function (_ref28) {
-        var ref = _ref28.ref;
+      }, function (_ref30) {
+        var ref = _ref30.ref;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, Object.assign({
           "data-testid": "message-body",
           direction: direction,
@@ -141254,7 +141342,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: _this3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 523,
+            lineNumber: 617,
             columnNumber: 13
           }
         }), _this3.renderContent(content, contentType));
@@ -141262,19 +141350,17 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 534,
+          lineNumber: 628,
           columnNumber: 9
         }
       }, this.renderMessageReceipts()), error && this.renderTransportError(error));
-      if (!avatarUrl && !showAdvisorIcon && !isConsecutiveContinuation) {
-        return mainMessage;
-      }
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageRow, {
+      var hasAvatarColumn = !!avatarUrl || showAdvisorIcon || isConsecutiveContinuation || suppressOwnAvatar;
+      var messageRow = !hasAvatarColumn ? mainMessage : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageRow, {
         "data-testid": "main-message-row",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 546,
+          lineNumber: 640,
           columnNumber: 7
         }
       }, avatarUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarImg, {
@@ -141284,7 +141370,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 548,
+          lineNumber: 642,
           columnNumber: 11
         }
       }) : showAdvisorIcon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AdvisorAvatar, {
@@ -141293,14 +141379,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 550,
+          lineNumber: 644,
           columnNumber: 11
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AdvisorIcon, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 551,
+          lineNumber: 645,
           columnNumber: 13
         }
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(AvatarSpacer, {
@@ -141309,17 +141395,68 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 554,
+          lineNumber: 648,
           columnNumber: 11
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(MessageContent, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 556,
+          lineNumber: 650,
           columnNumber: 9
         }
       }, mainMessage));
+      if (!quickReplyContent) {
+        return messageRow;
+      }
+
+      // QuickReply option/rating controls: full width below the avatar+bubble
+      // row, inset to line up exactly where they sat inside the bubble.
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_9___default.a.Fragment, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 661,
+          columnNumber: 7
+        }
+      }, messageRow, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(QuickReplyActionsRow, {
+        "data-testid": "quickreply-actions-row",
+        "data-indented": hasAvatarColumn,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 663,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_error_boundary__WEBPACK_IMPORTED_MODULE_16__["ErrorBoundary"], {
+        fallback: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(ErrorFallback, {
+          InteractiveMessageType: _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 664,
+            columnNumber: 36
+          }
+        }),
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 664,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
+        content: quickReplyContent,
+        templateType: _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY,
+        addMessage: this.props.mediaOperations.addMessage,
+        textInputRef: this.props.textInputRef,
+        renderPart: "actions",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 665,
+          columnNumber: 13
+        }
+      }))));
     }
   }, {
     key: "triggerCountMetric",
@@ -141338,15 +141475,15 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 570,
+            lineNumber: 687,
             columnNumber: 9
           }
         });
       }
       if (contentType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) {
-        var _JSON$parse2 = JSON.parse(content),
-          data = _JSON$parse2.data,
-          templateType = _JSON$parse2.templateType;
+        var _safeParseInteractive = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_21__["safeParseInteractiveMessageJSON"])(content),
+          data = _safeParseInteractive.data,
+          templateType = _safeParseInteractive.templateType;
         if (this.props.isLatestMessage) {
           this.triggerCountMetric(templateType + _constants_global__WEBPACK_IMPORTED_MODULE_19__["CSM_CONSTANTS"].RENDER_INTERACTIVE_MESSAGE);
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(react_error_boundary__WEBPACK_IMPORTED_MODULE_16__["ErrorBoundary"], {
@@ -141355,25 +141492,29 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
               __self: this,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 582,
+                lineNumber: 699,
                 columnNumber: 36
               }
             }),
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 582,
+              lineNumber: 699,
               columnNumber: 11
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_18__["InteractiveMessage"], {
             content: data.content,
             templateType: templateType,
             addMessage: this.props.mediaOperations.addMessage,
-            textInputRef: this.props.textInputRef,
+            textInputRef: this.props.textInputRef
+            // QuickReply's controls render below the bubble (see render());
+            // here inside the bubble we only want its title.
+            ,
+            renderPart: templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY ? "bubble" : undefined,
             __self: this,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 583,
+              lineNumber: 700,
               columnNumber: 13
             }
           }));
@@ -141384,23 +141525,37 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 593,
+            lineNumber: 713,
             columnNumber: 14
           }
         });
       }
       if (contentType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE && JSON.parse(content).templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].VIEW_RESOURCE) {
         // this is a view response, render accordingly
-        var _JSON$parse3 = JSON.parse(content),
-          action = _JSON$parse3.action,
-          _data = _JSON$parse3.data;
+        var _JSON$parse = JSON.parse(content),
+          action = _JSON$parse.action,
+          _data = _JSON$parse.data;
         if (!action.trim() && _data) action = _data.content;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(PlainTextMessage, {
           content: action,
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 601,
+            lineNumber: 721,
+            columnNumber: 14
+          }
+        });
+      }
+      if (contentType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE && JSON.parse(content).templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["InteractiveMessageType"].QUICK_REPLY) {
+        // a submitted QuickReply answer - render just the chosen option's text
+        var _JSON$parse2 = JSON.parse(content),
+          _action = _JSON$parse2.action;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(PlainTextMessage, {
+          content: _action,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 727,
             columnNumber: 14
           }
         });
@@ -141412,7 +141567,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 606,
+            lineNumber: 732,
             columnNumber: 14
           }
         });
@@ -141425,7 +141580,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 611,
+            lineNumber: 737,
             columnNumber: 14
           }
         });
@@ -141435,7 +141590,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 614,
+          lineNumber: 740,
           columnNumber: 12
         }
       });
@@ -141450,14 +141605,14 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 622,
+          lineNumber: 748,
           columnNumber: 7
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("span", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 623,
+          lineNumber: 749,
           columnNumber: 9
         }
       }, error.message), error.retry && this.renderRetryButton(error.retry));
@@ -141477,7 +141632,7 @@ var ParticipantMessage = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 636,
+          lineNumber: 762,
           columnNumber: 7
         }
       }, "Retry");
@@ -141516,16 +141671,44 @@ var PlainTextMessage = /*#__PURE__*/function (_PureComponent2) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 651,
+          lineNumber: 777,
           columnNumber: 7
         }
       }, this.props.content);
     }
   }]);
   return PlainTextMessage;
-}(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]);
-var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11__["default"])(MessageBox)(_templateObject18 || (_templateObject18 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  > ", "{\n    display: inline-block;\n    float: ", "\n"])), Body, function (props) {
-  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "right" : "left";
+}(react__WEBPACK_IMPORTED_MODULE_9__["PureComponent"]); // Typing indicator, per Figma "typing indicator message bubble":
+//   width 66, height 30, max-width 200, padding sp-10 (theme.spacing.small),
+//   dot gap 8, border-radius rd-16 (16px), opacity 1.
+// Deliberately isolated from MessageBox/Body so real message bubbles are
+// left untouched - the only thing shared with a real bubble is the
+// brand-driven background, pulled from the same CSS vars / theme tokens
+// Body uses (see Body above) so VA and consumer indicators stay in sync
+// with their message bubbles for every brand.
+var TypingRow = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject19 || (_templateObject19 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  display: flex;\n  align-items: flex-end;\n  gap: ", ";\n  margin-top: ", ";\n  /* Consumer (outgoing) indicator sits at the right edge with no avatar;\n     VA/advisor (incoming) sits at the left next to the brand avatar. */\n  ", ";\n"])), function (_ref31) {
+  var theme = _ref31.theme;
+  return theme.spacing.mini;
+}, function (_ref32) {
+  var theme = _ref32.theme;
+  return theme.spacing.mini;
+}, function (props) {
+  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "flex-direction: row-reverse;" : "";
+});
+var TypingAvatar = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].img(_templateObject20 || (_templateObject20 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  height: 32px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  object-fit: cover;\n"])));
+
+// Keeps the dots aligned with the assistant's message column when the brand
+// avatar asset is missing (same 32px width as TypingAvatar).
+var TypingAvatarSpacer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject21 || (_templateObject21 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  width: 32px;\n  flex-shrink: 0;\n"])));
+var TypingBubble = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject22 || (_templateObject22 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_8__["default"])(["\n  --incomingMsgBg-background-color: ", ";\n  --outgoingMsgBg-background-color: ", ";\n\n  box-sizing: border-box;\n  width: 66px;\n  height: 30px;\n  max-width: 200px;\n  padding: ", ";\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  opacity: 1;\n  border-radius: 16px;\n\n  ", ";\n"])), function (props) {
+  return props.theme.chatTranscriptor.incomingMsgBg;
+}, function (props) {
+  return props.theme.chatTranscriptor.outgoingMsgBg;
+}, function (_ref33) {
+  var theme = _ref33.theme;
+  return theme.spacing.small;
+}, function (props) {
+  return props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));" : "background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));";
 });
 
 // Renders the "participant is composing" bubble (see ChatSession.js's
@@ -141533,13 +141716,9 @@ var ParticipantTypingBox = Object(styled_components__WEBPACK_IMPORTED_MODULE_11_
 // shown on an onTyping event, auto-expires after 12s if no follow-up
 // signal arrives, and is cleared the instant a real message lands in the
 // transcript so this bubble is replaced by the actual one).
-// Reuses the same Body styled-component as a real message, so the bubble
-// background is already brand-driven for free via
-// theme.chatTranscriptor.outgoingMsgBg/incomingMsgBg - no extra theming
-// needed here. The dot color below is NOT brand-driven though (hardcoded
-// white/black) - it happens to contrast against every brand's bubble
-// today only because outgoing text/agent text defaults are white/near-black;
-// a brand with a light customer-bubble color would need this revisited.
+// The dot color is a fixed neutral grey to match the Figma spec (grey dots
+// on both the light-neutral VA bubble and the brand-color consumer bubble);
+// a brand with a very dark consumer-bubble color would need this revisited.
 var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
   Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__["default"])(ParticipantTyping, _PureComponent3);
   function ParticipantTyping() {
@@ -141549,28 +141728,53 @@ var ParticipantTyping = /*#__PURE__*/function (_PureComponent3) {
   Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ParticipantTyping, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(ParticipantTypingBox, {
+      var isOutgoing = this.props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing;
+      var avatarUrl = getClientAvatarUrl();
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(TypingRow, {
         direction: this.props.direction,
+        "data-testid": "participant-typing",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 678,
+          lineNumber: 849,
           columnNumber: 7
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(Body, {
-        direction: this.props.direction,
+      }, !isOutgoing && (avatarUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(TypingAvatar, {
+        src: avatarUrl,
+        alt: "",
+        "data-testid": "virtual-assistant-typing-avatar",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 679,
+          lineNumber: 852,
+          columnNumber: 13
+        }
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(TypingAvatarSpacer, {
+        "aria-hidden": "true",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 854,
+          columnNumber: 13
+        }
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(TypingBubble, {
+        direction: this.props.direction,
+        "aria-label": "typing",
+        role: "status",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 856,
           columnNumber: 9
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(connect_core__WEBPACK_IMPORTED_MODULE_17__["TypingLoader"], {
-        color: this.props.direction === _datamodel_Model__WEBPACK_IMPORTED_MODULE_15__["Direction"].Outgoing ? "#fff" : "#000",
+        size: 7,
+        margin: 4,
+        color: "#767676",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 680,
+          lineNumber: 860,
           columnNumber: 11
         }
       })));
@@ -141613,7 +141817,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 710,
+            lineNumber: 886,
             columnNumber: 9
           }
         }, this.props.content.AttachmentName);
@@ -141630,7 +141834,7 @@ var AttachmentMessage = /*#__PURE__*/function (_PureComponent4) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 727,
+          lineNumber: 903,
           columnNumber: 12
         }
       }, this.renderContent());
@@ -141681,8 +141885,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InteractiveMessages_SingleProduct__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./InteractiveMessages/SingleProduct */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/SingleProduct.js");
 /* harmony import */ var _InteractiveMessages_ProductSelector__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./InteractiveMessages/ProductSelector */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ProductSelector.js");
 /* harmony import */ var _InteractiveMessages_ShadeSelector__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./InteractiveMessages/ShadeSelector */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ShadeSelector.js");
-/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _InteractiveMessages_ReshipCaseCreation__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./InteractiveMessages/ReshipCaseCreation */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 
 var _templateObject,
@@ -141714,18 +141919,17 @@ var _templateObject,
 
 
 
-var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
+
+var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: ", ";\n  border-radius: ", ";\n\n  ", "\n\n  ", "\n\n  button {\n    cursor: pointer;\n    border: ", ";\n  \n    &:hover:enabled {\n      color: #fff;\n      background: ", ";\n    }\n  }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.globals.baseBorder;
 }, function (_ref2) {
   var theme = _ref2.theme;
   return theme.spacing.mini;
 }, function (props) {
-  return props.addChildBackgroundStyles ? "\n    background: ".concat(props.theme.chatTranscriptor.incomingMsgBg, "\n    padding: 14px;\n  ") : "";
+  return props.addChildBackgroundStyles ? "\n    background: ".concat(props.theme.chatTranscriptor.incomingMsgBg, "\n    padding: ").concat(props.theme.spacing.small, ";\n    border: none;\n    border-radius: 16px;\n    ").concat(props.capWidth ? "max-width: 200px;" : "", "\n  ") : "";
 }, function (props) {
   return props.isCarouselElem ? "\n    position: relative;\n    max-width: 350px;\n    min-width: 225px;\n    scroll-snap-align: start;\n    background: ".concat(props.theme.chatTranscriptor.incomingMsgBg, "\n    display: flex;\n    flex-direction: column;\n  ") : "";
-}, function (props) {
-  return props.applySpeechBubbleCaret ? "\n    position: relative;\n\n    &:after {\n      display: block;\n      content: \" \";\n      position: absolute;\n      left: -6px;\n      bottom: 4px;\n      border-radius: 2px;\n      border-left: 10px solid transparent;\n      border-right: 12px solid transparent;\n      border-bottom: 9px solid ".concat(props.theme.chatTranscriptor.incomingMsgBg, ";\n    }\n  ") : "";
 }, function (_ref3) {
   var theme = _ref3.theme;
   return theme.globals.baseBorder;
@@ -141733,31 +141937,31 @@ var MessageBody = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div
   var theme = _ref4.theme;
   return theme.color.primary;
 });
-var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
+var Title = Object(styled_components__WEBPACK_IMPORTED_MODULE_21__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.typography.title;
 });
-var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
+var Subtitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_21__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.typography.body;
 }, function (_ref7) {
   var theme = _ref7.theme;
   return theme.globals.textSecondaryColor;
 });
-var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
-var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
+var ElementImage = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].img(_templateObject4 || (_templateObject4 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n"])));
+var TextSection = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject5 || (_templateObject5 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: ", ";\n  text-align: left;\n\n  ", "\n"])), function (_ref8) {
   var theme = _ref8.theme;
   return theme.spacing.base;
 }, function (props) {
   return props.hasNestedSVG ? "\n    align-items: center;\n    display: flex;\n    justify-content: center;\n  " : "";
 });
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject6 || (_templateObject6 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  white-space: pre-line;\n  border-radius: ", ";\n\n  ", "\n"])), function (_ref9) {
   var theme = _ref9.theme;
   return theme.spacing.mini;
 }, function (props) {
   return props.isCarouselElem ? "\n    margin-top: auto;\n    flex: none;\n  " : "";
 });
-var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_20__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  ", ";\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
+var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_21__["default"].div(_templateObject7 || (_templateObject7 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  justify-content: center;\n  width: 100%;\n  max-width: none;\n  border: ", ";\n  background: ", ";\n  white-space: pre-line;\n  ", ";\n  padding-right: ", ";\n  padding-left: ", ";\n  padding-top: ", ";\n  padding-bottom: ", ";\n  text-decoration: none;\n\n  &:last-child {\n    border-bottom-left-radius: ", ";\n    border-bottom-right-radius: ", ";\n    margin-bottom: 0;\n  }\n\n  a {\n    text-decoration: none !important;\n  }\n\n  svg {\n    color: ", ";\n    margin: 0 ", ";\n  }\n"])), function (_ref10) {
   var theme = _ref10.theme;
   return theme.globals.baseBorder;
 }, function (_ref11) {
@@ -141791,7 +141995,7 @@ var PickerElementLink = styled_components__WEBPACK_IMPORTED_MODULE_20__["default
   var theme = _ref20.theme;
   return theme.spacing.micro;
 });
-var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_20__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
+var PickerOptionTitle = Object(styled_components__WEBPACK_IMPORTED_MODULE_21__["default"])(connect_core__WEBPACK_IMPORTED_MODULE_4__["Text"])(_templateObject8 || (_templateObject8 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", ";\n\n  a {\n    text-decoration: none;\n  }\n\n  ", "\n"])), function (_ref21) {
   var theme = _ref21.theme;
   return theme.typography.label;
 }, function (props) {
@@ -141804,7 +142008,11 @@ InteractiveMessage.propTypes = {
   templateType: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string.isRequired,
   addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
   isCarouselElem: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  templateIdentifier: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+  templateIdentifier: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  // QUICK_REPLY only: "bubble" / "actions" to render just one half of the
+  // template (ChatMessage places the title bubble beside the avatar and the
+  // controls in a full-width row below it).
+  renderPart: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(["bubble", "actions"])
 };
 function InteractiveMessage(_ref22) {
   var content = _ref22.content,
@@ -141812,7 +142020,8 @@ function InteractiveMessage(_ref22) {
     addMessage = _ref22.addMessage,
     textInputRef = _ref22.textInputRef,
     isCarouselElem = _ref22.isCarouselElem,
-    templateIdentifier = _ref22.templateIdentifier;
+    templateIdentifier = _ref22.templateIdentifier,
+    renderPart = _ref22.renderPart;
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
     _useState2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     responseSelected = _useState2[0],
@@ -141867,7 +142076,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 205,
+          lineNumber: 197,
           columnNumber: 14
         }
       });
@@ -141881,7 +142090,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 207,
+          lineNumber: 199,
           columnNumber: 14
         }
       });
@@ -141892,7 +142101,7 @@ function InteractiveMessage(_ref22) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 209,
+          lineNumber: 201,
           columnNumber: 14
         }
       });
@@ -141904,10 +142113,11 @@ function InteractiveMessage(_ref22) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_QuickReply__WEBPACK_IMPORTED_MODULE_9__["default"], {
       content: content,
       addMessage: onAddMessage,
+      renderPart: renderPart,
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 215,
+        lineNumber: 207,
         columnNumber: 12
       }
     });
@@ -141918,7 +142128,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 217,
+        lineNumber: 209,
         columnNumber: 12
       }
     });
@@ -141929,7 +142139,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 219,
+        lineNumber: 211,
         columnNumber: 12
       }
     });
@@ -141940,7 +142150,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 221,
+        lineNumber: 213,
         columnNumber: 12
       }
     });
@@ -141951,7 +142161,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 223,
+        lineNumber: 215,
         columnNumber: 12
       }
     });
@@ -141962,7 +142172,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 225,
+        lineNumber: 217,
         columnNumber: 12
       }
     });
@@ -141973,7 +142183,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 227,
+        lineNumber: 219,
         columnNumber: 12
       }
     });
@@ -141984,7 +142194,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 229,
+        lineNumber: 221,
         columnNumber: 12
       }
     });
@@ -141995,7 +142205,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 231,
+        lineNumber: 223,
         columnNumber: 12
       }
     });
@@ -142006,7 +142216,18 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 233,
+        lineNumber: 225,
+        columnNumber: 12
+      }
+    });
+  } else if (templateType === _datamodel_Model__WEBPACK_IMPORTED_MODULE_5__["InteractiveMessageType"].RESHIP_CASE_CREATION) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessages_ReshipCaseCreation__WEBPACK_IMPORTED_MODULE_19__["default"], {
+      content: content,
+      addMessage: onAddMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 227,
         columnNumber: 12
       }
     });
@@ -142017,7 +142238,7 @@ function InteractiveMessage(_ref22) {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 235,
+        lineNumber: 229,
         columnNumber: 12
       }
     });
@@ -142028,7 +142249,7 @@ function InteractiveMessage(_ref22) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 233,
       columnNumber: 5
     }
   }, renderTemplate());
@@ -142051,7 +142272,7 @@ function ReactiveImage(_ref23) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 251,
+      lineNumber: 245,
       columnNumber: 10
     }
   });
@@ -142067,25 +142288,25 @@ function HeaderText(_ref24) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 261,
+      lineNumber: 255,
       columnNumber: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__["RichMessageRenderer"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_20__["RichMessageRenderer"], {
     content: title,
     styledWrapper: Title,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 262,
+      lineNumber: 256,
       columnNumber: 7
     }
-  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_19__["RichMessageRenderer"], {
+  }), subtitle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_20__["RichMessageRenderer"], {
     content: subtitle,
     styledWrapper: Subtitle,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 263,
+      lineNumber: 257,
       columnNumber: 21
     }
   }));
@@ -142101,7 +142322,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 270,
+      lineNumber: 264,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -142110,7 +142331,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 278,
+      lineNumber: 272,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("path", {
@@ -142118,7 +142339,7 @@ function ExternalLinkIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 279,
+      lineNumber: 273,
       columnNumber: 7
     }
   }));
@@ -142133,7 +142354,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 286,
+      lineNumber: 280,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PickerOptionTitle, {
@@ -142141,7 +142362,7 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 287,
+      lineNumber: 281,
       columnNumber: 7
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
@@ -142150,14 +142371,14 @@ function PickerElementLinkOption(_ref25) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 288,
+      lineNumber: 282,
       columnNumber: 9
     }
   }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ExternalLinkIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 291,
+      lineNumber: 285,
       columnNumber: 9
     }
   })));
@@ -142351,7 +142572,6 @@ function Carousel(_ref7) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_5__["MessageBody"], {
     addChildBackgroundStyles: true,
     "data-testid": "interactive-carousel-message-title",
-    applySpeechBubbleCaret: true,
     __self: this,
     __source: {
       fileName: _jsxFileName,
@@ -144831,11 +145051,13 @@ var MOCK_PRODUCT_SELECTOR = {
 /*!*********************************************************************************************!*\
   !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/QuickReply.js ***!
   \*********************************************************************************************/
-/*! exports provided: default */
+/*! exports provided: QuickReplyTitle, QuickReplyActions, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuickReplyTitle", function() { return QuickReplyTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuickReplyActions", function() { return QuickReplyActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return QuickReply; });
 /* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -144863,7 +145085,7 @@ var _templateObject,
 
 
 
-var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", " 0;\n  display: flex;\n  flex-wrap: wrap;\n  flex-direction: row;\n  gap: ", ";\n  justify-content: flex-end;\n"])), function (_ref) {
+var ResponsesSection = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: ", " 0;\n  display: flex;\n  flex-wrap: wrap;\n  flex-direction: row;\n  gap: ", ";\n  justify-content: flex-start;\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.spacing.base;
 }, function (_ref2) {
@@ -144956,7 +145178,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102,
+      lineNumber: 106,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -144965,7 +145187,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103,
+      lineNumber: 107,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -144974,7 +145196,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104,
+      lineNumber: 108,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -144983,7 +145205,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 105,
+      lineNumber: 109,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -144992,7 +145214,7 @@ function SadFaceOneIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106,
+      lineNumber: 110,
       columnNumber: 7
     }
   }));
@@ -145007,7 +145229,7 @@ function NumberTwoIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 113,
+      lineNumber: 117,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145016,7 +145238,7 @@ function NumberTwoIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 114,
+      lineNumber: 118,
       columnNumber: 7
     }
   }));
@@ -145031,7 +145253,7 @@ function NumberThreeIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121,
+      lineNumber: 125,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145040,7 +145262,7 @@ function NumberThreeIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122,
+      lineNumber: 126,
       columnNumber: 7
     }
   }));
@@ -145055,7 +145277,7 @@ function NumberFourIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129,
+      lineNumber: 133,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145064,7 +145286,7 @@ function NumberFourIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130,
+      lineNumber: 134,
       columnNumber: 7
     }
   }));
@@ -145079,7 +145301,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 141,
       columnNumber: 5
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145088,7 +145310,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 142,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145097,7 +145319,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 143,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145106,7 +145328,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 144,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("path", {
@@ -145115,7 +145337,7 @@ function HappyFaceFiveIcon(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 145,
       columnNumber: 7
     }
   }));
@@ -145127,30 +145349,6 @@ var RATING_VALUE_ICONS = {
   "4": NumberFourIcon,
   "5": HappyFaceFiveIcon
 };
-var RATING_VALUES = Object.keys(RATING_VALUE_ICONS);
-
-// Some bot integrations don't set element.value at all (just a descriptive
-// title like "1 Very Dissatisfied") - fall back to the leading digit in the
-// title so rating chips still resolve to the right icon either way.
-function getElementRatingValue(element) {
-  if (element.value !== undefined && element.value !== null) {
-    return String(element.value);
-  }
-  var match = /^\s*([1-5])(?!\d)/.exec(element.title || "");
-  return match ? match[1] : undefined;
-}
-
-// Bot responses aren't required to set content.displayStyle explicitly - if
-// the elements are exactly the 1-5 rating scale (regardless of order), treat
-// it as a rating QuickReply automatically so existing bot payloads render
-// the Figma chip icons without a bot-side change.
-function isRatingElements(elements) {
-  return Array.isArray(elements) && elements.length === RATING_VALUES.length && RATING_VALUES.every(function (value) {
-    return elements.some(function (element) {
-      return getElementRatingValue(element) === value;
-    });
-  });
-}
 function ReplyElement(_ref18) {
   var element = _ref18.element,
     handleSelection = _ref18.handleSelection,
@@ -145160,69 +145358,91 @@ function ReplyElement(_ref18) {
   // instead of the full descriptive title. The full title is still sent as
   // the reply text so the bot/transcript keep the descriptive wording
   // (e.g. "1 Very Dissatisfied").
-  var RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[getElementRatingValue(element)] : null;
+  var RatingIcon = isRatingStyle ? RATING_VALUE_ICONS[Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["getQuickReplyElementRatingValue"])(element)] : null;
   var Option = RatingIcon ? RatingChipOption : QuickReplyOption;
+
+  // The component always emits the structured INTERACTIVE_RESPONSE envelope.
+  // Feedback-flow answers are flattened to plain text centrally in
+  // ChatSession (flattenFeedbackQuickReplyResponse) - that decision needs the
+  // incoming prompt's metadata, which this component never receives.
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Option, {
     onClick: function onClick() {
       return handleSelection({
-        text: element.title
+        text: JSON.stringify({
+          templateType: _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY,
+          version: "1.0",
+          action: element.title
+        }),
+        type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE
       });
     },
     "aria-label": RatingIcon ? title : undefined,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 186,
+      lineNumber: 172,
       columnNumber: 5
     }
   }, RatingIcon ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RatingIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 190,
+      lineNumber: 183,
       columnNumber: 21
     }
   }) : title);
 }
 QuickReply.propTypes = {
   content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
-  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired,
+  // "bubble" -> render only the title bubble, "actions" -> render only the
+  // option/rating controls, undefined -> render both (default, unchanged).
+  // ChatMessage renders the two halves separately so the message avatar sits
+  // beside the title bubble instead of beside the tall controls row - the
+  // controls keep the exact same width/position they had inside the bubble.
+  renderPart: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(["bubble", "actions"])
 };
-function QuickReply(_ref19) {
-  var _this = this;
-  var content = _ref19.content,
-    addMessage = _ref19.addMessage;
-  var inputTitle = content.title,
-    elements = content.elements,
-    displayStyle = content.displayStyle;
-  var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(inputTitle, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
-  var isRatingStyle = displayStyle === _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["QuickReplyDisplayStyle"].RATING || isRatingElements(elements);
-  var Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_6__["MessageBody"], {
+
+// The grey title bubble ("How was your experience?" / the rating prompt).
+function QuickReplyTitle(_ref19) {
+  var content = _ref19.content;
+  var title = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["truncateStrFromCharLimit"])(content.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_8__["InteractiveMessageType"].QUICK_REPLY, "titleCharLimit");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_6__["MessageBody"], {
     addChildBackgroundStyles: true,
+    capWidth: true,
     "data-testid": "interactive-quickreply-message-title",
-    applySpeechBubbleCaret: true,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 208,
-      columnNumber: 7
+      lineNumber: 203,
+      columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_4__["RichMessageRenderer"], {
     content: title,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 209,
-      columnNumber: 9
+      lineNumber: 204,
+      columnNumber: 7
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Section, {
+  }));
+}
+
+// The tappable option chips / 1-5 rating scale.
+function QuickReplyActions(_ref20) {
+  var _this = this;
+  var content = _ref20.content,
+    addMessage = _ref20.addMessage;
+  var elements = content.elements;
+  var isRatingStyle = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_7__["isRatingQuickReply"])(content);
+  var Section = isRatingStyle ? RatingResponsesSection : ResponsesSection;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Section, {
     "data-testid": "interactive-quickreply-response-section",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 211,
-      columnNumber: 7
+      lineNumber: 215,
+      columnNumber: 5
     }
   }, elements.map(function (element, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ReplyElement, {
@@ -145233,12 +145453,308 @@ function QuickReply(_ref19) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 213,
-        columnNumber: 11
+        lineNumber: 217,
+        columnNumber: 9
       }
     });
+  }));
+}
+function QuickReply(_ref21) {
+  var content = _ref21.content,
+    addMessage = _ref21.addMessage,
+    renderPart = _ref21.renderPart;
+  if (renderPart === "bubble") {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyTitle, {
+      content: content,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 230,
+        columnNumber: 12
+      }
+    });
+  }
+  if (renderPart === "actions") {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyActions, {
+      content: content,
+      addMessage: addMessage,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 233,
+        columnNumber: 12
+      }
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyTitle, {
+    content: content,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 237,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(QuickReplyActions, {
+    content: content,
+    addMessage: addMessage,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 238,
+      columnNumber: 7
+    }
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.js":
+/*!*****************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.js ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReshipCaseCreation; });
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _RichMessageComponents__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../RichMessageComponents */ "./src/components/Chat/RichMessageComponents/index.js");
+/* harmony import */ var _InteractiveMessage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../InteractiveMessage */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessage.js");
+/* harmony import */ var _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../datamodel/Model */ "./src/components/Chat/datamodel/Model.js");
+/* harmony import */ var _utils_helper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../utils/helper */ "./src/utils/helper.js");
+/* harmony import */ var _ReshipCaseCreation_mockData__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ReshipCaseCreation.mockData */ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.mockData.js");
+
+
+var _templateObject,
+  _templateObject2,
+  _templateObject3,
+  _jsxFileName = "C:\\ChatJs_POC\\Local_Changes\\Local_Changes\\amazon-connect-chat-interface\\src\\components\\Chat\\ChatTranscriptor\\ChatMessages\\InteractiveMessages\\ReshipCaseCreation.js";
+
+
+
+
+
+
+
+
+
+// Fully self-contained widget - like ShadeSelector/ProductSelector it does
+// not import from sibling widgets except for the shared grey title bubble
+// (MessageBody), which QuickReply.js already reuses the same way. Keeps this
+// widget free to evolve independently.
+//
+// Layout note: this renders BOTH halves (grey title bubble + the actions
+// row) stacked, the same as QuickReply's default render. It is not lifted
+// into ChatMessage.js's QuickReplyActionsRow split - the avatar aligns to
+// the whole block, which is acceptable here and keeps the ChatMessage.js
+// blast radius to the single childWillAddBackground line.
+
+// Option buttons stack vertically and left-align below the title bubble -
+// mirrors QuickReply's ResponsesSection (same theme.spacing.base vertical
+// padding) but as a column since these are fixed 200px buttons, not chips
+// that hug their content and wrap.
+var ActionsSection = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: ", ";\n  padding: ", " 0;\n"])), function (_ref) {
+  var theme = _ref.theme;
+  return theme.spacing.mini;
+}, function (_ref2) {
+  var theme = _ref2.theme;
+  return theme.spacing.base;
+});
+
+// Figma "Reship Case Creation" button spec - identical box for the primary
+// and the quaternary variant: width 200 / height 36 (min 48x36), gap 4,
+// border-radius rd-16, padding sp-10 (block) / sp-8 (inline). Literal px
+// per the spec, matching ShadeSelector.js's ctaButtonBase which encodes the
+// same values. Only color/emphasis differs between the two variants below.
+var buttonBase = "\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 4px;\n  width: 200px;\n  max-width: 100%;\n  min-width: 48px;\n  min-height: 36px;\n  height: 36px;\n  box-sizing: border-box;\n  padding: 10px 8px;\n  border-radius: 16px;\n  border: none;\n  cursor: pointer;\n  text-align: center;\n  transition: opacity 0.15s ease;\n";
+
+// Preferred action ("Yes"). Reuses the same --ac-widget-selection-card-select-bg
+// accent var / theme.chatTranscriptor.sendButtonActiveBg fill as the
+// ProductSelector/SingleProduct/ShadeSelector primary CTAs, so a brand
+// themes one CTA color across every card widget. Colour/typography follow
+// the brand; the layout above does not (per the spec's "visual elements
+// adapted per brand, without impacting layout/behaviour").
+var PrimaryButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject2 || (_templateObject2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", "\n  ", ";\n  background: var(--ac-widget-selection-card-select-bg, ", ");\n  color: var(--ac-widget-reship-primary-text-color, ", ");\n\n  &:hover:not(:disabled) {\n    opacity: 0.9;\n  }\n\n  &:focus-visible {\n    outline: 2px solid var(--ac-widget-quickreply-focus-border-color, ", ");\n    outline-offset: 1px;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n    opacity: 0.6;\n  }\n"])), buttonBase, function (_ref3) {
+  var theme = _ref3.theme;
+  return theme.typography.label;
+}, function (_ref4) {
+  var theme = _ref4.theme;
+  return theme.chatTranscriptor.sendButtonActiveBg;
+}, function (_ref5) {
+  var theme = _ref5.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref6) {
+  var theme = _ref6.theme;
+  return theme.componentPalette.quickReply.focusBorderColor;
+});
+
+// Lower-emphasis alternative ("No, I don't want a reshipment"). Same box as
+// the primary per spec, but no fill and an underlined label so it reads as
+// the de-emphasised choice (matches the Figma mock where the alternative is
+// plain underlined text). Quaternary text colour is neutral across brands.
+var QuaternaryButton = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].button(_templateObject3 || (_templateObject3 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  ", "\n  ", ";\n  background: transparent;\n  color: var(--ac-widget-reship-quaternary-text-color, ", ");\n  text-decoration: underline;\n\n  &:hover:not(:disabled) {\n    opacity: 0.7;\n  }\n\n  &:focus-visible {\n    outline: 2px solid var(--ac-widget-quickreply-focus-border-color, ", ");\n    outline-offset: 1px;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n    opacity: 0.6;\n  }\n"])), buttonBase, function (_ref7) {
+  var theme = _ref7.theme;
+  return theme.typography.label;
+}, function (_ref8) {
+  var theme = _ref8.theme;
+  return theme.globals.bodyFontColor;
+}, function (_ref9) {
+  var theme = _ref9.theme;
+  return theme.componentPalette.quickReply.focusBorderColor;
+});
+
+// The grey title bubble ("...Does that work for you?") - same treatment as
+// QuickReplyTitle (MessageBody + addChildBackgroundStyles + capWidth).
+function ReshipCaseCreationTitle(_ref10) {
+  var title = _ref10.title;
+  var safeTitle = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_8__["truncateStrFromCharLimit"])(title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["InteractiveMessageType"].RESHIP_CASE_CREATION, "titleCharLimit");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_InteractiveMessage__WEBPACK_IMPORTED_MODULE_6__["MessageBody"], {
+    addChildBackgroundStyles: true,
+    capWidth: true,
+    "data-testid": "interactive-reshipcasecreation-title",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 119,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_RichMessageComponents__WEBPACK_IMPORTED_MODULE_5__["RichMessageRenderer"], {
+    content: safeTitle,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 124,
+      columnNumber: 7
+    }
+  }));
+}
+ReshipCaseCreationTitle.propTypes = {
+  title: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+};
+ReshipCaseCreation.propTypes = {
+  content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+  addMessage: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
+};
+function ReshipCaseCreation(_ref11) {
+  var _this = this;
+  var content = _ref11.content,
+    addMessage = _ref11.addMessage;
+  // Falls back to mock data only when no runtime content is supplied - see
+  // ReshipCaseCreation.mockData.js. Swapping to the real VA JSON is a data
+  // change only, not a structural one.
+  var data = content && Array.isArray(content.elements) ? content : _ReshipCaseCreation_mockData__WEBPACK_IMPORTED_MODULE_9__["MOCK_RESHIP_CASE_CREATION"];
+  var title = data.title;
+  var elements = Array.isArray(data.elements) ? data.elements : [];
+
+  // Guards against a double-submit between the click and the transcript
+  // re-render that collapses this widget to its title (once the consumer's
+  // reply arrives it is no longer the latest message - "buttons disappear
+  // similar to a chip's behaviour" per the spec, handled centrally).
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+    _useState2 = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    submitted = _useState2[0],
+    setSubmitted = _useState2[1]; // Business rule (Figma): one preferred action is emphasised as the primary
+  // button, every other option is a low-emphasis quaternary button. An
+  // element is primary iff it declares emphasis:"primary"; if none does, the
+  // first element defaults to primary so a bare elements array still renders
+  // exactly one emphasised choice.
+  var hasExplicitPrimary = elements.some(function (el) {
+    return el && el.emphasis === "primary";
+  });
+  var isPrimary = function isPrimary(el, index) {
+    return hasExplicitPrimary ? el.emphasis === "primary" : index === 0;
+  };
+  function handleSelect(element) {
+    if (submitted) return;
+    setSubmitted(true);
+    var label = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_8__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["InteractiveMessageType"].RESHIP_CASE_CREATION, "replyOptionCharLimit");
+    // Plain-text reply (like ShadeSelector's Confirm) so CUSTOM_BOT / Lambda
+    // bots that only accept text/plain still match the consumer's choice;
+    // the chosen label is echoed into the thread as the consumer's message.
+    addMessage({
+      text: label,
+      type: _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 176,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ReshipCaseCreationTitle, {
+    title: title,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 177,
+      columnNumber: 7
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ActionsSection, {
+    "data-testid": "interactive-reshipcasecreation-actions",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 178,
+      columnNumber: 7
+    }
+  }, elements.map(function (element, index) {
+    var OptionButton = isPrimary(element, index) ? PrimaryButton : QuaternaryButton;
+    var label = Object(_utils_helper__WEBPACK_IMPORTED_MODULE_8__["truncateStrFromCharLimit"])(element.title, _datamodel_Model__WEBPACK_IMPORTED_MODULE_7__["InteractiveMessageType"].RESHIP_CASE_CREATION, "replyOptionCharLimit");
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(OptionButton, {
+      key: index,
+      type: "button",
+      disabled: submitted,
+      onClick: function onClick() {
+        return handleSelect(element);
+      },
+      "data-testid": "reshipcasecreation-option-".concat(index),
+      __self: _this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 187,
+        columnNumber: 13
+      }
+    }, label);
   })));
 }
+
+/***/ }),
+
+/***/ "./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.mockData.js":
+/*!**************************************************************************************************************!*\
+  !*** ./src/components/Chat/ChatTranscriptor/ChatMessages/InteractiveMessages/ReshipCaseCreation.mockData.js ***!
+  \**************************************************************************************************************/
+/*! exports provided: MOCK_RESHIP_CASE_CREATION */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MOCK_RESHIP_CASE_CREATION", function() { return MOCK_RESHIP_CASE_CREATION; });
+// Placeholder data for local/visual development - ReshipCaseCreation falls
+// back to this only when no runtime content is passed in. Per the Figma
+// "Reship Case Creation" spec: the Virtual Assistant asks whether the
+// consumer prefers a reshipment or a refund, rendered as one emphasized
+// primary action ("Yes") plus a lower-emphasis quaternary alternative
+// ("No, I don't want a reshipment").
+var MOCK_RESHIP_CASE_CREATION = {
+  title: "I can create a case to have the product reshipped within 5 working days. If reshipment isn't an option, a refund will be processed. Does that work for you?",
+  elements: [{
+    title: "Yes",
+    emphasis: "primary"
+  }, {
+    title: "No, I don't want a reshipment",
+    emphasis: "quaternary"
+  }]
+};
 
 /***/ }),
 
@@ -147091,6 +147607,11 @@ var _templateObject,
 
 
 
+
+// Events that arrive from Connect but are hidden entirely per Figma - no
+// text and no date/time divider. CHAT_ENDED still fires (contact status is
+// handled elsewhere), it just isn't surfaced in the transcript.
+var HIDDEN_EVENT_TYPES = [_datamodel_Model__WEBPACK_IMPORTED_MODULE_12__["ContentType"].EVENT_CONTENT_TYPE.CHAT_ENDED];
 var Timestamp = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject || (_templateObject = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_7__["default"])(["\n  ", ";\n  color: ", ";\n  text-align: center;\n  margin-bottom: ", ";\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.typography.supportingText;
@@ -147128,14 +147649,14 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 41,
+          lineNumber: 48,
           columnNumber: 7
         }
       }, Object(_utils_helper__WEBPACK_IMPORTED_MODULE_14__["formatDateDisplay"])(sentTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(TimestampDot, {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43,
+          lineNumber: 50,
           columnNumber: 9
         }
       }), Object(_utils_helper__WEBPACK_IMPORTED_MODULE_14__["formatTimeDisplay"])(sentTime));
@@ -147148,20 +147669,10 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
       var content = _this.props.messageDetails.content;
       switch (type) {
         case _datamodel_Model__WEBPACK_IMPORTED_MODULE_12__["ContentType"].EVENT_CONTENT_TYPE.PARTICIPANT_JOINED:
-          name = _this.props.messageDetails.displayName;
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_9__["FormattedMessage"], {
-            id: "transcriptor.joinedChat",
-            defaultMessage: "{name} has joined the chat",
-            values: {
-              name: name
-            },
-            __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 58,
-              columnNumber: 16
-            }
-          });
+          // Per Figma, the "{name} has joined the chat" line is not shown - only
+          // the date/time divider from renderTimestamp() stays. Returning null
+          // here keeps the timestamp but drops the dynamic text.
+          return null;
         case _datamodel_Model__WEBPACK_IMPORTED_MODULE_12__["ContentType"].EVENT_CONTENT_TYPE.PARTICIPANT_LEFT:
           name = _this.props.messageDetails.displayName;
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_9__["FormattedMessage"], {
@@ -147173,7 +147684,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 67,
+              lineNumber: 70,
               columnNumber: 16
             }
           });
@@ -147184,7 +147695,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 75,
+              lineNumber: 78,
               columnNumber: 16
             }
           });
@@ -147198,7 +147709,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 81,
+              lineNumber: 84,
               columnNumber: 16
             }
           });
@@ -147209,7 +147720,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 83,
+              lineNumber: 86,
               columnNumber: 16
             }
           });
@@ -147223,7 +147734,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 88,
+              lineNumber: 91,
               columnNumber: 16
             }
           });
@@ -147237,7 +147748,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 96,
+              lineNumber: 99,
               columnNumber: 16
             }
           });
@@ -147251,7 +147762,7 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
             __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 104,
+              lineNumber: 107,
               columnNumber: 16
             }
           });
@@ -147264,6 +147775,13 @@ var SystemMessage = /*#__PURE__*/function (_React$PureComponent) {
   Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(SystemMessage, [{
     key: "render",
     value: function render() {
+      // Some events (e.g. CHAT_ENDED) are hidden completely - no divider at all.
+      if (HIDDEN_EVENT_TYPES.includes(this.props.messageDetails.content.type)) {
+        return null;
+      }
+      // Otherwise the date/time divider always renders; getMessageText() may
+      // return null (e.g. PARTICIPANT_JOINED) so only the timestamp shows for
+      // that event.
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_8___default.a.Fragment, null, this.renderTimestamp(), this.getMessageText());
     }
   }]);
@@ -147603,6 +148121,14 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
       if (!itemDetails.transportDetails || itemDetails.transportDetails.direction !== _datamodel_Model__WEBPACK_IMPORTED_MODULE_14__["Direction"].Incoming) {
         return null;
       }
+      // The SYSTEM_MESSAGE disclaimer is a standalone notice, not part of the
+      // assistant's conversational flow - give it a per-message key so it
+      // neither shares an avatar with, nor suppresses the avatar of, the BOT
+      // welcome message that immediately follows it (otherwise that welcome
+      // message renders an AvatarSpacer instead of the brand avatar).
+      if (itemDetails.displayName === "SYSTEM_MESSAGE") {
+        return "system-notice-".concat(itemDetails.id);
+      }
       return Object(_ChatMessages_ChatMessage__WEBPACK_IMPORTED_MODULE_16__["isAdvisorSender"])(itemDetails) ? "advisor" : "assistant";
     });
     Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2), "renderMessage", function (itemDetails, isLatestMessage) {
@@ -147665,7 +148191,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
           __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 152,
+            lineNumber: 160,
             columnNumber: 14
           }
         });
@@ -147682,7 +148208,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 163,
+          lineNumber: 171,
           columnNumber: 7
         }
       }, config.isHTML ? react_render_html__WEBPACK_IMPORTED_MODULE_15___default()(content) : content);
@@ -147698,7 +148224,7 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 175,
+          lineNumber: 183,
           columnNumber: 7
         }
       });
@@ -147724,14 +148250,14 @@ var ChatTranscriptor = /*#__PURE__*/function (_PureComponent) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 193,
+          lineNumber: 201,
           columnNumber: 7
         }
       }, (this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].CONNECTED || this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].ACW || this.props.contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_19__["CONTACT_STATUS"].ENDED) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(TranscriptBody, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 203,
+          lineNumber: 211,
           columnNumber: 13
         }
       }, this.props.transcript.map(function (item, idx) {
@@ -148596,7 +149122,8 @@ var InteractiveMessageType = {
   LIST_SELECTION_STEPPER: "ListSelectionStepper",
   SINGLE_PRODUCT: "SingleProduct",
   PRODUCT_SELECTOR: "ProductSelector",
-  SHADE_SELECTOR: "ShadeSelector"
+  SHADE_SELECTOR: "ShadeSelector",
+  RESHIP_CASE_CREATION: "ReshipCaseCreation"
 };
 var InteractiveMessageSelectionType = {
   ACTION: "action",
@@ -148857,6 +149384,26 @@ function isPendingQuickReplyMessage(message) {
     return false;
   }
 }
+
+// The paperclip icon stays hidden until the bot's current step explicitly
+// asks for a file - set via `attachmentExpected: true` alongside the
+// existing title/elements fields in the interactive message's `content`
+// object (data.content), the same envelope used by QuickReply/Panel/etc.
+// Works for any templateType (a step can ask for a file alongside buttons,
+// or on its own), and for both a native Lex-sent interactive message and the
+// same JSON sent as text/plain by a custom-bot Lambda.
+function isAttachmentExpectedMessage(message) {
+  try {
+    if (!message.content || typeof message.content.data !== "string") {
+      return false;
+    }
+    var parsed = JSON.parse(message.content.data);
+    var isInteractiveShaped = message.content.type === _Model__WEBPACK_IMPORTED_MODULE_2__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || typeof parsed.data === "object" && parsed.data !== null && typeof parsed.data.content === "object" && parsed.data.content !== null;
+    return isInteractiveShaped && parsed.data.content.attachmentExpected === true;
+  } catch (e) {
+    return false;
+  }
+}
 var modelUtils = {
   createItemFromIncoming: createItemFromIncoming,
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
@@ -148870,7 +149417,8 @@ var modelUtils = {
   isParticipantAgentOrCustomer: isParticipantAgentOrCustomer,
   createViewMessageData: createViewMessageData,
   isViewMessage: isViewMessage,
-  isPendingQuickReplyMessage: isPendingQuickReplyMessage
+  isPendingQuickReplyMessage: isPendingQuickReplyMessage,
+  isAttachmentExpectedMessage: isAttachmentExpectedMessage
 };
 
 
@@ -151747,7 +152295,7 @@ function parseJSON(response) {
 /*!*****************************!*\
   !*** ./src/utils/helper.js ***!
   \*****************************/
-/*! exports provided: shouldDisplayMessageForType, getTimeFromTimeStamp, formatTimeDisplay, formatDateDisplay, createInteractiveMessagePayload, INTERACTIVE_MESSAGE_CONSTRAINTS, truncateStrFromCharLimit, constructGuidesRendererUrl, setupGuidesRenderer */
+/*! exports provided: shouldDisplayMessageForType, getTimeFromTimeStamp, formatTimeDisplay, formatDateDisplay, createInteractiveMessagePayload, safeParseInteractiveMessageJSON, INTERACTIVE_MESSAGE_CONSTRAINTS, truncateStrFromCharLimit, RATING_QUICK_REPLY_VALUES, getQuickReplyElementRatingValue, isRatingQuickReply, isFeedbackFlowQuickReply, flattenFeedbackQuickReplyResponse, constructGuidesRendererUrl, setupGuidesRenderer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -151757,8 +152305,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatTimeDisplay", function() { return formatTimeDisplay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatDateDisplay", function() { return formatDateDisplay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createInteractiveMessagePayload", function() { return createInteractiveMessagePayload; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "safeParseInteractiveMessageJSON", function() { return safeParseInteractiveMessageJSON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERACTIVE_MESSAGE_CONSTRAINTS", function() { return INTERACTIVE_MESSAGE_CONSTRAINTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "truncateStrFromCharLimit", function() { return truncateStrFromCharLimit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RATING_QUICK_REPLY_VALUES", function() { return RATING_QUICK_REPLY_VALUES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQuickReplyElementRatingValue", function() { return getQuickReplyElementRatingValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRatingQuickReply", function() { return isRatingQuickReply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFeedbackFlowQuickReply", function() { return isFeedbackFlowQuickReply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flattenFeedbackQuickReplyResponse", function() { return flattenFeedbackQuickReplyResponse; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "constructGuidesRendererUrl", function() { return constructGuidesRendererUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupGuidesRenderer", function() { return setupGuidesRenderer; });
 /* harmony import */ var C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty */ "./node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
@@ -151836,6 +152390,93 @@ function createInteractiveMessagePayload(selectedElement, preIndex, nextIndex, l
   return payload;
 }
 
+// Recognizes only the one shape we repair - our backend's Python
+// str(dict)/repr(dict) output, which opens with a single-quoted key, e.g.
+// {'templateType': ...}. Anything else that fails JSON.parse (plain chat
+// text, corrupted data, etc.) is left alone rather than guessed at.
+function isKnownMalformedFormat(str) {
+  return /^\s*\{\s*'/.test(str);
+}
+
+// Converts that one known malformed shape's quote delimiters into valid
+// JSON. Not a blind ' -> " replace - apostrophes can legitimately appear
+// inside message text (e.g. "don't"), and Python's repr() already handles
+// that by switching a string's own delimiter to " whenever its content
+// contains an apostrophe. So this only has to track whichever quote
+// character opened the current string and copy through to its matching
+// close, decoding \n along the way (the one escape the payload uses for
+// its title's embedded line breaks).
+function convertKnownMalformedFormatToJSON(input) {
+  var out = "";
+  var i = 0;
+  while (i < input.length) {
+    var ch = input[i];
+    if (ch === "'" || ch === '"') {
+      var quote = ch;
+      var value = "";
+      i++;
+      while (i < input.length && input[i] !== quote) {
+        if (input[i] === "\\" && i + 1 < input.length) {
+          value += input[i + 1] === "n" ? "\n" : input[i + 1];
+          i += 2;
+        } else {
+          value += input[i];
+          i++;
+        }
+      }
+      i++; // consume closing quote
+      out += JSON.stringify(value);
+    } else {
+      out += ch;
+      i++;
+    }
+  }
+  return out;
+}
+
+/**
+ * Parses `message.content.data`:
+ *
+ *   content.data
+ *       |
+ *       v
+ *   JSON.parse()
+ *       |
+ *   success --> existing renderer
+ *       | failure
+ *       v
+ *   known BE malformed format?
+ *       | yes                    | no
+ *       v                        v
+ *   controlled conversion    existing renderer
+ *   -> JSON.parse()          (undefined - falls through to
+ *       |                     the existing plain-text path)
+ *       v
+ *   existing renderer
+ *
+ * @param {string} data
+ * @returns {object|undefined} parsed payload, or undefined if it's neither
+ *   valid JSON nor the one recognized malformed shape
+ */
+function safeParseInteractiveMessageJSON(data) {
+  if (typeof data !== "string") {
+    return undefined;
+  }
+  try {
+    return JSON.parse(data);
+  } catch (e) {
+    // fall through - only the recognized malformed shape gets converted
+  }
+  if (!isKnownMalformedFormat(data)) {
+    return undefined;
+  }
+  try {
+    return JSON.parse(convertKnownMalformedFormatToJSON(data));
+  } catch (e) {
+    return undefined;
+  }
+}
+
 /**
  * Frontend validations for interactive messages
  *  - Client will always receive a valid template to render
@@ -151844,7 +152485,7 @@ function createInteractiveMessagePayload(selectedElement, preIndex, nextIndex, l
  *
  * Documentation: https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html
  */
-var INTERACTIVE_MESSAGE_CONSTRAINTS = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].PANEL, {
+var INTERACTIVE_MESSAGE_CONSTRAINTS = Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(C_ChatJs_POC_Local_Changes_Local_Changes_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].PANEL, {
   titleCharLimit: 400,
   subtitleCharLimit: 400,
   elementTitleCharLimit: 400
@@ -151859,6 +152500,9 @@ var INTERACTIVE_MESSAGE_CONSTRAINTS = Object(C_ChatJs_POC_Local_Changes_Local_Ch
 }), _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].CAROUSEL, {
   titleCharLimit: 400
 }), _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].QUICK_REPLY, {
+  titleCharLimit: 400,
+  replyOptionCharLimit: 200
+}), _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].RESHIP_CASE_CREATION, {
   titleCharLimit: 400,
   replyOptionCharLimit: 200
 });
@@ -151893,7 +152537,130 @@ var truncateStrFromCharLimit = function truncateStrFromCharLimit(str, Interactiv
   }
 };
 
-/** 
+/* -------------------------------------------------------------------------
+ * QuickReply rating / feedback handling
+ *
+ * Shared by the render path (QuickReply.js shows the Figma face/digit chip
+ * glyphs for these) and the send path (buildQuickReplyResponsePayload below,
+ * which flattens the answer to plain text so Connect/Lex intent matching
+ * fires the same way it does for a free-typed reply).
+ * ---------------------------------------------------------------------- */
+
+// The fixed 1-5 feedback scale.
+var RATING_QUICK_REPLY_VALUES = ["1", "2", "3", "4", "5"];
+
+/**
+ * Resolves a QuickReply element to its rating value ("1".."5"), or undefined.
+ * Some bot integrations don't set element.value at all (just a descriptive
+ * title like "1 Very Dissatisfied") - fall back to the leading digit in the
+ * title so a rating scale still resolves either way.
+ */
+function getQuickReplyElementRatingValue(element) {
+  if (element && element.value !== undefined && element.value !== null) {
+    return String(element.value);
+  }
+  var match = /^\s*([1-5])(?!\d)/.exec(element && element.title || "");
+  return match ? match[1] : undefined;
+}
+
+/**
+ * Render-path check: should this QuickReply show the Figma face/digit rating
+ * chips? True when the bot marks it explicitly (content.displayStyle ===
+ * "rating") OR its elements are exactly the 1-5 scale (regardless of order),
+ * so existing bot payloads get the chip icons without a bot-side change.
+ *
+ * This is intentionally looser than isFeedbackRatingQuickReply below - it only
+ * affects how the chips look, never the wire format of the response.
+ *
+ * @param {object} content - a QuickReply content object (title, elements,
+ *   displayStyle).
+ * @returns {boolean}
+ */
+function isRatingQuickReply(content) {
+  if (!content || typeof content !== "object") {
+    return false;
+  }
+  if (content.displayStyle === _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["QuickReplyDisplayStyle"].RATING) {
+    return true;
+  }
+  var elements = content.elements;
+  return Array.isArray(elements) && elements.length === RATING_QUICK_REPLY_VALUES.length && RATING_QUICK_REPLY_VALUES.every(function (value) {
+    return elements.some(function (element) {
+      return getQuickReplyElementRatingValue(element) === value;
+    });
+  });
+}
+
+/**
+ * Send-path check: should a tap on this QuickReply go out as plain text
+ * instead of the interactive.response envelope?
+ *
+ * True when the interactive payload carries a feedback-flow `metadata` marker
+ * (`nucId` / `actionExpected`, which the feedback BE attaches to every prompt
+ * in the flow - rating scales AND the Yes/No resolution question) OR the bot
+ * set the explicit `content.displayStyle === "rating"` marker.
+ *
+ * Any other QuickReply - from LEX / VA or any integration that sends neither
+ * signal - keeps the interactive.response contract untouched.
+ *
+ * @param {object} content - a QuickReply content object.
+ * @param {object} [metadata] - the interactive payload's top-level `metadata`
+ *   object (sibling of `data`), if any.
+ * @returns {boolean}
+ */
+function isFeedbackFlowQuickReply(content, metadata) {
+  if (metadata && typeof metadata === "object" && (metadata.nucId != null || metadata.actionExpected != null)) {
+    return true;
+  }
+  return !!content && typeof content === "object" && content.displayStyle === _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["QuickReplyDisplayStyle"].RATING;
+}
+
+/**
+ * Rewrites an outgoing QuickReply interactive.response to plain text when the
+ * prompt it answers belongs to the feedback flow, so Connect/Lex runs intent
+ * matching on the answer ("2 Dissatisfied", "Yes") exactly as it would for a
+ * free-typed reply.
+ *
+ * The QuickReply component always emits the structured interactive.response
+ * envelope; the decision to flatten lives here (called from ChatSession)
+ * because it depends on the *incoming* prompt's payload - specifically its
+ * `metadata` marker, which the component never receives. Any response that is
+ * not a QuickReply interactive.response, or whose prompt is not a feedback-
+ * flow QuickReply (LEX / VA and every other integration), is returned
+ * unchanged.
+ *
+ * @param {{text: string, type: string}} outgoingData - the message about to be sent.
+ * @param {object} [lastIncomingInteractive] - the last incoming interactive
+ *   payload, already JSON-parsed ({templateType, data: {content}, metadata}).
+ * @returns {{text: string, type: string}} the original data, or a text/plain rewrite.
+ */
+function flattenFeedbackQuickReplyResponse(outgoingData, lastIncomingInteractive) {
+  if (!outgoingData || outgoingData.type !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["ContentType"].MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE) {
+    return outgoingData;
+  }
+  var parsedOutgoing;
+  try {
+    parsedOutgoing = JSON.parse(outgoingData.text);
+  } catch (e) {
+    return outgoingData;
+  }
+  if (!parsedOutgoing || parsedOutgoing.templateType !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].QUICK_REPLY || typeof parsedOutgoing.action !== "string") {
+    return outgoingData;
+  }
+  if (!lastIncomingInteractive || lastIncomingInteractive.templateType !== _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["InteractiveMessageType"].QUICK_REPLY) {
+    return outgoingData;
+  }
+  var incomingContent = lastIncomingInteractive.data && lastIncomingInteractive.data.content;
+  if (!isFeedbackFlowQuickReply(incomingContent, lastIncomingInteractive.metadata)) {
+    return outgoingData;
+  }
+  return {
+    text: parsedOutgoing.action,
+    type: _components_Chat_datamodel_Model__WEBPACK_IMPORTED_MODULE_1__["ContentType"].MESSAGE_CONTENT_TYPE.TEXT_PLAIN
+  };
+}
+
+/**
  * Generates the url to fetch guides renderer
  */
 var constructGuidesRendererUrl = function constructGuidesRendererUrl(instanceAlias, rendererVersion) {

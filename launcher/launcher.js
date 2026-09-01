@@ -107,8 +107,8 @@
     + '  top: auto !important;'
     + '  left: auto !important;'
     + '  margin: 0 !important;'
-    + '  width: 335px !important;'
-    + '  height: 585px !important;'
+    + '  width: 330px !important;'
+    + '  height: 660px !important;'
     + '  max-width: calc(100vw - 32px) !important;'
     + '  max-height: calc(100vh - 32px) !important;'
     + '  background: #ffffff !important;'
@@ -188,10 +188,10 @@
     return { brand: brand, env: env };
   }
 
-  function buildContactAttributes(utagData) {
+  function buildContactAttributes(brandInfo, utagData) {
     utagData = utagData || {};
     return {
-      brand: utagData.brand || '',
+      brand: brandInfo.config.title || '',
       // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
       customerLoggedIn: 'Yes',
       customerId: String(utagData.USER_ID || ''),
@@ -406,7 +406,7 @@
     }
 
     function startChat() {
-      var contactAttributes = buildContactAttributes(window.utag_data);
+      var contactAttributes = buildContactAttributes(brandInfo, window.utag_data);
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,

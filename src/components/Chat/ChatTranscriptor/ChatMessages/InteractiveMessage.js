@@ -15,6 +15,7 @@ import ListSelectionStepper from "./InteractiveMessages/ListSelectionStepper";
 import SingleProduct from "./InteractiveMessages/SingleProduct";
 import ProductSelector from "./InteractiveMessages/ProductSelector";
 import ShadeSelector from "./InteractiveMessages/ShadeSelector";
+import ReshipCaseCreation from "./InteractiveMessages/ReshipCaseCreation";
 import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
@@ -25,7 +26,10 @@ const MessageBody = styled.div`
 
   ${props => props.addChildBackgroundStyles ? `
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
-    padding: 14px;
+    padding: ${props.theme.spacing.small};
+    border: none;
+    border-radius: 16px;
+    ${props.capWidth ? "max-width: 200px;" : ""}
   ` : ""}
 
   ${props => props.isCarouselElem ? `
@@ -36,22 +40,6 @@ const MessageBody = styled.div`
     background: ${props.theme.chatTranscriptor.incomingMsgBg}
     display: flex;
     flex-direction: column;
-  ` : ""}
-
-  ${props => props.applySpeechBubbleCaret ? `
-    position: relative;
-
-    &:after {
-      display: block;
-      content: " ";
-      position: absolute;
-      left: -6px;
-      bottom: 4px;
-      border-radius: 2px;
-      border-left: 10px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 9px solid ${props.theme.chatTranscriptor.incomingMsgBg};
-    }
   ` : ""}
 
   button {
@@ -151,10 +139,14 @@ InteractiveMessage.propTypes = {
   templateType: PT.string.isRequired,
   addMessage: PT.func.isRequired,
   isCarouselElem: PT.bool,
-  templateIdentifier: PT.string
+  templateIdentifier: PT.string,
+  // QUICK_REPLY only: "bubble" / "actions" to render just one half of the
+  // template (ChatMessage places the title bubble beside the avatar and the
+  // controls in a full-width row below it).
+  renderPart: PT.oneOf(["bubble", "actions"])
 };
 
-export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier}) {
+export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
   const [responseSelected, setResponseSelected] = useState(false);
   const ref = useRef();
 
@@ -212,7 +204,7 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
 
   // Render ViewResource, QuickReply and Carousel outside of <MessageBody />
   if (templateType === InteractiveMessageType.QUICK_REPLY) {
-    return <QuickReply content={content} addMessage={onAddMessage} />
+    return <QuickReply content={content} addMessage={onAddMessage} renderPart={renderPart} />
   } else if (templateType === InteractiveMessageType.CAROUSEL) {
     return <Carousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {
@@ -231,6 +223,8 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
     return <ProductSelector content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.SHADE_SELECTOR) {
     return <ShadeSelector content={content} addMessage={onAddMessage} />
+  } else if (templateType === InteractiveMessageType.RESHIP_CASE_CREATION) {
+    return <ReshipCaseCreation content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.VIEW_RESOURCE) {
     return <connect-view-renderer data-testid="connect-view-renderer" ref={ref} />
   }

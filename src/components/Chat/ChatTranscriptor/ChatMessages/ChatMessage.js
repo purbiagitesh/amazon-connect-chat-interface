@@ -18,7 +18,7 @@ import { Icon, TypingLoader } from "connect-core";
 import { InteractiveMessage } from "./InteractiveMessage";
 import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
 import { InView } from "react-intersection-observer";
-import { shouldDisplayMessageForType } from "../../../../utils/helper";
+import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON } from "../../../../utils/helper";
 import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
@@ -49,6 +49,32 @@ function getClientAvatarUrl() {
 // role check used elsewhere for read receipts).
 export function isAdvisorSender(messageDetails) {
   return messageDetails.participantRole === PARTICIPANT_TYPES.AGENT;
+}
+
+// Same brand title the top header bar renders (see Chat.js's
+// defaultHeaderConfig, which reads this same window.__CHAT_BRAND_INFO__.config
+// .header.title, itself populated from each brand's config/env.*.json
+// "title" field, e.g. "Estee Lauder Virtual Assistant"). Reused here so the
+// per-message sender label matches the header instead of showing the raw
+// Connect participant DisplayName ("SYSTEM_MESSAGE"/"BOT").
+function getVirtualAssistantName() {
+  if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config && window.__CHAT_BRAND_INFO__.config.header) {
+    return window.__CHAT_BRAND_INFO__.config.header.title;
+  }
+  try {
+    if (
+      window.parent &&
+      window.parent !== window &&
+      window.parent.__CHAT_BRAND_INFO__ &&
+      window.parent.__CHAT_BRAND_INFO__.config &&
+      window.parent.__CHAT_BRAND_INFO__.config.header
+    ) {
+      return window.parent.__CHAT_BRAND_INFO__.config.header.title;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; client info isn't reachable
+  }
+  return null;
 }
 
 export const MessageBox = styled.div`
@@ -115,10 +141,27 @@ const Body = styled.div`
 
   ${({ theme }) => theme.typography.body};
 
-  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.medium)};
+  /* Message bubble sizing per Figma (padding sp-10, radius rd-16, max-width
+     200) - applies to every incoming/outgoing bubble, typed text and
+     interactive responses alike. Interactive-message containers (Carousel,
+     ListPicker, etc. - identified by removePadding) are exempt: they
+     intentionally fill the available width for their own internal layout
+     and manage their own padding. */
+  padding: ${(props) => (props.removePadding ? 0 : props.theme.spacing.small)};
   margin-top: ${(props) => props.theme.spacing.mini};
-  border-radius: 18px;
+  border-radius: 16px;
+  max-width: ${(props) => (props.removePadding ? "none" : "200px")};
   position: relative;
+
+  /* A plain-text/response bubble must hug its own text width rather than
+     the default block behavior of stretching to fill MessageContainer's
+     resolved width - since that width is set by the widest of Header/Body/
+     Footer, a short message ("Yes") under a wider Header row ("Gitesh
+     2:37 PM") would otherwise show as a bubble background stretched well
+     past its own text. Interactive-message containers (Carousel, ListPicker,
+     etc. - identified by removePadding) are exempt: they intentionally fill
+     the available width for their own internal layout. */
+    display: ${(props) => (props.removePadding ? "block" : "inline-block")};
 
   /* MessageBox sets text-align: right on outgoing messages purely to push
      this inline-block bubble to the right edge of the row - since
@@ -129,8 +172,8 @@ const Body = styled.div`
 
 // Wraps Header/Body/Footer as one unit so the bubble hugs its content
 // instead of stretching across the full transcript width. Both customer
-// (outgoing) and VA/agent (incoming) bubbles now share the same uncapped
-// behavior - width just follows content up to the transcript's full width.
+// (outgoing) and VA/agent (incoming) bubbles share the same sizing - see
+// Body's max-width above for the actual Figma cap.
 const MessageContainer = styled.div`
   display: inline-block;
   max-width: 100%;
@@ -195,6 +238,20 @@ const MessageContent = styled.div`
   flex: 1;
   min-width: 0;
 `;
+// Holds a QuickReply's option chips / rating scale when they are lifted out
+// of the message bubble so the avatar can align to the bubble instead of the
+// controls (see render()). The left inset exactly reproduces the avatar
+// column - 32px avatar (AvatarImg/AdvisorAvatar/AvatarSpacer width) plus
+// MessageRow's gap - so the controls stay in the identical horizontal
+// position they occupied inside MessageContent. No vertical margin: the
+// controls' own top padding provides the same gap below the bubble as
+// before. When there is no avatar column (indented === false) it is flush
+// with the bubble, matching the pre-change layout for that case.
+const QuickReplyActionsRow = styled.div`
+  &[data-indented="true"] {
+    padding-left: calc(32px + ${({ theme }) => theme.spacing.mini});
+  }
+`;
 const StatusText = styled.span`
   ${({ theme }) => theme.typography.supportingText};
   color: ${({ theme }) => theme.globals.textSecondaryColor};
@@ -243,15 +300,7 @@ const INTERACTIVE_MESSAGE_TEMPLATE_TYPES = Object.values(InteractiveMessageType)
 // message (matched via contentType above) and this same JSON sent as
 // text/plain by a custom-bot Lambda end up rendering identically.
 function isInteractiveMessagePayload(content) {
-  if (typeof content !== "string") {
-    return false;
-  }
-  let parsed;
-  try {
-    parsed = JSON.parse(content);
-  } catch (e) {
-    return false;
-  }
+  const parsed = safeParseInteractiveMessageJSON(content);
   return (
     typeof parsed === "object" &&
     parsed !== null &&
@@ -315,6 +364,12 @@ export class ParticipantMessage extends PureComponent {
     let displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
     if (isOutgoingMsg && authenticatedParticipantDisplayName) {
       displayName = authenticatedParticipantDisplayName;
+    } else if (!isOutgoingMsg && !isAdvisorSender(this.props.messageDetails)) {
+      // SYSTEM/BOT participant (raw DisplayName "SYSTEM_MESSAGE"/"BOT") is
+      // the Virtual Assistant experience, same as the avatar logic in
+      // render() below - label it with the brand's name instead of the raw
+      // Connect DisplayName.
+      displayName = getVirtualAssistantName() || displayName;
     }
     const transportDetails = this.props.messageDetails.transportDetails;
     const statusStringPrefix = "connect-chat-transport-status-";
@@ -452,8 +507,25 @@ export class ParticipantMessage extends PureComponent {
     // transcript item was also an incoming assistant/advisor message - draws
     // one avatar per consecutive group instead of one per message.
     const isConsecutiveContinuation = isIncoming && this.props.showAvatar === false;
-    const showAdvisorIcon = isIncoming && !isConsecutiveContinuation && isAdvisorSender(this.props.messageDetails);
-    const avatarUrl = isIncoming && !isConsecutiveContinuation && !showAdvisorIcon && getClientAvatarUrl();
+    // Per Figma the brand avatar tags only the text message that introduces a
+    // Carousel/OrderCarousel/CaseCarousel - the carousel row itself shows no
+    // avatar. It still occupies the same avatar column (AvatarSpacer) so the
+    // carousel keeps its exact current position/width - nothing else moves.
+    const isCarouselMessage =
+      this.props.messageDetails.type !== ATTACHMENT_MESSAGE &&
+      !!this.props.messageDetails.content &&
+      (this.props.messageDetails.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+        isInteractiveMessagePayload(this.props.messageDetails.content.data)) &&
+      [
+        InteractiveMessageType.CAROUSEL,
+        InteractiveMessageType.ORDER_CAROUSEL,
+        InteractiveMessageType.CASE_CAROUSEL,
+      ].includes((safeParseInteractiveMessageJSON(this.props.messageDetails.content.data) || {}).templateType);
+    const suppressOwnAvatar = isIncoming && isCarouselMessage;
+    const showAdvisorIcon =
+      isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && isAdvisorSender(this.props.messageDetails);
+    const avatarUrl =
+      isIncoming && !isConsecutiveContinuation && !suppressOwnAvatar && !showAdvisorIcon && getClientAvatarUrl();
 
     //Hack to simulate ChatJS response with attachment content types
     const bodyStyleConfig = {};
@@ -472,17 +544,19 @@ export class ParticipantMessage extends PureComponent {
       bodyStyleConfig.hideDirectionArrow = true;
       bodyStyleConfig.removePadding = true;
 
-      const { templateType } = JSON.parse(this.props.messageDetails.content.data);
+      const { templateType } = safeParseInteractiveMessageJSON(this.props.messageDetails.content.data) || {};
       if (
         templateType === InteractiveMessageType.VIEW_RESOURCE ||
         templateType === InteractiveMessageType.QUICK_REPLY ||
         templateType === InteractiveMessageType.CAROUSEL ||
         templateType === InteractiveMessageType.ORDER_CAROUSEL ||
-        templateType === InteractiveMessageType.CASE_CAROUSEL
+        templateType === InteractiveMessageType.CASE_CAROUSEL ||
+        templateType === InteractiveMessageType.RESHIP_CASE_CREATION
       ) {
         bodyStyleConfig.childWillAddBackground = true;
       }
     }
+
     let content, contentType;
     if (this.props.messageDetails.type === ATTACHMENT_MESSAGE) {
       //Use Attachments data as content if available
@@ -512,12 +586,32 @@ export class ParticipantMessage extends PureComponent {
       }
     }
 
+    // A latest-message QuickReply is rendered in two halves: the title bubble
+    // stays inside the message body (so the avatar aligns to it, like every
+    // other message), and the option/rating controls render just below in
+    // QuickReplyActionsRow - same width and position they had in the bubble,
+    // just no longer dragging the avatar down beside them.
+    const interactiveParsed =
+      this.props.isLatestMessage &&
+      this.props.messageDetails.type !== ATTACHMENT_MESSAGE &&
+      (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE ||
+        isInteractiveMessagePayload(content))
+        ? safeParseInteractiveMessageJSON(content)
+        : null;
+    const quickReplyContent =
+      interactiveParsed &&
+      interactiveParsed.templateType === InteractiveMessageType.QUICK_REPLY &&
+      interactiveParsed.data
+        ? interactiveParsed.data.content
+        : null;
+
     const mainMessage = (
       <MessageContainer direction={direction} data-testid="main-message">
-        {/* Sender name always stays visible next to the timestamp, same as
-            before any avatar/icon was configured for this brand - the icon
-            is purely additive, never a replacement for the label. */}
-        <Header data-testid="message-header">{this.renderHeader(false)}</Header>
+        {/* Incoming (Virtual Assistant / advisor) messages keep the sender
+            name next to the timestamp. Outgoing (customer's own) messages
+            show only the timestamp per Figma - the customer already knows
+            who they are, so the "Customer"/own-name label is redundant. */}
+        <Header data-testid="message-header">{this.renderHeader(direction === Direction.Outgoing)}</Header>
         <InView onChange={(inView) => this.setState({ inView })}>
           {({ ref }) => (
             <Body
@@ -538,11 +632,11 @@ export class ParticipantMessage extends PureComponent {
       </MessageContainer>
     );
 
-    if (!avatarUrl && !showAdvisorIcon && !isConsecutiveContinuation) {
-      return mainMessage;
-    }
+    const hasAvatarColumn = !!avatarUrl || showAdvisorIcon || isConsecutiveContinuation || suppressOwnAvatar;
 
-    return (
+    const messageRow = !hasAvatarColumn ? (
+      mainMessage
+    ) : (
       <MessageRow data-testid="main-message-row">
         {avatarUrl ? (
           <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" />
@@ -555,6 +649,29 @@ export class ParticipantMessage extends PureComponent {
         )}
         <MessageContent>{mainMessage}</MessageContent>
       </MessageRow>
+    );
+
+    if (!quickReplyContent) {
+      return messageRow;
+    }
+
+    // QuickReply option/rating controls: full width below the avatar+bubble
+    // row, inset to line up exactly where they sat inside the bubble.
+    return (
+      <React.Fragment>
+        {messageRow}
+        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn}>
+          <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={InteractiveMessageType.QUICK_REPLY} />}>
+            <InteractiveMessage
+              content={quickReplyContent}
+              templateType={InteractiveMessageType.QUICK_REPLY}
+              addMessage={this.props.mediaOperations.addMessage}
+              textInputRef={this.props.textInputRef}
+              renderPart="actions"
+            />
+          </ErrorBoundary>
+        </QuickReplyActionsRow>
+      </React.Fragment>
     );
   }
 
@@ -575,7 +692,7 @@ export class ParticipantMessage extends PureComponent {
     }
 
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) {
-      const { data, templateType } = JSON.parse(content);
+      const { data, templateType } = safeParseInteractiveMessageJSON(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)
         return (
@@ -585,6 +702,9 @@ export class ParticipantMessage extends PureComponent {
               templateType={templateType}
               addMessage={this.props.mediaOperations.addMessage}
               textInputRef={this.props.textInputRef}
+              // QuickReply's controls render below the bubble (see render());
+              // here inside the bubble we only want its title.
+              renderPart={templateType === InteractiveMessageType.QUICK_REPLY ? "bubble" : undefined}
             />
           </ErrorBoundary>
         )
@@ -598,6 +718,12 @@ export class ParticipantMessage extends PureComponent {
       let { action, data } = JSON.parse(content);
       if (!action.trim() && data)
         action = data.content;
+      return <PlainTextMessage content={action} />
+    }
+    if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE &&
+      JSON.parse(content).templateType === InteractiveMessageType.QUICK_REPLY) {
+      // a submitted QuickReply answer - render just the chosen option's text
+      const { action } = JSON.parse(content);
       return <PlainTextMessage content={action} />
     }
 
@@ -653,11 +779,58 @@ class PlainTextMessage extends PureComponent {
   }
 }
 
-const ParticipantTypingBox = styled(MessageBox)`
-  > ${Body}{
-    display: inline-block;
-    float: ${props =>
-    props.direction === Direction.Outgoing ? "right" : "left"}
+// Typing indicator, per Figma "typing indicator message bubble":
+//   width 66, height 30, max-width 200, padding sp-10 (theme.spacing.small),
+//   dot gap 8, border-radius rd-16 (16px), opacity 1.
+// Deliberately isolated from MessageBox/Body so real message bubbles are
+// left untouched - the only thing shared with a real bubble is the
+// brand-driven background, pulled from the same CSS vars / theme tokens
+// Body uses (see Body above) so VA and consumer indicators stay in sync
+// with their message bubbles for every brand.
+const TypingRow = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: ${({ theme }) => theme.spacing.mini};
+  margin-top: ${({ theme }) => theme.spacing.mini};
+  /* Consumer (outgoing) indicator sits at the right edge with no avatar;
+     VA/advisor (incoming) sits at the left next to the brand avatar. */
+  ${(props) => (props.direction === Direction.Outgoing ? "flex-direction: row-reverse;" : "")};
+`;
+
+const TypingAvatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+`;
+
+// Keeps the dots aligned with the assistant's message column when the brand
+// avatar asset is missing (same 32px width as TypingAvatar).
+const TypingAvatarSpacer = styled.div`
+  width: 32px;
+  flex-shrink: 0;
+`;
+
+const TypingBubble = styled.div`
+  --incomingMsgBg-background-color: ${(props) => props.theme.chatTranscriptor.incomingMsgBg};
+  --outgoingMsgBg-background-color: ${(props) => props.theme.chatTranscriptor.outgoingMsgBg};
+
+  box-sizing: border-box;
+  width: 66px;
+  height: 30px;
+  max-width: 200px;
+  padding: ${({ theme }) => theme.spacing.small};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  border-radius: 16px;
+
+  ${(props) =>
+    props.direction === Direction.Outgoing
+      ? `background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));`
+      : `background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));`};
 `;
 
 // Renders the "participant is composing" bubble (see ChatSession.js's
@@ -665,25 +838,28 @@ const ParticipantTypingBox = styled(MessageBox)`
 // shown on an onTyping event, auto-expires after 12s if no follow-up
 // signal arrives, and is cleared the instant a real message lands in the
 // transcript so this bubble is replaced by the actual one).
-// Reuses the same Body styled-component as a real message, so the bubble
-// background is already brand-driven for free via
-// theme.chatTranscriptor.outgoingMsgBg/incomingMsgBg - no extra theming
-// needed here. The dot color below is NOT brand-driven though (hardcoded
-// white/black) - it happens to contrast against every brand's bubble
-// today only because outgoing text/agent text defaults are white/near-black;
-// a brand with a light customer-bubble color would need this revisited.
+// The dot color is a fixed neutral grey to match the Figma spec (grey dots
+// on both the light-neutral VA bubble and the brand-color consumer bubble);
+// a brand with a very dark consumer-bubble color would need this revisited.
 export class ParticipantTyping extends PureComponent {
   render() {
+    const isOutgoing = this.props.direction === Direction.Outgoing;
+    const avatarUrl = getClientAvatarUrl();
     return (
-      <ParticipantTypingBox direction={this.props.direction}>
-        <Body direction={this.props.direction}>
-          <TypingLoader
-            color={
-              this.props.direction === Direction.Outgoing ? "#fff" : "#000"
-            }
-          />
-        </Body>
-      </ParticipantTypingBox>
+      <TypingRow direction={this.props.direction} data-testid="participant-typing">
+        {!isOutgoing &&
+          (avatarUrl ? (
+            <TypingAvatar src={avatarUrl} alt="" data-testid="virtual-assistant-typing-avatar" />
+          ) : (
+            <TypingAvatarSpacer aria-hidden="true" />
+          ))}
+        <TypingBubble direction={this.props.direction} aria-label="typing" role="status">
+          {/* margin 4 => 8px between dots to match Figma gap: 8; size kept
+              at 7 so all three dots + gaps fit the fixed 66x30 bubble
+              (66 - 20 padding = 46 >= 3*7 + 2*8 + 2*4 outer margins). */}
+          <TypingLoader size={7} margin={4} color="#767676" />
+        </TypingBubble>
+      </TypingRow>
     );
   }
 }

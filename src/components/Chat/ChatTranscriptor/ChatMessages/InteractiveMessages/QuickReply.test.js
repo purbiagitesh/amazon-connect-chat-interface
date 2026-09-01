@@ -2,7 +2,7 @@ import React from "react";
 import {screen, render, fireEvent} from "@testing-library/react";
 import {ThemeProvider} from "../../../../../theme";
 import QuickReply from "./QuickReply";
-import {InteractiveMessageType} from "../../../datamodel/Model";
+import {ContentType, InteractiveMessageType} from "../../../datamodel/Model";
 import * as helpers from '../../../../../utils/helper';
 
 const QUICK_REPLY_CONSTRAINTS = helpers.INTERACTIVE_MESSAGE_CONSTRAINTS[InteractiveMessageType.QUICK_REPLY];
@@ -76,7 +76,12 @@ describe("<QuickReply />", () => {
     fireEvent.click(screen.getByText(replyToChoose));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({
-      text: replyToChoose,
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: replyToChoose,
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
     });
   });
 
@@ -134,7 +139,72 @@ describe("<QuickReply />", () => {
     fireEvent.click(screen.getByText(truncatedPickerOption));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({
-      text: longPickerOption,
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: longPickerOption,
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+    });
+  });
+});
+
+describe("<QuickReply /> rating style", () => {
+  const ratingElements = [
+    {title: "1 Very Dissatisfied"},
+    {title: "2 Dissatisfied"},
+    {title: "3 Neutral"},
+    {title: "4 Satisfied"},
+    {title: "5 Very Satisfied"},
+  ];
+
+  function renderElement(props) {
+    return render(
+      <ThemeProvider>
+        <QuickReply {...props} />
+      </ThemeProvider>
+    );
+  }
+
+  // The component always emits the structured INTERACTIVE_RESPONSE envelope -
+  // regardless of rating style. Flattening feedback-flow answers to plain text
+  // is done centrally in ChatSession (flattenFeedbackQuickReplyResponse), so it
+  // can key off the incoming prompt's metadata rather than the component.
+  it("renders the rating chips and still emits the interactive.response envelope (displayStyle 'rating')", () => {
+    const addMessage = jest.fn().mockResolvedValue(undefined);
+    renderElement({
+      content: {title: "Rate us", displayStyle: "rating", elements: ratingElements},
+      addMessage,
+    });
+
+    fireEvent.click(screen.getByLabelText("2 Dissatisfied"));
+    expect(addMessage).toHaveBeenCalledWith({
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: "2 Dissatisfied",
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+    });
+  });
+
+  it("auto-detects the 1-5 scale for chip rendering even without displayStyle", () => {
+    const addMessage = jest.fn().mockResolvedValue(undefined);
+    renderElement({
+      content: {title: "Rate us", elements: ratingElements},
+      addMessage,
+    });
+
+    // aria-label is only set on rating-chip buttons, so finding it by label
+    // proves the chip glyph rendered.
+    fireEvent.click(screen.getByLabelText("5 Very Satisfied"));
+    expect(addMessage).toHaveBeenCalledWith({
+      text: JSON.stringify({
+        templateType: InteractiveMessageType.QUICK_REPLY,
+        version: "1.0",
+        action: "5 Very Satisfied",
+      }),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
     });
   });
 });
