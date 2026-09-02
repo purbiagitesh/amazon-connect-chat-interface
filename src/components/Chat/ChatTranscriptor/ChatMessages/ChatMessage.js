@@ -179,6 +179,29 @@ const MessageContainer = styled.div`
   max-width: 100%;
 `;
 
+// Wraps RichMessageRenderer output - both real text/markdown messages and
+// bot/system text/plain messages sniffed as markdown (see renderContent) -
+// so a multi-paragraph reply matches Figma: a visible gap between
+// consecutive blocks and body copy at Medium weight, with **bold** spans at
+// 700. Font family/size/color/line-height still inherit from the bubble's
+// brand theme - only weight and spacing are set here.
+//
+// RichMessageRenderer's ParaRenderer/list renderers put an INLINE
+// style={{ margin: 0 }} on every <p>/<ol>/<ul> (see RichMessageComponents/
+// dist.js), which beats any stylesheet selector - so the block-gap rule
+// below has to be !important to land, otherwise paragraphs render flush.
+const RichText = styled.div`
+  font-weight: 500;
+
+  > * + * {
+    margin-top: ${({ theme }) => theme.spacing.small} !important;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+`;
+
 const ErrorText = styled.div`
   ${({ theme }) => theme.typography.supportingText};
   color: ${({ theme }) => theme.palette.red};
@@ -288,6 +311,15 @@ export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageTyp
 }
 
 const INTERACTIVE_MESSAGE_TEMPLATE_TYPES = Object.values(InteractiveMessageType);
+
+// Amazon Connect's "Play prompt" contact-flow block can only send messages
+// as text/plain - it has no content-type option - so a bot author who wants
+// a message rendered as markdown wraps its body in a <Markdown>...</Markdown>
+// tag. When an incoming message's text is wrapped this way, strip the tag
+// and render the inner content through RichMessageRenderer (see
+// renderContent). This is an explicit per-message opt-in: every other
+// text/plain reply, wrapped or not, stays literal.
+const MARKDOWN_WRAPPER_RE = /^\s*<markdown>\s*([\s\S]*?)\s*<\/markdown>\s*$/i;
 
 // Amazon Connect's SendMessage API only accepts ContentType text/plain or
 // text/markdown for a CUSTOM_BOT participant (confirmed via a live
@@ -727,9 +759,23 @@ export class ParticipantMessage extends PureComponent {
       return <PlainTextMessage content={action} />
     }
 
-    if (contentType === ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN) {
+    // A text/plain bot message whose body is wrapped in <Markdown>...</Markdown>
+    // is an explicit opt-in to rich rendering (the Play-prompt author's
+    // marker - that block cannot set a text/markdown content type). Strip
+    // the tag and render the inner markdown; genuine text/markdown messages
+    // take the same path. Every other plain-text reply stays literal.
+    const markdownWrapped =
+      this.props.messageDetails.transportDetails.direction === Direction.Incoming &&
+      typeof content === "string"
+        ? content.match(MARKDOWN_WRAPPER_RE)
+        : null;
+    if (markdownWrapped || contentType === ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN) {
       this.triggerCountMetric(CSM_CONSTANTS.RENDER_RICH_MESSAGE)
-      return <RichMessageRenderer content={content} />
+      return (
+        <RichText>
+          <RichMessageRenderer content={markdownWrapped ? markdownWrapped[1] : content} />
+        </RichText>
+      )
     }
     this.triggerCountMetric(CSM_CONSTANTS.RENDER_PLAIN_MESSAGE)
     if (isCarouselSelectionMessage(content)) {

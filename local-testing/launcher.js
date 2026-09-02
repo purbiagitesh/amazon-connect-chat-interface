@@ -187,21 +187,57 @@
     return { brand: brand, env: env };
   }
 
-  function buildContactAttributes(brandInfo, utagData) {
+  async function getCustomerContext() {
+    // The brand site exposes this to hand us the signed-in customer's details.
+    // It may be missing entirely (unsupported market) or reject (failed request);
+    // a guest returns { authenticated: false }. Any of those => treat as guest.
+    try {
+      if (window.ElcAmazonConnect && typeof window.ElcAmazonConnect.getCustomerContext === 'function') {
+        return (await window.ElcAmazonConnect.getCustomerContext()) || {};
+      }
+    } catch (err) {
+      console.error('[chat-widget] getCustomerContext() failed:', err);
+    }
+    return {};
+  }
+
+  async function buildContactAttributes(brandInfo, utagData) {
     utagData = utagData || {};
-    return {
-      brand: brandInfo.config.title || '',
-      // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
-      customerLoggedIn: 'Yes',
-      customerId: utagData.USER_ID || '',// stringfy
-      customerEmail: 'purbiagitesh@gmail.com',
-      customerName: 'Gitesh',
-      region_code:utagData.region_code || '',
-      brandLocation: utagData.locale || '',
-      language_code: utagData.language_code || '',
-      country_code: utagData.country_code || '',
+
+    var customerContext = await getCustomerContext();
+    var isAuthenticated = customerContext.authenticated === true;
+
+    // email / firstName / lastName are always strings in the authenticated
+    // response; firstName/lastName can legitimately be empty.
+    var firstName = isAuthenticated && typeof customerContext.firstName === 'string' ? customerContext.firstName : '';
+    var lastName = isAuthenticated && typeof customerContext.lastName === 'string' ? customerContext.lastName : '';
+    var email = isAuthenticated && typeof customerContext.email === 'string' && customerContext.email
+      ? customerContext.email
+      : 'purbiagitesh@gmail.com';
+    // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
+    var customerLoggedIn = isAuthenticated ? 'Yes' : 'No';
+    //var customerName = (firstName + ' ' + lastName).trim();
+     var customerName = firstName;
+
+    var attributes = {
+      brand_code: brandInfo.config.title || '',
+      customerLoggedIn: customerLoggedIn,
+      customerId: utagData.USER_ID || '3069853573',// stringfy
+      email: email,
+      customerName: customerName,
+      firstName: firstName,
+      lastName: lastName,
+      region_code:utagData.region_code || 'NA',
+       language_code: utagData.locale || 'en-US',
+     // language_code: utagData.language_code || '',
+      country_code: utagData.country_code || 'us',
       channel: 'Chat'
     };
+    // Only surface the "is the name present?" flag for logged-in customers.
+    if (customerLoggedIn === 'Yes') {
+      attributes.customerNamePresent = customerName === '' ? 'False' : 'True';
+    }
+    return attributes;
   }
 
   function hexToRgba(hex, alpha) {
@@ -313,8 +349,8 @@
       btn.classList.remove('widget-open');
     }
 
-    function startChat() {
-      var contactAttributes = buildContactAttributes(brandInfo, window.utag_data);
+    async function startChat() {
+      var contactAttributes = await buildContactAttributes(brandInfo, window.utag_data);
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
@@ -342,7 +378,7 @@
       }
       openPanel();
       if (!hasActiveChat) {
-        startChat();
+        startChat().catch(function (err) { console.error('[chat-widget] startChat failed:', err); });
       }
     });
 
@@ -350,7 +386,7 @@
       if (panel.classList.contains('open')) return;
       openPanel();
       if (!hasActiveChat) {
-        startChat();
+        startChat().catch(function (err) { console.error('[chat-widget] startChat failed:', err); });
       }
     }
 
