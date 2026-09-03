@@ -1,6 +1,5 @@
 (function () {
   'use strict';
-
   var LAUNCHER_BASE_URL = (function () {
     var scriptUrl = null;
     if (document.currentScript && document.currentScript.src) {
@@ -160,7 +159,6 @@
     DEV: 'dev', DEVELOPMENT: 'dev',
     NOPROD: 'NOPROD'
   };
-
   var BRAND_ALIAS_MAP = {};
 
   function waitForUtagData(onReady, onTimeout) {
@@ -190,21 +188,51 @@
     return { brand: brand, env: env };
   }
 
-  function buildContactAttributes(brandInfo, utagData) {
+  async function getCustomerContext() {
+    // The brand site exposes this to hand us the signed-in customer's details.
+    // It may be missing entirely (unsupported market) or reject (failed request);
+    // a guest returns { authenticated: false }. Any of those => treat as guest.
+    try {
+      if (window.ElcAmazonConnect && typeof window.ElcAmazonConnect.getCustomerContext === 'function') {
+        return (await window.ElcAmazonConnect.getCustomerContext()) || {};
+      }
+    } catch (err) {
+      console.error('[chat-widget] getCustomerContext() failed:', err);
+    }
+    return {};
+  }
+
+  async function buildContactAttributes(brandInfo, utagData) {
     utagData = utagData || {};
-    return {
-      brand: brandInfo.config.title || '',
-      // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
-      customerLoggedIn: 'Yes',
-      customerId: String(utagData.USER_ID || ''),
-      customerEmail: 'purbiagitesh@gmail.com',
-      customerName: 'Gitesh',
-      region_code:utagData.region_code || '',
-      brandLocation: utagData.locale || '',
-      language_code: utagData.language_code || '',
-      country_code: utagData.country_code || '',
+
+    var customerContext = await getCustomerContext();
+    var isAuthenticated = customerContext.authenticated === true;
+
+    var firstName = isAuthenticated && typeof customerContext.firstName === 'string' ? customerContext.firstName : '';
+    var lastName = isAuthenticated && typeof customerContext.lastName === 'string' ? customerContext.lastName : '';
+    var email = isAuthenticated && typeof customerContext.email === 'string' && customerContext.email
+      ? customerContext.email
+      : 'purbiagitesh@gmail.com';
+    var customerLoggedIn = isAuthenticated ? 'Yes' : 'No';
+    var customerName = firstName;
+
+    var attributes = {
+      brand_code: brandInfo.config.title || '',
+      customerLoggedIn: customerLoggedIn,
+      customerId: String(utagData.USER_ID) || null,
+      email: email,
+      customerName: customerName,
+      firstName: firstName,
+      lastName: lastName,
+      region_code:utagData.region_code || 'NA',
+      language_code: utagData.locale || 'en-US',
+      country_code: utagData.country_code || 'us',
       channel: 'Chat'
     };
+    if (customerLoggedIn === 'Yes') {
+      attributes.customerNamePresent = customerName === '' ? 'False' : 'True';
+    }
+    return attributes;
   }
 
   // ─── Chat persistence across full page navigations ───
@@ -372,6 +400,7 @@
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
     });
+
     var hasActiveChat = false;
     var resolvedBrand = brandInfo.brand;
     var resolvedEnv = brandInfo.environment;
@@ -406,8 +435,8 @@
       });
     }
 
-    function startChat() {
-      var contactAttributes = buildContactAttributes(brandInfo, window.utag_data);
+    async function startChat() {
+      var contactAttributes = await buildContactAttributes(brandInfo, window.utag_data);
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
@@ -428,13 +457,6 @@
       });
     }
 
-    // Reconnects to a chat that was already active before this page/tab
-    // loaded, using the credentials persistActiveChat() saved. Skips
-    // StartChatContact/the Lambda entirely - see ChatContainer.js's
-    // resumeChatSession - and re-attaches the SAME contact instead of
-    // creating a new one. Past messages reload automatically once
-    // connected (existing ChatSession.js behavior, untouched by this
-    // feature).
     function resumeChat(persisted) {
       window.connect.ChatInterface.resumeChat({
         chatDetails: persisted.chatDetails,
@@ -445,25 +467,12 @@
         persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
         wireChatEndCleanup(chatSession);
       }, function onFailure(error) {
-        // Persisted session no longer valid (expired token, contact
-        // already ended server-side, etc.) - clean up and fall back
-        // silently. The customer never explicitly asked for this resume
-        // attempt, so no error should surface to them for it failing; the
-        // panel was never opened for it either (see the 5s auto-resume
-        // timer below), so there's nothing visible to clean up there.
         console.warn('[chat-widget] failed to resume previous chat session', error);
         clearPersistedChat(resolvedBrand);
         hasActiveChat = false;
       });
     }
 
-    // Used by explicit customer actions (click, ChatWidget.open()) - if a
-    // resumable session exists, reconnect to that SAME contact and reload
-    // its history; otherwise start a brand new chat. A resumable session
-    // is always resumed here regardless of whether another tab is also
-    // connected to it - each tab reconnects with the same participant
-    // token independently, so this never creates a second/duplicate
-    // contact or overwrites ac_active_chat.
     function startOrResumeChat() {
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
