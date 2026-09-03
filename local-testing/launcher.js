@@ -221,13 +221,13 @@
   // reloads it on any successful connect, new or reconnected.
   var CHAT_PERSIST_STALE_AFTER_MS = 300 * 60 * 1000; // 5 hours - UX judgment call, not a token-expiry limit; adjust freely
 
-  function chatStorageKey(brand) {
-    return 'ac_active_chat_' + brand;
+  function chatStorageKey() {
+    return 'ac_active_chat';
   }
 
   function persistActiveChat(brand, env, chatDetails, customerName) {
     try {
-      localStorage.setItem(chatStorageKey(brand), JSON.stringify({
+      localStorage.setItem(chatStorageKey(), JSON.stringify({
         chatDetails: chatDetails,
         name: customerName,
         brand: brand,
@@ -244,7 +244,7 @@
 
   function clearPersistedChat(brand) {
     try {
-      localStorage.removeItem(chatStorageKey(brand));
+      localStorage.removeItem(chatStorageKey());
     } catch (e) {
       // ignore
     }
@@ -256,7 +256,7 @@
   function getResumableSession(brand) {
     var raw;
     try {
-      raw = localStorage.getItem(chatStorageKey(brand));
+      raw = localStorage.getItem(chatStorageKey());
     } catch (e) {
       return null;
     }
