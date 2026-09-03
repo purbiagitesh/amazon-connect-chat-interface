@@ -194,6 +194,16 @@ class ChatSession {
    */
   isOutgoingMessageInFlight = false;
 
+  // AUTH POLLING - see "Chat Authentication Flow" design doc (Aug 2026).
+  // _authPollRetryCount is a local, non-authoritative counter purely to
+  // decide when THIS widget stops polling (and to include as a hint in
+  // each poll's payload) - Lex/the contact flow own the authoritative
+  // retryCount server-side and are responsible for the actual 20-retry
+  // disconnect, per that doc.
+  _authPollTimer = null;
+  _authPollRetryCount = 0;
+  _authPollMaxRetries = 20; // 20 x 30s = 10 minutes, matching the design doc
+
   _eventHandlers = {
     "transcript-changed": [],
     "typing-participants-changed": [],
@@ -270,6 +280,7 @@ class ChatSession {
     return this.client.connect().then(
       (response) => {
         this._updateContactStatus(CONTACT_STATUS.CONNECTED);
+        this.startAuthPolling();
         return response;
       },
       (error) => {
@@ -280,6 +291,7 @@ class ChatSession {
   }
 
   async endChat() {
+    this.stopAuthPolling();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -411,6 +423,107 @@ class ChatSession {
 
         this._failMessage(transcriptItem);
       });
+  }
+
+  // AUTH POLLING
+  //
+  // Every 30s, while the customer hasn't been confirmed logged in yet (per
+  // window.utag_data), sends a hidden message reporting current auth
+  // state. Reuses the exact "actionName" hidden-message shape
+  // createInteractiveMessagePayload() already builds for SHOW_MORE/
+  // PREVIOUS_OPTIONS clicks (see helper.js) - _shouldAddToTranscript()
+  // already filters anything with a data.actionName out of the visible
+  // transcript, so this needed no new UI-hiding logic, just a new
+  // actionName value ("AUTH_POLL") for the backend to recognize.
+  //
+  // Backend/Lex side (outside this repo, per the design doc): recognize
+  // AUTH_POLL messages, maintain authFlag/retryCount as session
+  // attributes (authoritative - retryCount here is only a local hint),
+  // branch into the authenticated journey once authFlag is true, and own
+  // the actual disconnect once their own retryCount hits 20 - this widget
+  // only stops sending further polls at that point, it does not disconnect
+  // itself.
+
+  /**
+   * Reads window.utag_data for the customer's current login state. Kept
+   * as a single method (rather than duplicating the check inline) since
+   * the same utag_data.customer_state/USER_ID convention is also used by
+   * launcher.js's initial StartChatContact contactAttributes - if that
+   * field name ever changes, this is the one place in this bundle to update.
+   */
+  _getAuthStateFromUtagData() {
+    const utagData = (typeof window !== "undefined" && window.utag_data) || {};
+    return {
+      authFlag: utagData.customer_state === "logged in",
+      userId: utagData.USER_ID || null,
+    };
+  }
+
+  /**
+   * Starts the 30s auth-poll loop. No-op if the customer is already
+   * logged in at connect time (StartChatContact's initial
+   * contactAttributes already covers that case - see launcher.js).
+   */
+  startAuthPolling() {
+    if (this._authPollTimer) {
+      return; // already running
+    }
+    const initial = this._getAuthStateFromUtagData();
+    if (initial.authFlag) {
+      this.logger && this.logger.info("Customer already logged in at chat start - auth polling not needed");
+      return;
+    }
+    this._authPollRetryCount = 0;
+    this.logger && this.logger.info("Starting auth polling (every 30s, max " + this._authPollMaxRetries + " retries)");
+    this._authPollTimer = setInterval(() => {
+      this._authPollRetryCount++;
+      const { authFlag, userId } = this._getAuthStateFromUtagData();
+      this._sendAuthPoll(authFlag, userId);
+      if (authFlag) {
+        // Login detected - this poll already reported it, nothing more to send.
+        this.stopAuthPolling();
+        return;
+      }
+      if (this._authPollRetryCount >= this._authPollMaxRetries) {
+        // Local safety net only - Connect/Lex own the actual disconnect
+        // once their own server-side retryCount reaches the same limit
+        // (per the design doc); we just stop sending further polls.
+        this.logger && this.logger.warn("Auth polling reached max retries without login - stopping local polling");
+        this.stopAuthPolling();
+      }
+    }, 30000);
+  }
+
+  /**
+   * Stops the auth-poll loop, if running. Safe to call even if polling was
+   * never started or already stopped. Called on login detection (from
+   * within the interval above), on reaching max retries, and from
+   * endChat()/_handleEndedEvent() so nothing keeps polling after the chat
+   * session itself has ended.
+   */
+  stopAuthPolling() {
+    if (this._authPollTimer) {
+      clearInterval(this._authPollTimer);
+      this._authPollTimer = null;
+    }
+  }
+
+  _sendAuthPoll(authFlag, userId) {
+    const requestBody = {
+      version: "1.0",
+      data: {
+        actionName: "AUTH_POLL",
+        authFlag,
+        userId,
+        retryCount: this._authPollRetryCount,
+      },
+      action: "AUTH_POLL",
+    };
+    this.logger && this.logger.info(`Sending AUTH_POLL: authFlag=${authFlag} retryCount=${this._authPollRetryCount}`);
+    this.addOutgoingMessage({
+      text: JSON.stringify(requestBody),
+      type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+    });
   }
 
   downloadAttachment(attachmentId) {
@@ -864,6 +977,7 @@ class ChatSession {
 
   /** called when transcript has chat ended message */
   _handleEndedEvent() {
+    this.stopAuthPolling();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
