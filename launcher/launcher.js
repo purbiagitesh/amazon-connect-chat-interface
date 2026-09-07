@@ -222,8 +222,6 @@
       customerId: String(utagData.USER_ID) || null,
       email: email,
       customerName: customerName,
-      firstName: firstName,
-      lastName: lastName,
       region_code:utagData.region_code || 'NA',
       language_code: utagData.locale || 'en-US',
       country_code: utagData.country_code || 'us',
