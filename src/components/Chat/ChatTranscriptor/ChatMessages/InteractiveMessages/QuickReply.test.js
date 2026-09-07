@@ -170,14 +170,14 @@ describe("<QuickReply /> rating style", () => {
   // regardless of rating style. Flattening feedback-flow answers to plain text
   // is done centrally in ChatSession (flattenFeedbackQuickReplyResponse), so it
   // can key off the incoming prompt's metadata rather than the component.
-  it("renders the rating chips and still emits the interactive.response envelope (displayStyle 'rating')", () => {
+  it("renders the rating options full-width and still emits the interactive.response envelope (displayStyle 'rating')", () => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
     renderElement({
       content: {title: "Rate us", displayStyle: "rating", elements: ratingElements},
       addMessage,
     });
 
-    fireEvent.click(screen.getByLabelText("2 Dissatisfied"));
+    fireEvent.click(screen.getByText("2 Dissatisfied"));
     expect(addMessage).toHaveBeenCalledWith({
       text: JSON.stringify({
         templateType: InteractiveMessageType.QUICK_REPLY,
@@ -188,16 +188,14 @@ describe("<QuickReply /> rating style", () => {
     });
   });
 
-  it("auto-detects the 1-5 scale for chip rendering even without displayStyle", () => {
+  it("auto-detects the 1-5 scale for the full-width rating layout even without displayStyle", () => {
     const addMessage = jest.fn().mockResolvedValue(undefined);
     renderElement({
       content: {title: "Rate us", elements: ratingElements},
       addMessage,
     });
 
-    // aria-label is only set on rating-chip buttons, so finding it by label
-    // proves the chip glyph rendered.
-    fireEvent.click(screen.getByLabelText("5 Very Satisfied"));
+    fireEvent.click(screen.getByText("5 Very Satisfied"));
     expect(addMessage).toHaveBeenCalledWith({
       text: JSON.stringify({
         templateType: InteractiveMessageType.QUICK_REPLY,

@@ -231,10 +231,6 @@
       country_code: utagData.country_code || 'us',
       channel: 'Chat'
     };
-    // Only surface the "is the name present?" flag for logged-in customers.
-    if (customerLoggedIn === 'Yes') {
-      attributes.customerNamePresent = customerName === '' ? 'False' : 'True';
-    }
     return attributes;
   }
 
