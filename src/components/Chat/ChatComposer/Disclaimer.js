@@ -157,7 +157,7 @@ function ExpandLessIcon(props) {
   );
 }
 
-export default function Disclaimer({expanded, onToggleExpand, highlighted, privacyPolicyUrl, termsOfUseUrl}) {
+export default function Disclaimer({expanded, onToggleExpand, highlighted, privacyPolicyUrl, termsOfUseUrl, consumerHealthDataPrivacyStatementUrl, disclaimerMessage}) {
   const intl = useIntl();
 
   const privacyPolicyLabel = intl.formatMessage({
@@ -169,20 +169,37 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
     defaultMessage: "Terms & Conditions",
   });
 
+  const consumerHealthDataPrivacyStatementLabel = intl.formatMessage({
+    id: "disclaimer.consumerHealthDataPrivacyStatement",
+    defaultMessage: "Consumer Health Data Privacy Statement",
+  });
+
   const text = intl.formatMessage(
     {
       id: "disclaimer.recordingNotice",
+      // Text is entirely brand-config-driven (widget.disclaimer.disclaimerMessage
+      // in the brand's env.*.json);
+      // ICU message syntax only treats paired tags (<br></br>) as rich-text
+      // nodes that invoke the `br` resolver below; self-closing <br/> is
+      // parsed as a literal string and would render as visible text.
       defaultMessage:
-         // ICU message syntax only treats paired tags (<br></br>) as rich-text
-         // nodes that invoke the `br` resolver below; self-closing <br/> is
-         // parsed as a literal string and would render as visible text.
-         "Virtual Assistant is AI-powered and can make mistakes. While I strive for accuracy, please confirm any relevant information. We and our service providers will record and retain a transcript of this chat to provide, support, and improve your experience. This service is not directed to, and should not be used by, individuals who are under the age of majority in their jurisdiction of residence. <br></br><br></br> By sending a message, you agree to our {termsOfUseLink} and consent to the collection, use, and other processing of your personal information for the purpose of responding to your inquiry, including generating personalised product recommendations using automated tools. To learn more about Estée Lauder's privacy practices and your privacy rights, please review our {privacyPolicyLink}.",
+         disclaimerMessage,
     },
     {
       // Always rendered with link styling (blue + underline) per spec, even
       // before a brand has a real URL configured - an <a> with no href is
       // inert (no navigation, not keyboard-focusable) but keeps the visual
       // match with Figma instead of silently degrading to plain text.
+      consumerHealthDataPrivacyStatementLink: (
+        <Link
+          key="consumerHealthDataPrivacyStatement"
+          href={consumerHealthDataPrivacyStatementUrl || undefined}
+          target={consumerHealthDataPrivacyStatementUrl ? "_blank" : undefined}
+          rel={consumerHealthDataPrivacyStatementUrl ? "noopener noreferrer" : undefined}
+        >
+          {consumerHealthDataPrivacyStatementLabel}
+        </Link>
+      ),
       privacyPolicyLink: (
         <Link
           key="privacy"

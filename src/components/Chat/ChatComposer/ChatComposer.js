@@ -881,6 +881,8 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
           highlighted={isInputFocused}
           privacyPolicyUrl={disclaimerConfig && disclaimerConfig.privacyPolicyUrl}
           termsOfUseUrl={disclaimerConfig && disclaimerConfig.termsOfUseUrl}
+          disclaimerMessage={disclaimerConfig && disclaimerConfig.disclaimerMessage}
+          consumerHealthDataPrivacyStatementUrl={disclaimerConfig && disclaimerConfig?.consumerHealthDataPrivacyStatementUrl}
         />
       )}
       { contactStatus === CONTACT_STATUS.CONNECTED && (
