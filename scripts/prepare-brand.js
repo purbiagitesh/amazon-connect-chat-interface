@@ -416,9 +416,11 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
       header:              config.header || {},
       disclaimer:          config.disclaimer || {},
       colors:              colorPalette,
+      // instanceId/contactFlowId/snippetId are deliberately not surfaced
+      // here - the Lambda behind apiGatewayEndpoint owns that config via
+      // its own env vars now, and the UI never sends them (confirmed
+      // working end-to-end - see ChatInitiator.js).
       apiGatewayEndpoint:  config.aws?.apiGatewayEndpoint || '',
-      instanceId:          config.aws?.instanceId || '',
-      contactFlowId:       config.aws?.contactFlowId || '',
       region:              config.aws?.region || '',
     },
   };

@@ -12,14 +12,24 @@ const DEFAULT_PREFIX = "Amazon-Connect-ChatInterface-ChatSession";
 // ─── Customer inactivity handling ───
 // Entirely client-side, no Connect/Lex/contact-flow coordination: if the
 // customer hasn't replied within INACTIVITY_REPROMPT_DELAY_MS of the last
-// incoming message, the widget locally re-displays that same message (a
-// nudge, not a real re-send - see modelUtils.cloneIncomingItemForReprompt,
+// incoming message, the widget shows a local "didn't get your response"
+// notice and re-displays that same message (a nudge, not a real re-send -
+// see modelUtils.cloneIncomingItemForReprompt/createLocalIncomingNotice,
 // this widget only has a CUSTOMER participant connection and has no way to
 // make the bot/agent actually speak again). If that still gets no reply
-// within another INACTIVITY_DISCONNECT_DELAY_MS, the chat ends automatically
-// via the normal endChat() path.
+// within another INACTIVITY_DISCONNECT_DELAY_MS, a closing notice is shown
+// and the chat ends automatically via the normal endChat() path.
 const INACTIVITY_REPROMPT_DELAY_MS = 90 * 1000;
 const INACTIVITY_DISCONNECT_DELAY_MS = 30 * 1000;
+// Not part of the 90s/30s timing itself - just a brief pause after the
+// closing notice is added so it's actually visible before endChat() closes
+// the panel (see wireChatEndCleanup's onChatClose in launcher.js).
+const INACTIVITY_END_MESSAGE_DELAY_MS = 2 * 1000;
+// No i18n hook available in this file (it's a plain class, not a React
+// component) - hardcoded same as everything else here. Move to a
+// react-intl message if these ever need to be localized.
+const INACTIVITY_NO_RESPONSE_MESSAGE = "Sorry, I didn't get your response.";
+const INACTIVITY_CLOSING_MESSAGE = "Thank you for connecting with us today.";
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
   return CurrentChatSessionInstance;
@@ -1059,18 +1069,27 @@ class ChatSession {
     }
   }
 
-  // 90s elapsed with no reply - locally re-display the last incoming
-  // message (see modelUtils.cloneIncomingItemForReprompt) and start the
-  // final 30s countdown to an automatic disconnect.
+  // 90s elapsed with no reply - show the local "didn't get your response"
+  // notice, then re-display the last incoming message (see
+  // modelUtils.cloneIncomingItemForReprompt), then start the final 30s
+  // countdown to an automatic disconnect.
   _handleInactivityReprompt() {
     this._inactivityReminderTimer = null;
     if (this.contactStatus !== CONTACT_STATUS.CONNECTED) {
       return;
     }
     if (this._lastIncomingMessageItem) {
+      const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_NO_RESPONSE_MESSAGE);
+      this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+
       const repromptItem = modelUtils.cloneIncomingItemForReprompt(this._lastIncomingMessageItem);
+      // Nudges the reprompt a hair later than the notice above so it
+      // always sorts after it, even if both resolve to the same
+      // millisecond (_addItemsToTranscript orders by sentTime).
+      repromptItem.transportDetails.sentTime = noticeItem.transportDetails.sentTime + 0.001;
       this._shouldAddToTranscript(repromptItem) && this._addItemsToTranscript([repromptItem]);
-      this.logger && this.logger.info("Customer inactive for 90s - re-displaying last message locally.");
+
+      this.logger && this.logger.info("Customer inactive for 90s - showing notice and re-displaying last message locally.");
     }
     this._inactivityDisconnectTimer = setTimeout(() => {
       this._handleInactivityDisconnect();
@@ -1080,15 +1099,29 @@ class ChatSession {
     }
   }
 
-  // A further 30s elapsed (120s total) with still no reply - end the chat
-  // the same way the customer ending it themselves would.
+  // A further 30s elapsed (120s total) with still no reply - show the local
+  // closing notice, then end the chat the same way the customer ending it
+  // themselves would. The endChat() call is delayed slightly
+  // (INACTIVITY_END_MESSAGE_DELAY_MS) purely so the notice is visible
+  // before the panel closes - see that constant's comment above.
   _handleInactivityDisconnect() {
     this._inactivityDisconnectTimer = null;
     if (this.contactStatus !== CONTACT_STATUS.CONNECTED) {
       return;
     }
     this.logger && this.logger.info("Customer still inactive after re-prompt - ending chat automatically.");
-    this.endChat();
+    if (this._lastIncomingMessageItem) {
+      const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
+      this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+      const endChatTimer = setTimeout(() => {
+        this.endChat();
+      }, INACTIVITY_END_MESSAGE_DELAY_MS);
+      if (typeof endChatTimer.unref === "function") {
+        endChatTimer.unref();
+      }
+    } else {
+      this.endChat();
+    }
   }
 
   // The message of clicking "Show more" or "Previous options" in interactive message should not add to transcript

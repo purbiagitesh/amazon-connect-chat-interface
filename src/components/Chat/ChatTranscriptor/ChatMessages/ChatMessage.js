@@ -182,7 +182,7 @@ const MessageContainer = styled.div`
 // Wraps RichMessageRenderer output - both real text/markdown messages and
 // bot/system text/plain messages sniffed as markdown (see renderContent) -
 // so a multi-paragraph reply matches Figma: a visible gap between
-// consecutive blocks and body copy at Medium weight, with **bold** spans at
+// consecutive blocks and body copy at Regular weight, with **bold** spans at
 // 700. Font family/size/color/line-height still inherit from the bubble's
 // brand theme - only weight and spacing are set here.
 //
@@ -191,7 +191,7 @@ const MessageContainer = styled.div`
 // dist.js), which beats any stylesheet selector - so the block-gap rule
 // below has to be !important to land, otherwise paragraphs render flush.
 const RichText = styled.div`
-  font-weight: 500;
+  font-weight: 400;
 
   > * + * {
     margin-top: ${({ theme }) => theme.spacing.small} !important;

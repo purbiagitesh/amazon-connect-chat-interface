@@ -123,6 +123,26 @@ function cloneIncomingItemForReprompt(item) {
   return clonedItem;
 }
 
+// Same "local-only, never sent anywhere" rules as cloneIncomingItemForReprompt
+// above, but for a brand new piece of text (the inactivity flow's "Sorry, I
+// didn't get your response."/"Thank you for connecting with us today."
+// notices) rather than a copy of an existing message. Reuses referenceItem's
+// participantId/participantRole/displayName so the notice still visually
+// reads as coming from whoever was last speaking (the bot/agent), just with
+// fresh content, id, and timestamp.
+function createLocalIncomingNotice(referenceItem, text) {
+  const clonedItem = new ItemDetails(referenceItem);
+  clonedItem.id = _generateLocalId();
+  clonedItem.type = PARTICIPANT_MESSAGE;
+  clonedItem.content = {data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN};
+  clonedItem.transportDetails = {
+    ...referenceItem.transportDetails,
+    status: Status.SendSuccess,
+    sentTime: _timestampNow(),
+  };
+  return clonedItem;
+}
+
 function _generateLocalId() {
   var dt = new Date().getTime();
   var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
@@ -281,6 +301,7 @@ var modelUtils = {
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
   createFailedItem: createFailedItem,
   cloneIncomingItemForReprompt: cloneIncomingItemForReprompt,
+  createLocalIncomingNotice: createLocalIncomingNotice,
   createTypingParticipant: createTypingParticipant,
   isRecognizedEvent: isRecognizedEvent,
   createTranscriptItemFromSuccessResponse: createTranscriptItemFromSuccessResponse,

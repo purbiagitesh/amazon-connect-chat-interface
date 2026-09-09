@@ -435,8 +435,8 @@
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
-        instanceId: brandConfig.instanceId,
-        contactFlowId: brandConfig.contactFlowId,
+        // instanceId/contactFlowId are not sent - the Lambda behind
+        // apiGatewayEndpoint owns that config via its own env vars.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
