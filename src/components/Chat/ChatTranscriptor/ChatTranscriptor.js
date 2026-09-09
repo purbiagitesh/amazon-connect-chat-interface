@@ -61,6 +61,20 @@ export default class ChatTranscriptor extends PureComponent {
   };
 
   loadTranscript = () => {
+    // Loading more history from the Participant Service only makes sense
+    // while the contact is still actually connected - once it's ended
+    // (DISCONNECTED, via endChat()/_endChatKeepingPanelOpen in
+    // ChatSession.js) the underlying ChatJS session has nothing valid left
+    // to reach, and calling getTranscript() against it can hang rather than
+    // reject. That's what was freezing ChatTranscriptScroller.js when a
+    // customer scrolled up after the inactivity flow ended their chat but
+    // (deliberately) left the panel open: `loading` never got reset to
+    // false because loadPreviousTranscript()'s promise never settled.
+    // Resolving immediately here instead of calling through keeps that
+    // promise chain intact/well-behaved with nothing to actually load.
+    if (this.props.contactStatus !== CONTACT_STATUS.CONNECTED) {
+      return Promise.resolve();
+    }
     console.log("CCP", "ChatTranscriptor - transcriptLoading true");
     return this.props.loadPreviousTranscript().then((data) => {
       console.log("CCP", "ChatTranscriptor - transcript Loading complete");
@@ -207,7 +221,14 @@ export default class ChatTranscriptor extends PureComponent {
       >
         {(this.props.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.props.contactStatus === CONTACT_STATUS.ACW ||
-          this.props.contactStatus === CONTACT_STATUS.ENDED) && (
+          this.props.contactStatus === CONTACT_STATUS.ENDED ||
+          // DISCONNECTED is the status endChat()/_endChatKeepingPanelOpen()
+          // (ChatSession.js) transition to once the contact is actually
+          // ended - the transcript/history must stay visible here too, or
+          // the panel goes blank the moment a chat ends (previously masked
+          // by the panel closing at the same time; no longer true now that
+          // the inactivity auto-disconnect flow keeps it open).
+          this.props.contactStatus === CONTACT_STATUS.DISCONNECTED) && (
             <TranscriptBody>
               {this.props.transcript.map((item, idx) => this.renderMessage(item, idx === lastMessageIndex))}
               {this.props.typingParticipants.map(typing =>

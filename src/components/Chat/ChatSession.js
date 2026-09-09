@@ -18,13 +18,12 @@ const DEFAULT_PREFIX = "Amazon-Connect-ChatInterface-ChatSession";
 // this widget only has a CUSTOMER participant connection and has no way to
 // make the bot/agent actually speak again). If that still gets no reply
 // within another INACTIVITY_DISCONNECT_DELAY_MS, a closing notice is shown
-// and the chat ends automatically via the normal endChat() path.
+// and the underlying Connect contact is ended automatically - but the
+// widget panel itself is deliberately left open (see
+// _endChatKeepingPanelOpen) so the customer can still see the closing
+// message and the rest of the transcript, rather than the widget vanishing.
 const INACTIVITY_REPROMPT_DELAY_MS = 90 * 1000;
 const INACTIVITY_DISCONNECT_DELAY_MS = 30 * 1000;
-// Not part of the 90s/30s timing itself - just a brief pause after the
-// closing notice is added so it's actually visible before endChat() closes
-// the panel (see wireChatEndCleanup's onChatClose in launcher.js).
-const INACTIVITY_END_MESSAGE_DELAY_MS = 2 * 1000;
 // No i18n hook available in this file (it's a plain class, not a React
 // component) - hardcoded same as everything else here. Move to a
 // react-intl message if these ever need to be localized.
@@ -319,22 +318,67 @@ class ChatSession {
     this._triggerEvent("chat-closed");
   }
 
+  // Same real work as endChat() (actually disconnects the Connect contact),
+  // but deliberately does NOT trigger "chat-closed" - only "chat-disconnected".
+  // launcher.js's wireChatEndCleanup maps "chat-closed" to closePanel(), so
+  // skipping it here is what keeps the panel open. Used by the inactivity
+  // auto-disconnect flow (_handleInactivityDisconnect) specifically, per an
+  // explicit product decision: the customer should still see the closing
+  // message/transcript rather than have the widget vanish out from under
+  // them. "chat-disconnected" is still triggered, so clearPersistedChat()
+  // (wired to both events in launcher.js) still runs - this session won't
+  // be offered for resume again.
+  async _endChatKeepingPanelOpen() {
+    this._clearInactivityTimers();
+    await this.client.disconnect();
+    this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
+    this._triggerEvent("chat-disconnected");
+  }
+
   closeChat() {
     this._triggerEvent("chat-closed");
   }
 
+  // Guards the three SendEvent-based calls below: ChatMessage.js's InView
+  // tracking fires sendReadReceipt() as messages scroll in/out of view
+  // (independent of any user action beyond scrolling), and once the contact
+  // has actually ended (endChat()/_endChatKeepingPanelOpen - contactStatus
+  // becomes DISCONNECTED) the underlying ChatJS session has nothing valid
+  // left to send these against. Rather than reject cleanly, ChatJS's own
+  // internal response handling throws trying to attach metadata to an
+  // undefined response - repeated scrolling repeatedly re-triggers this and
+  // is what was freezing the transcript after a chat ended but (per the
+  // keep-the-panel-open change) stayed visible and scrollable. Resolving a
+  // no-op here instead of calling through avoids all of that.
+  // Deliberately checks for DISCONNECTED specifically rather than requiring
+  // exactly CONNECTED - CONNECTING/ENDED/ACW are all states where the
+  // session is still legitimately reachable, only a fully ended contact
+  // isn't.
+  _isSendEventSafe() {
+    return this.contactStatus !== CONTACT_STATUS.DISCONNECTED;
+  }
+
   sendTypingEvent() {
     this.logger && this.logger.info("Calling SendEvent API for Typing");
+    if (!this._isSendEventSafe()) {
+      return Promise.resolve();
+    }
     return this.client.sendTypingEvent();
   }
 
   sendReadReceipt(messageId, options) {
     this.logger && this.logger.info("Calling SendEvent API for ReadReceipt", messageId, options);
+    if (!this._isSendEventSafe()) {
+      return Promise.resolve();
+    }
     return this.client.sendReadReceipt(messageId, options);
   }
 
   sendDeliveredReceipt(messageId, options) {
     this.logger && this.logger.info("Calling SendEvent API for DeliveredReceipt", messageId, options);
+    if (!this._isSendEventSafe()) {
+      return Promise.resolve();
+    }
     return this.client.sendDeliveredReceipt(messageId, options);
   }
 
@@ -1100,10 +1144,13 @@ class ChatSession {
   }
 
   // A further 30s elapsed (120s total) with still no reply - show the local
-  // closing notice, then end the chat the same way the customer ending it
-  // themselves would. The endChat() call is delayed slightly
-  // (INACTIVITY_END_MESSAGE_DELAY_MS) purely so the notice is visible
-  // before the panel closes - see that constant's comment above.
+  // closing notice, then immediately end the underlying Connect contact
+  // WITHOUT closing the widget panel (see _endChatKeepingPanelOpen). No
+  // artificial delay between the two: the panel stays open and the notice
+  // stays visible in the transcript regardless, so there's nothing to wait
+  // for - and ending immediately also clears the persisted-chat localStorage
+  // key (via clearPersistedChat, wired to chat-disconnected in launcher.js)
+  // sooner, so this ended session can't get offered for auto-resume.
   _handleInactivityDisconnect() {
     this._inactivityDisconnectTimer = null;
     if (this.contactStatus !== CONTACT_STATUS.CONNECTED) {
@@ -1113,15 +1160,8 @@ class ChatSession {
     if (this._lastIncomingMessageItem) {
       const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
       this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
-      const endChatTimer = setTimeout(() => {
-        this.endChat();
-      }, INACTIVITY_END_MESSAGE_DELAY_MS);
-      if (typeof endChatTimer.unref === "function") {
-        endChatTimer.unref();
-      }
-    } else {
-      this.endChat();
     }
+    this._endChatKeepingPanelOpen();
   }
 
   // The message of clicking "Show more" or "Previous options" in interactive message should not add to transcript
