@@ -15,10 +15,10 @@ import {
 } from "../../datamodel/Model";
 import { ErrorBoundary } from 'react-error-boundary';
 import { Icon, TypingLoader } from "connect-core";
-import { InteractiveMessage } from "./InteractiveMessage";
+import { InteractiveMessage, QUICK_REPLY_BUBBLE_MAX_WIDTH } from "./InteractiveMessage";
 import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
 import { InView } from "react-intersection-observer";
-import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON } from "../../../../utils/helper";
+import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON, isRatingQuickReply } from "../../../../utils/helper";
 import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
@@ -270,9 +270,23 @@ const MessageContent = styled.div`
 // controls' own top padding provides the same gap below the bubble as
 // before. When there is no avatar column (indented === false) it is flush
 // with the bubble, matching the pre-change layout for that case.
+//
+// The full-width rating scale (data-rating="true") is the one exception:
+// per the updated Figma frame its buttons start flush with the avatar's
+// left edge, not indented to the bubble's - so the indent is skipped even
+// when an avatar column is present. Non-rating QuickReplies are unaffected.
+//
+// The rating buttons are also capped to QUICK_REPLY_BUBBLE_MAX_WIDTH - the
+// same width the title bubble above them already caps to (MessageBody's
+// capWidth) - so they don't stretch wider than the bubble just because
+// they sit in the wider, uncapped message-panel column outside it.
 const QuickReplyActionsRow = styled.div`
-  &[data-indented="true"] {
+  &[data-indented="true"]:not([data-rating="true"]) {
     padding-left: calc(32px + ${({ theme }) => theme.spacing.mini});
+  }
+
+  &[data-rating="true"] {
+    max-width: ${QUICK_REPLY_BUBBLE_MAX_WIDTH};
   }
 `;
 const StatusText = styled.span`
@@ -688,11 +702,14 @@ export class ParticipantMessage extends PureComponent {
     }
 
     // QuickReply option/rating controls: full width below the avatar+bubble
-    // row, inset to line up exactly where they sat inside the bubble.
+    // row, inset to line up exactly where they sat inside the bubble - except
+    // the rating scale, which stays flush with the avatar (see
+    // QuickReplyActionsRow above).
+    const isRatingScale = isRatingQuickReply(quickReplyContent);
     return (
       <React.Fragment>
         {messageRow}
-        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn}>
+        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn} data-rating={isRatingScale}>
           <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={InteractiveMessageType.QUICK_REPLY} />}>
             <InteractiveMessage
               content={quickReplyContent}

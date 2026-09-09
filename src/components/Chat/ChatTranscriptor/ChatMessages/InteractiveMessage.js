@@ -20,6 +20,12 @@ import {RichMessageRenderer} from "../../RichMessageComponents";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model"
 
+// Shared with QuickReply's rating-scale button row (see ChatMessage.js) so
+// the full-width buttons cap to the same width as the title bubble above
+// them, instead of stretching to the wider message-panel width - one source
+// of truth rather than a second, independently-hardcoded value.
+export const QUICK_REPLY_BUBBLE_MAX_WIDTH = "200px";
+
 const MessageBody = styled.div`
   border: ${({ theme}) => theme.globals.baseBorder};
   border-radius: ${({ theme}) => theme.spacing.mini};
@@ -29,7 +35,7 @@ const MessageBody = styled.div`
     padding: ${props.theme.spacing.small};
     border: none;
     border-radius: 16px;
-    ${props.capWidth ? "max-width: 200px;" : ""}
+    ${props.capWidth ? `max-width: ${QUICK_REPLY_BUBBLE_MAX_WIDTH};` : ""}
   ` : ""}
 
   ${props => props.isCarouselElem ? `

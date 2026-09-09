@@ -30,6 +30,26 @@ function getBrandInfo() {
   return null;
 }
 
+function getUtagDataInfo() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  if (window.utag_data) {
+    return window.utag_data;
+  }
+  // The widget is typically rendered inside the vendor's iframe, which never
+  // loads brandInfo.js itself - only the host page does. Fall back to the
+  // parent window's copy (same pattern Chat.js uses for header colors).
+  try {
+    if (window.parent && window.parent !== window && window.parent.utag_data) {
+      return window.parent.utag_data;
+    }
+  } catch (e) {
+    // window.parent is cross-origin; utag_data isn't reachable
+  }
+  return null;
+}
+
 function resolveFontFaces(brandConfig) {
   const fontFaces = brandConfig.fontFaces;
   if (!Array.isArray(fontFaces) || !fontFaces.length) {
@@ -109,14 +129,20 @@ function buildHeaderConfig(brandConfig = {}) {
   return headerConfig;
 }
 
-function buildDisclaimerConfig(brandConfig = {}) {
+function buildDisclaimerConfig(brandConfig = {}, countryCode = 'us') {
   const disclaimerConfig = {};
   const disclaimer = brandConfig.disclaimer || {};
   if (disclaimer.privacyPolicyUrl) {
-    disclaimerConfig.privacyPolicyUrl = disclaimer.privacyPolicyUrl;
+    disclaimerConfig.privacyPolicyUrl = disclaimer.privacyPolicyUrl[countryCode];
   }
   if (disclaimer.termsOfUseUrl) {
-    disclaimerConfig.termsOfUseUrl = disclaimer.termsOfUseUrl;
+    disclaimerConfig.termsOfUseUrl = disclaimer.termsOfUseUrl[countryCode];
+  }
+  if (disclaimer.consumerHealthDataPrivacyStatementUrl) {
+    disclaimerConfig.consumerHealthDataPrivacyStatementUrl = disclaimer.consumerHealthDataPrivacyStatementUrl[countryCode];
+  }
+  if (disclaimer.disclaimerMessage) {
+    disclaimerConfig.disclaimerMessage = disclaimer.disclaimerMessage[countryCode];
   }
   return disclaimerConfig;
 }
@@ -173,9 +199,11 @@ function buildLogoConfig(brandInfo) {
       props.logoConfig || {}
     );
 
+    const utagData = getUtagDataInfo();
+
     const disclaimerConfig = Object.assign(
       {},
-      buildDisclaimerConfig(brandConfig),
+      buildDisclaimerConfig(brandConfig, utagData?.country_code),
       props.disclaimerConfig || {}
     );
 

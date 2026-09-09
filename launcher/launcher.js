@@ -71,7 +71,7 @@
     + '  align-items: center !important;'
     + '  gap: 10px !important;'
     + '  box-shadow: var(--launcher-shadow, 0 4px 16px rgba(139, 0, 93, 0.4)) !important;'
-    + '  z-index: 9999 !important;'
+    + '  z-index: 2147483647 !important;'
     + '  font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif !important;'
     + '  transition: background-color 0.2s ease, transform 0.15s ease !important;'
     + '}'
@@ -115,7 +115,7 @@
     + '  border-radius: 24px !important;'
     + '  overflow: hidden !important;'
     + '  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;'
-    + '  z-index: 9998 !important;'
+    + '  z-index: 2147483646 !important;'
     + '}'
     + '#' + CHAT_PANEL_ID + '.open { display: block !important; }'
     + '#' + CHAT_PANEL_ID + ' .connect-customer-interface {'
@@ -212,14 +212,14 @@
     var lastName = isAuthenticated && typeof customerContext.lastName === 'string' ? customerContext.lastName : '';
     var email = isAuthenticated && typeof customerContext.email === 'string' && customerContext.email
       ? customerContext.email
-      : 'purbiagitesh@gmail.com';
+      : '';
     var customerLoggedIn = isAuthenticated ? 'Yes' : 'No';
     var customerName = firstName;
 
     var attributes = {
       brand_code: brandInfo.config.title || '',
       customerLoggedIn: customerLoggedIn,
-      customerId: String(utagData.USER_ID) || null,
+      customerId: String(utagData.USER_ID),
       email: email,
       customerName: customerName,
       region_code:utagData.region_code || 'NA',
@@ -227,9 +227,6 @@
       country_code: utagData.country_code || 'us',
       channel: 'Chat'
     };
-    if (customerLoggedIn === 'Yes') {
-      attributes.customerNamePresent = customerName === '' ? 'False' : 'True';
-    }
     return attributes;
   }
 
