@@ -8,6 +8,18 @@ import isJson from "is-json";
 
 const SYSTEM_EVENTS = Object.values(ContentType.EVENT_CONTENT_TYPE);
 const DEFAULT_PREFIX = "Amazon-Connect-ChatInterface-ChatSession";
+
+// ─── Customer inactivity handling ───
+// Entirely client-side, no Connect/Lex/contact-flow coordination: if the
+// customer hasn't replied within INACTIVITY_REPROMPT_DELAY_MS of the last
+// incoming message, the widget locally re-displays that same message (a
+// nudge, not a real re-send - see modelUtils.cloneIncomingItemForReprompt,
+// this widget only has a CUSTOMER participant connection and has no way to
+// make the bot/agent actually speak again). If that still gets no reply
+// within another INACTIVITY_DISCONNECT_DELAY_MS, the chat ends automatically
+// via the normal endChat() path.
+const INACTIVITY_REPROMPT_DELAY_MS = 90 * 1000;
+const INACTIVITY_DISCONNECT_DELAY_MS = 30 * 1000;
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
   return CurrentChatSessionInstance;
@@ -194,6 +206,12 @@ class ChatSession {
    */
   isOutgoingMessageInFlight = false;
 
+  // Inactivity handling state (see INACTIVITY_REPROMPT_DELAY_MS above) -
+  // null whenever no countdown is currently pending.
+  _inactivityReminderTimer = null;
+  _inactivityDisconnectTimer = null;
+  _lastIncomingMessageItem = null;
+
   _eventHandlers = {
     "transcript-changed": [],
     "typing-participants-changed": [],
@@ -265,6 +283,10 @@ class ChatSession {
 
   // CHAT API
   openChatSession() {
+    // Defensive: guards against a stray timer from a previous connect
+    // attempt on this same instance (there shouldn't be one in practice,
+    // but this is cheap insurance against ever double-scheduling).
+    this._clearInactivityTimers();
     this._addEventListeners();
     this._updateContactStatus(CONTACT_STATUS.CONNECTING);
     return this.client.connect().then(
@@ -280,6 +302,7 @@ class ChatSession {
   }
 
   async endChat() {
+    this._clearInactivityTimers();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -347,6 +370,11 @@ class ChatSession {
   }
 
   addOutgoingMessage(data) {
+    // The customer replied - the inactivity re-prompt/auto-disconnect
+    // countdown no longer applies to the message it was waiting on. The
+    // next incoming message (e.g. the bot's reply to this) starts a fresh
+    // countdown on its own - see _handleIncomingData.
+    this._clearInactivityTimers();
     const message = this.alterOutgoingMessageForViewsIfRequired(data);
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
@@ -373,6 +401,8 @@ class ChatSession {
   }
 
   addOutgoingAttachment(attachment) {
+    // Same reasoning as addOutgoingMessage - sending a file is a reply too.
+    this._clearInactivityTimers();
     const transcriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, attachment, this.thisParticipant);
     this._addItemsToTranscript([transcriptItem]);
     this.logger && this.logger.info(`Sending File. ContactId: ${this.contactId}.`);
@@ -531,6 +561,11 @@ class ChatSession {
     });
     this.client.onConnectionEstablished(async () => {
       await this._loadLatestTranscript();
+      // Restores the inactivity countdown from whatever the last incoming
+      // message already was - matters most on a resumed session (page
+      // reload/new tab mid-conversation), where otherwise no timer would
+      // run at all until/unless a brand new message happened to arrive.
+      this._seedInactivityCheckFromTranscript();
     });
   }
 
@@ -609,6 +644,14 @@ class ChatSession {
       const {transportDetails, type, participantRole} = item;
       if (transportDetails.direction === Direction.Incoming) {
         this._triggerEvent("incoming-message", data);
+        // Any real message/attachment from the other side (bot, agent, or
+        // system) restarts the 90s inactivity countdown - deliberately not
+        // restricted to Agent/Customer roles like the delivered-receipt
+        // check below, since a bot/Lex message waiting on a reply is
+        // exactly the case this is for.
+        if (modelUtils.isTypeMessageOrAttachment(type)) {
+          this._scheduleInactivityCheck(item);
+        }
         if (modelUtils.isTypeMessageOrAttachment(type) && modelUtils.isParticipantAgentOrCustomer(participantRole)) {
           this.sendDeliveredReceipt(
             item.id,
@@ -864,6 +907,7 @@ class ChatSession {
 
   /** called when transcript has chat ended message */
   _handleEndedEvent() {
+    this._clearInactivityTimers();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
@@ -967,6 +1011,84 @@ class ChatSession {
     //  tp => tp.participantDetails.participantId !== participantId
     //);
     this._updateTypingParticipants([]);
+  }
+
+  // ─── Customer inactivity handling ───
+  // See INACTIVITY_REPROMPT_DELAY_MS/INACTIVITY_DISCONNECT_DELAY_MS above.
+
+  _clearInactivityTimers() {
+    if (this._inactivityReminderTimer) {
+      clearTimeout(this._inactivityReminderTimer);
+      this._inactivityReminderTimer = null;
+    }
+    if (this._inactivityDisconnectTimer) {
+      clearTimeout(this._inactivityDisconnectTimer);
+      this._inactivityDisconnectTimer = null;
+    }
+  }
+
+  // (Re)starts the 90s "has the customer gone quiet" countdown. Called every
+  // time a genuine incoming message/attachment arrives - see
+  // _handleIncomingData - and once on connect/resume to seed it from
+  // whatever the last incoming transcript item already was (see
+  // _seedInactivityCheckFromTranscript), so reloading mid-conversation
+  // doesn't leave the customer with no timer running at all.
+  _scheduleInactivityCheck(lastIncomingItem) {
+    this._clearInactivityTimers();
+    this._lastIncomingMessageItem = lastIncomingItem;
+
+    // unref() (Node/jsdom only, a no-op elsewhere) so a long-lived timer
+    // like this never keeps a test process/CLI alive on its own.
+    this._inactivityReminderTimer = setTimeout(() => {
+      this._handleInactivityReprompt();
+    }, INACTIVITY_REPROMPT_DELAY_MS);
+    if (typeof this._inactivityReminderTimer.unref === "function") {
+      this._inactivityReminderTimer.unref();
+    }
+  }
+
+  // Restores the inactivity countdown after connect/resume (fresh chat OR
+  // reconnecting to a still-active one, e.g. after a page reload) using
+  // whatever the last incoming message already was, so a customer who left
+  // mid-conversation doesn't come back to a timer that only starts counting
+  // again once/if a brand new message arrives.
+  _seedInactivityCheckFromTranscript() {
+    const lastIncomingIdx = this._findLastMessageInTranscript(Direction.Incoming, this.transcript);
+    if (lastIncomingIdx !== -1) {
+      this._scheduleInactivityCheck(this.transcript[lastIncomingIdx]);
+    }
+  }
+
+  // 90s elapsed with no reply - locally re-display the last incoming
+  // message (see modelUtils.cloneIncomingItemForReprompt) and start the
+  // final 30s countdown to an automatic disconnect.
+  _handleInactivityReprompt() {
+    this._inactivityReminderTimer = null;
+    if (this.contactStatus !== CONTACT_STATUS.CONNECTED) {
+      return;
+    }
+    if (this._lastIncomingMessageItem) {
+      const repromptItem = modelUtils.cloneIncomingItemForReprompt(this._lastIncomingMessageItem);
+      this._shouldAddToTranscript(repromptItem) && this._addItemsToTranscript([repromptItem]);
+      this.logger && this.logger.info("Customer inactive for 90s - re-displaying last message locally.");
+    }
+    this._inactivityDisconnectTimer = setTimeout(() => {
+      this._handleInactivityDisconnect();
+    }, INACTIVITY_DISCONNECT_DELAY_MS);
+    if (typeof this._inactivityDisconnectTimer.unref === "function") {
+      this._inactivityDisconnectTimer.unref();
+    }
+  }
+
+  // A further 30s elapsed (120s total) with still no reply - end the chat
+  // the same way the customer ending it themselves would.
+  _handleInactivityDisconnect() {
+    this._inactivityDisconnectTimer = null;
+    if (this.contactStatus !== CONTACT_STATUS.CONNECTED) {
+      return;
+    }
+    this.logger && this.logger.info("Customer still inactive after re-prompt - ending chat automatically.");
+    this.endChat();
   }
 
   // The message of clicking "Show more" or "Previous options" in interactive message should not add to transcript
