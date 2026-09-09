@@ -6,8 +6,6 @@ import EventBus from "./eventbus"
 class ChatInterface {
 
   clientConfig = {
-    contactFlowId: "",
-    instanceId: "",
     region: "",
     stage: "prod",
     contactAttributes: {},

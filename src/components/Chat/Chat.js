@@ -273,7 +273,14 @@ export default class Chat extends Component {
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
-          this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) &&
+          this.state.contactStatus === CONTACT_STATUS.CONNECTING ||
+          this.state.contactStatus === CONTACT_STATUS.ENDED ||
+          // DISCONNECTED is what endChat()/_endChatKeepingPanelOpen()
+          // (ChatSession.js) transition to once the contact actually ends -
+          // the header stays visible here too (matches ChatTranscriptor.js's
+          // same DISCONNECTED addition), so the panel doesn't lose its
+          // title bar the moment the inactivity flow ends the chat.
+          this.state.contactStatus === CONTACT_STATUS.DISCONNECTED) &&
           <ParentHeaderWrapper className="header">
             <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.minimizeChat()}/>
           </ParentHeaderWrapper>

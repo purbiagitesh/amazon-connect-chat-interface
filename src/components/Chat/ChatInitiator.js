@@ -15,9 +15,13 @@ function safeParse(jsonString, defaultValue) {
  *
  * https://docs.aws.amazon.com/connect/latest/APIReference/API_StartChatContact.html
  *
+ * InstanceId/ContactFlowId are deliberately NOT included in the request body
+ * sent to apiGatewayEndpoint below - the Lambda behind it resolves those
+ * itself from its own env vars, and doesn't need (or use) values from the
+ * client. Confirmed end-to-end: the client can omit them entirely and
+ * StartChatContact still succeeds.
+ *
  * @param {Object} input - data to initate chat
- * @param {string} input.instanceId
- * @param {string} input.contactFlowId
  * @param {string} input.apiGatewayEndpoint
  * @param {string} input.name
  * @param {string} input.initialMessage - optional initial message to start chat
@@ -30,8 +34,6 @@ function safeParse(jsonString, defaultValue) {
  */
 export function initiateChat(input) {
   const initiateChatRequest = {
-    InstanceId: input.instanceId,
-    ContactFlowId: input.contactFlowId,
     ParticipantDetails: {
       DisplayName: input.name,
     },

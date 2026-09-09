@@ -48,7 +48,8 @@ const palette = {
   brown: '#47596E',
   blue: '#329AD6',
   darkBlue: '#1067BA',
-  charcoal: '#595959' // timestamp text grey
+  charcoal: '#595959', // timestamp text grey
+  darkerGray: '#1A1A1A',
 };
 
 // Spacing

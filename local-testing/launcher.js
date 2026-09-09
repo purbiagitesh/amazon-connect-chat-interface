@@ -425,7 +425,17 @@
       // explicitly dismisses the ended-chat screen, which they might never
       // do before navigating away. Clearing here too means a subsequent
       // page doesn't attempt to resume an already-ended chat.
+      // hasActiveChat must reset here too, not just in onChatClose above:
+      // the inactivity auto-disconnect flow (and a server/agent-initiated
+      // end) only ever fires "chat-disconnected", deliberately never
+      // "chat-closed" (see _endChatKeepingPanelOpen in ChatSession.js - the
+      // panel is meant to stay open showing the ended conversation).
+      // Without this, hasActiveChat stays stuck true forever once a chat
+      // ends this way, so reopening the widget skips startOrResumeChat()
+      // entirely and just keeps showing the same ended conversation with no
+      // way to start a fresh one.
       chatSession.onChatDisconnected(function () {
+        hasActiveChat = false;
         clearPersistedChat(resolvedBrand);
       });
     }
@@ -435,8 +445,8 @@
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
-        instanceId: brandConfig.instanceId,
-        contactFlowId: brandConfig.contactFlowId,
+        // instanceId/contactFlowId are not sent - the Lambda behind
+        // apiGatewayEndpoint owns that config via its own env vars.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',

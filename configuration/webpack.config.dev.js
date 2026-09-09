@@ -82,18 +82,19 @@ module.exports = {
   // This means they will be the "root" imports that are included in JS bundle.
  
   entry: [
-    // Include an alternative client for WebpackDevServer. A client's job is to
-    // connect to WebpackDevServer by a socket and get notified about changes.
-    // When you save a file, the client will either apply hot updates (in case
-    // of CSS changes), or refresh the page (in case of JS changes). When you
-    // make a syntax error, this client will display a syntax error overlay.
-    // Note: instead of the default WebpackDevServer client, we use a custom one
-    // to bring better experience for Create React App users. You can replace
-    // the line below with these two lines if you prefer the stock client:
-    // require.resolve('webpack-dev-server/client') + '?/',
-    // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
-    // Finally, this is your app's code:
+    // react-dev-utils/webpackHotDevClient (and its bundled react-error-overlay)
+    // deliberately removed - this project's actual local-testing setup
+    // (scripts/dev-server.js) is a plain static file server, not the real
+    // webpack-dev-server, so this client has no HMR websocket to connect to
+    // and does nothing useful here. Its only real effect was a full-viewport
+    // <iframe style="position:fixed;...;z-index:2147483647"> overlay that
+    // pops up and blocks all page interaction on ANY uncaught error/
+    // rejection anywhere on the page - including third-party ones we can't
+    // control (e.g. inside the amazon-connect-chatjs SDK) - which made the
+    // widget appear "frozen" during local testing even though the actual
+    // functionality underneath was fine. Never present in production builds
+    // (webpack.config.prod.js never included this), so this only ever
+    // affected local dev testing, not real customers.
     paths.appIndexJs
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
@@ -355,8 +356,8 @@ module.exports = {
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') {...}. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),
-    // This is necessary to emit hot updates (currently CSS only):
-    new webpack.HotModuleReplacementPlugin(),
+    // HotModuleReplacementPlugin removed alongside webpackHotDevClient above -
+    // no real webpack-dev-server here for it to coordinate with.
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebook/create-react-app/issues/240

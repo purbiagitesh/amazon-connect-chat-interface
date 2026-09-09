@@ -60,7 +60,7 @@ const CollapsedRow = styled.div`
 const Text = styled.p`
   margin: 0;
   ${(props) => props.theme.typography.disclaimer};
-  color: var(--ac-widget-disclaimer-text-color, ${(props) => props.theme.palette.mediumGray});
+  color: var(--ac-widget-disclaimer-text-color, ${(props) => props.theme.palette.darkerGray});
 
   ${(props) => (props.expanded ? `
     overflow-wrap: break-word;
