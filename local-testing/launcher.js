@@ -1,6 +1,5 @@
 (function () {
   'use strict';
-
   var LAUNCHER_BASE_URL = (function () {
     var scriptUrl = null;
     if (document.currentScript && document.currentScript.src) {
@@ -160,7 +159,6 @@
     DEV: 'dev', DEVELOPMENT: 'dev',
     NOPROD: 'NOPROD'
   };
-
   var BRAND_ALIAS_MAP = {};
 
   function waitForUtagData(onReady, onTimeout) {
@@ -230,6 +228,74 @@
       channel: 'Chat'
     };
     return attributes;
+  }
+
+  // ─── Chat persistence across full page navigations ───
+  // This is a traditional multi-page site, not an SPA - every navigation is
+  // a full reload that destroys the in-memory ChatSession/websocket. To
+  // resume an in-progress chat on whatever page loads next - same tab OR a
+  // new tab, both are possible here, so sessionStorage (tab-scoped) isn't
+  // enough - the raw StartChatContact credentials are persisted to
+  // localStorage (origin-scoped, shared across tabs) right after a
+  // successful chat start, and fed back into ChatInterface.resumeChat() to
+  // reconnect that SAME still-active contact (never a new one) on whichever
+  // page/tab loads next. Transcript restoration needs no new code here -
+  // ChatSession.js's existing onConnectionEstablished handler already
+  // reloads it on any successful connect, new or reconnected.
+  var CHAT_PERSIST_STALE_AFTER_MS = 300 * 60 * 1000; // 5 hours - UX judgment call, not a token-expiry limit; adjust freely
+
+  function chatStorageKey() {
+    return 'ac_active_chat';
+  }
+
+  function persistActiveChat(brand, env, chatDetails, customerName) {
+    try {
+      localStorage.setItem(chatStorageKey(), JSON.stringify({
+        chatDetails: chatDetails,
+        name: customerName,
+        brand: brand,
+        env: env,
+        startedAt: Date.now()
+      }));
+    } catch (e) {
+      // localStorage unavailable (private browsing, quota, disabled) -
+      // persistence is a nice-to-have on top of a working widget, never let
+      // it break chat start itself.
+      console.warn('[chat-widget] unable to persist chat session', e);
+    }
+  }
+
+  function clearPersistedChat(brand) {
+    try {
+      localStorage.removeItem(chatStorageKey());
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // Returns the persisted session for `brand`, or null if there isn't one
+  // or it's past CHAT_PERSIST_STALE_AFTER_MS (in which case it's cleared
+  // here too, so a stale entry doesn't linger and get rechecked forever).
+  function getResumableSession(brand) {
+    var raw;
+    try {
+      raw = localStorage.getItem(chatStorageKey());
+    } catch (e) {
+      return null;
+    }
+    if (!raw) return null;
+    var persisted;
+    try {
+      persisted = JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+    if (!persisted || !persisted.chatDetails || !persisted.startedAt) return null;
+    if (Date.now() - persisted.startedAt > CHAT_PERSIST_STALE_AFTER_MS) {
+      clearPersistedChat(brand);
+      return null;
+    }
+    return persisted;
   }
 
   function hexToRgba(hex, alpha) {
@@ -329,7 +395,10 @@
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
     });
+
     var hasActiveChat = false;
+    var resolvedBrand = brandInfo.brand;
+    var resolvedEnv = brandInfo.environment;
 
     function openPanel() {
       panel.classList.add('open');
@@ -339,6 +408,26 @@
     function closePanel() {
       panel.classList.remove('open');
       btn.classList.remove('widget-open');
+    }
+
+    // Shared by both startChat() and resumeChat() below - a chat ending
+    // for ANY reason (customer clicks the in-panel end-chat button, or
+    // Connect/the agent ends it server-side) must stop this widget from
+    // trying to resume it on the next page/tab.
+    function wireChatEndCleanup(chatSession) {
+      chatSession.onChatClose(function () {
+        hasActiveChat = false;
+        clearPersistedChat(resolvedBrand);
+        closePanel();
+      });
+      // Fires earlier than onChatClose for a server/agent-initiated end
+      // (see review notes) - onChatClose only fires once the customer
+      // explicitly dismisses the ended-chat screen, which they might never
+      // do before navigating away. Clearing here too means a subsequent
+      // page doesn't attempt to resume an already-ended chat.
+      chatSession.onChatDisconnected(function () {
+        clearPersistedChat(resolvedBrand);
+      });
     }
 
     async function startChat() {
@@ -353,14 +442,39 @@
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
       }, function onSuccess(chatSession) {
         hasActiveChat = true;
-        chatSession.onChatClose(function () {
-          hasActiveChat = false;
-          closePanel();
-        });
+        if (chatSession.rawChatDetails) {
+          persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
+        }
+        wireChatEndCleanup(chatSession);
       }, function onFailure(error) {
         console.error('[chat-widget] Failed to start chat:', error);
         closePanel();
       });
+    }
+
+    function resumeChat(persisted) {
+      window.connect.ChatInterface.resumeChat({
+        chatDetails: persisted.chatDetails,
+        name: persisted.name,
+        region: brandConfig.region,
+      }, function onSuccess(chatSession) {
+        hasActiveChat = true;
+        persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
+        wireChatEndCleanup(chatSession);
+      }, function onFailure(error) {
+        console.warn('[chat-widget] failed to resume previous chat session', error);
+        clearPersistedChat(resolvedBrand);
+        hasActiveChat = false;
+      });
+    }
+
+    function startOrResumeChat() {
+      var resumable = getResumableSession(resolvedBrand);
+      if (resumable) {
+        resumeChat(resumable);
+      } else {
+        startChat();
+      }
     }
 
     btn.addEventListener('click', function () {
@@ -370,7 +484,7 @@
       }
       openPanel();
       if (!hasActiveChat) {
-        startChat().catch(function (err) { console.error('[chat-widget] startChat failed:', err); });
+        startOrResumeChat();
       }
     });
 
@@ -378,7 +492,7 @@
       if (panel.classList.contains('open')) return;
       openPanel();
       if (!hasActiveChat) {
-        startChat().catch(function (err) { console.error('[chat-widget] startChat failed:', err); });
+        startOrResumeChat();
       }
     }
 
@@ -388,6 +502,21 @@
       pendingOpenRequest = false;
       openWidget();
     }
+
+    // Auto-resume: if a chat was already active before this page/tab
+    // loaded, open the panel and reconnect automatically after a short
+    // delay, so the customer can pick their conversation back up without
+    // clicking anything. Does nothing at all if there's no resumable
+    // session - pages/brands that never had an active chat behave exactly
+    // as before this feature existed.
+    setTimeout(function () {
+      if (hasActiveChat) return; // already resumed/started via a click before this fired
+      var resumable = getResumableSession(resolvedBrand);
+      if (resumable) {
+        openPanel();
+        resumeChat(resumable);
+      }
+    }, 5000);
 
     return applyLauncherIcon(brandInfo, btn).then(function () {
       revealLauncher(btn);
