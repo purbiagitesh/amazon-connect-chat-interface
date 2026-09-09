@@ -49,6 +49,8 @@ class ChatContainer extends Component {
 
     this.submitChatInitiationHandler = this.initiateChatSession.bind(this);
     EventBus.on("initChat", this.initiateChatSession.bind(this));
+    this.resumeChatHandler = this.resumeChatSession.bind(this);
+    EventBus.on("resumeChat", this.resumeChatHandler);
     if (window.connect && window.connect.LogManager) {
       this.logger = window.connect.LogManager.getLogger({
         prefix: "ChatInterface-ChatContainer",
@@ -58,6 +60,7 @@ class ChatContainer extends Component {
 
   componentWillUnmount() {
     EventBus.off(this.submitChatInitiationHandler);
+    EventBus.off("resumeChat", this.resumeChatHandler);
   }
 
   initiateChatSession(chatDetails, success, failure) {
@@ -122,8 +125,65 @@ class ChatContainer extends Component {
     }
   }
 
+  resumeChatSession(input, success, failure) {
+    this.logger && this.logger.info("Resuming existing chat session (page reload/new tab) - skipping StartChatContact.");
+    this.submitChatResume(input, success, failure);
+  }
+
+  /**
+   * Reconnects to an already-active chat, instead of the 2-step
+   * initiate-then-connect flow submitChatInitiation() above performs.
+   * input.chatDetails are the SAME credentials an earlier
+   * submitChatInitiation() call already obtained from StartChatContact -
+   * calling openChatSession() directly with them re-attaches to that exact
+   * same contact rather than creating a new one. Past transcript messages
+   * reload automatically once connected - existing ChatSession.js behavior
+   * (onConnectionEstablished), unrelated to this method.
+   *
+   * @param {*} input - must include chatDetails (the persisted
+   *   StartChatContact response), plus name/region/stage as normal.
+   * @param {*} success
+   * @param {*} failure
+   */
+  async submitChatResume(input, success, failure) {
+    this.setState({status: "Initiating"});
+    const customizationParams = {
+      authenticationRedirectUri: input.authenticationRedirectUri || '',
+      authenticationIdentityProvider: input.authenticationIdentityProvider || ''
+    }
+    try {
+      const chatSession = await this.openChatSession(input.chatDetails, input.name, input.region, input.stage, customizationParams);
+      setCurrentChatSessionInstance(chatSession);
+      const attachmentsEnabled =
+        (input.featurePermissions && input.featurePermissions[CHAT_FEATURE_TYPES.ATTACHMENTS]) ||
+        (input.chatDetails && input.chatDetails.featurePermissions && input.chatDetails.featurePermissions[CHAT_FEATURE_TYPES.ATTACHMENTS]);
+      const richMessagingEnabled = typeof input.supportedMessagingContentTypes === "string" ? input.supportedMessagingContentTypes.split(",").includes(ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN) : false;
+      const language = input.language || "en_US";
+
+      this.setState({
+        status: "Initiated",
+        chatSession: chatSession,
+        composerConfig: {
+          attachmentsEnabled,
+          richMessagingEnabled,
+        },
+        language
+      });
+      success && success(chatSession);
+    } catch (error) {
+      this.setState({status: "InitiateFailed"});
+      failure && failure(error);
+    }
+  }
+
   openChatSession(chatDetails, name, region, stage, customizationParams) {
     const chatSession = new ChatSession(chatDetails, name, region, stage, customizationParams);
+    // Exposes the raw StartChatContact credentials on the returned session
+    // so a caller (launcher.js) can persist them for cross-page/cross-tab
+    // chat resumption - see resumeChatSession()/submitChatResume() below,
+    // which feeds a PERSISTED chatDetails object back into this same
+    // method to reconnect, rather than calling initiateChat() again.
+    chatSession.rawChatDetails = chatDetails;
     chatSession.onChatClose(() => {
       EventBus.trigger("endChat", {});
     });

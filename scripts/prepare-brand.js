@@ -78,6 +78,13 @@ function listEnvironments(brandName) {
 }
 
 // Copy directory recursively
+// OS-generated metadata files that sometimes end up inside brands/*/assets/
+// (typically from a Mac contributor's Finder, or Windows Explorer) - never
+// something the widget needs, and on Windows these can get transiently
+// locked by OneDrive/Explorer/antivirus, which crashes the whole build with
+// an EBUSY error on a file nobody actually wants copied in the first place.
+const IGNORED_ASSET_FILES = new Set(['.DS_Store', 'Thumbs.db', 'desktop.ini']);
+
 function copyDirSync(src, dest) {
   if (!fs.existsSync(src)) return;
 
@@ -86,6 +93,8 @@ function copyDirSync(src, dest) {
   const entries = fs.readdirSync(src, {withFileTypes: true});
 
   for (const entry of entries) {
+    if (IGNORED_ASSET_FILES.has(entry.name)) continue;
+
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
 

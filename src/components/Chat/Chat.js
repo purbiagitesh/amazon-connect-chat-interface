@@ -235,6 +235,28 @@ export default class Chat extends Component {
     this.props.onEnded();
   }
 
+  // The header's close ("x") button used to call endChat() above, which
+  // both disconnected the live Connect contact AND reset ChatContainer's
+  // state (destroying this chatSession) - so reopening the widget always
+  // started a brand new conversation. Per the persistence feature, closing
+  // via the header should only hide the panel: the chatSession stays fully
+  // connected and this component tree stays mounted, so the transcript is
+  // still sitting in state the moment the panel is shown again - no
+  // separate "restore" step needed. Actually ending the chat is still
+  // possible via ChatActionBar's "End chat" button (chatSession.endChat()),
+  // this only changes what the header's "x" does.
+  // window.connect.ChatWidget.close() is the same function launcher.js
+  // wires up for host-page/programmatic close calls - reusing it here
+  // keeps a single source of truth for "hide the panel" instead of
+  // duplicating that DOM logic. Guarded because this component can also be
+  // mounted without launcher.js (e.g. a vendor's own iframe embed), where
+  // there's nothing to call.
+  minimizeChat() {
+    if (window.connect && window.connect.ChatWidget && typeof window.connect.ChatWidget.close === 'function') {
+      window.connect.ChatWidget.close();
+    }
+  }
+
   render() {
     const {chatSession, headerConfig, transcriptConfig, composerConfig, disclaimerConfig, logoConfig} = this.props;
     console.log('MESSAGES', this.state.transcript);
@@ -253,7 +275,7 @@ export default class Chat extends Component {
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.state.contactStatus === CONTACT_STATUS.CONNECTING || this.state.contactStatus === CONTACT_STATUS.ENDED) &&
           <ParentHeaderWrapper className="header">
-            <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.endChat()}/>
+            <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.minimizeChat()}/>
           </ParentHeaderWrapper>
         }
         <ChatComposerWrapper>
