@@ -207,29 +207,22 @@
     var customerContext = await getCustomerContext();
     var isAuthenticated = customerContext.authenticated === true;
 
-    // email / firstName / lastName are always strings in the authenticated
-    // response; firstName/lastName can legitimately be empty.
     var firstName = isAuthenticated && typeof customerContext.firstName === 'string' ? customerContext.firstName : '';
     var lastName = isAuthenticated && typeof customerContext.lastName === 'string' ? customerContext.lastName : '';
     var email = isAuthenticated && typeof customerContext.email === 'string' && customerContext.email
       ? customerContext.email
-      : 'purbiagitesh@gmail.com';
-    // customerLoggedIn: utagData.customer_state === 'logged in' ? 'true' : 'false',
+      : '';
     var customerLoggedIn = isAuthenticated ? 'Yes' : 'No';
-    //var customerName = (firstName + ' ' + lastName).trim();
-     var customerName = firstName;
+    var customerName = firstName;
 
     var attributes = {
       brand_code: brandInfo.config.title || '',
-      customerLoggedIn: customerLoggedIn,
-      customerId: utagData.USER_ID || '3069853573',// stringfy
+      customerLoggedIn: customerName,
+      customerId: String(utagData.USER_ID),
       email: email,
       customerName: customerName,
-      firstName: firstName,
-      lastName: lastName,
       region_code:utagData.region_code || 'NA',
       language_code: utagData.locale || 'en-US',
-     // language_code: utagData.language_code || '',
       country_code: utagData.country_code || 'us',
       channel: 'Chat'
     };
