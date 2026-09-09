@@ -164,10 +164,13 @@
   function waitForUtagData(onReady, onTimeout) {
     var waited = 0;
     var timer = setInterval(function () {
-      if (window.utag_data) {
+      if (
+        window.utag_data &&
+        typeof window.utag_data.brand === 'string' &&
+        window.utag_data.brand.trim()
+      ) {
         clearInterval(timer);
         onReady(window.utag_data);
-        return;
       }
       waited += UTAG_POLL_INTERVAL_MS;
       if (waited >= UTAG_TIMEOUT_MS) {
