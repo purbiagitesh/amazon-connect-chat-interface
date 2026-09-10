@@ -65,8 +65,6 @@ class ChatContainer extends Component {
 
   initiateChatSession(chatDetails, success, failure) {
     const logContent = {
-      contactFlowId: chatDetails.contactFlowId ? chatDetails.contactFlowId : null,
-      instanceId: chatDetails.instanceId ? chatDetails.instanceId : null,
       region: chatDetails.region ? chatDetails.region : null,
       stage: chatDetails.stage ? chatDetails.stage : null,
       featurePermissions: chatDetails.featurePermissions ? chatDetails.featurePermissions : null,

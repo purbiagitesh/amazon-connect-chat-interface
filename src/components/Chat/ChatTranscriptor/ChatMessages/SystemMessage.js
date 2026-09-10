@@ -66,14 +66,10 @@ export class SystemMessage extends React.PureComponent {
         // here keeps the timestamp but drops the dynamic text.
         return null;
       case ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_LEFT:
-        name = this.props.messageDetails.displayName;
-        return <FormattedMessage
-            id="transcriptor.leftChat"
-            defaultMessage="{name} has left the chat"
-            values={{
-              name
-            }}
-        />;
+        // Per explicit request, this line isn't shown at all - same
+        // treatment as PARTICIPANT_JOINED above (timestamp divider still
+        // shows, just no "{name} has left the chat" text).
+        return null;
       case ContentType.EVENT_CONTENT_TYPE.AUTHENTICATION_INITIATED:
         return <AuthenticationMessage link={this.props.messageDetails.authenticationUrl} content={content} ></AuthenticationMessage>
       case ContentType.EVENT_CONTENT_TYPE.AUTHENTICATION_EXPIRED:
