@@ -8,6 +8,7 @@ import {
   PARTICIPANT_MESSAGE,
   ATTACHMENT_MESSAGE,
   InteractiveMessageType,
+  AttachmentStatus,
 } from "./Model";
 
 function isRecognizedEvent(eventName) {
@@ -120,6 +121,10 @@ function cloneIncomingItemForReprompt(item) {
     status: Status.SendSuccess,
     sentTime: _timestampNow(),
   };
+  // Flagged so ChatTranscriptor's avatar-grouping always gives this its own
+  // avatar bubble instead of folding it into the previous message's group -
+  // see isLocalNotice handling in ChatTranscriptor.avatarGroupKey.
+  clonedItem.isLocalNotice = true;
   return clonedItem;
 }
 
@@ -140,6 +145,8 @@ function createLocalIncomingNotice(referenceItem, text) {
     status: Status.SendSuccess,
     sentTime: _timestampNow(),
   };
+  // See cloneIncomingItemForReprompt above - same reasoning applies here.
+  clonedItem.isLocalNotice = true;
   return clonedItem;
 }
 
@@ -175,6 +182,87 @@ function createTypingParticipant(typingDataItem, thisParticipantId) {
 
 function isAttachmentContentType(contentType) {
   return contentType && Object.values(ContentType.ATTACHMENT_CONTENT_TYPE).includes(contentType.toLowerCase());
+}
+
+// The real attachment metadata (AttachmentId/ContentType/Status/AttachmentName)
+// only exists once the item has round-tripped through the transcript API -
+// a just-sent (not yet echoed back) outgoing attachment only has the raw
+// File object on .content, so fall back to that file's own name/type.
+function getAttachmentContentAndType(itemDetails) {
+  if (itemDetails.Attachments && itemDetails.Attachments.length > 0) {
+    const content = itemDetails.Attachments[0];
+    return {content, contentType: content.ContentType};
+  }
+  return {
+    content: {AttachmentName: itemDetails.content && itemDetails.content.name},
+    contentType: itemDetails.content && itemDetails.content.type,
+  };
+}
+
+// Only an outgoing (customer-sent) image/video attachment is grouped into
+// the multi-image grid bubble (see ChatTranscriptor) - incoming attachments
+// keep their existing one-bubble-per-attachment treatment so per-message
+// read-receipt tracking (which keys off the single rendered item's id) is
+// unaffected.
+function isMediaAttachmentItem(itemDetails) {
+  if (itemDetails.type !== ATTACHMENT_MESSAGE) {
+    return false;
+  }
+  if (!itemDetails.transportDetails || itemDetails.transportDetails.direction !== Direction.Outgoing) {
+    return false;
+  }
+  const {contentType} = getAttachmentContentAndType(itemDetails);
+  return !!contentType && (contentType.startsWith("image/") || contentType.startsWith("video/"));
+}
+
+// An outgoing (customer-sent) attachment the server rejected on
+// content-guideline / moderation grounds - its Attachments[0].Status is
+// REJECTED, which ChatMessage surfaces to the customer as the "upload has
+// been blocked" guidance (see AttachmentStatus.REJECTED branch there).
+function isRejectedAttachmentMessage(itemDetails) {
+  if (!itemDetails || itemDetails.type !== ATTACHMENT_MESSAGE) {
+    return false;
+  }
+  if (!itemDetails.transportDetails || itemDetails.transportDetails.direction !== Direction.Outgoing) {
+    return false;
+  }
+  const attachment = itemDetails.Attachments && itemDetails.Attachments[0];
+  return !!attachment && attachment.Status === AttachmentStatus.REJECTED;
+}
+
+// Decides whether the composer should keep the paperclip open for another
+// try after a rejected upload. Returns true while the newest outgoing
+// attachment in the transcript is a rejection AND the customer still has
+// re-upload attempts left (rejections so far <= maxReuploadAttempts). A
+// later compliant upload makes the newest attachment a non-rejection, which
+// closes this again on its own; burning through the allowed re-attempts
+// keeps it closed. A no-op (returns false) for any transcript with no
+// rejected attachment, so existing attachment behaviour is unchanged.
+function shouldAllowAttachmentReupload(transcript, maxReuploadAttempts) {
+  if (!Array.isArray(transcript)) {
+    return false;
+  }
+  let rejectedCount = 0;
+  let newestOutgoingAttachmentRejected = false;
+  let sawOutgoingAttachment = false;
+  for (let i = 0; i < transcript.length; i++) {
+    const item = transcript[i];
+    if (
+      !item ||
+      item.type !== ATTACHMENT_MESSAGE ||
+      !item.transportDetails ||
+      item.transportDetails.direction !== Direction.Outgoing
+    ) {
+      continue;
+    }
+    sawOutgoingAttachment = true;
+    const rejected = isRejectedAttachmentMessage(item);
+    newestOutgoingAttachmentRejected = rejected;
+    if (rejected) {
+      rejectedCount++;
+    }
+  }
+  return sawOutgoingAttachment && newestOutgoingAttachmentRejected && rejectedCount <= maxReuploadAttempts;
 }
 
 function createIncomingTranscriptReceiptItem(thisParticipant, oldItemInTranscript, messageReceiptData, messageReceiptType) {
@@ -306,6 +394,10 @@ var modelUtils = {
   isRecognizedEvent: isRecognizedEvent,
   createTranscriptItemFromSuccessResponse: createTranscriptItemFromSuccessResponse,
   isAttachmentContentType: isAttachmentContentType,
+  getAttachmentContentAndType: getAttachmentContentAndType,
+  isMediaAttachmentItem: isMediaAttachmentItem,
+  isRejectedAttachmentMessage: isRejectedAttachmentMessage,
+  shouldAllowAttachmentReupload: shouldAllowAttachmentReupload,
   createIncomingTranscriptReceiptItem: createIncomingTranscriptReceiptItem,
   isTypeMessageOrAttachment: isTypeMessageOrAttachment,
   isParticipantAgentOrCustomer: isParticipantAgentOrCustomer,

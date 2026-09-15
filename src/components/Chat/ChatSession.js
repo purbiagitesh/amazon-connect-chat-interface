@@ -333,6 +333,17 @@ class ChatSession {
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
+    // Public, host-page-facing signal (deliberately NOT the internal
+    // EventBus "chat-disconnected"/"chat-closed" events above, which only
+    // React components and launcher.js's wireChatEndCleanup listen to) -
+    // this method is only ever reached via the 90s+30s inactivity
+    // auto-disconnect flow (_handleInactivityDisconnect), so a brand
+    // website's own script can listen for this on window to know the chat
+    // was auto-ended due to inactivity, e.g. to hide the launcher
+    // button/panel on a PLP page where it should not re-show idle.
+    window.dispatchEvent(new CustomEvent("elc:chatSessionClosed", {
+      detail: {contactId: this.contactId},
+    }));
   }
 
   closeChat() {
@@ -437,17 +448,22 @@ class ChatSession {
 
     this.isOutgoingMessageInFlight = true;
 
+    // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
+    const outgoingMessageSendStartTime = performance.now();
+
     this.client
       .sendMessage(message.content)
       .then((response) => {
-        console.log("send success");
-        console.log(response);
+         this.logger && this.logger.info("send success");
+         this.logger && this.logger.info(response);
+         this.logger && this.logger.info("[sendMessage] outgoing message UI -> Connect time (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
         this._shouldAddToTranscript(message) && this._replaceItemInTranscript(message, modelUtils.createTranscriptItemFromSuccessResponse(message, response));
 
         this.isOutgoingMessageInFlight = false;
         return response;
       })
       .catch((error) => {
+       this.logger && this.logger.info("[sendMessage] outgoing message failed after (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
         this.isOutgoingMessageInFlight = false;
 
         this._failMessage(message);
@@ -468,8 +484,8 @@ class ChatSession {
     return this.client
       .sendAttachment(transcriptItem.content)
       .then((response) => {
-        console.log("RESPONSE", response);
-        console.log("sendAttachment response:", response);
+        this.logger && this.logger.info("RESPONSE", response);
+        this.logger && this.logger.info("sendAttachment response:", response);
         this.transcript.splice(this.transcript.indexOf(transcriptItem), 1);
         return response;
       })
@@ -519,7 +535,7 @@ class ChatSession {
   }
 
   loadPreviousTranscript() {
-    console.log("loadPreviousTranscript in single");
+   this.logger && this.logger.info("loadPreviousTranscript in single");
     var args = {};
     args.scanDirection = "BACKWARD";
     args.sortOrder = "ASCENDING";
@@ -648,7 +664,7 @@ class ChatSession {
 
   // TRANSCRIPT
   _loadLatestTranscript() {
-    console.log("loadPreviousTranscript in single");
+    this.logger && this.logger.info("loadPreviousTranscript in single");
     return this._loadTranscript({
       scanDirection: "BACKWARD",
       sortOrder: "ASCENDING",
@@ -686,14 +702,25 @@ class ChatSession {
     var data = dataInput.data;
     var item = modelUtils.createItemFromIncoming(data, this.thisParticipant);
 
-    console.log("_handleIncomingData item created");
+   this.logger && this.logger.info("_handleIncomingData item created");
     console.log(item);
+
+    // Latency testing: log the ms difference between the last Incoming and last Outgoing message (sentTime is in seconds)
+    if (item && item.transportDetails && item.transportDetails.sentTime) {
+      this._lastSentTimeByDirection = this._lastSentTimeByDirection || {};
+      this._lastSentTimeByDirection[item.transportDetails.direction] = item.transportDetails.sentTime;
+      const incomingSentTime = this._lastSentTimeByDirection[Direction.Incoming];
+      const outgoingSentTime = this._lastSentTimeByDirection[Direction.Outgoing];
+      if (incomingSentTime && outgoingSentTime) {
+       this.logger && this.logger.info("_handleIncomingData item created");
+      }
+    }
 
     if (item) {
       if (!this._isRoundtripMessage(data) && (item.messageCompleted === undefined || item.messageCompleted === true)) {
         this._updateTypingParticipantsUsingIncoming(item);
       }
-      console.log("_handleIncomingData item created");
+      this.logger && this.logger.info("_handleIncomingData item created");
 
       const {transportDetails, type, participantRole} = item;
       if (transportDetails.direction === Direction.Incoming) {
@@ -733,7 +760,7 @@ class ChatSession {
         this._shouldAddToTranscript(item) && this._addItemsToTranscript([item]);
       }
     } else {
-      console.log("_handleIncomingData NOT NOT item created");
+      this.logger && this.logger.info("_handleIncomingData NOT NOT item created");
     }
   }
 
