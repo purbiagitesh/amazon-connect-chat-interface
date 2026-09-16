@@ -9,6 +9,11 @@ import {Text} from "connect-core";
 import styled from "styled-components";
 import renderHTML from 'react-render-html';
 
+// After an upload is rejected on content-guideline grounds, the customer is
+// let back in to swap in a compliant file this many times before the
+// paperclip closes for good (see modelUtils.shouldAllowAttachmentReupload).
+const MAX_ATTACHMENT_REUPLOAD_ATTEMPTS = 2;
+
 const ChatWrapper = styled.div`
   position: relative;
   display: flex;
@@ -138,6 +143,7 @@ const defaultHeaderConfig = {
                 cursor: 'pointer',
                 padding: '0 0 0 8px',
                 flexShrink: 0,
+                width: 'auto',
               }}
               aria-label="Close chat"
             >
@@ -188,10 +194,12 @@ export default class Chat extends Component {
     composerConfig: PT.object,
     disclaimerConfig: PT.object,
     onEnded: PT.func,
+    forceAttachmentStepActive: PT.bool,
   };
 
   static defaultProps = {
     onEnded: () => {},
+    forceAttachmentStepActive: false,
   };
 
   componentDidMount() {
@@ -269,7 +277,16 @@ export default class Chat extends Component {
     // The attach icon stays hidden until the bot's current step explicitly
     // asks for a file (attachmentExpected: true on the latest interactive
     // message) - see modelUtils.isAttachmentExpectedMessage.
-    const isAttachmentStepActive = !!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem);
+    //const isAttachmentStepActive = !!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem);
+    //
+    // Also keep the paperclip available after a rejected upload so the
+    // customer can re-upload a compliant file - capped at
+    // MAX_ATTACHMENT_REUPLOAD_ATTEMPTS re-tries, and closing itself once a
+    // compliant file goes through (see modelUtils.shouldAllowAttachmentReupload).
+    const isAttachmentStepActive = (!!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem))
+      || this.props.forceAttachmentStepActive
+      || modelUtils.shouldAllowAttachmentReupload(this.state.transcript, MAX_ATTACHMENT_REUPLOAD_ATTEMPTS);
+    //const isAttachmentStepActive = !!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">
         {(this.state.contactStatus === CONTACT_STATUS.CONNECTED ||

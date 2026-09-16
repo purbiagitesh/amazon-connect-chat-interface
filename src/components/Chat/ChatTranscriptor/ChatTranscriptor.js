@@ -15,6 +15,14 @@ import {SystemMessage} from "./ChatMessages/SystemMessage";
 import ChatTranscriptScroller from "./ChatTranscriptScroller";
 import {CONTACT_STATUS} from "connect-constants";
 
+// Two consecutive outgoing image/video attachments only share one grid
+// bubble (see buildRenderGroups) when their send times are within this many
+// seconds of each other - i.e. they came from the same multi-file composer
+// send. A later upload (e.g. the customer re-uploading after an
+// approved/rejected response and its error message) is well past this gap,
+// so it starts its own fresh bubble instead of being absorbed into the
+// earlier batch's bubble. sentTime is in seconds.
+const MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS = 10;
 
 const TranscriptBody = styled.div`
   margin: 0 auto;
@@ -105,15 +113,25 @@ export default class ChatTranscriptor extends PureComponent {
     if (itemDetails.displayName === "SYSTEM_MESSAGE") {
       return `system-notice-${itemDetails.id}`;
     }
+    
+    // Same per-message treatment for ChatSession's inactivity notices
+    // ("Sorry, I didn't get your response.", the re-prompted message, and
+    // "Thank you for connecting with us today.") - each one should draw its
+    // own avatar bubble as a visual cue that the assistant is speaking again
+    // after a pause, rather than silently folding into whatever group came
+    // right before it (see modelUtils.cloneIncomingItemForReprompt /
+    // createLocalIncomingNotice, which set this flag).
+    if (itemDetails.isLocalNotice) {
+      return `local-notice-${itemDetails.id}`;
+    }
     return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
   };
 
-  renderMessage = (itemDetails, isLatestMessage) => {
-    // Found via indexOf (identity match on the same array this.props.transcript
-    // already is) rather than threading an extra arg through the .map() call
-    // below - keeps that call untouched and this method self-contained.
-    const ownIndex = this.props.transcript.indexOf(itemDetails);
-    const previousItemDetails = ownIndex > 0 ? this.props.transcript[ownIndex - 1] : null;
+  renderMessage = (itemsInGroup, previousItemDetails, isLatestMessage) => {
+    // The representative item for the group is always the last one - its
+    // timestamp/receipt/error state stands in for the whole batch (see
+    // buildRenderGroups below).
+    const itemDetails = itemsInGroup[itemsInGroup.length - 1];
     const itemId = itemDetails.id;
     const version = itemDetails.version;
     const messageReceiptType = itemDetails.transportDetails && itemDetails.transportDetails.messageReceiptType ? 
@@ -166,6 +184,9 @@ export default class ChatTranscriptor extends PureComponent {
         isLatestMessage,
         sendReadReceipt: this.props.sendReadReceipt,
         showAvatar,
+        // Multiple images/videos sent together render as one grid bubble
+        // instead of one bubble per attachment (see buildRenderGroups).
+        groupedAttachmentItems: modelUtils.isMediaAttachmentItem(itemDetails) ? itemsInGroup : null,
       }
     } else if (modelUtils.isRecognizedEvent(itemDetails.content.type)) {
       config = Object.assign({}, config, transcriptConfig.systemMessageConfig);
@@ -188,6 +209,61 @@ export default class ChatTranscriptor extends PureComponent {
     );
   };
 
+  // Consecutive outgoing image/video attachment messages (e.g. a multi-file
+  // composer selection - see ChatComposer's sendAttachments) are collapsed
+  // into a single render group so they share one message bubble/grid instead
+  // of each attachment getting its own bubble. Every other item (text
+  // messages, non-media attachments, single media attachments) is its own
+  // one-item group, so this is a no-op for the common case.
+  //
+  // A run is also broken where two adjacent media items are more than
+  // MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS apart: that means they belong to
+  // different sends (e.g. the customer re-uploading after the previous
+  // batch's approved/rejected response + error message), so the later upload
+  // gets its own new bubble rather than being merged into the earlier one.
+  buildRenderGroups = () => {
+    const transcript = this.props.transcript; //need to handle undefined
+    const groups = [];
+    let i = 0;
+    while (i < transcript.length) {
+      const item = transcript[i];
+      if (modelUtils.isMediaAttachmentItem(item)) {
+        const group = [item];
+        let j = i + 1;
+        while (
+          j < transcript.length &&
+          modelUtils.isMediaAttachmentItem(transcript[j]) &&
+          transcript[j].transportDetails.direction === item.transportDetails.direction &&
+          transcript[j].participantId === item.participantId &&
+          this.isSameAttachmentSend(group[group.length - 1], transcript[j])
+        ) {
+          group.push(transcript[j]);
+          j++;
+        }
+        groups.push(group);
+        i = j;
+      } else {
+        groups.push([item]);
+        i++;
+      }
+    }
+    return groups;
+  };
+
+  // Whether two adjacent outgoing media items came from the same send, judged
+  // by how far apart their send times are. If either lacks a usable sentTime
+  // the check is skipped (returns true) so grouping falls back to the
+  // previous purely-consecutive behavior.
+  isSameAttachmentSend = (earlierItem, laterItem) => {
+    const earlier = earlierItem.transportDetails && earlierItem.transportDetails.sentTime;
+    const later = laterItem.transportDetails && laterItem.transportDetails.sentTime;
+    if (typeof earlier !== "number" || typeof later !== "number" || isNaN(earlier) || isNaN(later)) {
+      return true;
+    }
+    return Math.abs(later - earlier) <= MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS;
+  };
+
+
   renderTyping = participantTypingDetails => {
     var participantId =
       participantTypingDetails.participantId;
@@ -209,7 +285,8 @@ export default class ChatTranscriptor extends PureComponent {
         transportDetails.direction === Direction.Outgoing
       )).pop();
 
-    const lastMessageIndex = this.props.transcript.length - 1;
+    const renderGroups = this.buildRenderGroups();
+    const lastGroupIndex = renderGroups.length - 1;
 
     return (
       <TranscriptWrapper
@@ -230,7 +307,11 @@ export default class ChatTranscriptor extends PureComponent {
           // the inactivity auto-disconnect flow keeps it open).
           this.props.contactStatus === CONTACT_STATUS.DISCONNECTED) && (
             <TranscriptBody>
-              {this.props.transcript.map((item, idx) => this.renderMessage(item, idx === lastMessageIndex))}
+              {renderGroups.map((itemsInGroup, idx) => this.renderMessage(
+                itemsInGroup,
+                idx > 0 ? renderGroups[idx - 1][renderGroups[idx - 1].length - 1] : null,
+                idx === lastGroupIndex
+              ))}
               {this.props.typingParticipants.map(typing =>
                 this.renderTyping(typing)
               )}

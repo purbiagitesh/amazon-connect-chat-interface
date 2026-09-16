@@ -45,6 +45,8 @@ const IconWrapper = styled.div`
 const Body = styled.div`
   min-width: 0;
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 // Collapsed state only: text + toggle sit side by side on one line (text
@@ -92,17 +94,25 @@ const ToggleButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--ac-widget-disclaimer-link-color, ${(props) => props.theme.palette.darkBlue});
+  color: var(--ac-widget-disclaimer-link-color, ${(props) => props.theme.palette.charcoal});
   font-family: inherit;
   font-size: 9px;
   font-style: normal;
   letter-spacing: normal;
   text-decoration-style: solid;
   white-space: nowrap;
+  width: auto !important;
+
+  &:hover {
+    background: none !important;
+    border-color: transparent !important;
+    color: var(--ac-widget-disclaimer-link-color, ${(props) => props.theme.palette.charcoal}) !important;
+    text-decoration: underline !important;
+  }
 
   ${(props) => (props.expanded ? `
-    float: right;
-    margin-left: 8px;
+    align-self: flex-end;
+    margin-top: 8px;
   ` : `
     margin-top: 2px;
   `)}
@@ -115,7 +125,7 @@ const Chevron = styled.svg`
   /* Set directly here (rather than relying on the path's fill="currentColor"
      to inherit color from the button) so it can't silently end up
      transparent/unset depending on how the ancestor chain resolves color. */
-  fill: var(--ac-widget-disclaimer-link-color, ${(props) => props.theme.palette.darkBlue});
+  fill: var(--ac-widget-disclaimer-link-color, ${(props) => props.theme.palette.charcoal});
 `;
 
 // Inlined directly as JSX (mirrors src/assets/images/icon-disclaimer.svg,
@@ -144,7 +154,7 @@ function ShieldIcon(props) {
 function ExpandMoreIcon(props) {
   return (
     <Chevron viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
-      <path d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z" />
+      <path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" />
     </Chevron>
   );
 }
@@ -152,7 +162,7 @@ function ExpandMoreIcon(props) {
 function ExpandLessIcon(props) {
   return (
     <Chevron viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
-      <path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" />
+      <path d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z " />
     </Chevron>
   );
 }
@@ -242,6 +252,7 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
       <Body>
         {expanded ? (
           <>
+            <Text expanded>{text}</Text>
             <ToggleButton
               type="button"
               expanded
@@ -252,7 +263,6 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
               {toggleLabel}
               <ExpandLessIcon />
             </ToggleButton>
-            <Text expanded>{text}</Text>
           </>
         ) : (
           <CollapsedRow>

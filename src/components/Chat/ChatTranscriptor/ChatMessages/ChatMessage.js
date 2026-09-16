@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState, useEffect, useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 import PT from "prop-types";
@@ -15,10 +15,10 @@ import {
 } from "../../datamodel/Model";
 import { ErrorBoundary } from 'react-error-boundary';
 import { Icon, TypingLoader } from "connect-core";
-import { InteractiveMessage, QUICK_REPLY_BUBBLE_MAX_WIDTH } from "./InteractiveMessage";
+import { InteractiveMessage } from "./InteractiveMessage";
 import { CSM_CONSTANTS, CSM_CATEGORY } from "../../../../constants/global";
 import { InView } from "react-intersection-observer";
-import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON, isRatingQuickReply } from "../../../../utils/helper";
+import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON } from "../../../../utils/helper";
 import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
@@ -136,6 +136,20 @@ const Body = styled.div`
       `};
 
   ${(props) => (props.messageStyle ? props.messageStyle : "")};
+
+  /* An image  attachment bubble is painted with the customer/outgoing
+     colours while the upload is still in flight; once the server has
+     responded (approved or rejected - see useIncomingBubbleColors in
+     ChatMessage's render) the whole bubble switches to the agent/incoming
+     colours. Colour only: direction, alignment, timestamp, sizing and the
+     chip grid inside are all unaffected. */
+  ${(props) => (props.useIncomingBubbleColors
+    ? `
+      background: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));
+      background-color: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));
+      color: var(--ac-widget-transcript-agent-textcolor);
+    `
+    : "")}
 
   ${(props) => props.childWillAddBackground ? "background: none" : ""}
 
@@ -270,23 +284,9 @@ const MessageContent = styled.div`
 // controls' own top padding provides the same gap below the bubble as
 // before. When there is no avatar column (indented === false) it is flush
 // with the bubble, matching the pre-change layout for that case.
-//
-// The full-width rating scale (data-rating="true") is the one exception:
-// per the updated Figma frame its buttons start flush with the avatar's
-// left edge, not indented to the bubble's - so the indent is skipped even
-// when an avatar column is present. Non-rating QuickReplies are unaffected.
-//
-// The rating buttons are also capped to QUICK_REPLY_BUBBLE_MAX_WIDTH - the
-// same width the title bubble above them already caps to (MessageBody's
-// capWidth) - so they don't stretch wider than the bubble just because
-// they sit in the wider, uncapped message-panel column outside it.
 const QuickReplyActionsRow = styled.div`
-  &[data-indented="true"]:not([data-rating="true"]) {
+  &[data-indented="true"] {
     padding-left: calc(32px + ${({ theme }) => theme.spacing.mini});
-  }
-
-  &[data-rating="true"] {
-    max-width: ${QUICK_REPLY_BUBBLE_MAX_WIDTH};
   }
 `;
 const StatusText = styled.span`
@@ -297,6 +297,16 @@ const StatusText = styled.span`
 
 const TransportErrorMessage = styled.div`
   ${({ theme }) => theme.typography.supportingText};
+  /* MessageContainer is inline-block, so it sizes to its widest child. An
+     unconstrained error paragraph here would stretch the whole message -
+     and for a media attachment (whose Body fills that resolved width) it
+     drags the bubble background wide with it, leaving a small chip
+     floating in a full-width bubble. Cap the caption at the Figma bubble
+     width (see Body/MediaAttachmentGridContainer) and count padding
+     inward so it wraps directly beneath the bubble instead. */
+  box-sizing: border-box;
+  max-width: 200px;
+  word-break: break-word;
   margin-left: ${(props) => props.theme.chatTranscriptor.msgStatusWidth};
   padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.micro};
 
@@ -373,6 +383,11 @@ export class ParticipantMessage extends PureComponent {
     // previous one, don't draw a second avatar". Omitted/true keeps the
     // original per-message behavior, so existing callers/tests are unaffected.
     showAvatar: PT.bool,
+    // Set (by ChatTranscriptor) when this ATTACHMENT_MESSAGE is the
+    // representative of one or more consecutive outgoing image/video
+    // attachments - renders all of them as one grid bubble instead of the
+    // plain filename-link AttachmentMessage.
+    groupedAttachmentItems: PT.array,
   };
 
   constructor(props) {
@@ -603,26 +618,39 @@ export class ParticipantMessage extends PureComponent {
       }
     }
 
+    // The media grid (see MediaAttachmentGrid) sizes/pads/rounds itself
+    // (padding 10, radius 16, gap 8 - matching this same Body spec, hugging
+    // however many chips were sent up to a 3-wide cap) rather than reusing
+    // Body's own inline-block sizing.
+    const isMediaGridAttachment =
+      this.props.messageDetails.type === ATTACHMENT_MESSAGE &&
+      this.props.groupedAttachmentItems &&
+      this.props.groupedAttachmentItems.length > 0;
+    if (isMediaGridAttachment) {
+      bodyStyleConfig.removePadding = true;
+    }
+
     let content, contentType;
     if (this.props.messageDetails.type === ATTACHMENT_MESSAGE) {
-      //Use Attachments data as content if available
-      //If an attachment message does not have this data, it means the upload was rejected
-      if (
-        this.props.messageDetails.Attachments &&
-        this.props.messageDetails.Attachments.length > 0
-      ) {
-        content = this.props.messageDetails.Attachments[0];
-        contentType = content.ContentType;
-        if (content.Status === AttachmentStatus.REJECTED && error === undefined) {
-          error = {
-            message: "Attachment was rejected."
-          }
+      const attachmentContentAndType = modelUtils.getAttachmentContentAndType(this.props.messageDetails);
+      content = attachmentContentAndType.content;
+      contentType = attachmentContentAndType.contentType;
+      //If an attachment message does not have Attachments data, it means the upload was rejected
+      if (content.Status === AttachmentStatus.REJECTED && error === undefined) {
+        error = {
+          message: "Attachment was rejected." // This will be removed once customize error message will come from connect.
         }
-      } else {
-        content = {
-          AttachmentName: this.props.messageDetails.content.name,
-        };
-        contentType = this.props.messageDetails.content.type;
+      }
+      // Once the server has weighed in on the image upload (approved OR
+      // rejected) the bubble switches from the customer/outgoing colour to
+      // the agent/incoming one - colour only (see Body's
+      // useIncomingBubbleColors). While the upload is still in flight there
+      // is no Status yet, so it keeps the outgoing colour.
+      if (
+        isMediaGridAttachment &&
+        (content.Status === AttachmentStatus.APPROVED || content.Status === AttachmentStatus.REJECTED)
+      ) {
+        bodyStyleConfig.useIncomingBubbleColors = true;
       }
     } else {
       content = this.props.messageDetails.content.data;
@@ -702,14 +730,11 @@ export class ParticipantMessage extends PureComponent {
     }
 
     // QuickReply option/rating controls: full width below the avatar+bubble
-    // row, inset to line up exactly where they sat inside the bubble - except
-    // the rating scale, which stays flush with the avatar (see
-    // QuickReplyActionsRow above).
-    const isRatingScale = isRatingQuickReply(quickReplyContent);
+    // row, inset to line up exactly where they sat inside the bubble.
     return (
       <React.Fragment>
         {messageRow}
-        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn} data-rating={isRatingScale}>
+        <QuickReplyActionsRow data-testid="quickreply-actions-row" data-indented={hasAvatarColumn}>
           <ErrorBoundary fallback={<ErrorFallback InteractiveMessageType={InteractiveMessageType.QUICK_REPLY} />}>
             <InteractiveMessage
               content={quickReplyContent}
@@ -732,6 +757,14 @@ export class ParticipantMessage extends PureComponent {
 
   renderContent(content, contentType) {
     if (this.props.messageDetails.type === ATTACHMENT_MESSAGE) {
+      if (this.props.groupedAttachmentItems && this.props.groupedAttachmentItems.length > 0) {
+        return (
+          <MediaAttachmentGrid
+            items={this.props.groupedAttachmentItems}
+            downloadAttachment={this.props.mediaOperations.downloadAttachment}
+          />
+        );
+      }
       return (
         <AttachmentMessage
           content={content}
@@ -964,5 +997,208 @@ class AttachmentMessage extends PureComponent {
     }
 
     return <div>{this.renderContent()}</div>;
+  }
+}
+
+// Placeholder glyph matching the composer's own staged-attachment chips
+// (see ChatComposer's ImagePlaceholderIcon) - reused here so a sent
+// attachment looks the same before and after sending.
+//Because no figma UI is provided by Design team.
+function ImagePlaceholderIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 8v10H6V8h8Zm0-1H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM9.83 12.9 7.83 15.4 6.5 13.83 4.5 16.33h9l-2.86-3.43-.81.99Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+const MEDIA_ATTACHMENT_CHIP_SIZE_PX = 53;
+const MEDIA_ATTACHMENT_GRID_GAP_PX = 8;
+const MEDIA_ATTACHMENT_GRID_PADDING_PX = 10;
+const MEDIA_ATTACHMENT_GRID_MAX_COLUMNS = 3;
+
+// Width of a bubble that is exactly MEDIA_ATTACHMENT_GRID_MAX_COLUMNS chips
+// wide (chips + inter-chip gaps + both paddings). Used as the grid's
+// max-width so a 4th+ attachment wraps to a new row, while fewer than that
+// lets the bubble shrink to hug only the chips actually sent.
+const MEDIA_ATTACHMENT_GRID_MAX_WIDTH_PX =
+  MEDIA_ATTACHMENT_GRID_MAX_COLUMNS * MEDIA_ATTACHMENT_CHIP_SIZE_PX +
+  (MEDIA_ATTACHMENT_GRID_MAX_COLUMNS - 1) * MEDIA_ATTACHMENT_GRID_GAP_PX +
+  2 * MEDIA_ATTACHMENT_GRID_PADDING_PX;
+
+// Bubble spec for the media grid (replaces Body's own sizing - see
+// bodyStyleConfig.removePadding above): padding 10, radius 16, gap 8, capped
+// at MEDIA_ATTACHMENT_GRID_MAX_COLUMNS chips per row. The box hugs its
+// content (width: fit-content) rather than reserving a fixed 3-wide/2-tall
+// area, so an upload of fewer than the row/grid maximum shows just those
+// chips with no empty placeholder space after submission. A 4th+ attachment
+// still wraps to a further row (max-width cap) instead of clipping.
+const MediaAttachmentGridContainer = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${MEDIA_ATTACHMENT_GRID_GAP_PX}px;
+  width: -webkit-fit-content;
+  width: fit-content;
+  max-width: ${MEDIA_ATTACHMENT_GRID_MAX_WIDTH_PX}px;
+  padding: ${MEDIA_ATTACHMENT_GRID_PADDING_PX}px;
+  border-radius: 16px;
+`;
+
+const MediaAttachmentChip = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  overflow: hidden;
+  width: ${MEDIA_ATTACHMENT_CHIP_SIZE_PX}px;
+  height: ${MEDIA_ATTACHMENT_CHIP_SIZE_PX}px;
+  border-radius: var(--ac-widget-transcript-media-chip-radius, 12px);
+  cursor: pointer;
+
+  /* A rejected upload shows no thumbnail at all - the chip becomes a
+     tinted-red placeholder tile (pale fill, solid red border, red image
+     glyph) so it reads as "blocked" at a glance. Every non-rejected chip
+     keeps its existing white tile / thumbnail exactly as before. */
+  background: ${(props) => (props.rejected
+    ? `var(--ac-widget-transcript-media-chip-error-background, #FDE4E4)`
+    : `var(--ac-widget-transcript-media-chip-background, ${props.theme.palette.white})`)};
+  color: ${(props) => (props.rejected
+    ? `var(--ac-widget-transcript-media-chip-error-border, ${props.theme.palette.red})`
+    : `var(--ac-widget-transcript-media-chip-icon-color, ${props.theme.palette.silver})`)};
+  border: ${(props) => (props.rejected
+    ? `2px solid var(--ac-widget-transcript-media-chip-error-border, ${props.theme.palette.red})`
+    : "1px solid transparent")};
+
+  & > svg {
+    width: 60%;
+    height: 60%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+// Shown in place of the thumbnail on a rejected chip - a red "image" glyph
+// (rounded frame, sun, mountain) matching the design reference. The full
+// guideline text and the re-enabled paperclip for re-uploading are handled
+// by ParticipantMessage / Chat.js.
+function RejectedImageIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="9" cy="9" r="1.85" fill="currentColor" />
+      <path d="M5 17.5l4-4.8 2.8 2.8 3.4-4.2L20 17.8v.7H5v-1Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+// Resolves the actual thumbnail for one attachment: a just-attached (not yet
+// sent) item still has its raw File on item.content, so its preview is free
+// via URL.createObjectURL; an already-sent item only has the Attachments
+// metadata (AttachmentId, no bytes), so its preview has to be fetched with
+// downloadAttachment and cached as an object URL once it resolves. Falls
+// back to the generic placeholder glyph while a fetched preview is still
+// loading (videos are not in scope - if one ever appears it falls through
+// to the same generic placeholder rather than a broken thumbnail).
+function MediaAttachmentPreview({ item, content, contentType, downloadAttachment }) {
+  const isVideo = !!contentType && contentType.startsWith("video/");
+  const localFile = item.content instanceof File ? item.content : null;
+  const localPreviewUrl = useMemo(
+    () => (localFile && !isVideo ? URL.createObjectURL(localFile) : null),
+    [localFile, isVideo]
+  );
+  const [downloadedPreviewUrl, setDownloadedPreviewUrl] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      if (localPreviewUrl) {
+        URL.revokeObjectURL(localPreviewUrl);
+      }
+    };
+  }, [localPreviewUrl]);
+
+  useEffect(() => {
+    if (localPreviewUrl || isVideo || !content.AttachmentId) {
+      return undefined;
+    }
+    let objectUrl;
+    let cancelled = false;
+    downloadAttachment(content.AttachmentId).then((blob) => {
+      if (cancelled) {
+        return;
+      }
+      objectUrl = URL.createObjectURL(blob);
+      setDownloadedPreviewUrl(objectUrl);
+    });
+    return () => {
+      cancelled = true;
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content.AttachmentId, localPreviewUrl, isVideo]);
+
+  const previewUrl = localPreviewUrl || downloadedPreviewUrl;
+  if (previewUrl) {
+    return <img src={previewUrl} alt={content.AttachmentName} />;
+  }
+  return <ImagePlaceholderIcon />;
+}
+
+// Renders one or more images/videos sent together as a single 3-column
+// wrapping grid of chips (see ChatTranscriptor's buildRenderGroups) instead
+// of one filename-link bubble per attachment.
+class MediaAttachmentGrid extends PureComponent {
+  downloadItem = (item) => (e) => {
+    e.preventDefault();
+    const { content } = modelUtils.getAttachmentContentAndType(item);
+    if (!content.AttachmentId) {
+      return;
+    }
+    this.props.downloadAttachment(content.AttachmentId).then((blob) => {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", content.AttachmentName);
+      link.click();
+    });
+  };
+
+  render() {
+    return (
+      <MediaAttachmentGridContainer data-testid="media-attachment-grid">
+        {this.props.items.map((item) => {
+          const { content, contentType } = modelUtils.getAttachmentContentAndType(item);
+          const isRejected = content.Status === AttachmentStatus.REJECTED;
+          const download = this.downloadItem(item);
+          return (
+            <MediaAttachmentChip
+              key={item.id}
+              href={content.AttachmentName}
+              rejected={isRejected}
+              aria-label={content.AttachmentName}
+              onClick={download}
+              onKeyPress={download}
+            >
+              {isRejected ? (
+                <RejectedImageIcon />
+              ) : (
+                <MediaAttachmentPreview
+                  item={item}
+                  content={content}
+                  contentType={contentType}
+                  downloadAttachment={this.props.downloadAttachment}
+                />
+              )}
+            </MediaAttachmentChip>
+          );
+        })}
+      </MediaAttachmentGridContainer>
+    );
   }
 }

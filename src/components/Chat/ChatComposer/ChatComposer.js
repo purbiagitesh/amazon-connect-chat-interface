@@ -184,7 +184,8 @@ const AttachmentContainer = styled.div`
 
 const TextInput = styled(TextareaAutosize)`
   flex: 1;
-  outline: none;
+  outline: none !important;
+  border: none !important;
   user-select: text;
   word-break: break-word;
   font-family: inherit;
@@ -214,6 +215,14 @@ const TextInput = styled(TextareaAutosize)`
 
   &::placeholder {
     color: ${(props) => props.theme.palette.mediumGray};
+    font-size: 12px !important;
+    font-weight: normal !important;
+    height: 18px !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    border: none !important;
   }
 
   &:focus::placeholder {
@@ -261,6 +270,13 @@ const MediaChipScrollArea = styled.div`
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* MediaChipRemoveButton overlaps the top-right corner of each chip, but
+     "overflow-x: auto" forces "overflow-y" to compute to "auto" too (per the
+     CSS overflow spec), which would clip that overhang. Padding + an equal
+     negative margin on the same sides gives the badge room inside the
+     scrollable box without changing the chips' visual position. */
+  padding: 10px 10px 0 0;
+  margin: -10px -10px 0 0;
 
   &::-webkit-scrollbar {
     display: none;
@@ -369,18 +385,6 @@ function ImagePlaceholderIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M14 8v10H6V8h8Zm0-1H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM9.83 12.9 7.83 15.4 6.5 13.83 4.5 16.33h9l-2.86-3.43-.81.99Z" fill="currentColor" />
-    </svg>
-  );
-}
-
-// Video attachments always use this placeholder (no real thumbnail) since
-// grabbing a genuine poster frame needs canvas work that isn't built yet -
-// matches the 3rd chip in the Figma reference.
-function VideoPlaceholderIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="10" cy="10" r="6.5" fill="currentColor" fillOpacity="0.4" />
-      <path d="M8.5 7.3v5.4l4.5-2.7-4.5-2.7Z" fill="currentColor" />
     </svg>
   );
 }
@@ -624,24 +628,20 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   }
 
   function addFiles(fileList) {
-    const files = Array.from(fileList || []);
+    const files = Array.from(fileList || []).filter(file => !file.type.startsWith("video/"));
     if (!files.length) {
       return;
     }
 
     const newEntries = files.map((file) => {
       const media = isMediaFile(file);
-      const isVideo = file.type.startsWith("video/");
       return {
         id: nextAttachmentId(),
         file,
         isMedia: media,
-        isVideo,
         // Images get a real local preview since we already have the file in
-        // the browser; videos fall back to the placeholder glyph (matches
-        // the Figma reference) since grabbing a genuine poster frame needs
-        // canvas work that isn't built yet.
-        previewUrl: media && !isVideo ? URL.createObjectURL(file) : null,
+        // the browser.
+        previewUrl: media ? URL.createObjectURL(file) : null,
         status: "uploading",
       };
     });
@@ -763,8 +763,6 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                 <MediaChipVisual status={entry.status}>
                   {entry.previewUrl ? (
                     <img src={entry.previewUrl} alt={entry.file.name} />
-                  ) : entry.isVideo ? (
-                    <VideoPlaceholderIcon />
                   ) : (
                     <ImagePlaceholderIcon />
                   )}

@@ -98,8 +98,14 @@ class ChatContainer extends Component {
       authenticationIdentityProvider: input.authenticationIdentityProvider || ''
     }
     try {
+      const chatFlowStartTime = performance.now();
       const chatDetails = await initiateChat(input);
+      const tokensReturnedTime = performance.now();
       const chatSession = await this.openChatSession(chatDetails, input.name, input.region, input.stage, customizationParams);
+      const connectionEstablishedTime = performance.now();
+      this.logger && this.logger.info("[startChat] startChat API time (ms):", Math.round(tokensReturnedTime - chatFlowStartTime));
+      this.logger && this.logger.info("[startChat] tokens returned -> websocket connected / X (ms):", Math.round(connectionEstablishedTime - tokensReturnedTime));
+      this.logger && this.logger.info("[startChat] UI -> connected total (ms):", Math.round(connectionEstablishedTime - chatFlowStartTime));
       setCurrentChatSessionInstance(chatSession);
       const attachmentsEnabled =
         (input.featurePermissions && input.featurePermissions[CHAT_FEATURE_TYPES.ATTACHMENTS]) ||

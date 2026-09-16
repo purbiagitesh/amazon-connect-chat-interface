@@ -33,6 +33,10 @@ function safeParse(jsonString, defaultValue) {
  * @returns {Promise} Promise object that resolves to chatDetails objects
  */
 export function initiateChat(input) {
+  const logger =
+    window.connect && window.connect.LogManager
+      ? window.connect.LogManager.getLogger({ prefix: "ChatInterface-ChatInitiator" })
+      : null;
   const initiateChatRequest = {
     ParticipantDetails: {
       DisplayName: input.name,
@@ -75,6 +79,8 @@ export function initiateChat(input) {
     headers = input.headers;
   }
 
+  const startChatRequestStartTime = performance.now();
+
   return request(
     input.apiGatewayEndpoint,
     {
@@ -83,5 +89,13 @@ export function initiateChat(input) {
       body: JSON.stringify(initiateChatRequest),
     },
     START_CHAT_CLIENT_TIMEOUT_MS
-  ).then((res) => res.json.data);
+  )
+    .then((res) => {
+       logger && logger.info("[startChat] request-response time (ms):", Math.round(performance.now() - startChatRequestStartTime));
+      return res.json.data;
+    })
+    .catch((err) => {
+       logger && logger.info("[startChat] failed after (ms):", Math.round(performance.now() - startChatRequestStartTime));
+      throw err;
+    });
 }

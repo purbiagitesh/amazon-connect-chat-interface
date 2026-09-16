@@ -76,8 +76,6 @@ ContentType.ATTACHMENT_CONTENT_TYPE = {
   RTF: ContentType.MESSAGE_CONTENT_TYPE.RICH_TEST_FILE_RTF,
   X_RTF: ContentType.MESSAGE_CONTENT_TYPE.RICH_TEST_FILE_X_RTF,
   HEIC: ContentType.MESSAGE_CONTENT_TYPE.IMAGE_HEIC,
-  MOV: ContentType.MESSAGE_CONTENT_TYPE.VIDEO_QUICKTIME,
-  MP4: ContentType.MESSAGE_CONTENT_TYPE.VIDEO_MP4,
   RICH_TEXT: ContentType.MESSAGE_CONTENT_TYPE.RICH_TEXT,
   TEXT_RTF: ContentType.MESSAGE_CONTENT_TYPE.TEXT_RTF,
 };
@@ -96,9 +94,7 @@ export const ATTACHMENT_ACCEPT_CONTENT_TYPES = [
   ".csv",
   ".jfif",
   ".rtf",
-  ".heic",
-  ".mov",
-  ".mp4"
+  ".heic"
 ];
 
 export const InteractiveMessageType = {

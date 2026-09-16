@@ -211,7 +211,7 @@ test("Should show error message for rejected attachment", () => {
   renderElement(mockProps);
   const errorMessage = document.querySelector('span');
   expect(errorMessage).toBeInTheDocument();
-  expect(errorMessage).toHaveTextContent('Attachment was rejected.');
+  expect(errorMessage).toHaveTextContent('Your upload has been blocked because it doesn’t meet our guidelines.');
 });
 
 test("Should be able to render bold, italics, numbered list, bulleted list and hyperlink, but not image", () => {
