@@ -140,6 +140,13 @@ export const AttachmentStatus = {
   REJECTED: "REJECTED",
 };
 
+// Shown to the customer as a normal incoming Virtual Assistant message (see
+// ChatTranscriptor's buildRejectionNoticeItem) whenever an outgoing image
+// upload comes back REJECTED - never sent to/from Connect, purely a local
+// notice that looks identical to a real bot reply.
+export const ATTACHMENT_REJECTED_MESSAGE =
+  "Your upload has been blocked because it doesn’t meet our guidelines. Images that are inappropriate, explicit, abusive, or unrelated to your request are not allowed. Please upload a relevant and appropriate image related to your request and I’ll be happy to assist you.";
+
 export const Direction = {
   Outgoing: "Outgoing",
   Incoming: "Incoming",

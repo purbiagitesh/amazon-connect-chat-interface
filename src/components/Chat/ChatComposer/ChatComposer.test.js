@@ -3,6 +3,7 @@ import {IntlProvider} from 'react-intl';
 import ChatComposer from "./ChatComposer";
 import {ThemeProvider} from "../../../theme";
 import {render, fireEvent, screen, prettyDOM} from "@testing-library/react";
+import {act} from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
 import {ContentType} from "../datamodel/Model";
 import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
@@ -101,6 +102,45 @@ describe("when window.connect is not defined", () => {
     });
   });
 
+  test("Should disable the text input and the attach icon while an attachment is being sent, then re-enable both once sent", async () => {
+    renderElement(mockProps);
+    const fileInput = mockComposer.getByTestId("customer-chat-file-select");
+    fireEvent.change(fileInput, {target: {files: [mockAttachmentsFile]}});
+
+    const textInput = mockComposer.getByTestId("customer-chat-text-input");
+    const attachmentIcon = mockComposer.getByTestId("customer-chat-attachment-icon");
+    expect(textInput).not.toBeDisabled();
+    expect(fileInput).not.toBeDisabled();
+    expect(attachmentIcon).toHaveAttribute("tabIndex", "0");
+
+    const sendMessageButton = mockComposer.getByTestId("customer-chat-send-message-button");
+    fireEvent.click(sendMessageButton);
+
+    // Locked immediately - the addAttachment promise hasn't settled yet.
+    expect(textInput).toBeDisabled();
+    expect(fileInput).toBeDisabled();
+    expect(attachmentIcon).toHaveAttribute("tabIndex", "-1");
+
+    // Selecting another file while the icon is disabled must not stage it.
+    const secondFile = {name: "duringSend.pdf", type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF, size: 1};
+    fireEvent.change(fileInput, {target: {files: [secondFile]}});
+    expect(mockComposer.queryByText("duringSend.pdf")).toBeNull();
+
+    // Flush addAttachment's own promise plus the Promise.all/.catch/.finally
+    // chain built on top of it in sendAttachments.
+    await act(async () => {
+      await mockProps.addAttachment.mock.results[0].value;
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+
+    expect(textInput).not.toBeDisabled();
+    expect(fileInput).not.toBeDisabled();
+    expect(attachmentIcon).toHaveAttribute("tabIndex", "0");
+    expect(mockProps.addAttachment).toHaveBeenCalledTimes(1);
+  });
+
   test("Should be able to send a message via the send message button", async () => {
     renderElement(mockProps);
 
@@ -167,6 +207,48 @@ describe("when window.connect is not defined", () => {
     fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.DELETE});
     fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
     expect(mockProps.addAttachment).toHaveBeenCalledTimes(0);
+  });
+
+  test("Should not allow staging more than five attachments at a time", () => {
+    renderElement(mockProps);
+    const sixFiles = Array.from({length: 6}, (_, i) => ({
+      name: `testUpload${i + 1}.pdf`,
+      type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF,
+      size: 1,
+    }));
+    const fileInput = mockComposer.getByTestId("customer-chat-file-select");
+    fireEvent.change(fileInput, {target: {files: sixFiles}});
+
+    // Only the first five of the six selected files get staged.
+    for (let i = 1; i <= 5; i++) {
+      expect(mockComposer.getByText(`testUpload${i}.pdf`)).toBeInTheDocument();
+    }
+    expect(mockComposer.queryByText("testUpload6.pdf")).toBeNull();
+    expect(mockComposer.getByTestId("customer-chat-attachment-limit-message")).toBeInTheDocument();
+
+    const textInput = mockComposer.getByTestId("customer-chat-text-input");
+    fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
+    expect(mockProps.addAttachment).toHaveBeenCalledTimes(5);
+  });
+
+  test("Should ignore a further file once already at the five-attachment limit", () => {
+    renderElement(mockProps);
+    const fiveFiles = Array.from({length: 5}, (_, i) => ({
+      name: `testUpload${i + 1}.pdf`,
+      type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF,
+      size: 1,
+    }));
+    const fileInput = mockComposer.getByTestId("customer-chat-file-select");
+    fireEvent.change(fileInput, {target: {files: fiveFiles}});
+    expect(mockComposer.queryByTestId("customer-chat-attachment-limit-message")).toBeNull();
+
+    fireEvent.change(fileInput, {target: {files: [mockAttachmentsFile]}});
+    expect(mockComposer.queryByText(mockAttachmentsFile.name)).toBeNull();
+    expect(mockComposer.getByTestId("customer-chat-attachment-limit-message")).toBeInTheDocument();
+
+    const textInput = mockComposer.getByTestId("customer-chat-text-input");
+    fireEvent.keyDown(textInput, {key: KEYBOARD_KEY_CONSTANTS.ENTER});
+    expect(mockProps.addAttachment).toHaveBeenCalledTimes(5);
   });
 
   // Figma pins the attach icon immediately to the left of send (both on the

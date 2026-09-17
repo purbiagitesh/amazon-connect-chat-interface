@@ -16,6 +16,15 @@ const DEFAULT_COMPOSER_MAX_LENGTH = 200;
 const DEFAULT_CHARACTER_COUNTER_THRESHOLD = 150;
 const DEFAULT_COMPOSER_MAX_ROWS = 5;
 
+// The customer can have at most this many files staged/sent together - a
+// selection that would push the staged count past it only fills the
+// remaining slots (see addFiles); the rest are ignored and a brief inline
+// notice explains why. Resets to a fresh budget once the batch is sent
+// (attachments clears back to []).
+const MAX_ATTACHMENTS_COUNT = 5;
+// How long the "up to N files" notice stays visible before auto-dismissing.
+const ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS = 4000;
+
 // ---------------------------------------------------------------------------
 // MOCK ATTACHMENT BACKEND ("With Media Attached" Figma variant)
 // ---------------------------------------------------------------------------
@@ -143,6 +152,19 @@ const PaperClipContainer = styled.div`
   input {
     display: none;
   }
+
+  /* Disabled the upload icon as well while attachements are being sent */
+  ${(props) => (props.disabled
+    ? `
+      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
+
+      label {
+        cursor: not-allowed;
+      }
+    `
+    : "")}
 `;
 
 const IconButton = styled.button`
@@ -185,6 +207,7 @@ const AttachmentContainer = styled.div`
 const TextInput = styled(TextareaAutosize)`
   flex: 1;
   outline: none !important;
+  border: none !important;
   user-select: text;
   word-break: break-word;
   font-family: inherit;
@@ -217,6 +240,11 @@ const TextInput = styled(TextareaAutosize)`
     font-size: 12px !important;
     font-weight: normal !important;
     height: 18px !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    border: none !important;
   }
 
   &:focus::placeholder {
@@ -417,12 +445,15 @@ const CharacterCounter = styled.div`
   margin: 4px 16px;
 `;
 
-const DisclaimerText = styled.div`
+// Shown briefly when a file selection is trimmed down to MAX_ATTACHMENTS_COUNT
+// (see addFiles) - same error-red treatment CharacterCounter already uses at
+// its limit, so the two limit notices read consistently.
+const AttachmentLimitMessage = styled.div`
   text-align: center;
-  color: var(--ac-widget-composer-disclaimer-color, ${(props) => props.theme.palette.mediumGray});
-  font-size: var(--ac-widget-composer-disclaimer-fontsize, 12px);
-  margin: 0 16px 8px;
-`;  //Text value to add in footer
+  color: var(--ac-widget-composer-error-color, ${(props) => props.theme.palette.red});
+  font-size: var(--ac-widget-composer-counter-fontsize, 12px);
+  margin: 4px 16px;
+`;
 
 ChatComposer.propTypes = {
   addMessage: PT.func,
@@ -471,6 +502,26 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   // making that effect re-run (and re-subscribe) on every attachment change.
   const attachmentsRef = useRef(attachments);
   attachmentsRef.current = attachments;
+  // Tracks the previous staged-attachment count so the refocus effect below
+  // can tell an addition from a removal.
+  const prevAttachmentsLengthRef = useRef(attachments.length);
+  // Transient "you can only attach N files" notice - shown when addFiles has
+  // to drop files past MAX_ATTACHMENTS_COUNT, auto-dismissed after a few
+  // seconds (see showAttachmentLimitMessage).
+  const [attachmentLimitMessage, setAttachmentLimitMessage] = useState(false);
+  const attachmentLimitTimerRef = useRef(null);
+  // True from the moment sendAttachments() fires the addAttachment call(s)
+  // until every one of those promises has settled - i.e. the upload
+  // transport step is done, not the later async APPROVED/REJECTED
+  // moderation result (see sendAttachments). Used to lock the text input and
+  // the attach icon for that window (see isComposerDisabled below), matching
+  // how the composer already locks for QuickReply (the `disabled` prop).
+  const [isSendingAttachments, setIsSendingAttachments] = useState(false);
+  // Locks the same way the composer already locks for QuickReply (the
+  // `disabled` prop from Chat.js) - text input greyed out/non-editable and
+  // the attach icon dimmed/inert - while attachment(s) selected in this
+  // composer are still being sent.
+  const isComposerDisabled = disabled || isSendingAttachments;
 
   useEffect(() => {
     logger && logger.info("Component mounted.");
@@ -486,10 +537,25 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   useEffect(() => {
     return () => {
       attachmentsRef.current.forEach((entry) => entry.previewUrl && URL.revokeObjectURL(entry.previewUrl));
+      if (attachmentLimitTimerRef.current) {
+        clearTimeout(attachmentLimitTimerRef.current);
+      }
     };
   }, []);
 
+  // Refocuses the text input only when a staged attachment is *removed*
+  // (backspace, or a chip's own remove button) so typing can continue right
+  // away. Skipped when one is *added* (attach-icon file picker) - stealing
+  // focus into the (still empty) input there would start the caret
+  // blinking while the customer is still looking at the newly staged media
+  // chips, which reads as a distracting glitch (see the reported "cursor
+  // blinking while attaching images" issue).
   useLayoutEffect(() => {
+    const previousLength = prevAttachmentsLengthRef.current;
+    prevAttachmentsLengthRef.current = attachments.length;
+    if (attachments.length >= previousLength) {
+      return;
+    }
     if (!textInputRef || !textInputRef.current || !textInputRef.current.focus) {
       return;
     }
@@ -621,13 +687,36 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     setAttachments((current) => current.map((entry) => (entry.id === id ? {...entry, ...changes} : entry)));
   }
 
+  // Shows the "up to N files" notice for ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS,
+  // restarting the clock on repeated attempts instead of stacking timers.
+  function showAttachmentLimitMessage() {
+    logger && logger.info(`Attachment limit of ${MAX_ATTACHMENTS_COUNT} reached; extra file(s) ignored.`);
+    setAttachmentLimitMessage(true);
+    if (attachmentLimitTimerRef.current) {
+      clearTimeout(attachmentLimitTimerRef.current);
+    }
+    attachmentLimitTimerRef.current = setTimeout(() => setAttachmentLimitMessage(false), ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS);
+  }
+
   function addFiles(fileList) {
     const files = Array.from(fileList || []).filter(file => !file.type.startsWith("video/"));
     if (!files.length) {
       return;
     }
 
-    const newEntries = files.map((file) => {
+    // Never let staged attachments exceed MAX_ATTACHMENTS_COUNT: a selection
+    // that would push past it only fills the remaining slots (possibly zero
+    // if already at the cap) - the rest are ignored, not staged.
+    const remainingSlots = Math.max(MAX_ATTACHMENTS_COUNT - attachments.length, 0);
+    const acceptedFiles = files.slice(0, remainingSlots);
+    if (acceptedFiles.length < files.length) {
+      showAttachmentLimitMessage();
+    }
+    if (!acceptedFiles.length) {
+      return;
+    }
+
+    const newEntries = acceptedFiles.map((file) => {
       const media = isMediaFile(file);
       return {
         id: nextAttachmentId(),
@@ -666,6 +755,13 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   }
 
   function onFileInput(e) {
+    // Belt-and-braces alongside the disabled file input/attach icon (see
+    // isComposerDisabled) - guards the rare case of a file dialog that was
+    // already open when a send started, resolving after the icon went
+    // inert.
+    if (isComposerDisabled) {
+      return;
+    }
     addFiles(e.target.files);
   }
 
@@ -681,9 +777,27 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     // composer selection is fanned out into one addAttachment call per file,
     // in the order they were attached. Anything the mock (or a future real
     // check) has flagged "rejected" is skipped.
-    attachments
-      .filter((entry) => entry.status !== "rejected")
-      .forEach((entry) => addAttachment(contactId, entry.file));
+    const filesToSend = attachments.filter((entry) => entry.status !== "rejected");
+    if (!filesToSend.length) {
+      return;
+    }
+
+    // addAttachment (chatSession.addOutgoingAttachment -> sendAttachment)
+    // resolves once the upload transport call itself finishes - success or
+    // failure, since ChatSession already catches per-file send errors
+    // internally rather than rejecting. That's "sent", as distinct from the
+    // separate, later APPROVED/REJECTED moderation result that arrives
+    // asynchronously over the websocket. Lock the input for that window so
+    // the customer can't type/send while the attachment(s) are still going
+    // out, then unlock once every one of them has settled.
+    setIsSendingAttachments(true);
+    Promise.all(filesToSend.map((entry) => addAttachment(contactId, entry.file)))
+      .catch(() => {
+        // Defensive only - addAttachment is not expected to reject (see
+        // above), but guard against the input getting stuck disabled if it
+        // ever does.
+      })
+      .finally(() => setIsSendingAttachments(false));
   }
 
   function sendAttachmentGivenFile(file) {
@@ -743,7 +857,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
 
   const defaultComposer = (
     <>
-    <DefaultChatComposerWrapper hasError={isAtCharacterLimit} disabled={disabled}>
+    <DefaultChatComposerWrapper hasError={isAtCharacterLimit} disabled={isComposerDisabled}>
       {composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && (
         <MediaAttachmentsRow data-testid="customer-chat-media-attachments">
           {canScrollMediaLeft && (
@@ -808,7 +922,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             spellCheck="true"
             maxLength={maxLength}
             maxRows={DEFAULT_COMPOSER_MAX_ROWS}
-            disabled={disabled}
+            disabled={isComposerDisabled}
           />
           {/* Figma pins the attach icon immediately to the left of send,
               both right-aligned in the pill - grouped in one cluster rather
@@ -816,17 +930,22 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
           <ComposerRightIcons>
             {composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && (
               <PaperClipContainer
-                tabIndex={0}
+                tabIndex={isComposerDisabled ? -1 : 0}
+                disabled={isComposerDisabled}
+                aria-disabled={isComposerDisabled}
                 data-testid="customer-chat-attachment-icon"
                 onKeyDown={(e) => {
                   // if space or enter is pressed
-                  if (e.key === KEYBOARD_KEY_CONSTANTS.SPACE || e.key === KEYBOARD_KEY_CONSTANTS.ENTER) {
+                  if (
+                    !isComposerDisabled &&
+                    (e.key === KEYBOARD_KEY_CONSTANTS.SPACE || e.key === KEYBOARD_KEY_CONSTANTS.ENTER)
+                  ) {
                     e.preventDefault();
                     document.getElementById(`customer-chat-file-select-${contactId}`).click();
                   }
                 }}
               >
-                <IconButton aria-label={"Attach a file"}>
+                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <AttachMediaIcon />
@@ -841,6 +960,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                       onChange={onFileInput}
                       aria-label={"Attach a file"}
                       tabIndex={-1}
+                      disabled={isComposerDisabled}
                     />
                   </label>
                 </IconButton>
@@ -854,6 +974,14 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       <CharacterCounter data-testid="customer-chat-character-counter" hasError={isAtCharacterLimit}>
         {characterCounterText}
       </CharacterCounter>
+    )}
+    {attachmentLimitMessage && (
+      <AttachmentLimitMessage data-testid="customer-chat-attachment-limit-message">
+        {intl.formatMessage(
+          { id: "chatComposer.attachmentLimitMessage", defaultMessage: "You can attach up to {max} files at a time." },
+          { max: MAX_ATTACHMENTS_COUNT }
+        )}
+      </AttachmentLimitMessage>
     )}
     </>
   );
@@ -882,11 +1010,6 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
               ? richMessagingComposer
               : defaultComposer)
       }
-      { contactStatus === CONTACT_STATUS.CONNECTED && (
-        <DisclaimerText>
-          Virtual Assistant is AI and can make mistakes.
-        </DisclaimerText>
-      )}
     </ChatComposerWrapper>
   );
 }

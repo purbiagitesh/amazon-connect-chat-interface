@@ -137,12 +137,13 @@ const Body = styled.div`
 
   ${(props) => (props.messageStyle ? props.messageStyle : "")};
 
-  /* An image  attachment bubble is painted with the customer/outgoing
-     colours while the upload is still in flight; once the server has
-     responded (approved or rejected - see useIncomingBubbleColors in
-     ChatMessage's render) the whole bubble switches to the agent/incoming
-     colours. Colour only: direction, alignment, timestamp, sizing and the
-     chip grid inside are all unaffected. */
+  /* An image attachment bubble stays in the customer/outgoing colours
+     (the normal "sent" look) for a fully APPROVED batch, or while it's still
+     uploading. Only once at least one image/video in the batch comes back
+     REJECTED (see useIncomingBubbleColors in ChatMessage's render) does the
+     whole bubble switch to the agent/incoming colours. Colour only:
+     direction, alignment, timestamp, sizing and the chip grid inside are all
+     unaffected. */
   ${(props) => (props.useIncomingBubbleColors
     ? `
       background: var(--ac-widget-transcript-agent-bubble-color, var(--incomingMsgBg-background-color));
@@ -635,21 +636,28 @@ export class ParticipantMessage extends PureComponent {
       const attachmentContentAndType = modelUtils.getAttachmentContentAndType(this.props.messageDetails);
       content = attachmentContentAndType.content;
       contentType = attachmentContentAndType.contentType;
-      //If an attachment message does not have Attachments data, it means the upload was rejected
-      if (content.Status === AttachmentStatus.REJECTED && error === undefined) {
+      // A rejected image/video (media-grid) upload no longer gets an inline
+      // caption here - the guideline explanation instead renders as its own
+      // incoming Virtual Assistant message right after this bubble (see
+      // ChatTranscriptor's buildRejectionNoticeItem), so it looks exactly
+      // like any other bot reply instead of a small note under the
+      // customer's own bubble. A rejected non-media attachment (e.g. a
+      // rejected PDF, which never goes through the media grid) keeps this
+      // caption exactly as before.
+      if (!isMediaGridAttachment && content.Status === AttachmentStatus.REJECTED && error === undefined) {
         error = {
           message: "Attachment was rejected." // This will be removed once customize error message will come from connect.
         }
       }
-      // Once the server has weighed in on the image upload (approved OR
-      // rejected) the bubble switches from the customer/outgoing colour to
-      // the agent/incoming one - colour only (see Body's
-      // useIncomingBubbleColors). While the upload is still in flight there
-      // is no Status yet, so it keeps the outgoing colour.
-      if (
-        isMediaGridAttachment &&
-        (content.Status === AttachmentStatus.APPROVED || content.Status === AttachmentStatus.REJECTED)
-      ) {
+      // Only a batch that has at least one REJECTED image/video switches the
+      // bubble from the customer/outgoing colour to the agent/incoming one -
+      // colour only (see Body's useIncomingBubbleColors). A batch that came
+      // back fully APPROVED (or is still uploading, with no Status yet)
+      // keeps the normal sent/brand bubble colour, exactly like any other
+      // message the customer sends - checked across every item in the
+      // group, not just this representative one, so a mixed batch (some
+      // approved, some rejected) still flips.
+      if (isMediaGridAttachment && this.props.groupedAttachmentItems.some(modelUtils.isRejectedAttachmentMessage)) {
         bodyStyleConfig.useIncomingBubbleColors = true;
       }
     } else {

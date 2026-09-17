@@ -3,7 +3,7 @@ import {IntlProvider} from 'react-intl';
 import "@testing-library/jest-dom";
 import {render, fireEvent, waitFor} from "@testing-library/react";
 import ChatTranscriptor from "./ChatTranscriptor";
-import {ATTACHMENT_MESSAGE, ContentType, AttachmentStatus, AttachmentErrorType, PARTICIPANT_MESSAGE} from "../datamodel/Model";
+import {ATTACHMENT_MESSAGE, ContentType, AttachmentStatus, AttachmentErrorType, PARTICIPANT_MESSAGE, ATTACHMENT_REJECTED_MESSAGE} from "../datamodel/Model";
 import {ThemeProvider} from "../../../theme";
 import {mockAllIsIntersecting} from "react-intersection-observer/test-utils";
 
@@ -211,7 +211,35 @@ test("Should show error message for rejected attachment", () => {
   renderElement(mockProps);
   const errorMessage = document.querySelector('span');
   expect(errorMessage).toBeInTheDocument();
-  expect(errorMessage).toHaveTextContent('Your upload has been blocked because it doesn’t meet our guidelines.');
+  expect(errorMessage).toHaveTextContent('Attachment was rejected.');
+});
+
+test("Should show a local incoming Virtual Assistant notice for a rejected image upload, without touching the transcript prop", () => {
+  const rejectedImageTranscript = [
+    {
+      id: "img-rejected",
+      type: ATTACHMENT_MESSAGE,
+      participantId: "customer-1",
+      transportDetails: {
+        direction: "Outgoing",
+        sentTime: 1700000000,
+      },
+      Attachments: [
+        {
+          AttachmentId: "img-rejected",
+          AttachmentName: "blocked.png",
+          ContentType: ContentType.ATTACHMENT_CONTENT_TYPE.PNG,
+          Status: AttachmentStatus.REJECTED,
+        },
+      ],
+    },
+  ];
+  mockProps.transcript = rejectedImageTranscript;
+  renderElement(mockProps);
+  expect(mockTranscriptor.getByText(ATTACHMENT_REJECTED_MESSAGE)).toBeInTheDocument();
+  // Purely a render-time construct - the prop passed in is never mutated to
+  // carry the synthetic notice.
+  expect(rejectedImageTranscript).toHaveLength(1);
 });
 
 test("Should be able to render bold, italics, numbered list, bulleted list and hyperlink, but not image", () => {

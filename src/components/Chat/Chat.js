@@ -143,7 +143,7 @@ const defaultHeaderConfig = {
                 cursor: 'pointer',
                 padding: '0 0 0 8px',
                 flexShrink: 0,
-                width: 'auto !important',
+                width: 'auto',
               }}
               aria-label="Close chat"
             >

@@ -3,7 +3,14 @@ import React, {PureComponent} from "react";
 import PT from "prop-types";
 import styled from "styled-components";
 import {modelUtils} from "../datamodel/Utils";
-import {Direction, PARTICIPANT_MESSAGE, ATTACHMENT_MESSAGE} from "../datamodel/Model";
+import {
+  Direction,
+  PARTICIPANT_MESSAGE,
+  ATTACHMENT_MESSAGE,
+  ContentType,
+  Status,
+  ATTACHMENT_REJECTED_MESSAGE,
+} from "../datamodel/Model";
 import renderHTML from 'react-render-html';
 import {
   MessageBox,
@@ -23,6 +30,14 @@ import {CONTACT_STATUS} from "connect-constants";
 // so it starts its own fresh bubble instead of being absorbed into the
 // earlier batch's bubble. sentTime is in seconds.
 const MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS = 10;
+// Two consecutive outgoing image/video attachments only share one grid
+// bubble (see buildRenderGroups) when their send times are within this many
+// seconds of each other - i.e. they came from the same multi-file composer
+// send. A later upload (e.g. the customer re-uploading after an
+// approved/rejected response and its error message) is well past this gap,
+// so it starts its own fresh bubble instead of being absorbed into the
+// earlier batch's bubble. sentTime is in seconds.
+//const MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS = 10;
 
 const TranscriptBody = styled.div`
   margin: 0 auto;
@@ -241,6 +256,16 @@ export default class ChatTranscriptor extends PureComponent {
           j++;
         }
         groups.push(group);
+        // A rejected upload's guideline explanation renders as its own
+        // incoming "Virtual Assistant" message right after this bubble,
+        // instead of a caption attached to the customer's own bubble - see
+        // buildRejectionNoticeItem. This is purely a render-time construct:
+        // it is built fresh from `group` on every render, is never added to
+        // this.props.transcript, and is never sent to/received from Connect
+        // - it only *looks* like a genuine incoming message.
+        if (group.some(modelUtils.isRejectedAttachmentMessage)) {
+          groups.push([this.buildRejectionNoticeItem(group[group.length - 1])]);
+        }
         i = j;
       } else {
         groups.push([item]);
@@ -248,6 +273,38 @@ export default class ChatTranscriptor extends PureComponent {
       }
     }
     return groups;
+  };
+
+  // A local-only stand-in for a genuine incoming transcript item - same
+  // shape (type/content/participantRole/transportDetails) a real CUSTOM_BOT
+  // message would have, so it renders through the exact same
+  // ParticipantMessage path (avatar, "Virtual Assistant" sender name,
+  // incoming bubble) as any other bot reply - see ChatMessage's
+  // isAdvisorSender/getVirtualAssistantName, which key off participantRole/
+  // displayName exactly like this. Its id is derived from the rejected
+  // group's own representative item, so it stays stable across re-renders
+  // without ever being persisted anywhere.
+  buildRejectionNoticeItem = (rejectedGroupRepresentative) => {
+    const sentTime =
+      (rejectedGroupRepresentative.transportDetails && rejectedGroupRepresentative.transportDetails.sentTime) || 0;
+    return {
+      id: `${rejectedGroupRepresentative.id}-rejection-notice`,
+      type: PARTICIPANT_MESSAGE,
+      content: {
+        data: ATTACHMENT_REJECTED_MESSAGE,
+        type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      },
+      displayName: "BOT",
+      participantId: `${rejectedGroupRepresentative.participantId || "virtual-assistant"}-rejection-notice`,
+      participantRole: "CUSTOM_BOT",
+      version: 0,
+      transportDetails: {
+        direction: Direction.Incoming,
+        status: Status.SendSuccess,
+        // Sort/display right after the rejected attachment bubble itself.
+        sentTime: sentTime + 0.001,
+      },
+    };
   };
 
   // Whether two adjacent outgoing media items came from the same send, judged
