@@ -275,11 +275,29 @@ function SelectableCard({ card, expanded, onToggleExpand, selected, disabled, on
 }
 
 function FallbackSelectionCard({ card, disabled, onCtaClick }) {
+  // Transform new metadata format to cta objects if needed
+  const getCtas = () => {
+    if (card.ctas) {
+      return card.ctas;
+    }
+    if (card.content && Array.isArray(card.content)) {
+      return card.content.map((label, index) => ({
+        testId: `fallback-cta-${index}`,
+        label,
+        message: label,
+      }));
+    }
+    return [];
+  };
+ 
+  const ctas = getCtas();
+  const heading = card.heading || card.title;
+ 
   return (
-    <FallbackCard disabled={disabled} minHeight={card.minHeight} data-testid={card.testId}>
-      <FallbackCardHeading>{card.heading}</FallbackCardHeading>
+    <FallbackCard disabled={disabled} minHeight={card.minHeight} data-testid={card.testId || "fallback-selection-card"}>
+      <FallbackCardHeading>{heading}</FallbackCardHeading>
       <ButtonGroup>
-        {card.ctas.map((cta) => (
+        {ctas.map((cta) => (
           <SecondaryCardButton
             key={cta.testId}
             disabled={disabled}

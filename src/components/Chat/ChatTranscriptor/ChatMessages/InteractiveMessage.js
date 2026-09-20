@@ -152,7 +152,7 @@ InteractiveMessage.propTypes = {
   renderPart: PT.oneOf(["bubble", "actions"])
 };
 
-export function InteractiveMessage({content, templateType, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
+export function InteractiveMessage({content, templateType, fallbackCardData, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
   const [responseSelected, setResponseSelected] = useState(false);
   const ref = useRef();
 
@@ -214,7 +214,7 @@ export function InteractiveMessage({content, templateType, addMessage, textInput
   } else if (templateType === InteractiveMessageType.CAROUSEL) {
     return <Carousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.ORDER_CAROUSEL) {
-    return <OrderCarousel content={content} addMessage={onAddMessage} />
+    return <OrderCarousel content={content} fallbackCardData={fallbackCardData} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.CASE_CAROUSEL) {
     return <CaseCarousel content={content} addMessage={onAddMessage} />
   } else if (templateType === InteractiveMessageType.LIST_CONFIRMATION) {
