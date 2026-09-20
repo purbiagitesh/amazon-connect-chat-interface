@@ -95,7 +95,12 @@ class ChatContainer extends Component {
     this.setState({status: "Initiating"});
     const customizationParams = {
       authenticationRedirectUri: input.authenticationRedirectUri || '',
-      authenticationIdentityProvider: input.authenticationIdentityProvider || ''
+      authenticationIdentityProvider: input.authenticationIdentityProvider || '',
+      translation: {
+        enabled: !!input.enableTranslation,
+        apiEndpoint: input.translationApiEndpoint || '',
+        agentLanguage: input.translationAgentLanguage || '',
+      },
     }
     try {
       const chatFlowStartTime = performance.now();
@@ -153,7 +158,12 @@ class ChatContainer extends Component {
     this.setState({status: "Initiating"});
     const customizationParams = {
       authenticationRedirectUri: input.authenticationRedirectUri || '',
-      authenticationIdentityProvider: input.authenticationIdentityProvider || ''
+      authenticationIdentityProvider: input.authenticationIdentityProvider || '',
+      translation: {
+        enabled: !!input.enableTranslation,
+        apiEndpoint: input.translationApiEndpoint || '',
+        agentLanguage: input.translationAgentLanguage || '',
+      },
     }
     try {
       const chatSession = await this.openChatSession(input.chatDetails, input.name, input.region, input.stage, customizationParams);

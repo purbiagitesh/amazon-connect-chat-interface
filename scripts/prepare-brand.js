@@ -420,6 +420,12 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
       instanceId:          config.aws?.instanceId || '',
       contactFlowId:       config.aws?.contactFlowId || '',
       region:              config.aws?.region || '',
+      // Customer -> Agent live translation (see ChatSession.js's
+      // _shouldTranslateOutgoingMessage / TranslationService.js) - was
+      // silently dropped here before, since this whitelist predates that
+      // feature and brandConfig.translation (read by launcher.js) comes
+      // from this exact object, not from env.*.json directly.
+      translation:         config.translation || {enabled: false, apiEndpoint: '', agentLanguage: ''},
     },
   };
 

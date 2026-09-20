@@ -24,3 +24,5 @@ yarn-error.log*
 .brand-env
 # Generated brand assets in local-testing
 local-testing/brand-assets/
+local-testing/amazon-connect-chat-interface.js
+

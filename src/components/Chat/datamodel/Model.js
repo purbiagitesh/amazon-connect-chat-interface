@@ -161,6 +161,13 @@ export const AttachmentErrorType = {
   ResourceNotFoundException: "ResourceNotFoundException",
   ConflictException: "ConflictException",
 };
+
+// Real-time chat translation API (see TranslationService.js) - matches the
+// "direction" field of the POST /translate request contract exactly.
+export const TRANSLATION_DIRECTION = {
+  CUSTOMER_TO_AGENT: "CUSTOMER_TO_AGENT",
+  AGENT_TO_CUSTOMER: "AGENT_TO_CUSTOMER",
+};
 export class TransportDetails {
   constructor(input) {
     var args = input || {};

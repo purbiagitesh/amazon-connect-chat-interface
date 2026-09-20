@@ -1,5 +1,10 @@
+jest.mock("./TranslationService", () => ({
+  translateMessage: jest.fn(),
+}));
+
 import ChatSession, {getCurrentChatSessionInstance, setCurrentChatSessionInstance} from "./ChatSession";
-import {AttachmentErrorType, ContentType, InteractiveMessageType} from "./datamodel/Model";
+import {AttachmentErrorType, ContentType, InteractiveMessageType, TRANSLATION_DIRECTION} from "./datamodel/Model";
+import {translateMessage} from "./TranslationService";
 
 const ParticipantId = "123";
 const chatDetails = {
@@ -994,6 +999,619 @@ describe("ChatSession", () => {
       expect(session.transcript.length).toEqual(transcriptLength - 1);
       // should be called for the latest message
       expect(session.client.session.describeView).toBeCalledTimes(1);
+    });
+  });
+
+  describe("Customer -> Agent live translation", () => {
+    const TRANSLATE_ENDPOINT = "https://jgnx26szub.execute-api.eu-west-2.amazonaws.com/dev/translate";
+    const AGENT_HELPER_MESSAGE_TEXT = "Hello, this is Agent Smith.";
+
+    beforeEach(() => {
+      window.connect = {
+        LogManager: {
+          getLogger: function () {
+            return console;
+          },
+        },
+        ChatSession: {
+          create: function () {
+            return {
+              controller: {contactId: "aaa"},
+              getChatDetails: jest.fn(() => ({participantId: ParticipantId})),
+              onMessage: jest.fn(),
+              onTyping: jest.fn(),
+              onReadReceipt: jest.fn(),
+              onParticipantReturned: jest.fn(),
+              onAutoDisconnection: jest.fn(),
+              onParticipantIdle: jest.fn(),
+              onDeliveredReceipt: jest.fn(),
+              onEnded: jest.fn(),
+              onConnectionEstablished: jest.fn(),
+              onAuthenticationInitiated: jest.fn(),
+              onAuthenticationTimeout: jest.fn(),
+              onAuthenticationSuccessful: jest.fn(),
+              onAuthenticationCanceled: jest.fn(),
+              onParticipantDisplayNameUpdated: jest.fn(),
+              onAuthenticationFailed: jest.fn(),
+              onChatRehydrated: jest.fn(),
+              connect: jest.fn().mockResolvedValue("aaa"),
+              sendMessage: jest.fn().mockResolvedValue({data: {}}),
+              sendEvent: jest.fn().mockResolvedValue("bb"),
+              getTranscript: jest.fn().mockResolvedValue({data: {Transcript: [], NextToken: null}}),
+              describeView: jest.fn().mockResolvedValue("view"),
+            };
+          },
+        },
+      };
+      translateMessage.mockReset();
+      // simulateAgentMessage's own text (AGENT_HELPER_MESSAGE_TEXT) is
+      // itself a real AGENT-role plain-text message, so now that Agent ->
+      // Customer translation exists it gets translated too whenever a test
+      // enables translation - give it a harmless default response so tests
+      // that don't otherwise care about that (most of these) don't have to
+      // set one up themselves. Any test that does care (translateMessage
+      // call assertions, fail-open behavior) still overrides this
+      // afterward with its own mockResolvedValue/mockRejectedValue.
+      translateMessage.mockResolvedValue({
+        translatedMessage: AGENT_HELPER_MESSAGE_TEXT,
+        sourceLanguage: "en",
+        targetLanguage: "fr",
+        translationApplied: true,
+      });
+      window.localStorage.clear();
+    });
+
+    afterEach(() => {
+      delete window.connect;
+      window.localStorage.clear();
+    });
+
+    function createSessionWithTranslation(translationOverrides = {}) {
+      const session = new ChatSession(chatDetails, "Customer", region, stage, {
+        translation: {
+          enabled: true,
+          apiEndpoint: TRANSLATE_ENDPOINT,
+          agentLanguage: "en",
+          ...translationOverrides,
+        },
+      });
+      session.openChatSession(true);
+      return session;
+    }
+
+    // Simplest, most realistic signal that a live agent has joined - an
+    // actual chat message arriving from an AGENT-role participant. Matches
+    // _updateLiveAgentState's modelUtils.isTypeMessageOrAttachment(item.type)
+    // fallback path.
+    function simulateAgentMessage(session, overrides = {}) {
+      const onMessageCallback = session.client.session.onMessage.mock.calls[0][0];
+      onMessageCallback({
+        data: {
+          AbsoluteTime: new Date().toISOString(),
+          Content: "Hello, this is Agent Smith.",
+          ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+          Id: "agent-msg-1",
+          Type: "MESSAGE",
+          ParticipantId: "agent-1",
+          DisplayName: "Agent Smith",
+          ParticipantRole: "AGENT",
+          ...overrides,
+        },
+      });
+    }
+
+    // The real signal Connect actually sends when a participant joins/
+    // leaves - a Type: "EVENT" item, distinct from the Type: "MESSAGE"
+    // fallback above. Exercises _updateLiveAgentState's other branch.
+    function simulateAgentParticipantEvent(session, eventContentType, overrides = {}) {
+      const onMessageCallback = session.client.session.onMessage.mock.calls[0][0];
+      onMessageCallback({
+        data: {
+          AbsoluteTime: new Date().toISOString(),
+          Type: "EVENT",
+          ContentType: eventContentType,
+          Id: "agent-event-1",
+          ParticipantId: "agent-1",
+          DisplayName: "Agent Smith",
+          ParticipantRole: "AGENT",
+          ...overrides,
+        },
+      });
+    }
+
+    test("does not call the translation API when translation is disabled for the brand", async () => {
+      const session = createSessionWithTranslation({enabled: false});
+      simulateAgentMessage(session);
+
+      session.addOutgoingMessage({text: "Bonjour, j'ai besoin d'aide."});
+      await Promise.resolve();
+
+      expect(translateMessage).not.toBeCalled();
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: "Bonjour, j'ai besoin d'aide.",
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+
+    test("does not call the translation API before any live agent has joined (bot/Lex-only conversation)", async () => {
+      const session = createSessionWithTranslation();
+      // No agent message/join event simulated.
+
+      session.addOutgoingMessage({text: "Bonjour, j'ai besoin d'aide."});
+      await Promise.resolve();
+
+      expect(translateMessage).not.toBeCalled();
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: "Bonjour, j'ai besoin d'aide.",
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+
+    test("translates the outgoing message to the agent once a live agent has joined, while the customer keeps seeing their own original text", async () => {
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Hello, I need help regarding my order.",
+        sourceLanguage: "fr",
+        targetLanguage: "en",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+      simulateAgentMessage(session);
+
+      const originalText = "Bonjour, j'ai besoin d'aide concernant ma commande.";
+      session.addOutgoingMessage({text: originalText});
+      // Several microtask hops: the translateMessage() promise, then its
+      // .then(...).catch(...).then(...) chain (see _sendOutgoingMessageContent)
+      // before client.sendMessage is finally reached.
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(translateMessage).toBeCalledWith({
+        apiEndpoint: TRANSLATE_ENDPOINT,
+        contactId: session.contactId,
+        direction: TRANSLATION_DIRECTION.CUSTOMER_TO_AGENT,
+        message: originalText,
+        agentLanguage: "en",
+      });
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: "Hello, I need help regarding my order.",
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+
+      // The customer's own transcript keeps the original French text - only
+      // what's sent over the wire (asserted above) is translated.
+      const customerItem = session.transcript.find((item) => item.content.data === originalText);
+      expect(customerItem).toBeDefined();
+    });
+
+    test("keeps showing the customer's original text even after Connect echoes back the translated message it actually received", async () => {
+      // Connect only ever sees what was actually sent (the translated
+      // English text) - so its own roundtrip echo of this message, and any
+      // later transcript reload, legitimately carries English, not French.
+      // The customer's own display must never be overwritten by that.
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Hi, I need help with my order.",
+        sourceLanguage: "fr",
+        targetLanguage: "en",
+        translationApplied: true,
+      });
+      const REAL_CONNECT_ID = "connect-real-id-1";
+      const session2 = createSessionWithTranslation();
+      simulateAgentMessage(session2);
+      session2.client.session.sendMessage.mockResolvedValueOnce({
+        data: {Id: REAL_CONNECT_ID, AbsoluteTime: new Date().toISOString()},
+      });
+
+      const originalText = "Bonjour, j'ai besoin d'aide concernant ma commande.";
+      session2.addOutgoingMessage({text: originalText});
+      // Flush the full chain: translateMessage -> .then -> .catch(passthrough)
+      // -> .then(sendMessage) -> sendMessage's own promise -> the success
+      // handler that calls _replaceItemInTranscript.
+      for (let i = 0; i < 6; i++) {
+        await Promise.resolve();
+      }
+
+      expect(session2.transcript.find((item) => item.id === REAL_CONNECT_ID).content.data).toEqual(originalText);
+
+      // Now Connect's own roundtrip echo of that same message arrives,
+      // carrying what it actually received (the translated English text).
+      const onMessageCallback = session2.client.session.onMessage.mock.calls[0][0];
+      onMessageCallback({
+        data: {
+          AbsoluteTime: new Date().toISOString(),
+          Content: "Hi, I need help with my order.",
+          ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+          Id: REAL_CONNECT_ID,
+          Type: "MESSAGE",
+          ParticipantId: ParticipantId,
+          DisplayName: "Customer",
+          ParticipantRole: "CUSTOMER",
+        },
+      });
+
+      const itemAfterEcho = session2.transcript.find((item) => item.id === REAL_CONNECT_ID);
+      expect(itemAfterEcho.content.data).toEqual(originalText);
+    });
+
+    test("restores the customer's original text after a page reload/resume reloads the transcript from Connect", async () => {
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Hi, I need help with my order.",
+        sourceLanguage: "fr",
+        targetLanguage: "en",
+        translationApplied: true,
+      });
+      const REAL_CONNECT_ID = "connect-real-id-reload-1";
+      const originalText = "Bonjour, j'ai besoin d'aide concernant ma commande.";
+
+      // "Before reload": send the translated message, same as any other test.
+      const sessionBeforeReload = createSessionWithTranslation();
+      simulateAgentMessage(sessionBeforeReload);
+      sessionBeforeReload.client.session.sendMessage.mockResolvedValueOnce({
+        data: {Id: REAL_CONNECT_ID, AbsoluteTime: new Date().toISOString()},
+      });
+      sessionBeforeReload.addOutgoingMessage({text: originalText});
+      for (let i = 0; i < 6; i++) {
+        await Promise.resolve();
+      }
+      expect(sessionBeforeReload.transcript.find((item) => item.id === REAL_CONNECT_ID).content.data).toEqual(originalText);
+
+      // "After reload": a brand new ChatSession instance (same contactId -
+      // chatDetails.startChatResult.ContactId is the same "aaa" fixture
+      // throughout this file) reloads the transcript straight from Connect,
+      // which genuinely only has the translated English text stored.
+      const sessionAfterReload = createSessionWithTranslation();
+      sessionAfterReload.client.getTranscript = jest.fn().mockResolvedValue({
+        data: {
+          Transcript: [
+            {
+              Id: REAL_CONNECT_ID,
+              Type: "MESSAGE",
+              ParticipantId: ParticipantId,
+              AbsoluteTime: AbsoluteTime,
+              ParticipantRole: "CUSTOMER",
+              ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+              Content: "Hi, I need help with my order.",
+            },
+          ],
+          NextToken: null,
+        },
+      });
+      const connectionEstablishedCallback = sessionAfterReload.client.session.onConnectionEstablished.mock.calls[0][0];
+      await connectionEstablishedCallback();
+
+      const reloadedItem = sessionAfterReload.transcript.find((item) => item.id === REAL_CONNECT_ID);
+      expect(reloadedItem).toBeDefined();
+      expect(reloadedItem.content.data).toEqual(originalText);
+    });
+
+    test("recognizes a live agent from a real PARTICIPANT_JOINED event, and stops again after PARTICIPANT_LEFT", async () => {
+      translateMessage.mockResolvedValue({
+        translatedMessage: "translated",
+        sourceLanguage: "fr",
+        targetLanguage: "en",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+      expect(session._hasLiveAgentConnected()).toBe(false);
+
+      simulateAgentParticipantEvent(session, ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_JOINED);
+      expect(session._hasLiveAgentConnected()).toBe(true);
+
+      session.addOutgoingMessage({text: "Bonjour"});
+      await Promise.resolve();
+      await Promise.resolve();
+      expect(translateMessage).toBeCalled();
+
+      simulateAgentParticipantEvent(session, ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_LEFT, {Id: "agent-event-2"});
+      expect(session._hasLiveAgentConnected()).toBe(false);
+
+      translateMessage.mockClear();
+      session.client.session.sendMessage.mockClear();
+      session.addOutgoingMessage({text: "Bonjour again"});
+      await Promise.resolve();
+
+      expect(translateMessage).not.toBeCalled();
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: "Bonjour again",
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+
+    test("does not translate QuickReply/interactive responses even with a live agent connected", async () => {
+      const session = createSessionWithTranslation();
+      simulateAgentMessage(session);
+      // simulateAgentMessage's own plain-text message legitimately triggers
+      // one AGENT -> Customer translation call (see the "Agent -> Customer
+      // live translation" describe block below) - only the CUSTOMER's own
+      // outgoing QuickReply/interactive response is what this test is
+      // actually about, so only that specific call is asserted against.
+      translateMessage.mockClear();
+
+      session.addOutgoingMessage({
+        text: JSON.stringify({templateType: "QuickReply"}),
+        type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+      });
+      await Promise.resolve();
+
+      expect(translateMessage).not.toBeCalled();
+      expect(session.client.session.sendMessage.mock.calls[0][0].contentType).toEqual(
+        ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE
+      );
+    });
+
+    test("translates markdown-typed outgoing messages too, not just plain text", async () => {
+      // Regression guard: launcher.js declares "text/markdown" as a
+      // supported messaging content type for this contact, so a rich-text
+      // customer composer (if one is ever enabled) could send markdown -
+      // gating on TEXT_PLAIN alone would silently skip translating it.
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Hello, I need help regarding my order.",
+        sourceLanguage: "fr",
+        targetLanguage: "en",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+      simulateAgentMessage(session);
+
+      session.addOutgoingMessage({
+        text: "Bonjour, j'ai besoin d'aide.",
+        type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN,
+      });
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(translateMessage).toBeCalledWith(
+        expect.objectContaining({
+          direction: TRANSLATION_DIRECTION.CUSTOMER_TO_AGENT,
+          message: "Bonjour, j'ai besoin d'aide.",
+        })
+      );
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: "Hello, I need help regarding my order.",
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN,
+      });
+    });
+
+    test("fails open and sends the original message when the translation request errors", async () => {
+      translateMessage.mockRejectedValue(new Error("network error"));
+      const session = createSessionWithTranslation();
+      simulateAgentMessage(session);
+
+      const originalText = "Bonjour";
+      session.addOutgoingMessage({text: originalText});
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(session.client.session.sendMessage).toBeCalledWith({
+        message: originalText,
+        contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+      });
+    });
+  });
+
+  describe("Agent -> Customer live translation", () => {
+    const TRANSLATE_ENDPOINT = "https://jgnx26szub.execute-api.eu-west-2.amazonaws.com/dev/translate";
+
+    beforeEach(() => {
+      window.connect = {
+        LogManager: {
+          getLogger: function () {
+            return console;
+          },
+        },
+        ChatSession: {
+          create: function () {
+            return {
+              controller: {contactId: "aaa"},
+              getChatDetails: jest.fn(() => ({participantId: ParticipantId})),
+              onMessage: jest.fn(),
+              onTyping: jest.fn(),
+              onReadReceipt: jest.fn(),
+              onParticipantReturned: jest.fn(),
+              onAutoDisconnection: jest.fn(),
+              onParticipantIdle: jest.fn(),
+              onDeliveredReceipt: jest.fn(),
+              onEnded: jest.fn(),
+              onConnectionEstablished: jest.fn(),
+              onAuthenticationInitiated: jest.fn(),
+              onAuthenticationTimeout: jest.fn(),
+              onAuthenticationSuccessful: jest.fn(),
+              onAuthenticationCanceled: jest.fn(),
+              onParticipantDisplayNameUpdated: jest.fn(),
+              onAuthenticationFailed: jest.fn(),
+              onChatRehydrated: jest.fn(),
+              connect: jest.fn().mockResolvedValue("aaa"),
+              sendMessage: jest.fn().mockResolvedValue({data: {}}),
+              sendEvent: jest.fn().mockResolvedValue("bb"),
+              getTranscript: jest.fn().mockResolvedValue({data: {Transcript: [], NextToken: null}}),
+              describeView: jest.fn().mockResolvedValue("view"),
+            };
+          },
+        },
+      };
+      translateMessage.mockReset();
+      window.localStorage.clear();
+    });
+
+    afterEach(() => {
+      delete window.connect;
+      window.localStorage.clear();
+    });
+
+    function createSessionWithTranslation(translationOverrides = {}) {
+      const session = new ChatSession(chatDetails, "Customer", region, stage, {
+        translation: {
+          enabled: true,
+          apiEndpoint: TRANSLATE_ENDPOINT,
+          agentLanguage: "en",
+          ...translationOverrides,
+        },
+      });
+      session.openChatSession(true);
+      return session;
+    }
+
+    // The onMessage callback registered in _addEventListeners is a plain
+    // arrow function that doesn't propagate _handleIncomingData's return
+    // value ((data) => { this._handleIncomingData(data); }), so there's no
+    // promise to await from the callback itself even though the underlying
+    // translate-then-render chain is async. Flush enough microtask ticks
+    // instead - translateMessage() -> .then(...) -> .catch(passthrough) ->
+    // the outer .then(...) in _handleIncomingData that actually renders -
+    // same convention already used for the outgoing side's tests.
+    async function simulateIncomingMessage(session, overrides = {}) {
+      const onMessageCallback = session.client.session.onMessage.mock.calls[0][0];
+      onMessageCallback({
+        data: {
+          AbsoluteTime: new Date().toISOString(),
+          Content: "I will check your order status.",
+          ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+          Id: "agent-msg-1",
+          Type: "MESSAGE",
+          ParticipantId: "agent-1",
+          DisplayName: "Agent Smith",
+          ParticipantRole: "AGENT",
+          ...overrides,
+        },
+      });
+      for (let i = 0; i < 6; i++) {
+        await Promise.resolve();
+      }
+    }
+
+    test("translates an incoming agent message before it reaches the customer's transcript", async () => {
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Je vais vérifier le statut de votre commande.",
+        sourceLanguage: "en",
+        targetLanguage: "fr",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+
+      await simulateIncomingMessage(session);
+
+      expect(translateMessage).toBeCalledWith({
+        apiEndpoint: TRANSLATE_ENDPOINT,
+        contactId: session.contactId,
+        direction: TRANSLATION_DIRECTION.AGENT_TO_CUSTOMER,
+        message: "I will check your order status.",
+        agentLanguage: "en",
+      });
+      const item = session.transcript.find((i) => i.id === "agent-msg-1");
+      expect(item).toBeDefined();
+      expect(item.content.data).toEqual("Je vais vérifier le statut de votre commande.");
+    });
+
+    test("does not translate when translation is disabled for the brand", async () => {
+      const session = createSessionWithTranslation({enabled: false});
+
+      await simulateIncomingMessage(session);
+
+      expect(translateMessage).not.toBeCalled();
+      const item = session.transcript.find((i) => i.id === "agent-msg-1");
+      expect(item.content.data).toEqual("I will check your order status.");
+    });
+
+    test("does not translate messages from a bot/system participant, only a real AGENT", async () => {
+      const session = createSessionWithTranslation();
+
+      await simulateIncomingMessage(session, {ParticipantId: "bot-1", ParticipantRole: "SYSTEM", DisplayName: "BOT"});
+
+      expect(translateMessage).not.toBeCalled();
+      const item = session.transcript.find((i) => i.id === "agent-msg-1");
+      expect(item.content.data).toEqual("I will check your order status.");
+    });
+
+    test("does not translate non-text agent content (e.g. interactive messages)", async () => {
+      const session = createSessionWithTranslation();
+
+      await simulateIncomingMessage(session, {
+        ContentType: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE,
+        Content: JSON.stringify({templateType: "QuickReply"}),
+      });
+
+      expect(translateMessage).not.toBeCalled();
+    });
+
+    test("translates markdown-typed agent messages too, not just plain text", async () => {
+      // Regression guard: Amazon Connect's out-of-box Agent Workspace
+      // composer is rich-text and sends its messages as text/markdown by
+      // default (launcher.js declares "text/markdown" as a supported
+      // messaging content type for this contact) - gating on TEXT_PLAIN
+      // alone silently skipped translating every real agent reply.
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Bonjour, comment puis-je vous aider ?",
+        sourceLanguage: "en",
+        targetLanguage: "fr",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+
+      await simulateIncomingMessage(session, {
+        ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN,
+        Content: "Hi, how can I help you?",
+      });
+
+      expect(translateMessage).toBeCalledWith(
+        expect.objectContaining({
+          direction: TRANSLATION_DIRECTION.AGENT_TO_CUSTOMER,
+          message: "Hi, how can I help you?",
+        })
+      );
+      const item = session.transcript.find((i) => i.id === "agent-msg-1");
+      expect(item.content.data).toEqual("Bonjour, comment puis-je vous aider ?");
+    });
+
+    test("fails open and displays the agent's original message when translation errors", async () => {
+      translateMessage.mockRejectedValue(new Error("network error"));
+      const session = createSessionWithTranslation();
+
+      await simulateIncomingMessage(session);
+
+      const item = session.transcript.find((i) => i.id === "agent-msg-1");
+      expect(item.content.data).toEqual("I will check your order status.");
+    });
+
+    test("translates historical agent messages when the transcript loads (initial load, pagination, or a page reload/resume)", async () => {
+      translateMessage.mockResolvedValue({
+        translatedMessage: "Je vais vérifier le statut de votre commande.",
+        sourceLanguage: "en",
+        targetLanguage: "fr",
+        translationApplied: true,
+      });
+      const session = createSessionWithTranslation();
+      session.client.getTranscript = jest.fn().mockResolvedValue({
+        data: {
+          Transcript: [
+            {
+              Id: "agent-historical-1",
+              Type: "MESSAGE",
+              ParticipantId: "agent-1",
+              AbsoluteTime: AbsoluteTime,
+              ParticipantRole: "AGENT",
+              ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+              Content: "I will check your order status.",
+            },
+          ],
+          NextToken: null,
+        },
+      });
+
+      const connectionEstablishedCallback = session.client.session.onConnectionEstablished.mock.calls[0][0];
+      await connectionEstablishedCallback();
+
+      expect(translateMessage).toBeCalledWith({
+        apiEndpoint: TRANSLATE_ENDPOINT,
+        contactId: session.contactId,
+        direction: TRANSLATION_DIRECTION.AGENT_TO_CUSTOMER,
+        message: "I will check your order status.",
+        agentLanguage: "en",
+      });
+      const item = session.transcript.find((i) => i.id === "agent-historical-1");
+      expect(item).toBeDefined();
+      expect(item.content.data).toEqual("Je vais vérifier le statut de votre commande.");
     });
   });
 });

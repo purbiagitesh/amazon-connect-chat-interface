@@ -394,6 +394,7 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
+        forceAttachmentStepActive: true,
     });
 
     var hasActiveChat = false;
@@ -440,17 +441,28 @@
       });
     }
 
+    // Customer -> Agent live translation config (see ChatSession.js's
+    // _shouldTranslateOutgoingMessage) - off unless a brand's env config
+    // explicitly turns it on with a real apiEndpoint. Read once and reused
+    // by both startChat() and resumeChat() below, so translation stays
+    // enabled across a resumed session too, not just a brand-new one.
+    var translationConfig = brandConfig.translation || {};
+    var translationFields = {
+      enableTranslation: !!translationConfig.enabled,
+      translationApiEndpoint: translationConfig.apiEndpoint || '',
+      translationAgentLanguage: translationConfig.agentLanguage || '',
+    };
+
     async function startChat() {
       var contactAttributes = await buildContactAttributes(brandInfo, window.utag_data);
-      window.connect.ChatInterface.initiateChat({
+      window.connect.ChatInterface.initiateChat(Object.assign({
         name: contactAttributes.customerName,
         region: brandConfig.region,
-        // instanceId/contactFlowId are not sent - the Lambda behind
-        // apiGatewayEndpoint owns that config via its own env vars.
+        featurePermissions: { "ATTACHMENTS": true }, //This is needs to be removed once this flag will come from connect/VA.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
-      }, function onSuccess(chatSession) {
+      }, translationFields), function onSuccess(chatSession) {
         hasActiveChat = true;
         if (chatSession.rawChatDetails) {
           persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
@@ -463,11 +475,11 @@
     }
 
     function resumeChat(persisted) {
-      window.connect.ChatInterface.resumeChat({
+      window.connect.ChatInterface.resumeChat(Object.assign({
         chatDetails: persisted.chatDetails,
         name: persisted.name,
         region: brandConfig.region,
-      }, function onSuccess(chatSession) {
+      }, translationFields), function onSuccess(chatSession) {
         hasActiveChat = true;
         persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
         wireChatEndCleanup(chatSession);

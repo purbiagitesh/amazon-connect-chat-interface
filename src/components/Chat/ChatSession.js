@@ -1,8 +1,9 @@
 import "amazon-connect-chatjs";
 import {CONTACT_STATUS} from "../../constants/global";
 import {modelUtils} from "./datamodel/Utils";
-import {ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE, AttachmentErrorType, PARTICIPANT_TYPES, InteractiveMessageType} from "./datamodel/Model";
+import {ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE, AttachmentErrorType, PARTICIPANT_TYPES, InteractiveMessageType, TRANSLATION_DIRECTION} from "./datamodel/Model";
 import {getTimeFromTimeStamp, flattenFeedbackQuickReplyResponse} from "../../utils/helper";
+import {translateMessage} from "./TranslationService";
 import Eventbus from './eventbus';
 import isJson from "is-json";
 
@@ -29,6 +30,40 @@ const INACTIVITY_DISCONNECT_DELAY_MS = 30 * 1000;
 // react-intl message if these ever need to be localized.
 const INACTIVITY_NO_RESPONSE_MESSAGE = "Sorry, I didn't get your response.";
 const INACTIVITY_CLOSING_MESSAGE = "Thank you for connecting with us today.";
+
+// Content types eligible for Customer <-> Agent live translation (see
+// _shouldTranslateOutgoingMessage/_shouldTranslateIncomingMessage). Plain
+// text obviously qualifies; markdown also has to, since launcher.js
+// declares "text/markdown" as a supported messaging content type for this
+// contact (see supportedMessagingContentTypes) - Amazon Connect's own
+// out-of-box Agent Workspace composer sends its messages as text/markdown
+// by default (it's a rich-text editor, not a plain textbox), so gating on
+// TEXT_PLAIN alone would silently skip every real agent reply. Interactive/
+// QuickReply payloads and attachments are never in this list on purpose -
+// those keep working exactly as they do today, untranslated.
+const TRANSLATABLE_MESSAGE_CONTENT_TYPES = [
+  ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+  ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN,
+];
+
+// ─── Customer -> Agent translation: surviving a page reload ───
+// _preserveOriginalContent (see _addItemsToTranscript) only protects a
+// translated message's display for as long as this ChatSession instance
+// stays alive - it's in-memory only. On a real page reload the customer's
+// tab creates a brand new ChatSession and reloads the transcript straight
+// from Connect's own record of the contact, which genuinely only has the
+// translated text (that's literally what was sent) - so without this,
+// every one of the customer's own past messages would flip to the
+// translated language after any reload/resume. This persists a small
+// {contactId, messages: {messageId: originalText}} record in localStorage
+// (mirroring launcher.js's persistActiveChat/getResumableSession/
+// clearPersistedChat pattern for the same kind of reload-survival problem)
+// so a reload can restore the original text once the real Connect message
+// id is known. Scoped to a single contactId at a time (overwritten, not
+// merged, whenever a different contact's originals are persisted) rather
+// than accumulating indefinitely across past conversations.
+const TRANSLATED_ORIGINALS_STORAGE_KEY = "ac_translated_originals";
+
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
   return CurrentChatSessionInstance;
@@ -221,6 +256,13 @@ class ChatSession {
   _inactivityDisconnectTimer = null;
   _lastIncomingMessageItem = null;
 
+  // Customer -> Agent live translation (see TranslationService.js) needs to
+  // know whether a real human agent is currently in the conversation -
+  // translation should never run against a bot/Lex-only conversation. Holds
+  // the participantId of every AGENT participant currently believed to be
+  // connected; see _updateLiveAgentState/_hasLiveAgentConnected.
+  _liveAgentParticipantIds = new Set();
+
   _eventHandlers = {
     "transcript-changed": [],
     "typing-participants-changed": [],
@@ -312,6 +354,7 @@ class ChatSession {
 
   async endChat() {
     this._clearInactivityTimers();
+    this._clearPersistedTranslatedOriginals();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -330,6 +373,7 @@ class ChatSession {
   // be offered for resume again.
   async _endChatKeepingPanelOpen() {
     this._clearInactivityTimers();
+    this._clearPersistedTranslatedOriginals();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -434,6 +478,206 @@ class ChatSession {
     );
   }
 
+  // ─── Customer -> Agent live translation ───
+  // Only free-typed text/plain or text/markdown Customer messages are ever
+  // translated (see TRANSLATABLE_MESSAGE_CONTENT_TYPES), and only once a
+  // real human agent has actually joined the conversation (see
+  // _hasLiveAgentConnected) - a bot/Lex-only conversation is never routed
+  // through this. QuickReply/interactive responses (sent as
+  // INTERACTIVE_RESPONSE - see alterOutgoingMessageForViewsIfRequired
+  // above), system events, and attachments (a separate method,
+  // addOutgoingAttachment) never reach this check at all, so they keep
+  // working exactly as they do today.
+  _shouldTranslateOutgoingMessage(message) {
+    const translationConfig = this.customizationParams.translation;
+    if (!translationConfig || !translationConfig.enabled || !translationConfig.apiEndpoint) {
+      return false;
+    }
+    if (!TRANSLATABLE_MESSAGE_CONTENT_TYPES.includes(message.content.type)) {
+      return false;
+    }
+    return this._hasLiveAgentConnected();
+  }
+
+  // Sends message.content to Connect, translating it first when needed -
+  // the transcript item itself (already rendered into the customer's own
+  // transcript by the caller, addOutgoingMessage) is never touched here, so
+  // the customer keeps seeing exactly what they typed regardless of what
+  // actually goes out over the wire.
+  //
+  // Deliberately calls this.client.sendMessage(message.content) SYNCHRONOUSLY
+  // (not via a .then()) on the no-translation path, rather than always
+  // routing through a promise chain - every existing caller/test expects
+  // client.sendMessage to have already been called by the time
+  // addOutgoingMessage() returns when translation isn't in play, and adding
+  // an extra microtask hop here for everyone would silently break that.
+  // Only the translation path (new, real network call either way) is ever
+  // actually asynchronous before reaching the client.
+  _sendOutgoingMessageContent(message) {
+    if (!this._shouldTranslateOutgoingMessage(message)) {
+      return this.client.sendMessage(message.content);
+    }
+    const translationConfig = this.customizationParams.translation;
+    return translateMessage({
+      apiEndpoint: translationConfig.apiEndpoint,
+      contactId: this.contactId,
+      direction: TRANSLATION_DIRECTION.CUSTOMER_TO_AGENT,
+      message: message.content.data,
+      agentLanguage: translationConfig.agentLanguage,
+    })
+      .then((result) => ({
+        data: result.translatedMessage,
+        type: message.content.type,
+      }))
+      .catch((error) => {
+        // The translation backend is unavailable/erroring - fail OPEN
+        // rather than silently dropping or blocking the customer's message:
+        // send their original text through untranslated instead of not
+        // sending at all. Worst case the agent briefly sees the
+        // untranslated language, which is no worse than today's behavior
+        // without this feature. This is a deliberate default, not (yet) a
+        // signed-off product decision - change this to re-throw instead if
+        // a blocked/failed-message experience is preferred once that's
+        // decided.
+        this.logger && this.logger.error("Translation request failed - sending original message untranslated.", error);
+        return message.content;
+      })
+      .then((content) => this.client.sendMessage(content));
+  }
+
+  // ─── Agent -> Customer live translation ───
+  // Symmetric to the Customer -> Agent path above, but simpler: we have no
+  // control over the agent's own application (see TranslationService.js/the
+  // CCaaS integration doc), so Connect's own record of an agent's message
+  // is always the agent's real, untranslated text - both when it first
+  // arrives live (_handleIncomingData) and every time it's loaded again
+  // (_loadTranscript, covering initial load, "load more" scroll-back
+  // pagination, and a page reload/resume). That means there's nothing to
+  // persist across a reload the way _preserveOriginalContent/
+  // TRANSLATED_ORIGINALS_STORAGE_KEY has to for the outgoing side - the
+  // exact same source text is available to re-translate every single time,
+  // so both call sites just translate on the way in, unconditionally.
+  // Only free-typed text/plain or text/markdown AGENT messages qualify (see
+  // TRANSLATABLE_MESSAGE_CONTENT_TYPES - Connect's out-of-box Agent
+  // Workspace composer sends text/markdown by default) - system events,
+  // interactive/QuickReply content, and attachments are left exactly as
+  // they are today.
+  _shouldTranslateIncomingMessage(item) {
+    const translationConfig = this.customizationParams.translation;
+    if (!translationConfig || !translationConfig.enabled || !translationConfig.apiEndpoint) {
+      return false;
+    }
+    if (!item || !item.content || !TRANSLATABLE_MESSAGE_CONTENT_TYPES.includes(item.content.type)) {
+      return false;
+    }
+    // A real AGENT-role message is itself sufficient proof a live agent is
+    // in the conversation - no need for the separate _hasLiveAgentConnected
+    // bookkeeping the outgoing side needs (that exists to gate the
+    // customer's own messages, which carry no participant-role signal of
+    // their own about who else is in the chat).
+    return item.participantRole === PARTICIPANT_TYPES.AGENT;
+  }
+
+  // Resolves to the content that should actually be displayed for an
+  // incoming agent message - translated whenever possible, but never
+  // silently dropped: on any translation failure, falls back to the
+  // agent's original text so the customer always sees *something*, exactly
+  // like the outgoing fail-open behavior above.
+  _translateIncomingMessageContent(item) {
+    const translationConfig = this.customizationParams.translation;
+    return translateMessage({
+      apiEndpoint: translationConfig.apiEndpoint,
+      contactId: this.contactId,
+      direction: TRANSLATION_DIRECTION.AGENT_TO_CUSTOMER,
+      message: item.content.data,
+      agentLanguage: translationConfig.agentLanguage,
+    })
+      .then((result) => ({
+        data: result.translatedMessage,
+        type: item.content.type,
+      }))
+      .catch((error) => {
+        this.logger && this.logger.error("Translation request failed - displaying original agent message untranslated.", error);
+        return item.content;
+      });
+  }
+
+  // Used by _loadTranscript to translate every qualifying agent message in
+  // a freshly-loaded batch (in parallel) before it ever reaches the
+  // transcript - _translateIncomingMessageContent's own .catch keeps every
+  // one of these promises resolving even on a per-message translation
+  // failure, so Promise.all here never rejects because of it.
+  _translateIncomingTranscriptItemsIfNeeded(items) {
+    const itemsToTranslate = items.filter((item) => this._shouldTranslateIncomingMessage(item));
+    if (itemsToTranslate.length === 0) {
+      return Promise.resolve();
+    }
+    return Promise.all(
+      itemsToTranslate.map((item) =>
+        this._translateIncomingMessageContent(item).then((content) => {
+          item.content = content;
+        })
+      )
+    );
+  }
+
+  // ─── Translated-message originals: localStorage persistence ───
+  // See TRANSLATED_ORIGINALS_STORAGE_KEY above for why this exists. All
+  // three wrapped in try/catch - same reasoning as launcher.js's
+  // localStorage helpers: this is a nice-to-have on top of a working
+  // widget, never something that should be allowed to break sending or
+  // displaying a message (private browsing, storage quota, disabled
+  // storage, etc. all just silently fall back to in-memory-only behavior).
+
+  _readPersistedTranslatedOriginals() {
+    let raw;
+    try {
+      raw = window.localStorage.getItem(TRANSLATED_ORIGINALS_STORAGE_KEY);
+    } catch (e) {
+      return {};
+    }
+    if (!raw) {
+      return {};
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      // Scoped to the current contactId only - a record left over from a
+      // past, unrelated conversation is never applicable here.
+      if (!parsed || parsed.contactId !== this.contactId || !parsed.messages) {
+        return {};
+      }
+      return parsed.messages;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  _persistTranslatedOriginal(messageId, originalText) {
+    if (!messageId) {
+      return;
+    }
+    const messages = this._readPersistedTranslatedOriginals();
+    messages[messageId] = originalText;
+    try {
+      window.localStorage.setItem(TRANSLATED_ORIGINALS_STORAGE_KEY, JSON.stringify({
+        contactId: this.contactId,
+        messages: messages,
+      }));
+    } catch (e) {
+      this.logger && this.logger.error("Unable to persist translated message original for reload-survival.", e);
+    }
+  }
+
+  // Called once this contact is truly over (endChat/_endChatKeepingPanelOpen/
+  // agent-ended) - nothing left to resume, so nothing left to restore.
+  _clearPersistedTranslatedOriginals() {
+    try {
+      window.localStorage.removeItem(TRANSLATED_ORIGINALS_STORAGE_KEY);
+    } catch (e) {
+      // Nothing to clean up if storage isn't available in the first place.
+    }
+  }
+
   addOutgoingMessage(data) {
     // The customer replied - the inactivity re-prompt/auto-disconnect
     // countdown no longer applies to the message it was waiting on. The
@@ -444,6 +688,15 @@ class ChatSession {
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
 
+    // See _addItemsToTranscript's _preserveOriginalContent handling - this
+    // message is about to be sent to Connect as translated text, so its
+    // locally-displayed content must never be replaced by Connect's own
+    // (translated) record of it, whether via the roundtrip echo or the
+    // send-success merge below.
+    if (this._shouldTranslateOutgoingMessage(message)) {
+      message._preserveOriginalContent = true;
+    }
+
     this._shouldAddToTranscript(message) && this._addItemsToTranscript([message]);
 
     this.isOutgoingMessageInFlight = true;
@@ -451,13 +704,20 @@ class ChatSession {
     // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
     const outgoingMessageSendStartTime = performance.now();
 
-    this.client
-      .sendMessage(message.content)
+    this._sendOutgoingMessageContent(message)
       .then((response) => {
          this.logger && this.logger.info("send success");
          this.logger && this.logger.info(response);
          this.logger && this.logger.info("[sendMessage] outgoing message UI -> Connect time (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
-        this._shouldAddToTranscript(message) && this._replaceItemInTranscript(message, modelUtils.createTranscriptItemFromSuccessResponse(message, response));
+        const successItem = modelUtils.createTranscriptItemFromSuccessResponse(message, response);
+        if (message._preserveOriginalContent) {
+          // Persist under Connect's REAL message id (successItem.id, from
+          // response.data.Id) - that's the id a future page reload's
+          // getTranscript() call will actually come back with, not the
+          // temporary local id this message started with.
+          this._persistTranslatedOriginal(successItem.id, message.content.data);
+        }
+        this._shouldAddToTranscript(message) && this._replaceItemInTranscript(message, successItem);
 
         this.isOutgoingMessageInFlight = false;
         return response;
@@ -691,6 +951,11 @@ class ChatSession {
           await this._describeAndProcessView(lastItem);
         transcriptItems.push(lastItem);
 
+        // Agent -> Customer translation (see _shouldTranslateIncomingMessage) -
+        // covers every path that reaches this point: initial connect, "load
+        // more" scroll-back pagination, and a page reload/resume.
+        await this._translateIncomingTranscriptItemsIfNeeded(transcriptItems);
+
         this._addItemsToTranscript(transcriptItems);
       })
       .catch((err) => {
@@ -717,6 +982,19 @@ class ChatSession {
     }
 
     if (item) {
+      // Deliberately synchronous and unconditional, before any of the
+      // (possibly async, translation-involving) branching below - live
+      // agent detection must never wait on translation. _addItemsToTranscript
+      // also calls this (needed for _loadTranscript's bulk-load path, which
+      // never reaches here), but for a message that's about to go through
+      // Agent -> Customer translation, that call is now deferred behind the
+      // translation promise below - and Customer -> Agent translation's own
+      // _hasLiveAgentConnected() gate can't afford to wait that long (a
+      // customer message sent in the same tick the first agent message
+      // arrives would otherwise see stale "no agent yet" state). Idempotent
+      // either way (Set add/delete), so calling it again later is harmless.
+      this._updateLiveAgentState(item);
+
       if (!this._isRoundtripMessage(data) && (item.messageCompleted === undefined || item.messageCompleted === true)) {
         this._updateTypingParticipantsUsingIncoming(item);
       }
@@ -756,8 +1034,19 @@ class ChatSession {
 
       const shouldBypassAddItemToTranscript = this.isOutgoingMessageInFlight === true && item.participantRole === PARTICIPANT_TYPES.CUSTOMER;
 
-      if (!shouldBypassAddItemToTranscript) {
-        this._shouldAddToTranscript(item) && this._addItemsToTranscript([item]);
+      if (!shouldBypassAddItemToTranscript && this._shouldAddToTranscript(item)) {
+        // Agent -> Customer translation (see _shouldTranslateIncomingMessage) -
+        // only the final transcript-render step waits on this; typing
+        // indicators, the inactivity countdown, read/delivered receipts,
+        // and the "incoming-message" event above all already fired
+        // immediately, untouched, above.
+        if (this._shouldTranslateIncomingMessage(item)) {
+          return this._translateIncomingMessageContent(item).then((content) => {
+            item.content = content;
+            this._addItemsToTranscript([item]);
+          });
+        }
+        this._addItemsToTranscript([item]);
       }
     } else {
       this.logger && this.logger.info("_handleIncomingData NOT NOT item created");
@@ -846,6 +1135,42 @@ class ChatSession {
     return SYSTEM_EVENTS.indexOf(item.contentType) !== -1 && this.thisParticipant.participantId === item.participantId;
   }
 
+  // Keeps _liveAgentParticipantIds in sync with whichever AGENT
+  // participants are currently actually in the conversation, so Customer ->
+  // Agent translation (see _shouldTranslateOutgoingMessage) only ever runs
+  // once a real human agent has joined - never during a bot/Lex-only
+  // conversation. A PARTICIPANT_JOINED event is the normal signal; a real
+  // message/attachment from that agent is treated the same way as a
+  // fallback, since on a resumed session (page reload/new tab mid-chat) the
+  // join event itself may predate whatever window of transcript got loaded,
+  // while recent agent messages are still visible. PARTICIPANT_LEFT/
+  // PARTICIPANT_DISCONNECT remove the agent again (e.g. a transfer back to
+  // a bot, or to another agent - the new agent's own join event/message
+  // re-adds a live agent).
+  _updateLiveAgentState(item) {
+    if (!item || item.participantRole !== PARTICIPANT_TYPES.AGENT || !item.participantId) {
+      return;
+    }
+    const eventType = item.content && item.content.type;
+    if (
+      eventType === ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_LEFT ||
+      eventType === ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_DISCONNECT
+    ) {
+      this._liveAgentParticipantIds.delete(item.participantId);
+      return;
+    }
+    if (
+      eventType === ContentType.EVENT_CONTENT_TYPE.PARTICIPANT_JOINED ||
+      modelUtils.isTypeMessageOrAttachment(item.type)
+    ) {
+      this._liveAgentParticipantIds.add(item.participantId);
+    }
+  }
+
+  _hasLiveAgentConnected() {
+    return this._liveAgentParticipantIds.size > 0;
+  }
+
   _addItemsToTranscript(items) {
     let self = this;
 
@@ -853,7 +1178,42 @@ class ChatSession {
       return;
     }
 
+    items.forEach((item) => this._updateLiveAgentState(item));
+
     items = items.filter((item) => !this._isRoundTripSystemEvent(item));
+
+    // Customer -> Agent translation (see _shouldTranslateOutgoingMessage)
+    // sends the TRANSLATED text to Connect, so Connect's own record of this
+    // message - and therefore any roundtrip echo of it that arrives over
+    // the websocket, or the success-response merge below - genuinely is
+    // the translated text, not what the customer typed. Once that send
+    // resolves, this._isOutgoingMessageInFlight (the usual guard against
+    // re-adding a roundtrip echo of our own message) is no longer enough
+    // to protect against it, since the echo can arrive after the flag
+    // resets. So for any incoming item that's about to replace (same id)
+    // an existing transcript item flagged _preserveOriginalContent (set in
+    // addOutgoingMessage only when this specific message was translated),
+    // carry that existing item's original content forward instead of
+    // accepting whatever the echo/response says - the customer must keep
+    // seeing exactly what they typed. Only affects transport/id/receipt
+    // metadata otherwise, which the echo is still needed for.
+    const existingItemById = this.transcript.reduce((acc, item) => ({...acc, [item.id]: item}), {});
+    // Fallback for a freshly-loaded transcript (page reload/new tab resume)
+    // where this.transcript starts out empty, so there's no in-memory
+    // existingItem to fall back on above - see TRANSLATED_ORIGINALS_STORAGE_KEY.
+    // Read once per call rather than once per item; a no-op empty lookup on
+    // every unrelated message/event otherwise.
+    const persistedOriginals = this._readPersistedTranslatedOriginals();
+    items.forEach((item) => {
+      const existingItem = existingItemById[item.id];
+      if (existingItem && existingItem._preserveOriginalContent) {
+        item.content = existingItem.content;
+        item._preserveOriginalContent = true;
+      } else if (persistedOriginals[item.id] !== undefined) {
+        item.content = {...item.content, data: persistedOriginals[item.id]};
+        item._preserveOriginalContent = true;
+      }
+    });
 
     const newItemMap = items.reduce((acc, item) => ({...acc, [item.id]: item}), {});
 
@@ -989,6 +1349,7 @@ class ChatSession {
   /** called when transcript has chat ended message */
   _handleEndedEvent() {
     this._clearInactivityTimers();
+    this._clearPersistedTranslatedOriginals();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
