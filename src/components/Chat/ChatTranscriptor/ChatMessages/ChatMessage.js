@@ -782,7 +782,7 @@ export class ParticipantMessage extends PureComponent {
     }
 
     if (contentType === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE || isInteractiveMessagePayload(content)) {
-      const { data, templateType } = safeParseInteractiveMessageJSON(content);
+      const { data, templateType, metadata } = safeParseInteractiveMessageJSON(content);
       if (this.props.isLatestMessage) {
         this.triggerCountMetric(templateType + CSM_CONSTANTS.RENDER_INTERACTIVE_MESSAGE)
         return (
@@ -790,6 +790,7 @@ export class ParticipantMessage extends PureComponent {
             <InteractiveMessage
               content={data.content}
               templateType={templateType}
+              fallbackCardData={metadata}
               addMessage={this.props.mediaOperations.addMessage}
               textInputRef={this.props.textInputRef}
               // QuickReply's controls render below the bubble (see render());

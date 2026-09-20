@@ -394,6 +394,7 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
+        forceAttachmentStepActive: true,
     });
 
     var hasActiveChat = false;
@@ -445,8 +446,7 @@
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
-        // instanceId/contactFlowId are not sent - the Lambda behind
-        // apiGatewayEndpoint owns that config via its own env vars.
+        featurePermissions: { "ATTACHMENTS": true }, //This is needs to be removed once this flag will come from connect/VA.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',

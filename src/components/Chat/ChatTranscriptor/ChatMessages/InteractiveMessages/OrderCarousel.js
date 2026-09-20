@@ -16,7 +16,7 @@ OrderCarousel.propTypes = {
   addMessage: PT.func.isRequired,
 };
 
-export default function OrderCarousel({ content, addMessage }) {
+export default function OrderCarousel({ content, fallbackCardData, addMessage }) {
   // Falls back to mock data only when no runtime content is supplied - see
   // OrderCarousel.mockData.js. Swapping to the real VA JSON is a data
   // change only, not a structural one.
@@ -36,21 +36,21 @@ export default function OrderCarousel({ content, addMessage }) {
     onSelectMessage: `Selected order ${order.orderNumber}`,
   }));
 
-  const fallbackCard = {
-    testId: "order-card-empty",
-    heading: "Can't find your order?",
-    ctas: [
-      { testId: "order-card-empty-enter", label: "Enter order number", message: "Enter order number" },
-      { testId: "order-card-empty-unknown", label: "Don't know order number", message: "Don't know order number" },
-    ],
-  };
+  // const fallbackCard = {
+  //   testId: "order-card-empty",
+  //   heading: "Can't find your order?",
+  //   ctas: [
+  //     { testId: "order-card-empty-enter", label: "Enter order number", message: "Enter order number" },
+  //     { testId: "order-card-empty-unknown", label: "Don't know order number", message: "Don't know order number" },
+  //   ],
+  // };
 
   return (
     <SelectionCarousel
       cards={cards}
-      fallbackCard={fallbackCard}
+      fallbackCard={fallbackCardData}
       addMessage={addMessage}
       testIdPrefix="order-carousel"
-    />
+    /> 
   );
 }
