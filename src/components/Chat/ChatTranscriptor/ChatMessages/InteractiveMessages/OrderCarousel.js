@@ -7,7 +7,8 @@ import { MOCK_ORDERS } from "./OrderCarousel.mockData";
 // onto the generic SelectionCarousel primitive (structure/behavior lives
 // there and is shared across flows; only this mapping is order-specific).
 function formatProductMeta(product) {
-  const detail = product.shade ? `Shade: ${product.shade}` : product.size;
+  //const detail = product.shade ? `Shade: ${product.shade}` : product.size;
+  const detail = product.price;
   return `${detail} • Qty: ${product.qty}`;
 }
 

@@ -276,7 +276,10 @@ export function isRatingQuickReply(content) {
   if (!content || typeof content !== "object") {
     return false;
   }
-  if (content.displayStyle === QuickReplyDisplayStyle.RATING) {
+  //Added condition for other CTA buttons to be look like feedback one.
+  if (content.displayStyle === QuickReplyDisplayStyle.RATING 
+    || content.displayStyle === QuickReplyDisplayStyle.STACK
+  ) {
     return true;
   }
   const {elements} = content;

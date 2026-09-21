@@ -125,6 +125,7 @@ export const InteractiveMessageSelectionType = {
 // the full element.title text, per the Figma "Feedback Flow Chips" spec.
 export const QuickReplyDisplayStyle = {
   RATING: "rating",
+  STACK: "stack",
 };
 
 export const Status = {
