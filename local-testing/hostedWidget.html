@@ -22,6 +22,70 @@
     window.utag_data = { brand: 'labseries', ELC_ENV: 'NOPROD' };
   </script>
 
+  <!-- ─── TEST-ONLY: guest <-> authenticated toggle ───
+       Simulates the brand site's own login/logout, purely so
+       startAuthPollingTimer (see launcher.js) has something real to detect
+       mid-chat without an actual login system on this page. Not part of
+       the production script/widget - a real brand site provides its own
+       window.ElcAmazonConnect.getCustomerContext(), this just stands in
+       for it. -->
+  <div id="test-auth-toggle" style="position:fixed;top:12px;left:12px;z-index:2147483647;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+    <div style="margin-bottom:6px;">
+      Test auth status: <strong id="test-auth-status">Guest</strong>
+    </div>
+    <button id="test-login-btn" type="button" style="cursor:pointer;padding:4px 10px;margin-right:6px;">Login</button>
+    <button id="test-logout-btn" type="button" style="cursor:pointer;padding:4px 10px;" disabled>Logout</button>
+  </div>
+
+  <script>
+    // ─── TEST-ONLY: fake window.ElcAmazonConnect.getCustomerContext() ───
+    // launcher.js's getCustomerContext() calls this exact global if it
+    // exists, both when a chat first starts and on every
+    // startAuthPollingTimer poll tick - toggling window.__testAuthenticated
+    // below via the buttons is enough to simulate "guest logs in mid-chat"
+    // without any real login flow. Deliberately in-memory only (resets to
+    // guest on page reload) - matches this being a same-page-session login
+    // simulation, not a persisted session.
+    window.__testAuthenticated = false;
+
+    window.ElcAmazonConnect = window.ElcAmazonConnect || {};
+    window.ElcAmazonConnect.getCustomerContext = function () {
+      if (!window.__testAuthenticated) {
+        return Promise.resolve({ authenticated: false });
+      }
+      return Promise.resolve({
+        authenticated: true,
+        firstName: 'Gitesh',
+        lastName: '',
+        email: 'gitesh.purbiya22@gmail.com',
+        phone: '8107281183'
+      });
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var statusEl = document.getElementById('test-auth-status');
+      var loginBtn = document.getElementById('test-login-btn');
+      var logoutBtn = document.getElementById('test-logout-btn');
+
+      function render() {
+        statusEl.textContent = window.__testAuthenticated ? 'Logged in (Gitesh)' : 'Guest';
+        loginBtn.disabled = window.__testAuthenticated;
+        logoutBtn.disabled = !window.__testAuthenticated;
+      }
+
+      loginBtn.addEventListener('click', function () {
+        window.__testAuthenticated = true;
+        render();
+      });
+      logoutBtn.addEventListener('click', function () {
+        window.__testAuthenticated = false;
+        render();
+      });
+
+      render();
+    });
+  </script>
+
   <!-- The actual production artifact: this is the one script Tealium
        injects on a brand's real site (see scripts/build.js, which copies
        launcher/launcher.js to build/dist/launcher.js alongside

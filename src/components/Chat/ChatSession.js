@@ -221,6 +221,13 @@ class ChatSession {
   _inactivityDisconnectTimer = null;
   _lastIncomingMessageItem = null;
 
+  // Exact text of "silent" outgoing messages sent via sendSilentMessageToBot
+  // but not yet echoed back over the websocket - lets _handleIncomingData
+  // recognize and drop our own roundtrip echo of one before it ever reaches
+  // the transcript, so it never appears in the customer's chat history
+  // despite genuinely being sent to Connect/the bot.
+  _pendingSilentMessageTexts = new Set();
+
   _eventHandlers = {
     "transcript-changed": [],
     "typing-participants-changed": [],
@@ -432,6 +439,31 @@ class ChatSession {
       {data: data.text, type: data.type || ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN},
       this.thisParticipant
     );
+  }
+
+  // Sends a real message to Connect - so a Lex bot/contact flow can act on
+  // it - WITHOUT ever showing it in the customer's own transcript. For
+  // internal signals like "the guest just logged in" that the VA needs to
+  // know about but that would be confusing displayed as if the customer
+  // had typed it themselves.
+  //
+  // Deliberately bypasses the normal addOutgoingMessage path entirely: no
+  // optimistic transcript item is ever created, no Customer -> Agent
+  // translation is applied (this is a fixed internal signal, not
+  // customer-composed text), and it doesn't touch isOutgoingMessageInFlight
+  // (that flag exists for the normal send path's own roundtrip-echo
+  // suppression, which is unrelated to this - see
+  // _pendingSilentMessageTexts/_handleIncomingData instead, which is what
+  // actually keeps this message's echo out of the transcript).
+  //
+  // The message is genuinely transmitted - only the customer-facing
+  // display is suppressed. Whether the bot/contact flow actually reacts to
+  // it depends entirely on how they're configured to recognize this exact
+  // text; that's a backend/bot-side coordination point, not something this
+  // method can control.
+  sendSilentMessageToBot(text) {
+    this._pendingSilentMessageTexts.add(text);
+    return this.client.sendMessage({data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN});
   }
 
   addOutgoingMessage(data) {
@@ -717,6 +749,20 @@ class ChatSession {
     }
 
     if (item) {
+      // Drop the roundtrip echo of our own silent system messages (see
+      // sendSilentMessageToBot) before any other processing - these are
+      // genuinely sent to Connect/the bot, but must never appear in the
+      // customer's own transcript, typing indicators, receipts, etc.
+      if (
+        item.participantRole === PARTICIPANT_TYPES.CUSTOMER &&
+        this._isRoundtripMessage(data) &&
+        item.content &&
+        this._pendingSilentMessageTexts.has(item.content.data)
+      ) {
+        this._pendingSilentMessageTexts.delete(item.content.data);
+        return;
+      }
+
       if (!this._isRoundtripMessage(data) && (item.messageCompleted === undefined || item.messageCompleted === true)) {
         this._updateTypingParticipantsUsingIncoming(item);
       }

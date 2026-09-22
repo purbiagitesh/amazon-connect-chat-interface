@@ -230,6 +230,173 @@
     return attributes;
   }
 
+  // ─── Guest -> authenticated: mid-chat contact attribute sync ───
+  // A guest can start chatting, then log in without reloading the page or
+  // touching the widget at all - the brand site's own login flow has no
+  // reason to know this widget exists. This widget has no way to find out
+  // on its own either, so once called, this polls getCustomerContext() (the
+  // same customer-context API buildContactAttributes already calls) on an
+  // interval, and the moment it reports authenticated, pushes the
+  // now-known customer details onto the SAME active Connect contact via a
+  // backend UpdateContactAttributes call - the existing chat
+  // connection/transcript is completely untouched, only the contact's
+  // attribute bag is updated server-side. See ChatSession.contactId (the
+  // same StartChatContact ContactId the widget already tracks) - this is
+  // the InitialContactId UpdateContactAttributes needs, no new identifier
+  // required.
+  //
+  // Called from startChat()/resumeChat() below as soon as a chat session
+  // exists (current, initial-implementation behavior) - no per-brand
+  // config flag gates it, it always runs. A later phase may move this
+  // trigger to a specific in-flow message from the agent/VA instead of
+  // "chat just started" - that's a call site change only, the mechanism
+  // itself (poll, detect login, update attributes, dedupe, stop) doesn't
+  // need to change for that.
+  var AUTH_POLL_INTERVAL_MS = 15 * 1000; // UX judgment call, adjust freely
+  var AUTH_POLL_MAX_DURATION_MS = 30 * 60 * 1000; // safety cap - stop polling forever if login never happens during this chat
+  // Sent silently (see ChatSession.js's sendSilentMessageToBot - never
+  // shown in the customer's own transcript) once the attribute update
+  // succeeds, so the VA/contact flow can react to the login without
+  // waiting for the customer's next typed message. The exact text/format
+  // needs to be agreed with whoever owns the bot/contact flow - this is a
+  // placeholder until that's confirmed.
+  var LOGIN_NOTIFICATION_MESSAGE_TEXT = 'User is logged in';
+
+  function attributesUpdateStorageKey(contactId) {
+    return 'ac_attrs_updated_' + contactId;
+  }
+
+  // Guards against re-sending the same update on every poll tick after
+  // success, AND against a page reload/resume re-triggering it for a
+  // contact this tab already updated earlier - localStorage survives the
+  // reload, an in-memory flag wouldn't. The backend call itself is also
+  // naturally idempotent (UpdateContactAttributes just re-sets the same
+  // values), so this is about avoiding redundant calls, not correctness.
+  function hasAlreadyUpdatedAttributes(contactId) {
+    try {
+      return localStorage.getItem(attributesUpdateStorageKey(contactId)) === 'true';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function markAttributesUpdated(contactId) {
+    try {
+      localStorage.setItem(attributesUpdateStorageKey(contactId), 'true');
+    } catch (e) {
+      // Non-fatal - worst case a future poll/reload re-sends one harmless
+      // extra update call for this contact.
+    }
+  }
+
+  function updateContactAttributes(apiEndpoint, contactId, attributes) {
+    // Deliberately NO explicit Content-Type header - this hits the exact
+    // same URL/Lambda as StartChatContact (see startChat() above, via
+    // ChatInitiator.js's request()), which also never sets one. Setting
+    // 'application/json' here forced a CORS preflight (OPTIONS) that this
+    // API Gateway resource isn't configured to answer, breaking the call
+    // outright - omitting it makes the browser default the string body to
+    // 'text/plain', which is CORS-safelisted (no preflight), matching how
+    // StartChatContact already reaches this same endpoint successfully.
+    // The Lambda parses the body as JSON regardless of what Content-Type
+    // was sent, so this costs nothing server-side.
+    return fetch(apiEndpoint, {
+      method: 'POST',
+      body: JSON.stringify({contactId: contactId, attributes: attributes}),
+    }).then(function (res) {
+      if (!res.ok) {
+        throw new Error('updateContactAttributes failed with status ' + res.status);
+      }
+      return res.json();
+    });
+  }
+
+  // Starts (or no-ops) the polling timer for one chat session. Stops itself
+  // on: a successful update, the chat ending (either button), or
+  // AUTH_POLL_MAX_DURATION_MS elapsing with no login - never left running
+  // forever in the background.
+  //
+  // Call this from wherever the "agent/VA asked for login" trigger is
+  // detected, passing that same apiEndpoint (in practice,
+  // brandConfig.apiGatewayEndpoint - the UpdateContactAttributes route
+  // lives on that same Lambda/URL, routed by request body shape, not a
+  // separate resource path - see the backend handler). brandInfo is
+  // needed for buildContactAttributes(brandInfo, ...) below; this function
+  // is declared at the top level of the outer IIFE, not inside
+  // setupWidget() where brandInfo/brandConfig actually live, so neither is
+  // available via closure - both must be passed in explicitly.
+  function startAuthPollingTimer(chatSession, contactId, brandInfo, apiEndpoint) {
+    if (!apiEndpoint) {
+      return;
+    }
+    if (hasAlreadyUpdatedAttributes(contactId)) {
+      return;
+    }
+
+    var stopped = false;
+    var timer = null;
+    var startedAt = Date.now();
+
+    function stop() {
+      if (stopped) return;
+      stopped = true;
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    async function checkOnce() {
+      if (stopped) return;
+      if (Date.now() - startedAt > AUTH_POLL_MAX_DURATION_MS) {
+        stop();
+        return;
+      }
+      var attributes;
+      try {
+        attributes = await buildContactAttributes(brandInfo, window.utag_data);
+      } catch (err) {
+        console.error('[chat-widget] auth poll: failed to read customer context, will retry', err);
+        return;
+      }
+      if (attributes.customerLoggedIn !== 'Yes') {
+        return; // still a guest - try again next tick
+      }
+
+      try {
+        await updateContactAttributes(apiEndpoint, contactId, attributes);
+        markAttributesUpdated(contactId);
+        stop();
+        // Best-effort, separate from the update itself above - the
+        // attributes are already saved regardless of whether this
+        // notification succeeds, so a failure here must not cause the
+        // (already-successful) update to be retried on a future tick.
+        if (typeof chatSession.sendSilentMessageToBot === 'function') {
+          chatSession.sendSilentMessageToBot(LOGIN_NOTIFICATION_MESSAGE_TEXT).catch(function (err) {
+            console.error('[chat-widget] auth poll: failed to notify VA of login', err);
+          });
+        }
+      } catch (err) {
+        console.error('[chat-widget] auth poll: failed to update contact attributes, will retry', err);
+        // Deliberately does NOT stop() - this is a one-time-important sync,
+        // worth retrying on the next tick rather than silently giving up.
+      }
+    }
+
+    // Check immediately - covers "already logged in by the time the chat
+    // started" with no wasted wait for the first interval tick - then on
+    // an interval until it succeeds, the chat ends, or the safety cap above
+    // is hit.
+    checkOnce();
+    timer = setInterval(checkOnce, AUTH_POLL_INTERVAL_MS);
+    if (typeof timer.unref === 'function') {
+      timer.unref();
+    }
+
+    chatSession.onChatClose(stop);
+    chatSession.onChatDisconnected(stop);
+  }
+
   // ─── Chat persistence across full page navigations ───
   // This is a traditional multi-page site, not an SPA - every navigation is
   // a full reload that destroys the in-memory ChatSession/websocket. To
@@ -456,6 +623,7 @@
           persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
         }
         wireChatEndCleanup(chatSession);
+        startAuthPollingTimer(chatSession, chatSession.contactId, brandInfo, brandConfig.apiGatewayEndpoint);
       }, function onFailure(error) {
         console.error('[chat-widget] Failed to start chat:', error);
         closePanel();
@@ -471,6 +639,7 @@
         hasActiveChat = true;
         persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
         wireChatEndCleanup(chatSession);
+        startAuthPollingTimer(chatSession, chatSession.contactId, brandInfo, brandConfig.apiGatewayEndpoint);
       }, function onFailure(error) {
         console.warn('[chat-widget] failed to resume previous chat session', error);
         clearPersistedChat(resolvedBrand);

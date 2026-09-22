@@ -995,5 +995,85 @@ describe("ChatSession", () => {
       // should be called for the latest message
       expect(session.client.session.describeView).toBeCalledTimes(1);
     });
+
+    describe("sendSilentMessageToBot", () => {
+      test("sends the message to Connect without adding it to the customer's transcript", () => {
+        const session = new ChatSession(chatDetails, region, stage);
+        session.openChatSession(true);
+
+        session.sendSilentMessageToBot("User is logged in");
+
+        expect(session.client.session.sendMessage).toBeCalledWith({
+          message: "User is logged in",
+          contentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+        });
+        expect(session.transcript.find((item) => item.content && item.content.data === "User is logged in")).toBeUndefined();
+      });
+
+      test("drops its own roundtrip echo before it ever reaches the transcript", () => {
+        const session = new ChatSession(chatDetails, region, stage);
+        session.openChatSession(true);
+        const onMessageCallback = session.client.session.onMessage.mock.calls[0][0];
+
+        session.sendSilentMessageToBot("User is logged in");
+
+        // The echo of our own just-sent message, exactly as Connect would
+        // deliver it over the websocket - same participant, same text.
+        onMessageCallback({
+          data: {
+            AbsoluteTime: new Date().toISOString(),
+            Content: "User is logged in",
+            ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+            Id: "silent-msg-echo-1",
+            Type: "MESSAGE",
+            ParticipantId: ParticipantId,
+            DisplayName: "Customer",
+            ParticipantRole: "CUSTOMER",
+          },
+        });
+
+        expect(session.transcript.find((item) => item.id === "silent-msg-echo-1")).toBeUndefined();
+        expect(session.transcript.find((item) => item.content && item.content.data === "User is logged in")).toBeUndefined();
+      });
+
+      test("only suppresses one echo per silent send - a later genuine message with the same text is not swallowed", () => {
+        const session = new ChatSession(chatDetails, region, stage);
+        session.openChatSession(true);
+        const onMessageCallback = session.client.session.onMessage.mock.calls[0][0];
+
+        session.sendSilentMessageToBot("User is logged in");
+        onMessageCallback({
+          data: {
+            AbsoluteTime: new Date().toISOString(),
+            Content: "User is logged in",
+            ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+            Id: "silent-msg-echo-1",
+            Type: "MESSAGE",
+            ParticipantId: ParticipantId,
+            DisplayName: "Customer",
+            ParticipantRole: "CUSTOMER",
+          },
+        });
+
+        // A second, unrelated message that happens to carry the exact same
+        // text (e.g. a real customer echo, not a silent send) - the guard
+        // is single-use per sendSilentMessageToBot call, so this one goes
+        // through normally.
+        onMessageCallback({
+          data: {
+            AbsoluteTime: new Date().toISOString(),
+            Content: "User is logged in",
+            ContentType: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+            Id: "genuine-msg-2",
+            Type: "MESSAGE",
+            ParticipantId: ParticipantId,
+            DisplayName: "Customer",
+            ParticipantRole: "CUSTOMER",
+          },
+        });
+
+        expect(session.transcript.find((item) => item.id === "genuine-msg-2")).toBeDefined();
+      });
+    });
   });
 });
