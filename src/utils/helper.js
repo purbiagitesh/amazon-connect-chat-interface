@@ -232,7 +232,20 @@ export const truncateStrFromCharLimit = (str, InteractiveMessageType, fieldLimit
     return sanitizedStr.substring(0, MAX_LENGTH) + "...";
   }
 }
-
+/**
+ * Sanitizes a string for interactive message rendering without truncating it.
+ * Used where the field (e.g. QuickReply's title) should never be cut short,
+ * but still needs the same XSS mitigation as truncateStrFromCharLimit above.
+ *
+ * @param {string} str - input string to sanitize.
+ * @returns {string} the sanitized string.
+ */
+export const sanitizeInteractiveMessageStr = (str) => {
+  if (!(str && typeof str === "string")) {
+    return "";
+  }
+  return DOMPurify.sanitize(str);
+}
 /* -------------------------------------------------------------------------
  * QuickReply rating / feedback handling
  *
@@ -279,7 +292,7 @@ export function isRatingQuickReply(content) {
   //Added condition for other CTA buttons to be look like feedback one.
   if (content.displayStyle === QuickReplyDisplayStyle.RATING 
     || content.displayStyle === QuickReplyDisplayStyle.STACK
-  ) {
+  ){
     return true;
   }
   const {elements} = content;

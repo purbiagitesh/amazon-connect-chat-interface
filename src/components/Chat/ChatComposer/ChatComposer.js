@@ -173,6 +173,7 @@ const IconButton = styled.button`
   position: relative;
   padding: 0;
   margin: 0;
+  color: ${(props) => props.theme.palette.darkerGray};
 `;
 
 const AttachmentContainer = styled.div`
@@ -245,6 +246,13 @@ const TextInput = styled(TextareaAutosize)`
   &:focus {
     outline: none !important;
     border: none !important;
+    padding: ${(props) => props.theme.spacing.small} !important;
+    padding-left: ${(props) => props.theme.spacing.base} !important;
+    padding-right: var(--ac-widget-composer-icons-clearance, 84px) !important;
+  }
+
+  &:focus-visible {
+    outline: none !important;
   }
 
   &:focus::placeholder {
