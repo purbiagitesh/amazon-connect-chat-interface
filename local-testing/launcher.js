@@ -514,19 +514,21 @@
     }
 
     // Auto-resume: if a chat was already active before this page/tab
-    // loaded, open the panel and reconnect automatically after a short
-    // delay, so the customer can pick their conversation back up without
-    // clicking anything. Does nothing at all if there's no resumable
-    // session - pages/brands that never had an active chat behave exactly
-    // as before this feature existed.
-    setTimeout(function () {
-      if (hasActiveChat) return; // already resumed/started via a click before this fired
+    // loaded, open the panel and reconnect immediately, so the customer
+    // picks their conversation back up without clicking anything and
+    // without waiting. Does nothing at all if there's no resumable session
+    // - pages/brands that never had an active chat behave exactly as
+    // before this feature existed. Safe to run synchronously here (not
+    // via setTimeout) - by the time setupWidget() runs, bootstrap() has
+    // already awaited scriptLoaded (Promise.all above), so
+    // window.connect.ChatInterface.resumeChat is guaranteed to exist.
+    if (!hasActiveChat) { // already resumed/started via a click before this ran
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
         openPanel();
         resumeChat(resumable);
       }
-    }, 5000);
+    }
 
     return applyLauncherIcon(brandInfo, btn).then(function () {
       revealLauncher(btn);
