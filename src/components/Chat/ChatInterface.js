@@ -29,6 +29,20 @@ class ChatInterface {
     let chatInput = Object.assign({}, this.clientConfig, input);
     EventBus.trigger("resumeChat", chatInput, success, failure);
   }
+
+  // Forces ChatContainer back to its blank/loading render (see
+  // ChatContainer.js's resetState/EventBus.on("resetChatUI", ...)) -
+  // synchronously, with no network round trip. Used by launcher.js right
+  // before it reveals the panel for a brand new chat (no active/resumable
+  // session): without this, the panel would instantly show whatever is
+  // STILL mounted from a previous, now-ended chatSession - stale content -
+  // for as long as initiateChat() below takes to actually resolve. This
+  // swaps that stale render for the same loading spinner a fresh page load
+  // already shows, so the panel opening feels instant either way, and
+  // never displays a dead conversation while the new one starts.
+  resetChatUI() {
+    EventBus.trigger("resetChatUI");
+  }
 }
 
 

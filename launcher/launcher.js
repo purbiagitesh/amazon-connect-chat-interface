@@ -394,21 +394,99 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
+        forceAttachmentStepActive: true,
     });
 
     var hasActiveChat = false;
     var resolvedBrand = brandInfo.brand;
     var resolvedEnv = brandInfo.environment;
 
+    // ─── Cross-tab panel open/closed sync ───
+    // Per the brand dev's own feedback: don't hook this to any specific
+    // button's click event - our own launcher button is only one of
+    // several ways the panel can open (window.connect.ChatWidget.open()/
+    // close() is the same public API a brand's own custom launcher
+    // buttons call - see realOpenWidget/realCloseWidget below). Every one
+    // of those paths ends up calling openPanel()/closePanel() right here,
+    // so broadcasting from inside these two functions themselves covers
+    // all of them uniformly, present and future, with nothing extra
+    // required from a brand's own launcher code.
+    var WIDGET_OPEN_STATE_STORAGE_KEY = 'ac_widget_open_state';
+
+    function broadcastWidgetOpenState(isOpen) {
+      try {
+        localStorage.setItem(WIDGET_OPEN_STATE_STORAGE_KEY, isOpen ? 'open' : 'closed');
+      } catch (e) {
+        // localStorage unavailable (private browsing, quota, disabled) -
+        // cross-tab sync just doesn't happen; never let this break opening
+        // or closing the panel in the current tab.
+      }
+    }
+
     function openPanel() {
       panel.classList.add('open');
       btn.classList.add('widget-open');
+      broadcastWidgetOpenState(true);
     }
 
     function closePanel() {
       panel.classList.remove('open');
       btn.classList.remove('widget-open');
+      broadcastWidgetOpenState(false);
     }
+
+    // Reacts to ANOTHER tab calling openPanel()/closePanel() (broadcast
+    // above). The browser only fires "storage" in tabs OTHER than the one
+    // that made the write, and only when the value actually changes - so
+    // this never re-triggers itself and can safely call the exact same
+    // openPanel()/closePanel() functions a local click would, with no
+    // infinite-loop risk (re-setting the same value fires no further event).
+    window.addEventListener('storage', function (e) {
+      if (e.key === WIDGET_OPEN_STATE_STORAGE_KEY) {
+        if (e.newValue === 'closed') {
+          if (panel.classList.contains('open')) {
+            closePanel();
+          }
+          return;
+        }
+        if (e.newValue === 'open') {
+          if (panel.classList.contains('open')) return; // already open here too
+          if (hasActiveChat) {
+            openPanel();
+            return;
+          }
+          var resumable = getResumableSession(resolvedBrand);
+          if (resumable) {
+            openPanel();
+            resumeChat(resumable);
+          } else {
+            // The other tab is (most likely) still in the middle of
+            // starting a brand new chat - show the panel in its loading
+            // state and wait for that session to actually get persisted
+            // (see the chatStorageKey() branch below) rather than racing
+            // to start a second, separate contact of our own.
+            if (window.connect.ChatInterface && typeof window.connect.ChatInterface.resetChatUI === 'function') {
+              window.connect.ChatInterface.resetChatUI();
+            }
+            openPanel();
+          }
+        }
+        return;
+      }
+      if (e.key === chatStorageKey()) {
+        // Another tab just persisted a newly-started/resumed session - if
+        // THIS tab's panel is already open (from the sync above) but has
+        // no active chat of its own yet, pick up that same session now,
+        // instead of sitting on a loading spinner forever or separately
+        // starting a second contact.
+        if (panel.classList.contains('open') && !hasActiveChat) {
+          var resumableNow = getResumableSession(resolvedBrand);
+          if (resumableNow) {
+            resumeChat(resumableNow);
+          }
+        }
+      }
+    });
 
     // Shared by both startChat() and resumeChat() below - a chat ending
     // for ANY reason (customer clicks the in-panel end-chat button, or
@@ -445,8 +523,7 @@
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
-        // instanceId/contactFlowId are not sent - the Lambda behind
-        // apiGatewayEndpoint owns that config via its own env vars.
+        featurePermissions: { "ATTACHMENTS": true }, //This is needs to be removed once this flag will come from connect/VA.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
@@ -481,10 +558,25 @@
     function startOrResumeChat() {
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
+        openPanel();
         resumeChat(resumable);
-      } else {
-        startChat();
+        return;
       }
+      // Nothing to resume (never chatted, or the previous chat already
+      // ended - e.g. via the 90s+30s inactivity auto-disconnect while
+      // minimized). resetChatUI() forces the widget back to its blank/
+      // loading render SYNCHRONOUSLY, with no network round trip (see
+      // ChatInterface.js) - so opening the panel right after it, instantly,
+      // shows a loading spinner instead of whatever stale content is still
+      // mounted from the previous, now-dead chatSession. startChat() then
+      // does its real work (customer-context lookup, StartChatContact)
+      // behind that already-visible loading state, exactly like a brand
+      // new page load already looks while it connects.
+      if (window.connect.ChatInterface && typeof window.connect.ChatInterface.resetChatUI === 'function') {
+        window.connect.ChatInterface.resetChatUI();
+      }
+      openPanel();
+      startChat();
     }
 
     btn.addEventListener('click', function () {
@@ -492,18 +584,20 @@
         closePanel();
         return;
       }
-      openPanel();
-      if (!hasActiveChat) {
-        startOrResumeChat();
+      if (hasActiveChat) {
+        openPanel();
+        return;
       }
+      startOrResumeChat();
     });
 
     function openWidget() {
       if (panel.classList.contains('open')) return;
-      openPanel();
-      if (!hasActiveChat) {
-        startOrResumeChat();
+      if (hasActiveChat) {
+        openPanel();
+        return;
       }
+      startOrResumeChat();
     }
 
     realOpenWidget = openWidget;
