@@ -130039,7 +130039,9 @@ var ComposerRightIcons = styled_components__WEBPACK_IMPORTED_MODULE_6__["default
 var PaperClipContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  cursor: pointer;\n  height: auto;\n  vertical-align: top;\n\n  button {\n    height: 100%;\n    width: 100%;\n  }\n\n  label {\n    align-items: center;\n    display: flex;\n    cursor: pointer;\n    font-size: 0;\n    height: 100%;\n    margin-bottom: 0;\n  }\n\n  input {\n    display: none;\n  }\n\n  /* Disabled the upload icon as well while attachements are being sent */\n  ", "\n"])), function (props) {
   return props.disabled ? "\n      cursor: not-allowed;\n      opacity: 0.5;\n      pointer-events: none;\n\n      label {\n        cursor: not-allowed;\n      }\n    " : "";
 });
-var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n  color: ", ";\n"])), function (props) {
+var IconButton = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].button(_templateObject6 || (_templateObject6 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: transparent;\n  border: 1px solid transparent;\n  position: relative;\n  padding: 0;\n  margin: 0;\n  color: ", ";\n\n  &:hover {\n    background: transparent !important;\n    border-color: transparent !important;\n    color: ", " !important;\n    text-decoration: none !important;\n  }\n"])), function (props) {
+  return props.theme.palette.darkerGray;
+}, function (props) {
   return props.theme.palette.darkerGray;
 });
 var AttachmentContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  --outgoingMsgBg-background-color: ", ";\n  display: flex;\n  background-color: var(--ac-widget-transcript-customer-bubble-color, var(--outgoingMsgBg-background-color));\n  border-radius: 5px;\n  margin: 5px;\n  padding: ", ";\n  min-width: 0;\n\n  & > div {\n    width: 100%;\n\n    span {\n      overflow-wrap: break-word;\n    }\n\n    button {\n      align-items: center;\n      display: inline-flex;\n      cursor: pointer;\n      margin-left: 5px;\n    }\n  }\n\n  & + div {\n    padding-left: 0;\n  }\n"])), function (props) {
@@ -130105,7 +130107,7 @@ function ChevronLeftIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 397,
+      lineNumber: 404,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130117,7 +130119,7 @@ function ChevronLeftIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 398,
+      lineNumber: 405,
       columnNumber: 7
     }
   }));
@@ -130130,7 +130132,7 @@ function ChevronRightIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 405,
+      lineNumber: 412,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130142,7 +130144,7 @@ function ChevronRightIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 406,
+      lineNumber: 413,
       columnNumber: 7
     }
   }));
@@ -130159,7 +130161,7 @@ function ImagePlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 416,
+      lineNumber: 423,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130168,7 +130170,7 @@ function ImagePlaceholderIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 417,
+      lineNumber: 424,
       columnNumber: 7
     }
   }));
@@ -130184,7 +130186,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 426,
+      lineNumber: 433,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -130195,7 +130197,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 427,
+      lineNumber: 434,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130206,7 +130208,7 @@ function RemoveBadgeIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 428,
+      lineNumber: 435,
       columnNumber: 7
     }
   }));
@@ -130224,7 +130226,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 437,
+      lineNumber: 444,
       columnNumber: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("rect", {
@@ -130238,7 +130240,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 438,
+      lineNumber: 445,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -130249,7 +130251,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 439,
+      lineNumber: 446,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130258,7 +130260,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 440,
+      lineNumber: 447,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("circle", {
@@ -130269,7 +130271,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 441,
+      lineNumber: 448,
       columnNumber: 7
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130280,7 +130282,7 @@ function AttachMediaIcon() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 442,
+      lineNumber: 449,
       columnNumber: 7
     }
   }));
@@ -130725,7 +130727,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 856,
+      lineNumber: 863,
       columnNumber: 5
     }
   });
@@ -130735,7 +130737,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 868,
+      lineNumber: 875,
       columnNumber: 5
     }
   }, composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaAttachmentsRow, {
@@ -130743,7 +130745,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 870,
+      lineNumber: 877,
       columnNumber: 9
     }
   }, canScrollMediaLeft && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ScrollArrowButton, {
@@ -130755,14 +130757,14 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 872,
+      lineNumber: 879,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronLeftIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 873,
+      lineNumber: 880,
       columnNumber: 15
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipScrollArea, {
@@ -130771,7 +130773,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 876,
+      lineNumber: 883,
       columnNumber: 11
     }
   }, mediaAttachments.map(function (entry) {
@@ -130780,7 +130782,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 878,
+        lineNumber: 885,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipVisual, {
@@ -130788,7 +130790,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 879,
+        lineNumber: 886,
         columnNumber: 17
       }
     }, entry.previewUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
@@ -130797,14 +130799,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 881,
+        lineNumber: 888,
         columnNumber: 21
       }
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ImagePlaceholderIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 883,
+        lineNumber: 890,
         columnNumber: 21
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(MediaChipRemoveButton, {
@@ -130816,14 +130818,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 886,
+        lineNumber: 893,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(RemoveBadgeIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 891,
+        lineNumber: 898,
         columnNumber: 19
       }
     })));
@@ -130836,21 +130838,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 897,
+      lineNumber: 904,
       columnNumber: 13
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ChevronRightIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 898,
+      lineNumber: 905,
       columnNumber: 15
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerInputRow, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 903,
+      lineNumber: 910,
       columnNumber: 7
     }
   }, documentAttachments.map(function (entry) {
@@ -130859,21 +130861,21 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 905,
+        lineNumber: 912,
         columnNumber: 13
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 906,
+        lineNumber: 913,
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 907,
+        lineNumber: 914,
         columnNumber: 17
       }
     }, entry.file.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -130884,14 +130886,14 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 908,
+        lineNumber: 915,
         columnNumber: 17
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CloseIcon, {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 909,
+        lineNumber: 916,
         columnNumber: 19
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("svg", {
@@ -130901,7 +130903,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 910,
+        lineNumber: 917,
         columnNumber: 21
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("path", {
@@ -130910,7 +130912,7 @@ function ChatComposer(_ref3) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 911,
+        lineNumber: 918,
         columnNumber: 23
       }
     }))))));
@@ -130930,17 +130932,20 @@ function ChatComposer(_ref3) {
     maxLength: maxLength,
     maxRows: DEFAULT_COMPOSER_MAX_ROWS,
     disabled: isComposerDisabled,
+    style: {
+      outline: 'none'
+    },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 918,
+      lineNumber: 925,
       columnNumber: 11
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(ComposerRightIcons, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 938,
+      lineNumber: 946,
       columnNumber: 11
     }
   }, composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipContainer, {
@@ -130958,7 +130963,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 940,
+      lineNumber: 948,
       columnNumber: 15
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(IconButton, {
@@ -130967,7 +130972,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 956,
+      lineNumber: 964,
       columnNumber: 17
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
@@ -130975,21 +130980,21 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 957,
+      lineNumber: 965,
       columnNumber: 19
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(PaperClipIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 958,
+      lineNumber: 966,
       columnNumber: 21
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachMediaIcon, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 959,
+      lineNumber: 967,
       columnNumber: 23
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("input", {
@@ -131006,7 +131011,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 961,
+      lineNumber: 969,
       columnNumber: 21
     }
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_SendMessageButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -131015,7 +131020,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 977,
+      lineNumber: 985,
       columnNumber: 13
     }
   })))), showCharacterCounter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(CharacterCounter, {
@@ -131024,7 +131029,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 982,
+      lineNumber: 990,
       columnNumber: 7
     }
   }, characterCounterText), attachmentLimitMessage && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(AttachmentLimitMessage, {
@@ -131032,7 +131037,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 987,
+      lineNumber: 995,
       columnNumber: 7
     }
   }, intl.formatMessage({
@@ -131052,7 +131057,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1004,
+      lineNumber: 1012,
       columnNumber: 5
     }
   }, contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_Disclaimer__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -131066,7 +131071,7 @@ function ChatComposer(_ref3) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1006,
+      lineNumber: 1014,
       columnNumber: 9
     }
   }), contactStatus === connect_constants__WEBPACK_IMPORTED_MODULE_9__["CONTACT_STATUS"].CONNECTED && (composerConfig && composerConfig.richMessagingEnabled && !FORCE_DISABLE_RICH_MESSAGING ? richMessagingComposer : defaultComposer));
@@ -132369,6 +132374,36 @@ var INACTIVITY_DISCONNECT_DELAY_MS = 30 * 1000;
 // react-intl message if these ever need to be localized.
 var INACTIVITY_NO_RESPONSE_MESSAGE = "Sorry, I didn't get your response.";
 var INACTIVITY_CLOSING_MESSAGE = "Thank you for connecting with us today.";
+
+// ─── Cross-tab inactivity-notice sync ───
+// The two notices above are entirely local-fabricated (never sent to/from
+// Connect), so a customer with the same chat open in multiple tabs would
+// otherwise only see them in whichever tab's OWN independent 90s/30s
+// timers happen to actually fire. Browsers throttle setTimeout heavily in
+// background/unfocused tabs (often to once a minute or less for a tab
+// that's been backgrounded a while) - in practice only the foreground
+// tab's timer reliably fires on schedule. A backgrounded tab's own timer
+// can end up firing so late that by the time it does, the REAL Connect
+// disconnect (a genuine server-side action, which DOES already correctly
+// reach every tab via its own websocket connection to the same contact)
+// has already landed, and _handleInactivityReprompt/
+// _handleInactivityDisconnect's own contactStatus guard silently skips
+// it - so the notice never shows in that tab at all.
+//
+// Fixed the same way launcher.js syncs the panel's open/closed state:
+// broadcast via localStorage (which the "storage" event delivers to
+// every OTHER tab on this origin, never the tab that wrote it), and
+// mirror the exact same local notice there. Whichever tab's timer fires
+// first wins; every other tab mirrors the result using its OWN
+// _lastIncomingMessageItem (equivalent content either way, since every
+// tab received the same real message from Connect) instead of relying on
+// its own possibly-throttled-or-already-guarded-out timer. The REAL
+// disconnect action itself is deliberately never repeated here - only
+// the tab whose own 30s timer actually fires calls
+// _endChatKeepingPanelOpen()/client.disconnect(); every other tab's
+// contactStatus flips to DISCONNECTED on its own via its own websocket,
+// exactly as it already does today.
+var INACTIVITY_SYNC_STORAGE_KEY = "ac_inactivity_sync";
 var CurrentChatSessionInstance = {};
 function getCurrentChatSessionInstance() {
   return CurrentChatSessionInstance;
@@ -132577,6 +132612,7 @@ var ChatJSClient = /*#__PURE__*/function () {
 }();
 var ChatSession = /*#__PURE__*/function () {
   function ChatSession(chatDetails, displayName, region, stage, customizationParams) {
+    var _this = this;
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ChatSession);
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "transcript", []);
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "typingParticipants", []);
@@ -132597,6 +132633,38 @@ var ChatSession = /*#__PURE__*/function () {
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_inactivityReminderTimer", null);
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_inactivityDisconnectTimer", null);
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_lastIncomingMessageItem", null);
+    // Arrow function (not a normal method) so `this` is already bound when
+    // passed directly to addEventListener below - see
+    // _registerCrossTabInactivitySync (constructor) and
+    // INACTIVITY_SYNC_STORAGE_KEY above.
+    Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_handleCrossTabInactivityBroadcast", function (event) {
+      if (event.key !== INACTIVITY_SYNC_STORAGE_KEY || !event.newValue) {
+        return;
+      }
+      var payload;
+      try {
+        payload = JSON.parse(event.newValue);
+      } catch (e) {
+        return;
+      }
+      if (!payload || payload.contactId !== _this.contactId || !_this._lastIncomingMessageItem) {
+        return; // an unrelated/stale chat's broadcast, or nothing to base a notice on yet
+      }
+      if (payload.stage === "reprompt") {
+        // Don't ALSO let this tab's own (possibly about to fire, possibly
+        // already overdue) timer add a second, duplicate copy of the same
+        // notice a moment later.
+        _this._clearInactivityTimers();
+        var noticeItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createLocalIncomingNotice(_this._lastIncomingMessageItem, INACTIVITY_NO_RESPONSE_MESSAGE);
+        _this._shouldAddToTranscript(noticeItem) && _this._addItemsToTranscript([noticeItem]);
+        var repromptItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].cloneIncomingItemForReprompt(_this._lastIncomingMessageItem);
+        repromptItem.transportDetails.sentTime = noticeItem.transportDetails.sentTime + 0.001;
+        _this._shouldAddToTranscript(repromptItem) && _this._addItemsToTranscript([repromptItem]);
+      } else if (payload.stage === "disconnect") {
+        var _noticeItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createLocalIncomingNotice(_this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
+        _this._shouldAddToTranscript(_noticeItem) && _this._addItemsToTranscript([_noticeItem]);
+      }
+    });
     Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])(this, "_eventHandlers", {
       "transcript-changed": [],
       "typing-participants-changed": [],
@@ -132628,6 +132696,13 @@ var ChatSession = /*#__PURE__*/function () {
         prefix: DEFAULT_PREFIX
       });
     }
+    // See INACTIVITY_SYNC_STORAGE_KEY/_handleCrossTabInactivityBroadcast
+    // above - not explicitly removed on chat end, matching this file's
+    // existing convention of never tearing down its other event
+    // subscriptions either; _handleCrossTabInactivityBroadcast's own
+    // contactId check makes a stray listener from an ended session's
+    // instance harmless regardless.
+    window.addEventListener("storage", this._handleCrossTabInactivityBroadcast);
   }
 
   // Callbacks
@@ -132672,7 +132747,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "openChatSession",
     value: function openChatSession() {
-      var _this = this;
+      var _this2 = this;
       // Defensive: guards against a stray timer from a previous connect
       // attempt on this same instance (there shouldn't be one in practice,
       // but this is cheap insurance against ever double-scheduling).
@@ -132680,10 +132755,10 @@ var ChatSession = /*#__PURE__*/function () {
       this._addEventListeners();
       this._updateContactStatus(_constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTING);
       return this.client.connect().then(function (response) {
-        _this._updateContactStatus(_constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED);
+        _this2._updateContactStatus(_constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED);
         return response;
       }, function (error) {
-        _this._updateContactStatus(_constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].DISCONNECTED);
+        _this2._updateContactStatus(_constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].DISCONNECTED);
         return Promise.reject(error);
       });
     }
@@ -132856,7 +132931,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "addOutgoingMessage",
     value: function addOutgoingMessage(data) {
-      var _this2 = this;
+      var _this3 = this;
       // The customer replied - the inactivity re-prompt/auto-disconnect
       // countdown no longer applies to the message it was waiting on. The
       // next incoming message (e.g. the bot's reply to this) starts a fresh
@@ -132870,16 +132945,16 @@ var ChatSession = /*#__PURE__*/function () {
       // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
       var outgoingMessageSendStartTime = performance.now();
       this.client.sendMessage(message.content).then(function (response) {
-        _this2.logger && _this2.logger.info("send success");
-        _this2.logger && _this2.logger.info(response);
-        _this2.logger && _this2.logger.info("[sendMessage] outgoing message UI -> Connect time (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
-        _this2._shouldAddToTranscript(message) && _this2._replaceItemInTranscript(message, _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createTranscriptItemFromSuccessResponse(message, response));
-        _this2.isOutgoingMessageInFlight = false;
+        _this3.logger && _this3.logger.info("send success");
+        _this3.logger && _this3.logger.info(response);
+        _this3.logger && _this3.logger.info("[sendMessage] outgoing message UI -> Connect time (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
+        _this3._shouldAddToTranscript(message) && _this3._replaceItemInTranscript(message, _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createTranscriptItemFromSuccessResponse(message, response));
+        _this3.isOutgoingMessageInFlight = false;
         return response;
       }).catch(function (error) {
-        _this2.logger && _this2.logger.info("[sendMessage] outgoing message failed after (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
-        _this2.isOutgoingMessageInFlight = false;
-        _this2._failMessage(message);
+        _this3.logger && _this3.logger.info("[sendMessage] outgoing message failed after (ms):", Math.round(performance.now() - outgoingMessageSendStartTime));
+        _this3.isOutgoingMessageInFlight = false;
+        _this3._failMessage(message);
       });
     }
   }, {
@@ -132895,14 +132970,14 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "sendAttachment",
     value: function sendAttachment(transcriptItem) {
-      var _this3 = this;
+      var _this4 = this;
       var _this$thisParticipant = this.thisParticipant,
         participantId = _this$thisParticipant.participantId,
         displayName = _this$thisParticipant.displayName;
       return this.client.sendAttachment(transcriptItem.content).then(function (response) {
-        _this3.logger && _this3.logger.info("RESPONSE", response);
-        _this3.logger && _this3.logger.info("sendAttachment response:", response);
-        _this3.transcript.splice(_this3.transcript.indexOf(transcriptItem), 1);
+        _this4.logger && _this4.logger.info("RESPONSE", response);
+        _this4.logger && _this4.logger.info("sendAttachment response:", response);
+        _this4.transcript.splice(_this4.transcript.indexOf(transcriptItem), 1);
         return response;
       }).catch(function (error) {
         transcriptItem.transportDetails.error = {
@@ -132920,12 +132995,12 @@ var ChatSession = /*#__PURE__*/function () {
                 participantId: participantId
               });
               newTranscriptItem.id = transcriptItem.id;
-              _this3._replaceItemInTranscript(transcriptItem, newTranscriptItem);
-              _this3.sendAttachment(newTranscriptItem);
+              _this4._replaceItemInTranscript(transcriptItem, newTranscriptItem);
+              _this4.sendAttachment(newTranscriptItem);
             };
           }
         }
-        _this3._failMessage(transcriptItem);
+        _this4._failMessage(transcriptItem);
       });
     }
   }, {
@@ -133009,21 +133084,21 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_addEventListeners",
     value: function _addEventListeners() {
-      var _this4 = this;
+      var _this5 = this;
       this.client.onMessage(function (data) {
-        _this4._handleIncomingData(data);
+        _this5._handleIncomingData(data);
       });
       this.client.onTyping(function (data) {
-        _this4._handleTypingEvent(data);
+        _this5._handleTypingEvent(data);
       });
       this.client.onAutoDisconnection(function (data) {
-        _this4._handleIdleEvent(data);
+        _this5._handleIdleEvent(data);
       });
       this.client.onParticipantReturned(function (data) {
-        _this4._handleIdleEvent(data);
+        _this5._handleIdleEvent(data);
       });
       this.client.onParticipantIdle(function (data) {
-        _this4._handleIdleEvent(data);
+        _this5._handleIdleEvent(data);
       });
       this.client.onChatRehydrated( /*#__PURE__*/function () {
         var _ref = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(data) {
@@ -133031,7 +133106,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _this4._handleChatRehydrated(data);
+                return _this5._handleChatRehydrated(data);
               case 2:
               case "end":
                 return _context3.stop();
@@ -133043,13 +133118,13 @@ var ChatSession = /*#__PURE__*/function () {
         };
       }());
       this.client.onReadReceipt(function (data) {
-        _this4._handleMessageReceipt("read", data);
+        _this5._handleMessageReceipt("read", data);
       });
       this.client.onDeliveredReceipt(function (data) {
-        _this4._handleMessageReceipt("delivered", data);
+        _this5._handleMessageReceipt("delivered", data);
       });
       this.client.onEnded(function (data) {
-        _this4._handleEndedEvent(data);
+        _this5._handleEndedEvent(data);
       });
       this.client.onAuthenticationInitiated( /*#__PURE__*/function () {
         var _ref2 = Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(data) {
@@ -133057,7 +133132,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _this4._handleAuthenticationInitiated(data);
+                return _this5._handleAuthenticationInitiated(data);
               case 2:
               case "end":
                 return _context4.stop();
@@ -133074,7 +133149,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _this4._handleAuthenticationLifecycleEvent(data);
+                return _this5._handleAuthenticationLifecycleEvent(data);
               case 2:
               case "end":
                 return _context5.stop();
@@ -133091,7 +133166,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return _this4._handleAuthenticationLifecycleEvent(data);
+                return _this5._handleAuthenticationLifecycleEvent(data);
               case 2:
               case "end":
                 return _context6.stop();
@@ -133108,7 +133183,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return _this4._handleAuthenticationLifecycleEvent(data);
+                return _this5._handleAuthenticationLifecycleEvent(data);
               case 2:
               case "end":
                 return _context7.stop();
@@ -133125,7 +133200,7 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.next = 2;
-                return _this4._handleAuthenticationLifecycleEvent(data);
+                return _this5._handleAuthenticationLifecycleEvent(data);
               case 2:
               case "end":
                 return _context8.stop();
@@ -133141,7 +133216,7 @@ var ChatSession = /*#__PURE__*/function () {
           return _regeneratorRuntime().wrap(function _callee9$(_context9) {
             while (1) switch (_context9.prev = _context9.next) {
               case 0:
-                _this4.authenticatedParticipantDisplayName = data.data.DisplayName;
+                _this5.authenticatedParticipantDisplayName = data.data.DisplayName;
               case 1:
               case "end":
                 return _context9.stop();
@@ -133157,13 +133232,13 @@ var ChatSession = /*#__PURE__*/function () {
           while (1) switch (_context10.prev = _context10.next) {
             case 0:
               _context10.next = 2;
-              return _this4._loadLatestTranscript();
+              return _this5._loadLatestTranscript();
             case 2:
               // Restores the inactivity countdown from whatever the last incoming
               // message already was - matters most on a resumed session (page
               // reload/new tab mid-conversation), where otherwise no timer would
               // run at all until/unless a brand new message happened to arrive.
-              _this4._seedInactivityCheckFromTranscript();
+              _this5._seedInactivityCheckFromTranscript();
             case 3:
             case "end":
               return _context10.stop();
@@ -133237,7 +133312,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_loadTranscript",
     value: function _loadTranscript(args) {
-      var _this5 = this;
+      var _this6 = this;
       if (this.nextToken) {
         args["nextToken"] = this.nextToken;
       }
@@ -133248,9 +133323,9 @@ var ChatSession = /*#__PURE__*/function () {
             while (1) switch (_context12.prev = _context12.next) {
               case 0:
                 incomingDataList = response.data.Transcript;
-                _this5.nextToken = response.data.NextToken;
+                _this6.nextToken = response.data.NextToken;
                 transcriptItems = incomingDataList.map(function (data) {
-                  var transcriptItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createItemFromIncoming(data, _this5.thisParticipant);
+                  var transcriptItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createItemFromIncoming(data, _this6.thisParticipant);
                   return transcriptItem;
                 }); // call describeview to get the view if the newest message is a view message
                 lastItem = transcriptItems.pop();
@@ -133259,10 +133334,10 @@ var ChatSession = /*#__PURE__*/function () {
                   break;
                 }
                 _context12.next = 7;
-                return _this5._describeAndProcessView(lastItem);
+                return _this6._describeAndProcessView(lastItem);
               case 7:
                 transcriptItems.push(lastItem);
-                _this5._addItemsToTranscript(transcriptItems);
+                _this6._addItemsToTranscript(transcriptItems);
               case 9:
               case "end":
                 return _context12.stop();
@@ -133279,7 +133354,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleIncomingData",
     value: function _handleIncomingData(dataInput) {
-      var _this6 = this;
+      var _this7 = this;
       var data = dataInput.data;
       var item = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createItemFromIncoming(data, this.thisParticipant);
       this.logger && this.logger.info("_handleIncomingData item created");
@@ -133321,7 +133396,7 @@ var ChatSession = /*#__PURE__*/function () {
           // check if this is a guides message
           if (_datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].isViewMessage(item)) {
             return this._describeAndProcessView(item).then(function () {
-              _this6._addItemsToTranscript([item]);
+              _this7._addItemsToTranscript([item]);
             });
           }
         } else {
@@ -133452,14 +133527,14 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_addItemsToTranscript",
     value: function _addItemsToTranscript(items) {
-      var _this7 = this,
+      var _this8 = this,
         _newTranscript;
       var self = this;
       if (items.length === 0) {
         return;
       }
       items = items.filter(function (item) {
-        return !_this7._isRoundTripSystemEvent(item);
+        return !_this8._isRoundTripSystemEvent(item);
       });
       var newItemMap = items.reduce(function (acc, item) {
         return Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_2__["default"])({}, acc, Object(C_Users_gitesh_purbia_Desktop_amazon_connect_chat_interface_node_modules_babel_preset_react_app_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_5__["default"])({}, item.id, item));
@@ -133700,14 +133775,14 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleTypingEvent",
     value: function _handleTypingEvent(dataInput) {
-      var _this8 = this;
+      var _this9 = this;
       var data = dataInput.data;
       if (this._isRoundtripMessage(data)) {
         return;
       }
       var incomingTypingParticipant = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createTypingParticipant(data, this.thisParticipant.participantId);
       incomingTypingParticipant.callback = setTimeout(function () {
-        _this8._removeTypingParticipant(incomingTypingParticipant.participantId);
+        _this9._removeTypingParticipant(incomingTypingParticipant.participantId);
       }, 12 * 1000);
       var newTypingParticipants = [];
       for (var i = 0; i < this.typingParticipants.length; i++) {
@@ -133763,14 +133838,14 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_scheduleInactivityCheck",
     value: function _scheduleInactivityCheck(lastIncomingItem) {
-      var _this9 = this;
+      var _this10 = this;
       this._clearInactivityTimers();
       this._lastIncomingMessageItem = lastIncomingItem;
 
       // unref() (Node/jsdom only, a no-op elsewhere) so a long-lived timer
       // like this never keeps a test process/CLI alive on its own.
       this._inactivityReminderTimer = setTimeout(function () {
-        _this9._handleInactivityReprompt();
+        _this10._handleInactivityReprompt();
       }, INACTIVITY_REPROMPT_DELAY_MS);
       if (typeof this._inactivityReminderTimer.unref === "function") {
         this._inactivityReminderTimer.unref();
@@ -133791,6 +133866,23 @@ var ChatSession = /*#__PURE__*/function () {
           break;
         }
       }
+    } // See INACTIVITY_SYNC_STORAGE_KEY above. Called only by the tab whose
+    // own timer actually fires - _handleCrossTabInactivityBroadcast (other
+    // tabs) never calls this, so there's no re-broadcast/ping-pong risk.
+  }, {
+    key: "_broadcastInactivityStage",
+    value: function _broadcastInactivityStage(stage) {
+      try {
+        window.localStorage.setItem(INACTIVITY_SYNC_STORAGE_KEY, JSON.stringify({
+          contactId: this.contactId,
+          stage: stage,
+          at: Date.now()
+        }));
+      } catch (e) {
+        // localStorage unavailable (private browsing, quota, disabled) -
+        // cross-tab sync just doesn't happen; never let this affect this
+        // tab's own behavior.
+      }
     } // 90s elapsed with no reply - show the local "didn't get your response"
     // notice, then re-display the last incoming message (see
     // modelUtils.cloneIncomingItemForReprompt), then start the final 30s
@@ -133798,7 +133890,7 @@ var ChatSession = /*#__PURE__*/function () {
   }, {
     key: "_handleInactivityReprompt",
     value: function _handleInactivityReprompt() {
-      var _this10 = this;
+      var _this11 = this;
       this._inactivityReminderTimer = null;
       if (this.contactStatus !== _constants_global__WEBPACK_IMPORTED_MODULE_7__["CONTACT_STATUS"].CONNECTED) {
         return;
@@ -133813,9 +133905,10 @@ var ChatSession = /*#__PURE__*/function () {
         repromptItem.transportDetails.sentTime = noticeItem.transportDetails.sentTime + 0.001;
         this._shouldAddToTranscript(repromptItem) && this._addItemsToTranscript([repromptItem]);
         this.logger && this.logger.info("Customer inactive for 90s - showing notice and re-displaying last message locally.");
+        this._broadcastInactivityStage("reprompt");
       }
       this._inactivityDisconnectTimer = setTimeout(function () {
-        _this10._handleInactivityDisconnect();
+        _this11._handleInactivityDisconnect();
       }, INACTIVITY_DISCONNECT_DELAY_MS);
       if (typeof this._inactivityDisconnectTimer.unref === "function") {
         this._inactivityDisconnectTimer.unref();
@@ -133839,6 +133932,7 @@ var ChatSession = /*#__PURE__*/function () {
       if (this._lastIncomingMessageItem) {
         var noticeItem = _datamodel_Utils__WEBPACK_IMPORTED_MODULE_8__["modelUtils"].createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
         this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+        this._broadcastInactivityStage("disconnect");
       }
       this._endChatKeepingPanelOpen();
     } // The message of clicking "Show more" or "Previous options" in interactive message should not add to transcript
