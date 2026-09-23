@@ -51,6 +51,12 @@ class ChatContainer extends Component {
     EventBus.on("initChat", this.initiateChatSession.bind(this));
     this.resumeChatHandler = this.resumeChatSession.bind(this);
     EventBus.on("resumeChat", this.resumeChatHandler);
+    // See ChatInterface.js's resetChatUI() - lets launcher.js force this
+    // component back to its blank/loading render synchronously, before
+    // revealing the panel for a brand new chat, so a stale, already-ended
+    // chatSession is never shown while the new one starts.
+    this.resetChatUIHandler = this.resetState;
+    EventBus.on("resetChatUI", this.resetChatUIHandler);
     if (window.connect && window.connect.LogManager) {
       this.logger = window.connect.LogManager.getLogger({
         prefix: "ChatInterface-ChatContainer",
@@ -61,6 +67,7 @@ class ChatContainer extends Component {
   componentWillUnmount() {
     EventBus.off(this.submitChatInitiationHandler);
     EventBus.off("resumeChat", this.resumeChatHandler);
+    EventBus.off("resetChatUI", this.resetChatUIHandler);
   }
 
   initiateChatSession(chatDetails, success, failure) {

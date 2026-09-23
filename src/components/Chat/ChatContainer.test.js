@@ -146,6 +146,26 @@ describe("<ChatContainer />", () => {
       expect(failure).toBeCalled();
     })
   })
+
+  it("resetChatUI (see ChatInterface.js) resets the container back to its blank/loading render", async () => {
+    request.mockResolvedValue(startChatResponse);
+    const {queryByTestId} = renderComponent();
+    const success = jest.fn();
+    const failure = jest.fn();
+    EventBus.trigger("initChat", clientConfig, success, failure);
+    await waitFor(() => {
+      expect(success).toBeCalled();
+    });
+    // A real chat is now rendered.
+    expect(queryByTestId("amazon-connect-chat-wrapper")).not.toBeNull();
+
+    EventBus.trigger("resetChatUI");
+
+    // launcher.js relies on this to force a stale, already-ended
+    // chatSession off-screen synchronously, before revealing the panel
+    // for a brand new chat - see startOrResumeChat() in launcher.js.
+    expect(queryByTestId("amazon-connect-chat-wrapper")).toBeNull();
+  });
 })
 
 
