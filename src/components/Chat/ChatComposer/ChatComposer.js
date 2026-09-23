@@ -174,6 +174,13 @@ const IconButton = styled.button`
   padding: 0;
   margin: 0;
   color: ${(props) => props.theme.palette.darkerGray};
+
+  &:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: ${(props) => props.theme.palette.darkerGray} !important;
+    text-decoration: none !important;
+  }
 `;
 
 const AttachmentContainer = styled.div`
@@ -931,6 +938,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             maxLength={maxLength}
             maxRows={DEFAULT_COMPOSER_MAX_ROWS}
             disabled={isComposerDisabled}
+            style={{ outline: 'none' }}
           />
           {/* Figma pins the attach icon immediately to the left of send,
               both right-aligned in the pill - grouped in one cluster rather
