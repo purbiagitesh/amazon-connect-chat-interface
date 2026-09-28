@@ -216,6 +216,10 @@ const TextInput = styled(TextareaAutosize)`
   flex: 1;
   outline: none !important;
   border: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  color: currentColor !important;
   user-select: text;
   word-break: break-word;
   font-family: inherit;
@@ -248,6 +252,7 @@ const TextInput = styled(TextareaAutosize)`
     font-size: 12px !important;
     font-weight: normal !important;
     height: 18px !important;
+    text-transform: none !important;
   }
 
   &:focus {
@@ -302,7 +307,7 @@ const MediaAttachmentsRow = styled.div`
 
 const MediaChipScrollArea = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.spacing.mini};
+  gap: ${(props) => props.theme.spacing.medium};
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -320,7 +325,7 @@ const MediaChipScrollArea = styled.div`
   }
 `;
 
-const MEDIA_CHIP_SIZE_PX = 56;
+const MEDIA_CHIP_SIZE_PX = 53;
 
 const MediaChip = styled.div`
   position: relative;
@@ -961,7 +966,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                   }
                 }}
               >
-                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled}>
+                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled} style={{ verticalAlign: 'middle' }}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <AttachMediaIcon />

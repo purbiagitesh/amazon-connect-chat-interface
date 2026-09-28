@@ -721,9 +721,9 @@ export class ParticipantMessage extends PureComponent {
     ) : (
       <MessageRow data-testid="main-message-row">
         {avatarUrl ? (
-          <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" />
+          <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" style={{marginBottom: '4px'}}/>
         ) : showAdvisorIcon ? (
-          <AdvisorAvatar aria-hidden="true" data-testid="advisor-avatar">
+          <AdvisorAvatar aria-hidden="true" data-testid="advisor-avatar" style={{marginBottom: '4px'}}>
             <AdvisorIcon />
           </AdvisorAvatar>
         ) : (

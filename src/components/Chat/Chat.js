@@ -144,6 +144,7 @@ const defaultHeaderConfig = {
                 padding: '0 0 0 8px',
                 flexShrink: 0,
                 width: 'auto',
+                fontFamily: 'inherit',
               }}
               aria-label="Close chat"
             >
