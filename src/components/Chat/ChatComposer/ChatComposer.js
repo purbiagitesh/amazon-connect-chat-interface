@@ -173,6 +173,14 @@ const IconButton = styled.button`
   position: relative;
   padding: 0;
   margin: 0;
+  color: ${(props) => props.theme.palette.darkerGray};
+
+  &:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: ${(props) => props.theme.palette.darkerGray} !important;
+    text-decoration: none !important;
+  }
 `;
 
 const AttachmentContainer = styled.div`
@@ -208,6 +216,10 @@ const TextInput = styled(TextareaAutosize)`
   flex: 1;
   outline: none !important;
   border: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  color: currentColor !important;
   user-select: text;
   word-break: break-word;
   font-family: inherit;
@@ -240,11 +252,19 @@ const TextInput = styled(TextareaAutosize)`
     font-size: 12px !important;
     font-weight: normal !important;
     height: 18px !important;
+    text-transform: none !important;
   }
 
   &:focus {
     outline: none !important;
     border: none !important;
+    padding: ${(props) => props.theme.spacing.small} !important;
+    padding-left: ${(props) => props.theme.spacing.base} !important;
+    padding-right: var(--ac-widget-composer-icons-clearance, 84px) !important;
+  }
+
+  &:focus-visible {
+    outline: none !important;
   }
 
   &:focus::placeholder {
@@ -287,7 +307,7 @@ const MediaAttachmentsRow = styled.div`
 
 const MediaChipScrollArea = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.spacing.mini};
+  gap: ${(props) => props.theme.spacing.medium};
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -305,7 +325,7 @@ const MediaChipScrollArea = styled.div`
   }
 `;
 
-const MEDIA_CHIP_SIZE_PX = 56;
+const MEDIA_CHIP_SIZE_PX = 53;
 
 const MediaChip = styled.div`
   position: relative;
@@ -923,6 +943,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             maxLength={maxLength}
             maxRows={DEFAULT_COMPOSER_MAX_ROWS}
             disabled={isComposerDisabled}
+            style={{ outline: 'none' }}
           />
           {/* Figma pins the attach icon immediately to the left of send,
               both right-aligned in the pill - grouped in one cluster rather
@@ -945,7 +966,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                   }
                 }}
               >
-                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled}>
+                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled} style={{ verticalAlign: 'middle' }}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <AttachMediaIcon />

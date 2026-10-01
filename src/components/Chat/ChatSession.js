@@ -63,6 +63,35 @@ const TRANSLATABLE_MESSAGE_CONTENT_TYPES = [
 // merged, whenever a different contact's originals are persisted) rather
 // than accumulating indefinitely across past conversations.
 const TRANSLATED_ORIGINALS_STORAGE_KEY = "ac_translated_originals";
+// ─── Cross-tab inactivity-notice sync ───
+// The two notices above are entirely local-fabricated (never sent to/from
+// Connect), so a customer with the same chat open in multiple tabs would
+// otherwise only see them in whichever tab's OWN independent 90s/30s
+// timers happen to actually fire. Browsers throttle setTimeout heavily in
+// background/unfocused tabs (often to once a minute or less for a tab
+// that's been backgrounded a while) - in practice only the foreground
+// tab's timer reliably fires on schedule. A backgrounded tab's own timer
+// can end up firing so late that by the time it does, the REAL Connect
+// disconnect (a genuine server-side action, which DOES already correctly
+// reach every tab via its own websocket connection to the same contact)
+// has already landed, and _handleInactivityReprompt/
+// _handleInactivityDisconnect's own contactStatus guard silently skips
+// it - so the notice never shows in that tab at all.
+//
+// Fixed the same way launcher.js syncs the panel's open/closed state:
+// broadcast via localStorage (which the "storage" event delivers to
+// every OTHER tab on this origin, never the tab that wrote it), and
+// mirror the exact same local notice there. Whichever tab's timer fires
+// first wins; every other tab mirrors the result using its OWN
+// _lastIncomingMessageItem (equivalent content either way, since every
+// tab received the same real message from Connect) instead of relying on
+// its own possibly-throttled-or-already-guarded-out timer. The REAL
+// disconnect action itself is deliberately never repeated here - only
+// the tab whose own 30s timer actually fires calls
+// _endChatKeepingPanelOpen()/client.disconnect(); every other tab's
+// contactStatus flips to DISCONNECTED on its own via its own websocket,
+// exactly as it already does today.
+const INACTIVITY_SYNC_STORAGE_KEY = "ac_inactivity_sync";
 
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
@@ -262,6 +291,39 @@ class ChatSession {
   // the participantId of every AGENT participant currently believed to be
   // connected; see _updateLiveAgentState/_hasLiveAgentConnected.
   _liveAgentParticipantIds = new Set();
+  // Arrow function (not a normal method) so `this` is already bound when
+  // passed directly to addEventListener below - see
+  // _registerCrossTabInactivitySync (constructor) and
+  // INACTIVITY_SYNC_STORAGE_KEY above.
+  _handleCrossTabInactivityBroadcast = (event) => {
+    if (event.key !== INACTIVITY_SYNC_STORAGE_KEY || !event.newValue) {
+      return;
+    }
+    let payload;
+    try {
+      payload = JSON.parse(event.newValue);
+    } catch (e) {
+      return;
+    }
+    if (!payload || payload.contactId !== this.contactId || !this._lastIncomingMessageItem) {
+      return; // an unrelated/stale chat's broadcast, or nothing to base a notice on yet
+    }
+
+    if (payload.stage === "reprompt") {
+      // Don't ALSO let this tab's own (possibly about to fire, possibly
+      // already overdue) timer add a second, duplicate copy of the same
+      // notice a moment later.
+      this._clearInactivityTimers();
+      const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_NO_RESPONSE_MESSAGE);
+      this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+      const repromptItem = modelUtils.cloneIncomingItemForReprompt(this._lastIncomingMessageItem);
+      repromptItem.transportDetails.sentTime = noticeItem.transportDetails.sentTime + 0.001;
+      this._shouldAddToTranscript(repromptItem) && this._addItemsToTranscript([repromptItem]);
+    } else if (payload.stage === "disconnect") {
+      const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
+      this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+    }
+  };
 
   _eventHandlers = {
     "transcript-changed": [],
@@ -296,6 +358,13 @@ class ChatSession {
         prefix: DEFAULT_PREFIX,
       });
     }
+    // See INACTIVITY_SYNC_STORAGE_KEY/_handleCrossTabInactivityBroadcast
+    // above - not explicitly removed on chat end, matching this file's
+    // existing convention of never tearing down its other event
+    // subscriptions either; _handleCrossTabInactivityBroadcast's own
+    // contactId check makes a stray listener from an ended session's
+    // instance harmless regardless.
+    window.addEventListener("storage", this._handleCrossTabInactivityBroadcast);
   }
 
   // Callbacks
@@ -1505,6 +1574,23 @@ class ChatSession {
     }
   }
 
+  // See INACTIVITY_SYNC_STORAGE_KEY above. Called only by the tab whose
+  // own timer actually fires - _handleCrossTabInactivityBroadcast (other
+  // tabs) never calls this, so there's no re-broadcast/ping-pong risk.
+  _broadcastInactivityStage(stage) {
+    try {
+      window.localStorage.setItem(INACTIVITY_SYNC_STORAGE_KEY, JSON.stringify({
+        contactId: this.contactId,
+        stage: stage,
+        at: Date.now(),
+      }));
+    } catch (e) {
+      // localStorage unavailable (private browsing, quota, disabled) -
+      // cross-tab sync just doesn't happen; never let this affect this
+      // tab's own behavior.
+    }
+  }
+
   // 90s elapsed with no reply - show the local "didn't get your response"
   // notice, then re-display the last incoming message (see
   // modelUtils.cloneIncomingItemForReprompt), then start the final 30s
@@ -1526,6 +1612,7 @@ class ChatSession {
       this._shouldAddToTranscript(repromptItem) && this._addItemsToTranscript([repromptItem]);
 
       this.logger && this.logger.info("Customer inactive for 90s - showing notice and re-displaying last message locally.");
+      this._broadcastInactivityStage("reprompt");
     }
     this._inactivityDisconnectTimer = setTimeout(() => {
       this._handleInactivityDisconnect();
@@ -1552,6 +1639,7 @@ class ChatSession {
     if (this._lastIncomingMessageItem) {
       const noticeItem = modelUtils.createLocalIncomingNotice(this._lastIncomingMessageItem, INACTIVITY_CLOSING_MESSAGE);
       this._shouldAddToTranscript(noticeItem) && this._addItemsToTranscript([noticeItem]);
+      this._broadcastInactivityStage("disconnect");
     }
     this._endChatKeepingPanelOpen();
   }

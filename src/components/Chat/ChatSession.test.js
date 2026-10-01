@@ -5,6 +5,8 @@ jest.mock("./TranslationService", () => ({
 import ChatSession, {getCurrentChatSessionInstance, setCurrentChatSessionInstance} from "./ChatSession";
 import {AttachmentErrorType, ContentType, InteractiveMessageType, TRANSLATION_DIRECTION} from "./datamodel/Model";
 import {translateMessage} from "./TranslationService";
+import {AttachmentErrorType, ContentType, InteractiveMessageType} from "./datamodel/Model";
+import {CONTACT_STATUS} from "../../constants/global";
 
 const ParticipantId = "123";
 const chatDetails = {
@@ -1002,10 +1004,7 @@ describe("ChatSession", () => {
     });
   });
 
-  describe("Customer -> Agent live translation", () => {
-    const TRANSLATE_ENDPOINT = "https://jgnx26szub.execute-api.eu-west-2.amazonaws.com/dev/translate";
-    const AGENT_HELPER_MESSAGE_TEXT = "Hello, this is Agent Smith.";
-
+  describe("Cross-tab inactivity-notice sync", () => {
     beforeEach(() => {
       window.connect = {
         LogManager: {
@@ -1035,10 +1034,11 @@ describe("ChatSession", () => {
               onAuthenticationFailed: jest.fn(),
               onChatRehydrated: jest.fn(),
               connect: jest.fn().mockResolvedValue("aaa"),
-              sendMessage: jest.fn().mockResolvedValue({data: {}}),
+              sendMessage: jest.fn().mockResolvedValue("aaa"),
               sendEvent: jest.fn().mockResolvedValue("bb"),
               getTranscript: jest.fn().mockResolvedValue({data: {Transcript: [], NextToken: null}}),
               describeView: jest.fn().mockResolvedValue("view"),
+              disconnectParticipant: jest.fn().mockResolvedValue({}),
             };
           },
         },
@@ -1612,6 +1612,117 @@ describe("ChatSession", () => {
       const item = session.transcript.find((i) => i.id === "agent-historical-1");
       expect(item).toBeDefined();
       expect(item.content.data).toEqual("Je vais vérifier le statut de votre commande.");
+    function lastIncomingMessageFixture() {
+      return {
+        id: "agent-msg-1",
+        type: "MESSAGE",
+        content: {data: "How can I help you?", type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN},
+        displayName: "Agent",
+        participantId: "agent-1",
+        participantRole: "AGENT",
+        transportDetails: {direction: "Incoming", status: "SendSuccess", sentTime: Date.now() / 1000},
+      };
+    }
+
+    test("_handleInactivityReprompt broadcasts the reprompt stage for other tabs to pick up", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session.contactStatus = CONTACT_STATUS.CONNECTED;
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleInactivityReprompt();
+
+      const raw = window.localStorage.getItem("ac_inactivity_sync");
+      expect(raw).not.toBeNull();
+      const payload = JSON.parse(raw);
+      expect(payload.contactId).toEqual(session.contactId);
+      expect(payload.stage).toEqual("reprompt");
+    });
+
+    test("_handleInactivityDisconnect broadcasts the disconnect stage for other tabs to pick up", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session.contactStatus = CONTACT_STATUS.CONNECTED;
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleInactivityDisconnect();
+
+      const raw = window.localStorage.getItem("ac_inactivity_sync");
+      expect(raw).not.toBeNull();
+      const payload = JSON.parse(raw);
+      expect(payload.contactId).toEqual(session.contactId);
+      expect(payload.stage).toEqual("disconnect");
+    });
+
+    test("mirrors a reprompt broadcast from another tab into this tab's own transcript", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleCrossTabInactivityBroadcast({
+        key: "ac_inactivity_sync",
+        newValue: JSON.stringify({contactId: session.contactId, stage: "reprompt", at: Date.now()}),
+      });
+
+      expect(session.transcript.some((item) => item.content.data === "Sorry, I didn't get your response.")).toBe(true);
+      expect(session.transcript.some((item) => item.content.data === "How can I help you?")).toBe(true);
+    });
+
+    test("mirrors a disconnect broadcast from another tab into this tab's own transcript", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleCrossTabInactivityBroadcast({
+        key: "ac_inactivity_sync",
+        newValue: JSON.stringify({contactId: session.contactId, stage: "disconnect", at: Date.now()}),
+      });
+
+      expect(session.transcript.some((item) => item.content.data === "Thank you for connecting with us today.")).toBe(true);
+    });
+
+    test("a reprompt broadcast clears this tab's own pending timers so it doesn't also fire a duplicate copy later", () => {
+      jest.useFakeTimers();
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session.contactStatus = CONTACT_STATUS.CONNECTED;
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+      // Mirrors _scheduleInactivityCheck's own timer arming, as if this
+      // tab's incoming message had already started its own 90s countdown
+      // before the OTHER tab's broadcast arrives.
+      session._inactivityReminderTimer = setTimeout(() => session._handleInactivityReprompt(), 90 * 1000);
+
+      session._handleCrossTabInactivityBroadcast({
+        key: "ac_inactivity_sync",
+        newValue: JSON.stringify({contactId: session.contactId, stage: "reprompt", at: Date.now()}),
+      });
+      const countAfterBroadcast = session.transcript.length;
+
+      // If this tab's own timer had NOT been cleared, it would fire here
+      // and add a second, duplicate notice+reprompt pair.
+      jest.advanceTimersByTime(90 * 1000);
+
+      expect(session.transcript.length).toEqual(countAfterBroadcast);
+      jest.useRealTimers();
+    });
+
+    test("ignores a broadcast for a different, unrelated contact", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleCrossTabInactivityBroadcast({
+        key: "ac_inactivity_sync",
+        newValue: JSON.stringify({contactId: "some-other-contact-id", stage: "reprompt", at: Date.now()}),
+      });
+
+      expect(session.transcript.length).toEqual(0);
+    });
+
+    test("ignores unrelated storage keys", () => {
+      const session = new ChatSession(chatDetails, "Customer", region, stage);
+      session._lastIncomingMessageItem = lastIncomingMessageFixture();
+
+      session._handleCrossTabInactivityBroadcast({
+        key: "some_other_key",
+        newValue: JSON.stringify({contactId: session.contactId, stage: "reprompt"}),
+      });
+
+      expect(session.transcript.length).toEqual(0);
     });
   });
 });

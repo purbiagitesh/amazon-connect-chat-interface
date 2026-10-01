@@ -6,6 +6,7 @@ import {Button} from "connect-core";
 import {MessageBody} from "../InteractiveMessage";
 import {
   truncateStrFromCharLimit,
+  sanitizeInteractiveMessageStr,
   isRatingQuickReply,
 } from "../../../../../utils/helper";
 import {ContentType, InteractiveMessageType} from "../../../datamodel/Model";
@@ -122,7 +123,7 @@ QuickReply.propTypes = {
 
 // The grey title bubble ("How was your experience?" / the rating prompt).
 export function QuickReplyTitle({content}) {
-  const title = truncateStrFromCharLimit(content.title, InteractiveMessageType.QUICK_REPLY, "titleCharLimit");
+   const title = sanitizeInteractiveMessageStr(content.title); //Not Limit for truncation only sanitizing
   return (
     <MessageBody addChildBackgroundStyles={true} capWidth={true} data-testid="interactive-quickreply-message-title">
       <RichMessageRenderer content={title} />
