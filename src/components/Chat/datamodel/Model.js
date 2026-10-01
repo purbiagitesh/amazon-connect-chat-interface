@@ -113,6 +113,14 @@ export const InteractiveMessageType = {
   PRODUCT_SELECTOR: "ProductSelector",
   SHADE_SELECTOR: "ShadeSelector",
   RESHIP_CASE_CREATION: "ReshipCaseCreation",
+   // A generic envelope so one Connect transcript item - splitting the one item to different chat bubble
+  MULTI_PART: "MultiPart",
+};
+// The one MultiPart element shape that isn't itself a real interactive
+// template - a plain text/markdown bubble. Every other element's
+// templateType is expected to be a normal InteractiveMessageType value.
+export const MultiPartElementType = {
+  TEXT: "Text",
 };
 
 export const InteractiveMessageSelectionType = {

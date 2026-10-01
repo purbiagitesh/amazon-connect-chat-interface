@@ -525,6 +525,12 @@ export class ParticipantMessage extends PureComponent {
       transportDetails: { direction },
       type,
       id,
+      // Set only on the synthetic bubbles ChatTranscriptor.splitMultiPartItem
+      // builds out of one real MultiPart transcript item - Connect's read
+      // receipt API only knows about the one real item id, not these
+      // per-bubble synthetic ones, so this takes priority over `id` whenever
+      // it's present.
+      sourceItemId,
       participantRole,
     } = this.props.messageDetails;
     //Note: type valid values: https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_Item.html#connectparticipant-Type-Item-Type
@@ -536,7 +542,7 @@ export class ParticipantMessage extends PureComponent {
       direction === Direction.Incoming
     ) {
       this.props.sendReadReceipt(
-        id,
+        sourceItemId || id,
         type === ATTACHMENT_MESSAGE ? { disableThrottle: true } : {},
       );
     }

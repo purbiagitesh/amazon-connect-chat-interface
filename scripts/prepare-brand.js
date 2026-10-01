@@ -314,7 +314,7 @@ function getBrandFontFiles(brandPath) {
 // brand color tokens - and returns it in full (every scale: primary/
 // secondary/featured, text, background) so any consumer (React theme,
 // header, launcher) can reach any value, not just the two flattened fields
-// below. primary500/primary800 are kept alongside the full object purely
+// below. primary500/primary800/primary900 are kept alongside the full object purely
 // for the older consumers (Chat.js header, hostedWidget.html launcher)
 // that only ever needed those two - falls back to widget.primaryColor / a
 // hardcoded default so brands without colors.json yet still render
@@ -332,7 +332,8 @@ function getBrandColorPalette(brandThemeDir, widgetConfig = {}) {
   const primary = colors.primary || {};
   const primary500 = primary['500'] || widgetConfig.primaryColor || '#3F5773';
   const primary800 = primary['800'] || primary500;
-  return {...colors, primary500, primary800};
+  const primary900 = primary['900'] || primary800;
+  return {...colors, primary500, primary800, primary900};
 }
 
 // Looks inside brands/<brand>/assets - the same folder copyDirSync() publishes

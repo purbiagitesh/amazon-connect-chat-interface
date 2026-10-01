@@ -1,4 +1,4 @@
-
+ 
 import React, {PureComponent} from "react";
 import PT from "prop-types";
 import styled from "styled-components";
@@ -10,7 +10,10 @@ import {
   ContentType,
   Status,
   ATTACHMENT_REJECTED_MESSAGE,
+  InteractiveMessageType,
+  MultiPartElementType,
 } from "../datamodel/Model";
+import { safeParseInteractiveMessageJSON } from "../../../utils/helper";
 import renderHTML from 'react-render-html';
 import {
   MessageBox,
@@ -21,7 +24,7 @@ import {
 import {SystemMessage} from "./ChatMessages/SystemMessage";
 import ChatTranscriptScroller from "./ChatTranscriptScroller";
 import {CONTACT_STATUS} from "connect-constants";
-
+ 
 // Two consecutive outgoing image/video attachments only share one grid
 // bubble (see buildRenderGroups) when their send times are within this many
 // seconds of each other - i.e. they came from the same multi-file composer
@@ -38,11 +41,11 @@ const MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS = 10;
 // so it starts its own fresh bubble instead of being absorbed into the
 // earlier batch's bubble. sentTime is in seconds.
 //const MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS = 10;
-
+ 
 const TranscriptBody = styled.div`
   margin: 0 auto;
 `;
-
+ 
 const TranscriptWrapper = styled(ChatTranscriptScroller)`
   background: var(--ac-widget-transcript-backgroundcolor, ${props => props.theme.chatTranscriptor.background || props.theme.palette.white});
   -webkit-text-size-adjust: none;
@@ -50,29 +53,29 @@ const TranscriptWrapper = styled(ChatTranscriptScroller)`
   flex: 12 1 auto;
   min-height: 0;
 `;
-
+ 
 const defaultTranscriptConfig = {
-
+ 
   participantMessageConfig: {
     render: ({...props}) => {
       return <ParticipantMessage {...props} />;
     }
   },
-
+ 
   attachmentMessageConfig: {
     render: ({...props}) => {
       return <ParticipantMessage {...props} />;
     }
   },
-
+ 
   systemMessageConfig: {
     render: ({...props}) => {
       return <SystemMessage {...props} />;
     }
   }
 };
-
-
+ 
+ 
 export default class ChatTranscriptor extends PureComponent {
   static propTypes = {
     contactId: PT.string.isRequired,
@@ -82,7 +85,7 @@ export default class ChatTranscriptor extends PureComponent {
     loadPreviousTranscript: PT.func.isRequired,
     sendReadReceipt: PT.func.isRequired,
   };
-
+ 
   loadTranscript = () => {
     // Loading more history from the Participant Service only makes sense
     // while the contact is still actually connected - once it's ended
@@ -104,7 +107,7 @@ export default class ChatTranscriptor extends PureComponent {
       return data;
     });
   };
-
+ 
   // Which "avatar category" a transcript item belongs to, so consecutive
   // messages in the same category can share one avatar instead of each
   // drawing its own. Keyed by category (assistant/advisor), not exact
@@ -128,7 +131,7 @@ export default class ChatTranscriptor extends PureComponent {
     if (itemDetails.displayName === "SYSTEM_MESSAGE") {
       return `system-notice-${itemDetails.id}`;
     }
-    
+   
     // Same per-message treatment for ChatSession's inactivity notices
     // ("Sorry, I didn't get your response.", the re-prompted message, and
     // "Thank you for connecting with us today.") - each one should draw its
@@ -141,7 +144,7 @@ export default class ChatTranscriptor extends PureComponent {
     }
     return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
   };
-
+ 
   renderMessage = (itemsInGroup, previousItemDetails, isLatestMessage) => {
     // The representative item for the group is always the last one - its
     // timestamp/receipt/error state stands in for the whole batch (see
@@ -149,33 +152,33 @@ export default class ChatTranscriptor extends PureComponent {
     const itemDetails = itemsInGroup[itemsInGroup.length - 1];
     const itemId = itemDetails.id;
     const version = itemDetails.version;
-    const messageReceiptType = itemDetails.transportDetails && itemDetails.transportDetails.messageReceiptType ? 
+    const messageReceiptType = itemDetails.transportDetails && itemDetails.transportDetails.messageReceiptType ?
                                 itemDetails.transportDetails.messageReceiptType : "";
     const key = `${itemId}.${version}.${messageReceiptType}`;
-
+ 
     const transcriptConfig = Object.assign({}, defaultTranscriptConfig, this.props.transcriptConfig);
     let config = {
       render: transcriptConfig.render,
       isHTML: transcriptConfig.isHTML,
     };
-
+ 
     let content = null;
     let additionalProps = {};
-
+ 
     if (config.render) {
       content = config.render({
         key: key,
         messageDetails: itemDetails
       });
     }
-
+ 
     let textAlign = "left";
     const isOutgoing = itemDetails.transportDetails && itemDetails.transportDetails.direction === Direction.Outgoing;
-
+ 
     const currentGroupKey = this.avatarGroupKey(itemDetails);
     const previousGroupKey = previousItemDetails ? this.avatarGroupKey(previousItemDetails) : null;
     const showAvatar = currentGroupKey === null || currentGroupKey !== previousGroupKey;
-
+ 
     if (itemDetails.type === PARTICIPANT_MESSAGE) {
       config = Object.assign({}, config, transcriptConfig.participantMessageConfig);
       textAlign = isOutgoing ? "right" : "left";
@@ -216,14 +219,70 @@ export default class ChatTranscriptor extends PureComponent {
         ...additionalProps
       });
     }
-
+ 
     return (
       <MessageBox key={key} textAlign={textAlign}>
         {config.isHTML ? renderHTML(content) : content}
       </MessageBox>
     );
   };
-
+ 
+  // ChatMessage.isInteractiveMessagePayload checks any other interactive
+  // payload - by attempting to parse content.data as JSON, regardless of
+  // its declared content.type (CUSTOM_BOT/VA participants can only send
+  // text/plain/text/markdown, so this always arrives typed as one of those).
+  isMultiPartItem = (item) => {
+    if (item.type !== PARTICIPANT_MESSAGE || !item.content) {
+      return false;
+    }
+    const parsed = safeParseInteractiveMessageJSON(item.content.data);
+    return (
+      !!parsed &&
+      parsed.templateType === InteractiveMessageType.MULTI_PART &&
+      !!parsed.data &&
+      !!parsed.data.content &&
+      Array.isArray(parsed.data.content.elements) &&
+      parsed.data.content.elements.length > 0
+    );
+  };
+ 
+ // Splitting original message , first Text and then other template Type
+  splitMultiPartItem = (item) => {
+    const parsed = safeParseInteractiveMessageJSON(item.content.data);
+    const elements = parsed.data.content.elements;
+    const baseSentTime = (item.transportDetails && item.transportDetails.sentTime) || 0;
+ 
+    return elements.map((element, index) => {
+      const isPlainText = element.templateType === MultiPartElementType.TEXT;
+      const elementContent = (element && element.data && element.data.content) || {};
+      const content = isPlainText
+        ? {
+            data: elementContent.title || elementContent.text || "",
+            type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN,
+          }
+        : {
+            data: JSON.stringify({
+              templateType: element.templateType,
+              data: element.data,
+              metadata: element.metadata,
+              version: "1.0",
+            }),
+            type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE,
+          };
+ 
+      return {
+        ...item,
+        id: `${item.id}-part-${index}`,
+        sourceItemId: item.id,
+        content,
+        transportDetails: {
+          ...item.transportDetails,
+          sentTime: baseSentTime + index * 0.001, //Adding 0.001 seconds (1 millisecond) per position gives each part a slightly different timestamp
+        },
+      };
+    });
+  };
+ 
   // Consecutive outgoing image/video attachment messages (e.g. a multi-file
   // composer selection - see ChatComposer's sendAttachments) are collapsed
   // into a single render group so they share one message bubble/grid instead
@@ -242,7 +301,10 @@ export default class ChatTranscriptor extends PureComponent {
     let i = 0;
     while (i < transcript.length) {
       const item = transcript[i];
-      if (modelUtils.isMediaAttachmentItem(item)) {
+      if (this.isMultiPartItem(item)) {
+        this.splitMultiPartItem(item).forEach((part) => groups.push([part]));
+        i++;
+      } else if (modelUtils.isMediaAttachmentItem(item)) {
         const group = [item];
         let j = i + 1;
         while (
@@ -274,7 +336,7 @@ export default class ChatTranscriptor extends PureComponent {
     }
     return groups;
   };
-
+ 
   // A local-only stand-in for a genuine incoming transcript item - same
   // shape (type/content/participantRole/transportDetails) a real CUSTOM_BOT
   // message would have, so it renders through the exact same
@@ -306,7 +368,7 @@ export default class ChatTranscriptor extends PureComponent {
       },
     };
   };
-
+ 
   // Whether two adjacent outgoing media items came from the same send, judged
   // by how far apart their send times are. If either lacks a usable sentTime
   // the check is skipped (returns true) so grouping falls back to the
@@ -319,8 +381,8 @@ export default class ChatTranscriptor extends PureComponent {
     }
     return Math.abs(later - earlier) <= MEDIA_ATTACHMENT_GROUP_MAX_GAP_SECONDS;
   };
-
-
+ 
+ 
   renderTyping = participantTypingDetails => {
     var participantId =
       participantTypingDetails.participantId;
@@ -334,17 +396,17 @@ export default class ChatTranscriptor extends PureComponent {
       />
     );
   };
-
+ 
   render() {
     const lastSentMessage = this.props.transcript
       .filter(({type, transportDetails}) => (
         (type === PARTICIPANT_MESSAGE || type === ATTACHMENT_MESSAGE) &&
         transportDetails.direction === Direction.Outgoing
       )).pop();
-
+ 
     const renderGroups = this.buildRenderGroups();
     const lastGroupIndex = renderGroups.length - 1;
-
+ 
     return (
       <TranscriptWrapper
         className="transcript"

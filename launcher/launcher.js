@@ -76,7 +76,7 @@
     + '  transition: background-color 0.2s ease, transform 0.15s ease !important;'
     + '}'
     + '#amazon-connect-launcher-btn.ready { display: flex !important; }'
-    + '#amazon-connect-launcher-btn:hover { background-color: var(--launcher-color-active, #a3006e) !important; transform: scale(1.04); }'
+    + '#amazon-connect-launcher-btn:hover { background-color: var(--launcher-color-hover, #a3006e) !important; transform: scale(1.04); }'
     + '#amazon-connect-launcher-btn:active { background-color: var(--launcher-color-active, #a3006e) !important; transform: scale(0.97); }'
     + '#amazon-connect-launcher-btn .btn-icon {'
     + '  box-sizing: border-box !important;'
@@ -97,7 +97,18 @@
     + '#amazon-connect-launcher-btn:hover .btn-icon svg .chat-icon-fg,'
     + '#amazon-connect-launcher-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
     + '#amazon-connect-launcher-btn .btn-icon img { width: 15px !important; height: 15px !important; object-fit: contain; }'
+    + '#amazon-connect-launcher-btn .btn-text { display: inline-block; }'
+    + '#amazon-connect-launcher-btn.chat-active .btn-text { display: none !important; }'
     + '#amazon-connect-launcher-btn.widget-open { display: none !important; }'
+    + '@media (max-width: 1024px) {'
+    + '  #amazon-connect-launcher-btn.chat-active {'
+    + '    top: 50% !important;'
+    + '    bottom: auto !important;'
+    + '    transform: translateY(-50%) !important;'
+    + '  }'
+    + '  #amazon-connect-launcher-btn.chat-active:hover { transform: translateY(-50%) scale(1.04) !important; }'
+    + '  #amazon-connect-launcher-btn.chat-active:active { transform: translateY(-50%) scale(0.97) !important; }'
+    + '}'
     + '#' + CHAT_PANEL_ID + ' {'
     + '  box-sizing: border-box !important;'
     + '  display: none !important;'
@@ -140,7 +151,7 @@
     var btn = document.createElement('button');
     btn.id = 'amazon-connect-launcher-btn';
     btn.setAttribute('aria-label', 'Open chat');
-    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span>Chat now';
+    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span><span class="btn-text">Chat now</span>';
     document.body.appendChild(btn);
 
     var panel = document.createElement('div');
@@ -309,6 +320,7 @@
     var brandColors = brandConfig.colors || {};
     var launcherDefault = brandColors.primary500 || brandConfig.primaryColor;
     var launcherActive = brandColors.primary800 || launcherDefault;
+    var launcherHover = brandColors.primary900 || launcherDefault;
     if (launcherDefault) {
       document.documentElement.style.setProperty('--launcher-color-default', launcherDefault);
       var shadow = hexToRgba(launcherDefault, 0.4);
@@ -316,6 +328,9 @@
     }
     if (launcherActive) {
       document.documentElement.style.setProperty('--launcher-color-active', launcherActive);
+    }
+    if (launcherHover) {
+      document.documentElement.style.setProperty('--launcher-color-hover', launcherHover);
     }
   }
 
@@ -400,6 +415,13 @@
     var hasActiveChat = false;
     var resolvedBrand = brandInfo.brand;
     var resolvedEnv = brandInfo.environment;
+
+    // Keep the flag and the launcher's text visibility in sync: an active
+    // chat hides the "Chat now" label, leaving just the icon.
+    function setHasActiveChat(active) {
+      hasActiveChat = active;
+      btn.classList.toggle('chat-active', active);
+    }
 
     // ─── Cross-tab panel open/closed sync ───
     // Per the brand dev's own feedback: don't hook this to any specific
@@ -494,7 +516,7 @@
     // trying to resume it on the next page/tab.
     function wireChatEndCleanup(chatSession) {
       chatSession.onChatClose(function () {
-        hasActiveChat = false;
+        setHasActiveChat(false);
         clearPersistedChat(resolvedBrand);
         closePanel();
       });
@@ -513,7 +535,7 @@
       // entirely and just keeps showing the same ended conversation with no
       // way to start a fresh one.
       chatSession.onChatDisconnected(function () {
-        hasActiveChat = false;
+        setHasActiveChat(false);
         clearPersistedChat(resolvedBrand);
       });
     }
@@ -528,7 +550,7 @@
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
       }, function onSuccess(chatSession) {
-        hasActiveChat = true;
+        setHasActiveChat(true);
         if (chatSession.rawChatDetails) {
           persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
         }
@@ -545,13 +567,13 @@
         name: persisted.name,
         region: brandConfig.region,
       }, function onSuccess(chatSession) {
-        hasActiveChat = true;
+        setHasActiveChat(true);
         persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
         wireChatEndCleanup(chatSession);
       }, function onFailure(error) {
         console.warn('[chat-widget] failed to resume previous chat session', error);
         clearPersistedChat(resolvedBrand);
-        hasActiveChat = false;
+        setHasActiveChat(false);
       });
     }
 
