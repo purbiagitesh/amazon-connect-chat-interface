@@ -10,8 +10,8 @@ import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
 import "@testing-library/jest-dom";
 
 const mockAttachmentsFile = {
-  name: "testUpload.pdf",
-  type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF,
+  name: "testUpload.jpg",
+  type: "image/jpeg",
   size: 1,
 };
 
@@ -30,6 +30,11 @@ function renderElement(props) {
     </ThemeProvider>
   );
 }
+
+// jsdom does not implement URL.createObjectURL; mock it so image-preview
+// code in addFiles() doesn't crash the test suite.
+global.URL.createObjectURL = jest.fn(() => 'blob:mock-url');
+global.URL.revokeObjectURL = jest.fn();
 
 jest.useFakeTimers();
 jest.spyOn(global, "setTimeout");
@@ -122,9 +127,9 @@ describe("when window.connect is not defined", () => {
     expect(attachmentIcon).toHaveAttribute("tabIndex", "-1");
 
     // Selecting another file while the icon is disabled must not stage it.
-    const secondFile = {name: "duringSend.pdf", type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF, size: 1};
+    const secondFile = {name: "duringSend.jpg", type: "image/jpeg", size: 1};
     fireEvent.change(fileInput, {target: {files: [secondFile]}});
-    expect(mockComposer.queryByText("duringSend.pdf")).toBeNull();
+    expect(mockComposer.queryByLabelText("Remove duringSend.jpg")).toBeNull();
 
     // Flush addAttachment's own promise plus the Promise.all/.catch/.finally
     // chain built on top of it in sendAttachments.
@@ -212,18 +217,19 @@ describe("when window.connect is not defined", () => {
   test("Should not allow staging more than five attachments at a time", () => {
     renderElement(mockProps);
     const sixFiles = Array.from({length: 6}, (_, i) => ({
-      name: `testUpload${i + 1}.pdf`,
-      type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF,
+      name: `testUpload${i + 1}.jpg`,
+      type: "image/jpeg",
       size: 1,
     }));
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
     fireEvent.change(fileInput, {target: {files: sixFiles}});
 
-    // Only the first five of the six selected files get staged.
+    // Only the first five of the six selected files get staged (images render
+    // as chips whose filename appears in the remove-button aria-label).
     for (let i = 1; i <= 5; i++) {
-      expect(mockComposer.getByText(`testUpload${i}.pdf`)).toBeInTheDocument();
+      expect(mockComposer.getByLabelText(`Remove testUpload${i}.jpg`)).toBeInTheDocument();
     }
-    expect(mockComposer.queryByText("testUpload6.pdf")).toBeNull();
+    expect(mockComposer.queryByLabelText("Remove testUpload6.jpg")).toBeNull();
     expect(mockComposer.getByTestId("customer-chat-attachment-limit-message")).toBeInTheDocument();
 
     const textInput = mockComposer.getByTestId("customer-chat-text-input");
@@ -234,8 +240,8 @@ describe("when window.connect is not defined", () => {
   test("Should ignore a further file once already at the five-attachment limit", () => {
     renderElement(mockProps);
     const fiveFiles = Array.from({length: 5}, (_, i) => ({
-      name: `testUpload${i + 1}.pdf`,
-      type: ContentType.ATTACHMENT_CONTENT_TYPE.PDF,
+      name: `testUpload${i + 1}.jpg`,
+      type: "image/jpeg",
       size: 1,
     }));
     const fileInput = mockComposer.getByTestId("customer-chat-file-select");
@@ -243,7 +249,7 @@ describe("when window.connect is not defined", () => {
     expect(mockComposer.queryByTestId("customer-chat-attachment-limit-message")).toBeNull();
 
     fireEvent.change(fileInput, {target: {files: [mockAttachmentsFile]}});
-    expect(mockComposer.queryByText(mockAttachmentsFile.name)).toBeNull();
+    expect(mockComposer.queryByLabelText(`Remove ${mockAttachmentsFile.name}`)).toBeNull();
     expect(mockComposer.getByTestId("customer-chat-attachment-limit-message")).toBeInTheDocument();
 
     const textInput = mockComposer.getByTestId("customer-chat-text-input");

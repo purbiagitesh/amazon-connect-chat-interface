@@ -67,6 +67,71 @@ const WelcomeText = styled(Text)`
   padding-bottom: 10px;
 `;
 
+const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px;
+`;
+ 
+const HeaderLeftSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+ 
+const HeaderLogo = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+`;
+ 
+const HeaderAgentName = styled.div`
+  color: ${props => props.textColor};
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+`;
+ 
+const HeaderTitle = styled.div`
+  color: ${props => props.textColor};
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: normal;
+`;
+ 
+const HeaderSubtitle = styled.div`
+  color: ${props => props.subtitleColor};
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: normal;
+  margin-top: 4px;
+  max-width: 260px;
+`;
+ 
+const Separator = styled.span`
+  display: inline-flex;
+  align-items: center;
+  margin: 0 8px;
+`;
+ 
+const CloseButton = styled.button`
+  background: transparent;
+  border: none;
+  color: ${props => props.textColor};
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  flex-shrink: 0;
+  width: auto;
+  font-family: inherit;
+`;
+
 const defaultHeaderConfig = {
   isHTML: false,
   render: (config) => {
@@ -78,7 +143,7 @@ const defaultHeaderConfig = {
     const hc = brandInfo.header || {};
     const colors = brandInfo.colors || {};
 
-    // Use inline styles for colors since CSS vars don't cross iframe boundary.
+    // Use CSS vars for colors since styled-components cross iframe boundary.
     // Header background is the brand's Primary500 token - same source the
     // launcher icon uses - so it can't drift out of sync with the brand theme.
     const bgColor = colors.primary500 || hc.backgroundColor || '#3F5773';
@@ -87,71 +152,41 @@ const defaultHeaderConfig = {
 
     return (
       <HeaderWrapper style={{ background: bgColor}}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '16px 16px',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px'}}>
+        <HeaderContent>
+          <HeaderLeftSection>
             {hc.logoUrl && (
-              <img
+              <HeaderLogo
                 src={hc.logoUrl}
                 alt=""
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  flexShrink: 0,
-                }}
               />
             )}
             <div>
-              <div style={{
-                color: textColor,
-                fontSize: '16px',
-                lineHeight: '20px',
-                fontWeight: 700,
-                letterSpacing: 'normal',
-              }}>
-                {hc.title || ''}
-              </div>
+              {config.lastTranscriptItem?.participantRole === 'AGENT' ? (
+                <HeaderAgentName textColor={textColor}>
+                  {config.lastTranscriptItem.displayName || ''}<Separator>{' •'}</Separator>{`Consumer Care Advisor`}
+                </HeaderAgentName>
+              ) : (
+                <HeaderTitle textColor={textColor}>
+                  {hc.title || ''}
+                </HeaderTitle>
+              )}
               {hc.subtitle && (
-                <div style={{
-                  color: subtitleColor,
-                  fontSize: '10px',
-                  lineHeight: '12px',
-                  fontWeight: 'normal',
-                  marginTop: '4px',
-                  maxWidth: '260px',
-                }}>
+                <HeaderSubtitle subtitleColor={subtitleColor}>
                   {hc.subtitle}
-                </div>
+                </HeaderSubtitle>
               )}
             </div>
-          </div>
+          </HeaderLeftSection>
           {hc.showCloseButton && (
-            <button
+            <CloseButton
               onClick={() => config.onEndChat && config.onEndChat()}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: textColor,
-                fontSize: '22px',
-                lineHeight: 1,
-                cursor: 'pointer',
-                padding: '0 0 0 8px',
-                flexShrink: 0,
-                width: 'auto',
-                fontFamily: 'inherit',
-              }}
+              textColor={textColor}
               aria-label="Close chat"
             >
               ×
-            </button>
+            </CloseButton>
           )}
-        </div>
+        </HeaderContent>
       </HeaderWrapper>
     );
   }
@@ -162,8 +197,8 @@ Header.defaultProps = {
   logoConfig: {}
 };
 
-function Header({headerConfig, logoConfig, onEndChat}) {
-  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, {onEndChat});
+function Header({headerConfig, logoConfig, lastTranscriptItem, onEndChat}) {
+  const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, {lastTranscriptItem, onEndChat});
   if (config.isHTML) {
     return renderHTML(config.render());
   } else {
@@ -300,7 +335,7 @@ export default class Chat extends Component {
           // title bar the moment the inactivity flow ends the chat.
           this.state.contactStatus === CONTACT_STATUS.DISCONNECTED) &&
           <ParentHeaderWrapper className="header">
-            <Header headerConfig={headerConfig} logoConfig={logoConfig} onEndChat={() => this.minimizeChat()}/>
+            <Header headerConfig={headerConfig} logoConfig={logoConfig} lastTranscriptItem={lastTranscriptItem} onEndChat={() => this.minimizeChat()}/>
           </ParentHeaderWrapper>
         }
         <ChatComposerWrapper>

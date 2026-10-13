@@ -18,12 +18,28 @@ const DEFAULT_COMPOSER_MAX_ROWS = 5;
 
 // The customer can have at most this many files staged/sent together - a
 // selection that would push the staged count past it only fills the
-// remaining slots (see addFiles); the rest are ignored and a brief inline
-// notice explains why. Resets to a fresh budget once the batch is sent
-// (attachments clears back to []).
+// remaining slots (see addFiles); the rest are ignored and a notice explains
+// why. Resets to a fresh budget once the batch is sent (attachments clears back to []).
 const MAX_ATTACHMENTS_COUNT = 5;
-// How long the "up to N files" notice stays visible before auto-dismissing.
-const ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS = 4000;
+
+// The total size of  attachments combined must not exceed this value.
+// Files that would push  are ignored (see addFiles).
+const MAX_CUMULATIVE_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB
+
+// Only these image types are accepted for upload. HEIC has no universally
+// reliable MIME type in browsers, so we also check the file extension as a
+// fallback (see isSupportedImageFile below).
+const SUPPORTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/heic', 'image/heif'];
+const SUPPORTED_IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.heic'];
+const SUPPORTED_IMAGE_ACCEPT = [...SUPPORTED_IMAGE_MIME_TYPES, ...SUPPORTED_IMAGE_EXTENSIONS].join(',');
+
+function isSupportedImageFile(file) {
+  if (SUPPORTED_IMAGE_MIME_TYPES.includes((file.type || '').toLowerCase())) {
+    return true;
+  }
+  const name = (file.name || '').toLowerCase();
+  return SUPPORTED_IMAGE_EXTENSIONS.some((ext) => name.endsWith(ext));
+}
 
 // ---------------------------------------------------------------------------
 // MOCK ATTACHMENT BACKEND ("With Media Attached" Figma variant)
@@ -465,14 +481,24 @@ const CharacterCounter = styled.div`
   margin: 4px 16px;
 `;
 
-// Shown briefly when a file selection is trimmed down to MAX_ATTACHMENTS_COUNT
-// (see addFiles) - same error-red treatment CharacterCounter already uses at
-// its limit, so the two limit notices read consistently.
+// Shown when a file selection is trimmed down to MAX_ATTACHMENTS_COUNT (see
+// addFiles) - same error-red treatment as CharacterCounter at its limit.
 const AttachmentLimitMessage = styled.div`
   text-align: center;
   color: var(--ac-widget-composer-error-color, ${(props) => props.theme.palette.red});
   font-size: var(--ac-widget-composer-counter-fontsize, 12px);
-  margin: 4px 16px;
+  font-family: var(--ac-widget-font-family, inherit);
+  margin: 0 16px 4px;
+`;
+
+// Permanent guidance shown whenever the attach icon is enabled, so users
+// know which file types are accepted before they open the picker.
+const AttachmentTypeMessage = styled.div`
+  text-align: center;
+  color: var(--ac-widget-composer-counter-color, ${(props) => props.theme.palette.mediumGray});
+  font-size: var(--ac-widget-composer-counter-fontsize, 12px);
+  font-family: var(--ac-widget-font-family, inherit);
+  margin: 0 16px 4px;
 `;
 
 ChatComposer.propTypes = {
@@ -525,11 +551,13 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   // Tracks the previous staged-attachment count so the refocus effect below
   // can tell an addition from a removal.
   const prevAttachmentsLengthRef = useRef(attachments.length);
-  // Transient "you can only attach N files" notice - shown when addFiles has
-  // to drop files past MAX_ATTACHMENTS_COUNT, auto-dismissed after a few
-  // seconds (see showAttachmentLimitMessage).
+  // Persistent "you can only attach N files" notice - shown when addFiles has
+  // to drop files past MAX_ATTACHMENTS_COUNT, cleared when the user types,
+  // sends, removes a chip, or makes a clean selection (see each call site).
   const [attachmentLimitMessage, setAttachmentLimitMessage] = useState(false);
-  const attachmentLimitTimerRef = useRef(null);
+  // Persistent "total size exceeds 20 MB" notice - shown when addFiles rejects
+  // a file that would push the cumulative staged size over MAX_CUMULATIVE_SIZE_BYTES.
+  const [attachmentSizeLimitMessage, setAttachmentSizeLimitMessage] = useState(false);
   // True from the moment sendAttachments() fires the addAttachment call(s)
   // until every one of those promises has settled - i.e. the upload
   // transport step is done, not the later async APPROVED/REJECTED
@@ -542,6 +570,9 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   // the attach icon dimmed/inert - while attachment(s) selected in this
   // composer are still being sent.
   const isComposerDisabled = disabled || isSendingAttachments;
+  // Attach icon gets its own stricter disable: also locks when the staged
+  // count reaches the cap so the OS file picker can't be opened again.
+  const isAttachIconDisabled = isComposerDisabled || attachments.length >= MAX_ATTACHMENTS_COUNT;
 
   useEffect(() => {
     logger && logger.info("Component mounted.");
@@ -557,9 +588,6 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   useEffect(() => {
     return () => {
       attachmentsRef.current.forEach((entry) => entry.previewUrl && URL.revokeObjectURL(entry.previewUrl));
-      if (attachmentLimitTimerRef.current) {
-        clearTimeout(attachmentLimitTimerRef.current);
-      }
     };
   }, []);
 
@@ -595,6 +623,10 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     } else {
       if (!hasSameContent(event)) {
         throttledOnTyping();
+      }
+      if (event.target.value !== message) {
+        setAttachmentLimitMessage(false);
+        setAttachmentSizeLimitMessage(false);
       }
       setMessage(event.target.value);
     }
@@ -652,6 +684,8 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     throttledOnTyping.cancel();
     sendTextMessage(message);
     setMessage("");
+    setAttachmentLimitMessage(false);
+    setAttachmentSizeLimitMessage(false);
 
     if (attachments.length > 0) {
       sendAttachments();
@@ -707,19 +741,18 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     setAttachments((current) => current.map((entry) => (entry.id === id ? {...entry, ...changes} : entry)));
   }
 
-  // Shows the "up to N files" notice for ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS,
-  // restarting the clock on repeated attempts instead of stacking timers.
   function showAttachmentLimitMessage() {
     logger && logger.info(`Attachment limit of ${MAX_ATTACHMENTS_COUNT} reached; extra file(s) ignored.`);
     setAttachmentLimitMessage(true);
-    if (attachmentLimitTimerRef.current) {
-      clearTimeout(attachmentLimitTimerRef.current);
-    }
-    attachmentLimitTimerRef.current = setTimeout(() => setAttachmentLimitMessage(false), ATTACHMENT_LIMIT_MESSAGE_TIMEOUT_MS);
+  }
+
+  function showAttachmentSizeLimitMessage() {
+    logger && logger.info(`Cumulative attachment size limit of 20MB reached; extra file(s) ignored.`);
+    setAttachmentSizeLimitMessage(true);
   }
 
   function addFiles(fileList) {
-    const files = Array.from(fileList || []).filter(file => !file.type.startsWith("video/"));
+    const files = Array.from(fileList || []).filter(isSupportedImageFile);
     if (!files.length) {
       return;
     }
@@ -728,9 +761,35 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     // that would push past it only fills the remaining slots (possibly zero
     // if already at the cap) - the rest are ignored, not staged.
     const remainingSlots = Math.max(MAX_ATTACHMENTS_COUNT - attachments.length, 0);
-    const acceptedFiles = files.slice(0, remainingSlots);
-    if (acceptedFiles.length < files.length) {
+    const filesForSlots = files.slice(0, remainingSlots);
+    if (filesForSlots.length < files.length) {
       showAttachmentLimitMessage();
+    } else {
+      setAttachmentLimitMessage(false);
+    }
+    if (!filesForSlots.length) {
+      return;
+    }
+
+    // 20 MB cumulative size gate: 
+    // cap: Files that would push it over are dropped silently here (the error
+    // banner below explains).
+    const currentTotalSize = attachments.reduce((sum, entry) => sum + entry.file.size, 0);
+    let runningSize = currentTotalSize;
+    const acceptedFiles = [];
+    let sizeLimitExceeded = false;
+    for (const file of filesForSlots) {
+      if (runningSize + file.size <= MAX_CUMULATIVE_SIZE_BYTES) {
+        acceptedFiles.push(file);
+        runningSize += file.size;
+      } else {
+        sizeLimitExceeded = true;
+      }
+    }
+    if (sizeLimitExceeded) {
+      showAttachmentSizeLimitMessage();
+    } else {
+      setAttachmentSizeLimitMessage(false);
     }
     if (!acceptedFiles.length) {
       return;
@@ -764,6 +823,8 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   }
 
   function removeAttachment(id) {
+    setAttachmentLimitMessage(false);
+    setAttachmentSizeLimitMessage(false);
     setAttachments((current) => {
       const entry = current.find((item) => item.id === id);
       if (entry && entry.previewUrl) {
@@ -951,14 +1012,14 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
           <ComposerRightIcons>
             {composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && (
               <PaperClipContainer
-                tabIndex={isComposerDisabled ? -1 : 0}
-                disabled={isComposerDisabled}
-                aria-disabled={isComposerDisabled}
+                tabIndex={isAttachIconDisabled ? -1 : 0}
+                disabled={isAttachIconDisabled}
+                aria-disabled={isAttachIconDisabled}
                 data-testid="customer-chat-attachment-icon"
                 onKeyDown={(e) => {
                   // if space or enter is pressed
                   if (
-                    !isComposerDisabled &&
+                    !isAttachIconDisabled &&
                     (e.key === KEYBOARD_KEY_CONSTANTS.SPACE || e.key === KEYBOARD_KEY_CONSTANTS.ENTER)
                   ) {
                     e.preventDefault();
@@ -966,7 +1027,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                   }
                 }}
               >
-                <IconButton aria-label={"Attach a file"} disabled={isComposerDisabled} style={{ verticalAlign: 'middle' }}>
+                <IconButton aria-label={"Attach a file"} disabled={isAttachIconDisabled} style={{ verticalAlign: 'middle' }}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <AttachMediaIcon />
@@ -977,11 +1038,11 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                       multiple
                       id={`customer-chat-file-select-${contactId}`}
                       data-testid={`customer-chat-file-select`}
-                      accept={ATTACHMENT_ACCEPT_CONTENT_TYPES.join(",")}
+                      accept={SUPPORTED_IMAGE_ACCEPT}
                       onChange={onFileInput}
                       aria-label={"Attach a file"}
                       tabIndex={-1}
-                      disabled={isComposerDisabled}
+                      disabled={isAttachIconDisabled}
                     />
                   </label>
                 </IconButton>
@@ -1003,6 +1064,22 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
           { max: MAX_ATTACHMENTS_COUNT }
         )}
       </AttachmentLimitMessage>
+    )}
+    {attachmentSizeLimitMessage && (
+      <AttachmentLimitMessage data-testid="customer-chat-attachment-size-limit-message"> {/* snapshot marker only — no getByTestId call references this */}
+        {intl.formatMessage({
+          id: "chatComposer.attachmentSizeLimitMessage",
+          defaultMessage: "Total size of all uploaded images cannot exceed 20MB.",
+        })}
+      </AttachmentLimitMessage>
+    )}
+    {composerConfig && composerConfig.attachmentsEnabled && attachmentStepActive && (
+      <AttachmentTypeMessage data-testid="customer-chat-attachment-type-message">
+        {intl.formatMessage({
+          id: "chatComposer.attachmentTypeMessage",
+          defaultMessage: "Uploaded images should be less than 20MB in size & image file type should be JPG, JPEG, PNG or HEIC",
+        })}
+      </AttachmentTypeMessage>
     )}
     </>
   );

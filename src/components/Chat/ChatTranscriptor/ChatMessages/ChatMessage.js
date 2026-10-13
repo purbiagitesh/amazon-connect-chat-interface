@@ -90,7 +90,7 @@ const Header = styled.div`
 `;
 Header.Sender = styled.div`
   ${({ theme }) => theme.typography.supportingText};
-  max-width: 75%;
+  max-width: 85%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -424,9 +424,11 @@ export class ParticipantMessage extends PureComponent {
     const isOutgoingMsg = this.props.messageDetails.transportDetails.direction === Direction.Outgoing;
     const authenticatedParticipantDisplayName = getCurrentChatSessionInstance().authenticatedParticipantDisplayName;
     let displayName = this.props.messageDetails.displayName || (isOutgoingMsg ? "Customer" : "Agent");
+    const isAdvisor = isAdvisorSender(this.props.messageDetails);
+
     if (isOutgoingMsg && authenticatedParticipantDisplayName) {
       displayName = authenticatedParticipantDisplayName;
-    } else if (!isOutgoingMsg && !isAdvisorSender(this.props.messageDetails)) {
+    } else if (!isOutgoingMsg && !isAdvisor) {
       // SYSTEM/BOT participant (raw DisplayName "SYSTEM_MESSAGE"/"BOT") is
       // the Virtual Assistant experience, same as the avatar logic in
       // render() below - label it with the brand's name instead of the raw
@@ -475,10 +477,21 @@ export class ParticipantMessage extends PureComponent {
       <React.Fragment>
         {!hideSenderName && (
           <Header.Sender>
-            <FormattedMessage
-              id={displayName || "DISPLAY_NAME_MISSING"}
-              defaultMessage={displayName}
-            />
+            {isAdvisor ? (
+              <>
+                <FormattedMessage
+                  id={displayName || "DISPLAY_NAME_MISSING"}
+                  defaultMessage={displayName}
+                />
+                <span style={{display: 'inline-flex', alignItems: 'center', margin: '0 4px'}}>{' •'}</span>
+                Consumer Care Advisor
+              </>
+            ) : (
+              <FormattedMessage
+                id={displayName || "DISPLAY_NAME_MISSING"}
+                defaultMessage={displayName}
+              />
+            )}
           </Header.Sender>
         )}
         <Header.Status>{transportStatusElement}</Header.Status>
@@ -1067,24 +1080,13 @@ const MediaAttachmentChip = styled.a`
   box-sizing: border-box;
   flex: 0 0 auto;
   overflow: hidden;
+  position: relative;
   width: ${MEDIA_ATTACHMENT_CHIP_SIZE_PX}px;
   height: ${MEDIA_ATTACHMENT_CHIP_SIZE_PX}px;
   border-radius: var(--ac-widget-transcript-media-chip-radius, 12px);
   cursor: pointer;
-
-  /* A rejected upload shows no thumbnail at all - the chip becomes a
-     tinted-red placeholder tile (pale fill, solid red border, red image
-     glyph) so it reads as "blocked" at a glance. Every non-rejected chip
-     keeps its existing white tile / thumbnail exactly as before. */
-  background: ${(props) => (props.rejected
-    ? `var(--ac-widget-transcript-media-chip-error-background, #FDE4E4)`
-    : `var(--ac-widget-transcript-media-chip-background, ${props.theme.palette.white})`)};
-  color: ${(props) => (props.rejected
-    ? `var(--ac-widget-transcript-media-chip-error-border, ${props.theme.palette.red})`
-    : `var(--ac-widget-transcript-media-chip-icon-color, ${props.theme.palette.silver})`)};
-  border: ${(props) => (props.rejected
-    ? `2px solid var(--ac-widget-transcript-media-chip-error-border, ${props.theme.palette.red})`
-    : "1px solid transparent")};
+  background: var(--ac-widget-transcript-media-chip-background, ${(props) => props.theme.palette.white});
+  color: var(--ac-widget-transcript-media-chip-icon-color, ${(props) => props.theme.palette.silver});
 
   & > svg {
     width: 60%;
@@ -1098,17 +1100,112 @@ const MediaAttachmentChip = styled.a`
   }
 `;
 
-// Shown in place of the thumbnail on a rejected chip - a red "image" glyph
-// (rounded frame, sun, mountain) matching the design reference. The full
-// guideline text and the re-enabled paperclip for re-uploading are handled
-// by ParticipantMessage / Chat.js.
-function RejectedImageIcon() {
+// Dark overlay rendered on top of the thumbnail for a rejected/restricted chip.
+// Keeps the blurred image visible underneath so the user can see what was
+// blocked, while the icon + label make the "restricted" state unmistakable.
+const RestrictedImageOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(50, 50, 50, 0.70);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #ffffff;
+
+  span {
+    font-size: 6px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+  }
+`;
+
+// Circled-X icon shown inside the dark overlay on a restricted/rejected chip.
+function RestrictedImageIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" />
-      <circle cx="9" cy="9" r="1.85" fill="currentColor" />
-      <path d="M5 17.5l4-4.8 2.8 2.8 3.4-4.2L20 17.8v.7H5v-1Z" fill="currentColor" />
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="#ffffff" strokeWidth="2" />
+      <line x1="8" y1="8" x2="16" y2="16" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+      <line x1="16" y1="8" x2="8" y2="16" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
     </svg>
+  );
+}
+
+// Full-screen overlay for tapping an image chip to view it at full size.
+const LightboxOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LightboxImage = styled.img`
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+`;
+
+const LightboxCloseButton = styled.button`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.30);
+  }
+`;
+
+function ImageLightbox({ url, name, onClose }) {
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  return (
+    <LightboxOverlay
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Full view: ${name}`}
+      onClick={onClose}
+    >
+      <LightboxCloseButton
+        aria-label="Close image preview"
+        onClick={onClose}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <line x1="4" y1="4" x2="20" y2="20" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="20" y1="4" x2="4" y2="20" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+      </LightboxCloseButton>
+      <LightboxImage
+        src={url}
+        alt={name}
+        onClick={(e) => e.stopPropagation()}
+      />
+    </LightboxOverlay>
   );
 }
 
@@ -1170,50 +1267,82 @@ function MediaAttachmentPreview({ item, content, contentType, downloadAttachment
 // wrapping grid of chips (see ChatTranscriptor's buildRenderGroups) instead
 // of one filename-link bubble per attachment.
 class MediaAttachmentGrid extends PureComponent {
-  downloadItem = (item) => (e) => {
+  state = { lightboxUrl: null, lightboxName: null };
+   //Rule - 12 showing enlarge image when tapping to it -- delay is there loader can be added??
+  // Holds blob object URLs created for the lightbox so they can be revoked
+  // when the lightbox closes or the component unmounts.
+  _lightboxObjectUrl = null;
+
+  componentWillUnmount() {
+    if (this._lightboxObjectUrl) {
+      URL.revokeObjectURL(this._lightboxObjectUrl);
+    }
+  }
+
+  closeLightbox = () => {
+    if (this._lightboxObjectUrl) {
+      URL.revokeObjectURL(this._lightboxObjectUrl);
+      this._lightboxObjectUrl = null;
+    }
+    this.setState({ lightboxUrl: null, lightboxName: null });
+  };
+
+  openPreview = (item) => (e) => {
     e.preventDefault();
     const { content } = modelUtils.getAttachmentContentAndType(item);
     if (!content.AttachmentId) {
       return;
     }
     this.props.downloadAttachment(content.AttachmentId).then((blob) => {
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", content.AttachmentName);
-      link.click();
+      if (this._lightboxObjectUrl) {
+        URL.revokeObjectURL(this._lightboxObjectUrl);
+      }
+      this._lightboxObjectUrl = URL.createObjectURL(blob);
+      this.setState({ lightboxUrl: this._lightboxObjectUrl, lightboxName: content.AttachmentName });
     });
   };
 
   render() {
+    const { lightboxUrl, lightboxName } = this.state;
     return (
-      <MediaAttachmentGridContainer data-testid="media-attachment-grid">
-        {this.props.items.map((item) => {
-          const { content, contentType } = modelUtils.getAttachmentContentAndType(item);
-          const isRejected = content.Status === AttachmentStatus.REJECTED;
-          const download = this.downloadItem(item);
-          return (
-            <MediaAttachmentChip
-              key={item.id}
-              href={content.AttachmentName}
-              rejected={isRejected}
-              aria-label={content.AttachmentName}
-              onClick={download}
-              onKeyPress={download}
-            >
-              {isRejected ? (
-                <RejectedImageIcon />
-              ) : (
+      <>
+        <MediaAttachmentGridContainer data-testid="media-attachment-grid">
+          {this.props.items.map((item) => {
+            const { content, contentType } = modelUtils.getAttachmentContentAndType(item);
+            const isRejected = content.Status === AttachmentStatus.REJECTED;
+            const handleClick = isRejected ? undefined : this.openPreview(item);
+            return (
+              <MediaAttachmentChip
+                key={item.id}
+                href={content.AttachmentName}
+                aria-label={isRejected ? `Image restricted: ${content.AttachmentName}` : content.AttachmentName}
+                onClick={handleClick}
+                onKeyPress={handleClick}
+              >
                 <MediaAttachmentPreview
                   item={item}
                   content={content}
                   contentType={contentType}
                   downloadAttachment={this.props.downloadAttachment}
                 />
-              )}
-            </MediaAttachmentChip>
-          );
-        })}
-      </MediaAttachmentGridContainer>
+                {isRejected && (
+                  <RestrictedImageOverlay aria-hidden="true">
+                    <RestrictedImageIcon />
+                    <span>Image<br />Restricted</span>
+                  </RestrictedImageOverlay>
+                )}
+              </MediaAttachmentChip>
+            );
+          })}
+        </MediaAttachmentGridContainer>
+        {lightboxUrl && (
+          <ImageLightbox
+            url={lightboxUrl}
+            name={lightboxName}
+            onClose={this.closeLightbox}
+          />
+        )}
+      </>
     );
   }
 }

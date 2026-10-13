@@ -100,6 +100,34 @@
     + '#amazon-connect-launcher-btn .btn-text { display: inline-block; }'
     + '#amazon-connect-launcher-btn.chat-active .btn-text { display: none !important; }'
     + '#amazon-connect-launcher-btn.widget-open { display: none !important; }'
+    + '#amazon-connect-launcher-btn .notification-badge {'
+    + '  box-sizing: border-box !important;'
+    + '  display: none !important;'
+    + '  position: absolute !important;'
+    + '  top: -8px !important;'
+    + '  left: -8px !important;'
+    + '  right: auto !important;'
+    + '  min-width: 24px !important;'
+    + '  height: 24px !important;'
+    + '  padding: 0 6px !important;'
+    + '  border-radius: 12px !important;'
+    + '  background: var(--launcher-badge-color, #ff1420) !important;'
+    + '  color: #ffffff !important;'
+    + '  font-size: 13px !important;'
+    + '  font-weight: 700 !important;'
+    + '  font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif !important;'
+    + '  text-align: center !important;'
+    + '  border: none !important;'
+    + '  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;'
+    + '  pointer-events: none !important;'
+    + '}'
+    + '#amazon-connect-launcher-btn .notification-badge.visible {'
+    + '  display: flex !important;'
+    + '  align-items: center !important;'
+    + '  justify-content: center !important;'
+    + '}'
+    + '#amazon-connect-launcher-btn .notification-badge.blink { animation: ac-notification-blink 0.35s ease-in-out 2 !important; }'
+    + '@keyframes ac-notification-blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }'
     + '@media (max-width: 1024px) {'
     + '  #amazon-connect-launcher-btn.chat-active {'
     + '    top: 50% !important;'
@@ -151,7 +179,7 @@
     var btn = document.createElement('button');
     btn.id = 'amazon-connect-launcher-btn';
     btn.setAttribute('aria-label', 'Open chat');
-    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span><span class="btn-text">Chat now</span>';
+    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span><span class="btn-text">Chat now</span><span class="notification-badge" aria-hidden="true"></span>';
     document.body.appendChild(btn);
 
     var panel = document.createElement('div');
@@ -416,6 +444,91 @@
     var resolvedBrand = brandInfo.brand;
     var resolvedEnv = brandInfo.environment;
 
+    // ─── New-message notifications while minimized ───
+    // "Minimized" here means the user hit the cross button but the chat is
+    // still active (hasActiveChat) - the panel is closed, not the session.
+    // Each incoming message then bumps an unread badge on the launcher,
+    // blinks it twice and plays a chime. The badge stays until the panel is
+    // opened and the messages are seen.
+    var notificationBadge = btn.querySelector('.notification-badge');
+    var unreadCount = 0;
+    var notificationAudioCtx = null;
+ 
+    function ensureAudioContext() {
+      try {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return null;
+        if (!notificationAudioCtx) notificationAudioCtx = new AudioCtx();
+        // Browsers start the context suspended until a user gesture; the
+        // launcher click that starts/opens the chat unlocks it (see below).
+        if (notificationAudioCtx.state === 'suspended') notificationAudioCtx.resume();
+      } catch (e) {
+        notificationAudioCtx = null;
+      }
+      return notificationAudioCtx;
+    }
+ 
+    function playNotificationChime() {
+      var ctx = ensureAudioContext();
+      if (!ctx) return;
+      try {
+        var now = ctx.currentTime;
+        // Two short rising sine tones - a gentle chime with no asset file.
+        [[880, 0], [1174.66, 0.14]].forEach(function (tone) {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = tone[0];
+          var start = now + tone[1];
+          gain.gain.setValueAtTime(0.0001, start);
+          gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.28);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(start);
+          osc.stop(start + 0.3);
+        });
+      } catch (e) {
+        // Audio is best-effort - never let it break message handling.
+      }
+    }
+ 
+    function renderUnreadBadge() {
+      if (!notificationBadge) return;
+      if (unreadCount > 0) {
+        notificationBadge.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+        notificationBadge.classList.add('visible');
+        btn.setAttribute('aria-label', 'Open chat, ' + unreadCount + ' unread message' + (unreadCount === 1 ? '' : 's'));
+      } else {
+        notificationBadge.classList.remove('visible');
+        notificationBadge.textContent = '';
+        btn.setAttribute('aria-label', 'Open chat');
+      }
+    }
+ 
+    function blinkUnreadBadge() {
+      if (!notificationBadge) return;
+      notificationBadge.classList.remove('blink');
+      // Force reflow so the animation restarts on every subsequent message.
+      void notificationBadge.offsetWidth;
+      notificationBadge.classList.add('blink');
+    }
+ 
+    function clearUnread() {
+      if (unreadCount === 0) return;
+      unreadCount = 0;
+      renderUnreadBadge();
+    }
+ 
+    function notifyNewMessageWhileMinimized() {
+      // An open panel means the user is already looking at the conversation.
+      if (panel.classList.contains('open')) return;
+      unreadCount += 1;
+      renderUnreadBadge();
+      blinkUnreadBadge();
+      playNotificationChime();
+    }
+
     // Keep the flag and the launcher's text visibility in sync: an active
     // chat hides the "Chat now" label, leaving just the icon.
     function setHasActiveChat(active) {
@@ -448,6 +561,8 @@
     function openPanel() {
       panel.classList.add('open');
       btn.classList.add('widget-open');
+      // The user is now viewing the conversation - drop any unread badge.
+      clearUnread();
       broadcastWidgetOpenState(true);
     }
 
@@ -515,6 +630,15 @@
     // Connect/the agent ends it server-side) must stop this widget from
     // trying to resume it on the next page/tab.
     function wireChatEndCleanup(chatSession) {
+
+      // Every incoming message (bot/agent/system) notifies the launcher
+      // while minimized - notifyNewMessageWhileMinimized() itself no-ops
+      // when the panel is already open, so it's safe to wire here for both
+      // newly-started and resumed sessions.
+      chatSession.onIncoming(function () {
+        notifyNewMessageWhileMinimized();
+      });
+
       chatSession.onChatClose(function () {
         setHasActiveChat(false);
         clearPersistedChat(resolvedBrand);
@@ -602,6 +726,9 @@
     }
 
     btn.addEventListener('click', function () {
+      // This click is a user gesture - use it to unlock the audio context
+      // so later chimes (which fire without a gesture) are allowed to play.
+      ensureAudioContext();
       if (panel.classList.contains('open')) {
         closePanel();
         return;
