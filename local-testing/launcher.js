@@ -83,7 +83,7 @@
     + '  display: flex !important;'
     + '  align-items: center !important;'
     + '  justify-content: center !important;'
-    + '  background: rgba(255, 255, 255, 0.2) !important;'
+    + '  background: transparent !important;'
     + '  border-radius: 50% !important;'
     + '  width: 28px !important;'
     + '  height: 28px !important;'
@@ -91,12 +91,12 @@
     + '  margin: 0 !important;'
     + '  padding: 0 !important;'
     + '}'
-    + '#amazon-connect-launcher-btn .btn-icon svg { width: 15px !important; height: 15px !important; }'
+    + '#amazon-connect-launcher-btn .btn-icon svg { width: 24px !important; height: 24px !important; }'
     + '#amazon-connect-launcher-btn .btn-icon svg .chat-icon-bg { fill: #ffffff; }'
     + '#amazon-connect-launcher-btn .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-default, #8B005D); }'
     + '#amazon-connect-launcher-btn:hover .btn-icon svg .chat-icon-fg,'
     + '#amazon-connect-launcher-btn:active .btn-icon svg .chat-icon-fg { fill: var(--launcher-color-active, #a3006e); }'
-    + '#amazon-connect-launcher-btn .btn-icon img { width: 15px !important; height: 15px !important; object-fit: contain; }'
+    + '#amazon-connect-launcher-btn .btn-icon img { width: 24px !important; height: 24px !important; object-fit: contain; }'
     + '#amazon-connect-launcher-btn .btn-text { display: inline-block; }'
     + '#amazon-connect-launcher-btn.chat-active .btn-text { display: none !important; }'
     + '#amazon-connect-launcher-btn.widget-open { display: none !important; }'
@@ -437,7 +437,7 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
-        forceAttachmentStepActive: true,
+        forceAttachmentStepActive: false,
     });
 
     var hasActiveChat = false;
@@ -453,7 +453,14 @@
     var notificationBadge = btn.querySelector('.notification-badge');
     var unreadCount = 0;
     var notificationAudioCtx = null;
- 
+
+    // Served alongside launcher.js itself (not from src/assets/ - that tree
+    // only feeds the webpack-bundled React app; this plain script has no
+    // bundler and resolves everything relative to its own <script src>, same
+    // as amazon-connect-chat-interface.js/brand-assets elsewhere in this file).
+    var NOTIFICATION_SOUND_URL = absoluteUrl('./notification-chime.mp3');
+    var notificationSoundBufferPromise = null;
+
     function ensureAudioContext() {
       try {
         var AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -467,32 +474,108 @@
       }
       return notificationAudioCtx;
     }
- 
-    function playNotificationChime() {
-      var ctx = ensureAudioContext();
-      if (!ctx) return;
+
+    // Fetching + decoding an MP3 takes real time (network + CPU) - doing
+    // that on-demand inside playNotificationChime() would mean the very
+    // first chime of the session lags noticeably behind the message that
+    // triggered it. Decoding doesn't need an unlocked/running context (only
+    // actually starting playback does), so this is kicked off once, eagerly,
+    // as soon as a context exists (see the call right after setupWidget's
+    // click listener below) - by the time a real notification needs to play,
+    // the buffer is almost always already sitting decoded in memory, so
+    // playback below is effectively instant. Cached as a promise so every
+    // caller (there's only ever one chime sound) shares the same in-flight
+    // fetch instead of re-requesting it.
+    function loadNotificationSoundBuffer(ctx) {
+      if (!ctx) return Promise.resolve(null);
+      if (!notificationSoundBufferPromise) {
+        notificationSoundBufferPromise = fetch(NOTIFICATION_SOUND_URL)
+          .then(function (res) {
+            if (!res.ok) throw new Error('notification sound fetch failed with status ' + res.status);
+            return res.arrayBuffer();
+          })
+          .then(function (arrayBuffer) {
+            return ctx.decodeAudioData(arrayBuffer);
+          })
+          .catch(function (err) {
+            console.warn('[chat-widget] failed to load notification sound', err);
+            notificationSoundBufferPromise = null; // allow a retry on the next chime attempt
+            return null;
+          });
+      }
+      return notificationSoundBufferPromise;
+    }
+
+    // Cross-tab dedupe: every open tab holds its OWN independent websocket
+    // connection to the same Connect contact, so one agent message makes
+    // EVERY tab's notifyNewMessageWhileMinimized() fire at roughly the same
+    // instant - without this, all of them would play the chime at once.
+    //
+    // A plain "read lastPlayedAt, then write it" check isn't quite enough:
+    // if two tabs' messages land in the same tick, both can read the OLD
+    // (stale) value before either one's write becomes visible to the
+    // other, so both still decide to play. Fixed with a claim-and-recheck
+    // step instead: each tab writes its OWN uniquely-identifiable claim,
+    // waits a short grace period (CHIME_CLAIM_GRACE_MS), then only plays if
+    // ITS claim is still the one on record. localStorage.setItem is
+    // last-write-wins, so whichever tab wrote last is the only one that
+    // still finds its own id after the grace period - every earlier racer
+    // sees a mismatch and backs off. This resolves deterministically
+    // regardless of how close the race is, as long as every racing tab's
+    // write happens within the grace window of each other, which 75ms
+    // comfortably covers for tabs on the same machine/network.
+    var CHIME_DEDUPE_STORAGE_KEY = 'ac_last_chime_at';
+    var CHIME_CLAIM_STORAGE_KEY = 'ac_chime_claim';
+    var CHIME_DEDUPE_WINDOW_MS = 1500;
+    var CHIME_CLAIM_GRACE_MS = 75;
+
+    function playChimeBuffer(ctx, buffer) {
+      if (!buffer) return;
       try {
-        var now = ctx.currentTime;
-        // Two short rising sine tones - a gentle chime with no asset file.
-        [[880, 0], [1174.66, 0.14]].forEach(function (tone) {
-          var osc = ctx.createOscillator();
-          var gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = tone[0];
-          var start = now + tone[1];
-          gain.gain.setValueAtTime(0.0001, start);
-          gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.28);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(start);
-          osc.stop(start + 0.3);
-        });
+        var source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(ctx.destination);
+        source.start(0);
       } catch (e) {
         // Audio is best-effort - never let it break message handling.
       }
     }
- 
+
+    function playNotificationChime() {
+      var ctx = ensureAudioContext();
+      if (!ctx) return;
+      var now = Date.now();
+      var myClaimId = now + '-' + Math.random().toString(36).slice(2);
+      try {
+        var lastPlayedAt = Number(localStorage.getItem(CHIME_DEDUPE_STORAGE_KEY)) || 0;
+        if (now - lastPlayedAt < CHIME_DEDUPE_WINDOW_MS) {
+          return; // a chime for this same burst of messages already played (or is about to)
+        }
+        localStorage.setItem(CHIME_CLAIM_STORAGE_KEY, myClaimId);
+      } catch (e) {
+        // localStorage unavailable - no way to coordinate across tabs;
+        // just play rather than silencing the sound entirely.
+        loadNotificationSoundBuffer(ctx).then(function (buffer) { playChimeBuffer(ctx, buffer); });
+        return;
+      }
+      setTimeout(function () {
+        var wonClaim;
+        try {
+          wonClaim = localStorage.getItem(CHIME_CLAIM_STORAGE_KEY) === myClaimId;
+          if (wonClaim) localStorage.setItem(CHIME_DEDUPE_STORAGE_KEY, String(Date.now()));
+        } catch (e) {
+          wonClaim = true;
+        }
+        if (!wonClaim) return;
+        loadNotificationSoundBuffer(ctx).then(function (buffer) { playChimeBuffer(ctx, buffer); });
+      }, CHIME_CLAIM_GRACE_MS);
+    }
+
+    // Kick the fetch+decode off now, well before the first real
+    // notification is likely to fire, rather than waiting for
+    // playNotificationChime()'s first call to discover it isn't ready yet.
+    loadNotificationSoundBuffer(ensureAudioContext());
+
     function renderUnreadBadge() {
       if (!notificationBadge) return;
       if (unreadCount > 0) {
@@ -757,18 +840,41 @@
     }
 
     // Auto-resume: if a chat was already active before this page/tab
-    // loaded, open the panel and reconnect immediately, so the customer
-    // picks their conversation back up without clicking anything and
-    // without waiting. Does nothing at all if there's no resumable session
-    // - pages/brands that never had an active chat behave exactly as
-    // before this feature existed. Safe to run synchronously here (not
-    // via setTimeout) - by the time setupWidget() runs, bootstrap() has
-    // already awaited scriptLoaded (Promise.all above), so
+    // loaded, reconnect immediately, so the customer picks their
+    // conversation back up without clicking anything and without waiting.
+    // Does nothing at all if there's no resumable session - pages/brands
+    // that never had an active chat behave exactly as before this feature
+    // existed. Safe to run synchronously here (not via setTimeout) - by the
+    // time setupWidget() runs, bootstrap() has already awaited
+    // scriptLoaded (Promise.all above), so
     // window.connect.ChatInterface.resumeChat is guaranteed to exist.
+    //
+    // Whether the PANEL also reopens depends on how it was left before this
+    // reload (see WIDGET_OPEN_STATE_STORAGE_KEY/broadcastWidgetOpenState) -
+    // a minimized chat (panel closed, chat still active) must stay
+    // minimized across a reload, not pop back open on its own. The chat
+    // session itself still resumes in the background either way, so
+    // notification badges/chimes for new messages keep working while
+    // minimized, exactly like they do without a reload.
     if (!hasActiveChat) { // already resumed/started via a click before this ran
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
-        openPanel();
+        // Set this synchronously, before the actual reconnect below even
+        // starts - resumeChat()'s own onSuccess also sets this, but that
+        // only fires once the reconnect's network round-trip resolves.
+        // Waiting for that would render the launcher in its default
+        // full-text "Chat now" state for a moment first (since revealLauncher
+        // below shows the button as soon as its icon is ready, independent
+        // of this), then flash to the icon-only chat-active look once
+        // resumed - exactly the stale flash this is avoiding. We already
+        // know a persisted session exists here, so there's no reason to
+        // wait for the round-trip just to decide how the button should look.
+        setHasActiveChat(true);
+        var persistedOpenState = null;
+        try { persistedOpenState = localStorage.getItem(WIDGET_OPEN_STATE_STORAGE_KEY); } catch (e) {}
+        if (persistedOpenState !== 'closed') {
+          openPanel();
+        }
         resumeChat(resumable);
       }
     }

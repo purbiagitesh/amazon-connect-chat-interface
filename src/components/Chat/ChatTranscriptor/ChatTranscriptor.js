@@ -89,14 +89,13 @@ export default class ChatTranscriptor extends PureComponent {
   loadTranscript = () => {
     // Loading more history from the Participant Service only makes sense
     // while the contact is still actually connected - once it's ended
-    // (DISCONNECTED, via endChat()/_endChatKeepingPanelOpen in
-    // ChatSession.js) the underlying ChatJS session has nothing valid left
-    // to reach, and calling getTranscript() against it can hang rather than
-    // reject. That's what was freezing ChatTranscriptScroller.js when a
-    // customer scrolled up after the inactivity flow ended their chat but
-    // (deliberately) left the panel open: `loading` never got reset to
-    // false because loadPreviousTranscript()'s promise never settled.
-    // Resolving immediately here instead of calling through keeps that
+    // (DISCONNECTED, via endChat() in ChatSession.js) the underlying ChatJS
+    // session has nothing valid left to reach, and calling getTranscript()
+    // against it can hang rather than reject. That was freezing
+    // ChatTranscriptScroller.js when a customer scrolled up after their
+    // chat ended: `loading` never got reset to false because
+    // loadPreviousTranscript()'s promise never settled. Resolving
+    // immediately here instead of calling through keeps that
     // promise chain intact/well-behaved with nothing to actually load.
     if (this.props.contactStatus !== CONTACT_STATUS.CONNECTED) {
       return Promise.resolve();
@@ -130,17 +129,6 @@ export default class ChatTranscriptor extends PureComponent {
     // message renders an AvatarSpacer instead of the brand avatar).
     if (itemDetails.displayName === "SYSTEM_MESSAGE") {
       return `system-notice-${itemDetails.id}`;
-    }
-   
-    // Same per-message treatment for ChatSession's inactivity notices
-    // ("Sorry, I didn't get your response.", the re-prompted message, and
-    // "Thank you for connecting with us today.") - each one should draw its
-    // own avatar bubble as a visual cue that the assistant is speaking again
-    // after a pause, rather than silently folding into whatever group came
-    // right before it (see modelUtils.cloneIncomingItemForReprompt /
-    // createLocalIncomingNotice, which set this flag).
-    if (itemDetails.isLocalNotice) {
-      return `local-notice-${itemDetails.id}`;
     }
     return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
   };
@@ -418,12 +406,10 @@ export default class ChatTranscriptor extends PureComponent {
         {(this.props.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.props.contactStatus === CONTACT_STATUS.ACW ||
           this.props.contactStatus === CONTACT_STATUS.ENDED ||
-          // DISCONNECTED is the status endChat()/_endChatKeepingPanelOpen()
-          // (ChatSession.js) transition to once the contact is actually
-          // ended - the transcript/history must stay visible here too, or
-          // the panel goes blank the moment a chat ends (previously masked
-          // by the panel closing at the same time; no longer true now that
-          // the inactivity auto-disconnect flow keeps it open).
+          // DISCONNECTED is the status endChat() (ChatSession.js) transitions
+          // to once the contact is actually ended - the transcript/history
+          // must stay visible here too, or the panel goes blank the moment a
+          // chat ends.
           this.props.contactStatus === CONTACT_STATUS.DISCONNECTED) && (
             <TranscriptBody>
               {renderGroups.map((itemsInGroup, idx) => this.renderMessage(

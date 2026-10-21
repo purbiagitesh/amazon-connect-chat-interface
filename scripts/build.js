@@ -103,10 +103,15 @@ function copyDeployableAssets() {
     console.log('Copied brand-assets/ into ' + path.relative(process.cwd(), brandAssetsDest));
   }
 
-  const launcherSrc = path.join(__dirname, '..', 'launcher', 'launcher.js');
-  const launcherDest = path.join(paths.appBuild, 'launcher.js');
-  fs.copySync(launcherSrc, launcherDest);
-  console.log('Copied launcher.js into ' + path.relative(process.cwd(), launcherDest));
+  // Copies the WHOLE launcher/ folder (not just launcher.js by name) so any
+  // asset launcher.js resolves relative to its own location - e.g.
+  // notification-chime.mp3 - ships automatically too, without this script
+  // needing to know each filename individually.
+  const launcherSrcDir = path.join(__dirname, '..', 'launcher');
+  if (fs.existsSync(launcherSrcDir)) {
+    fs.copySync(launcherSrcDir, paths.appBuild);
+    console.log('Copied launcher/ contents into ' + path.relative(process.cwd(), paths.appBuild));
+  }
 
   const bundleSrcDir = path.join(paths.appBuild, 'static', 'js');
   ['amazon-connect-chat-interface.js', 'amazon-connect-chat-interface.js.map'].forEach(fileName => {

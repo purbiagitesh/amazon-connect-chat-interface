@@ -40,6 +40,13 @@ jest.useFakeTimers();
 jest.spyOn(global, "setTimeout");
 describe("when window.connect is not defined", () => {
   beforeEach(() => {
+    // Every test here mounts with the same hardcoded contactId ("12344")
+    // below - without this, a disclaimer-dismissed flag persisted to the
+    // real jsdom localStorage by an earlier test (see
+    // DISCLAIMER_DISMISSED_STORAGE_KEY in ChatComposer.js) would leak into
+    // every later test in this file, since jsdom's localStorage isn't
+    // reset between tests on its own.
+    window.localStorage.clear();
     const onTyping = jest.fn().mockResolvedValue(undefined);
     const addMessage = jest.fn().mockResolvedValue(undefined);
     const addAttachment = jest.fn().mockResolvedValue(undefined);
@@ -321,6 +328,8 @@ describe("when window.connect is not defined", () => {
 
 describe("when window.connect is defined", () => {
   beforeEach(() => {
+    // See the identical beforeEach note above - same cross-test leakage risk.
+    window.localStorage.clear();
     window.connect = {
       LogManager: {
         getLogger: function (obj) {

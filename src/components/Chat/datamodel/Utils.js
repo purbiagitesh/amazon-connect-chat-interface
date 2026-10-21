@@ -99,57 +99,6 @@ function createFailedItem(item, sentTime) {
   return clonedItem;
 }
 
-// Client-side-only re-display of the last incoming message, used by
-// ChatSession's inactivity handling (see INACTIVITY_REPROMPT_DELAY_MS) to
-// nudge a customer who's gone quiet. This never calls any Connect/ChatJS
-// API - the widget only has a CUSTOMER participant connection, so it has no
-// way to make the bot/agent genuinely speak again. Instead this makes a
-// fresh local copy of their last message (new id, new sentTime) and feeds
-// it back through the normal transcript pipeline, so it appears as a new
-// bubble in THIS customer's view only - nothing is sent anywhere, and
-// nothing changes on the transcript any agent/the bot sees.
-// A new id (rather than reusing the original) matters here: _addItemsToTranscript
-// keys new items by id, so reusing the same id would just re-sort the
-// existing bubble in place instead of adding a visibly new one. The
-// transportDetails object is spread into a NEW object (not mutated) so the
-// original message in the transcript is left untouched.
-function cloneIncomingItemForReprompt(item) {
-  const clonedItem = new ItemDetails(item);
-  clonedItem.id = _generateLocalId();
-  clonedItem.transportDetails = {
-    ...item.transportDetails,
-    status: Status.SendSuccess,
-    sentTime: _timestampNow(),
-  };
-  // Flagged so ChatTranscriptor's avatar-grouping always gives this its own
-  // avatar bubble instead of folding it into the previous message's group -
-  // see isLocalNotice handling in ChatTranscriptor.avatarGroupKey.
-  clonedItem.isLocalNotice = true;
-  return clonedItem;
-}
-
-// Same "local-only, never sent anywhere" rules as cloneIncomingItemForReprompt
-// above, but for a brand new piece of text (the inactivity flow's "Sorry, I
-// didn't get your response."/"Thank you for connecting with us today."
-// notices) rather than a copy of an existing message. Reuses referenceItem's
-// participantId/participantRole/displayName so the notice still visually
-// reads as coming from whoever was last speaking (the bot/agent), just with
-// fresh content, id, and timestamp.
-function createLocalIncomingNotice(referenceItem, text) {
-  const clonedItem = new ItemDetails(referenceItem);
-  clonedItem.id = _generateLocalId();
-  clonedItem.type = PARTICIPANT_MESSAGE;
-  clonedItem.content = {data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN};
-  clonedItem.transportDetails = {
-    ...referenceItem.transportDetails,
-    status: Status.SendSuccess,
-    sentTime: _timestampNow(),
-  };
-  // See cloneIncomingItemForReprompt above - same reasoning applies here.
-  clonedItem.isLocalNotice = true;
-  return clonedItem;
-}
-
 function _generateLocalId() {
   var dt = new Date().getTime();
   var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
@@ -388,8 +337,6 @@ var modelUtils = {
   createItemFromIncoming: createItemFromIncoming,
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
   createFailedItem: createFailedItem,
-  cloneIncomingItemForReprompt: cloneIncomingItemForReprompt,
-  createLocalIncomingNotice: createLocalIncomingNotice,
   createTypingParticipant: createTypingParticipant,
   isRecognizedEvent: isRecognizedEvent,
   createTranscriptItemFromSuccessResponse: createTranscriptItemFromSuccessResponse,

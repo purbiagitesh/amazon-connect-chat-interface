@@ -26,6 +26,37 @@ const MAX_ATTACHMENTS_COUNT = 5;
 // Files that would push  are ignored (see addFiles).
 const MAX_CUMULATIVE_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB
 
+// ─── Recording/privacy disclaimer: staying collapsed across a reload ───
+// Once the customer collapses the disclaimer (manually, or by sending their
+// first message) for a given contact, a page reload that resumes that SAME
+// contact must come back collapsed too, not reappear expanded by default -
+// only an explicit "Show more" click should ever re-expand it again. A
+// genuinely NEW chat (different contactId) still gets the normal expanded
+// default per the Figma spec, so this only needs to remember the single
+// most-recently-dismissed contactId - this widget only ever has one active
+// contact at a time, so there's nothing to key per-contact in storage, and
+// it self-overwrites cleanly for the next chat rather than accumulating
+// stale entries the way a per-contactId key would.
+const DISCLAIMER_DISMISSED_STORAGE_KEY = "ac_disclaimer_dismissed_contact_id";
+
+function persistDisclaimerDismissed(contactId) {
+  try {
+    window.localStorage.setItem(DISCLAIMER_DISMISSED_STORAGE_KEY, contactId);
+  } catch (e) {
+    // localStorage unavailable (private browsing, quota, disabled) - the
+    // disclaimer just won't remember being dismissed across a reload; never
+    // let this affect the current session's behavior.
+  }
+}
+
+function wasDisclaimerDismissedFor(contactId) {
+  try {
+    return window.localStorage.getItem(DISCLAIMER_DISMISSED_STORAGE_KEY) === contactId;
+  } catch (e) {
+    return false;
+  }
+}
+
 // Only these image types are accepted for upload. HEIC has no universally
 // reliable MIME type in browsers, so we also check the file extension as a
 // fallback (see isSupportedImageFile below).
@@ -579,9 +610,12 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
   }, [logger]);
 
   // A new contactId means a new chat session - the disclaimer reappears in
-  // its default expanded state per the Figma spec.
+  // its default expanded state per the Figma spec. Resuming the SAME
+  // contactId (e.g. after a page reload) instead respects whatever was
+  // last persisted for it - collapsed stays collapsed - see
+  // DISCLAIMER_DISMISSED_STORAGE_KEY above.
   useEffect(() => {
-    setIsDisclaimerExpanded(true);
+    setIsDisclaimerExpanded(!wasDisclaimerDismissedFor(contactId));
     setHasSentFirstMessage(false);
   }, [contactId]);
 
@@ -695,11 +729,23 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     if (!hasSentFirstMessage) {
       setHasSentFirstMessage(true);
       setIsDisclaimerExpanded(false);
+      persistDisclaimerDismissed(contactId);
     }
   }
 
+  // Collapsing (manually, via "Show less") is persisted the same way the
+  // auto-collapse-on-first-message above is, so a later reload still comes
+  // back collapsed. Re-expanding during the current session does NOT clear
+  // that persisted flag - it's a live, in-session convenience, not an
+  // instruction to start reappearing expanded on every future reload too.
   function toggleDisclaimerExpanded() {
-    setIsDisclaimerExpanded((expanded) => !expanded);
+    setIsDisclaimerExpanded((expanded) => {
+      const next = !expanded;
+      if (!next) {
+        persistDisclaimerDismissed(contactId);
+      }
+      return next;
+    });
   }
 
   const throttleOptions = useMemo(
