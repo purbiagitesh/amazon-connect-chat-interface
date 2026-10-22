@@ -493,12 +493,8 @@ function RemoveBadgeIcon() {
 // previous plain paperclip per the exported Figma "With Media Attached" icon.
 function AttachMediaIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
-      <rect x="2" y="4" width="16" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="7" cy="9" r="1.3" fill="currentColor" />
-      <path d="M3.5 15.5 8 11l2.5 2.5L15 9l3.5 5v1a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1v-.5Z" fill="currentColor" />
-      <circle cx="18.5" cy="17.5" r="4.5" fill="var(--ac-widget-composer-attach-badge-bg, #232F3E)" />
-      <path d="M18.5 15.7v3.6M16.7 17.5h3.6" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M18 20H4V6H13V4H4C2.9 4 2 4.9 2 6V20C2 21.1 2.9 22 4 22H18C19.1 22 20 21.1 20 20V11H18V20ZM10.21 16.83L8.25 14.47L5.5 18H16.5L12.96 13.29L10.21 16.83ZM20 4V1H18V4H15C15.01 4.01 15 6 15 6H18V8.99C18.01 9 20 8.99 20 8.99V6H23V4H20Z" fill="#1A1A1A" />
     </svg>
   );
 }

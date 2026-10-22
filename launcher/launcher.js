@@ -264,7 +264,8 @@
       region_code:utagData.region_code || 'NA',
       language_code: utagData.locale || 'en-US',
       country_code: utagData.country_code || 'us',
-      channel: 'Chat'
+      channel: 'Chat',
+      isShopify: brandInfo.config.isShopify
     };
     return attributes;
   }

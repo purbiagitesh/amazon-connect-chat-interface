@@ -61,6 +61,7 @@ const CollapsedRow = styled.div`
 
 const Text = styled.p`
   margin: 0;
+  font-family: inherit !important;
   ${(props) => props.theme.typography.disclaimer};
   color: var(--ac-widget-disclaimer-text-color, ${(props) => props.theme.palette.darkerGray});
 
@@ -139,11 +140,8 @@ const Chevron = styled.svg`
 // neither failure mode applies.
 function ShieldIcon(props) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
-      <path
-        d="M10 0.833344L2.5 4.16668V9.16668C2.5 13.7917 5.7 18.1167 10 19.1667C14.3 18.1167 17.5 13.7917 17.5 9.16668V4.16668L10 0.833344ZM15.8333 9.16668C15.8333 10.7083 15.4083 12.2083 14.6833 13.5083L13.475 12.3C14.55 10.6833 14.3667 8.48334 12.9417 7.05834C11.3167 5.43334 8.675 5.43334 7.05 7.05834C5.425 8.68334 5.425 11.325 7.05 12.95C8.475 14.375 10.675 14.55 12.2917 13.4833L13.725 14.9167C12.7333 16.1 11.45 17.0083 10 17.45C6.65 16.4083 4.16667 12.9333 4.16667 9.16668V5.25001L10 2.65834L15.8333 5.25001V9.16668ZM10 12.5C8.61667 12.5 7.5 11.3833 7.5 10C7.5 8.61668 8.61667 7.50001 10 7.50001C11.3833 7.50001 12.5 8.61668 12.5 10C12.5 11.3833 11.3833 12.5 10 12.5Z"
-        fill="#595959"
-      />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 12.85 18.49 14.65 17.62 16.21L16.17 14.76C17.46 12.82 17.24 10.18 15.53 8.47C13.58 6.52 10.41 6.52 8.46 8.47C6.51 10.42 6.51 13.59 8.46 15.54C10.17 17.25 12.81 17.46 14.75 16.18L16.47 17.9C15.28 19.32 13.74 20.41 12 20.94C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM12 15C10.34 15 9 13.66 9 12C9 10.34 10.34 9 12 9C13.66 9 15 10.34 15 12C15 13.66 13.66 15 12 15Z" fill="#595959" />
     </svg>
   );
 }
@@ -153,17 +151,17 @@ function ShieldIcon(props) {
 // reason as ShieldIcon above - no loader dependency, no runtime request.
 function ExpandMoreIcon(props) {
   return (
-    <Chevron viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
-      <path d="M6 0L0 6L1.41 7.41L6 2.83L10.59 7.41L12 6L6 0Z" />
-    </Chevron>
+    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.5875 3.08789L2.5 1.17956L4.4125 3.08789L5 2.50039L2.5 0.000390768L0 2.50039L0.5875 3.08789Z" fill="#595959" />
+    </svg>
   );
 }
 
 function ExpandLessIcon(props) {
   return (
-    <Chevron viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
-      <path d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z " />
-    </Chevron>
+    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.4125 0L2.5 1.90833L0.5875 0L0 0.5875L2.5 3.0875L5 0.5875L4.4125 0Z" fill="#595959" />
+    </svg>
   );
 }
 
