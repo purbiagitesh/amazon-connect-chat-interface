@@ -774,6 +774,10 @@
         chatDetails: persisted.chatDetails,
         name: persisted.name,
         region: brandConfig.region,
+        // Needed so ChatSession.js can sync authenticated-customer
+        // attributes mid-chat even after a reload/new tab resumes this
+        // same session - see ChatContainer.js's submitChatResume.
+        apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
       }, function onSuccess(chatSession) {
         setHasActiveChat(true);
         persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);

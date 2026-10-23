@@ -86,7 +86,7 @@ const RatingOptionButton = styled(QuickReplyOption)`
   width: 100%;
 `;
 
-function ReplyElement({element, handleSelection, isRatingStyle}) {
+function ReplyElement({element, handleSelection, isRatingStyle, sendAsPlainText}) {
   const title = truncateStrFromCharLimit( element.title, InteractiveMessageType.QUICK_REPLY, "replyOptionCharLimit");
   const Option = isRatingStyle ? RatingOptionButton : QuickReplyOption;
 
@@ -94,16 +94,22 @@ function ReplyElement({element, handleSelection, isRatingStyle}) {
   // Feedback-flow answers are flattened to plain text centrally in
   // ChatSession (flattenFeedbackQuickReplyResponse) - that decision needs the
   // incoming prompt's metadata, which this component never receives.
+  // sendAsPlainText is set by Agentic CX modalities (e.g. YesNo) which expect
+  // the selected label as a plain text message, not the structured envelope.
   return (
     <Option
-      onClick={() => handleSelection({
-        text: JSON.stringify({
-          templateType: InteractiveMessageType.QUICK_REPLY,
-          version: "1.0",
-          action: element.title,
-        }),
-        type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
-      })}
+      onClick={() => handleSelection(
+        sendAsPlainText
+          ? { text: element.title, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN }
+          : {
+              text: JSON.stringify({
+                templateType: InteractiveMessageType.QUICK_REPLY,
+                version: "1.0",
+                action: element.title,
+              }),
+              type: ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_RESPONSE,
+            }
+      )}
     >
       {title}
     </Option>
@@ -133,7 +139,7 @@ export function QuickReplyTitle({content}) {
 
 // The tappable option chips / 1-5 rating scale.
 export function QuickReplyActions({content, addMessage}) {
-  const {elements} = content;
+  const {elements, sendAsPlainText} = content;
   const isRatingStyle = isRatingQuickReply(content);
   const Section = isRatingStyle ? RatingOptionStack : ResponsesSection;
   return (
@@ -143,6 +149,7 @@ export function QuickReplyActions({content, addMessage}) {
           element={element}
           handleSelection={addMessage}
           isRatingStyle={isRatingStyle}
+          sendAsPlainText={sendAsPlainText}
           key={index}
         />
       ))}

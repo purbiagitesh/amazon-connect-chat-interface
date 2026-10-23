@@ -150,7 +150,7 @@ export function safeParseInteractiveMessageJSON(data) {
     return undefined;
   }
   try {
-    return JSON.parse(data);
+    return normalizeTouchpointModality(JSON.parse(data));
   } catch (e) {
     // fall through - only the recognized malformed shape gets converted
   }
@@ -158,12 +158,141 @@ export function safeParseInteractiveMessageJSON(data) {
     return undefined;
   }
   try {
-    return JSON.parse(convertKnownMalformedFormatToJSON(data));
+    return normalizeTouchpointModality(JSON.parse(convertKnownMalformedFormatToJSON(data)));
   } catch (e) {
     return undefined;
   }
 }
 
+// ─── Agentic CX Modality Parser Configuration not Agentic core response ────────────────────────────────
+// To support a new Agentic CX template:
+//   1. Add its parent key to MODALITY_PARENT_KEYS
+//   2. Add its data-array child key to MODALITY_CHILD_KEYS (if it uses a new one)
+//   3. Add an entry to MODALITY_CONFIG_MAP describing the component and field mapping
+//
+// The parser logic below never needs to change — only this config does.
+// Supported parent keys inside modalityPayload.modalities
+const MODALITY_PARENT_KEYS = [
+  "CaseMenu",
+  "YesNo",
+  "StackedMenu", //rename to actual key name confirmed by Agentic CX team
+  "ReshipMenu",  // rename to actual key name confirmed by Agentic CX team
+  // "OrderMenu",  //future: add here
+];
+
+// Supported child data-array keys inside each parent modality object (used for validation)
+const MODALITY_CHILD_KEYS = [
+  "cases",
+  "options",
+   //future: add here
+];
+
+// Per-parent config: templateType to render + toContent(modality, parsed) that
+// returns the exact content shape the target component reads.
+// `parsed` is the full message object — use it when the component needs data
+// from outside the modality block (e.g. QuickReply needs the title text).
+const MODALITY_CONFIG_MAP = {
+  // CaseMenu: two bubbles — title text above, carousel cards below.
+  // Returned as MultiPart so ChatTranscriptor splits it into separate items.
+  CaseMenu: {
+    templateType: "MultiPart",
+    toContent: (modality, parsed) => ({
+      elements: [
+        {
+          templateType: "Text",
+          data: { content: { title: parsed.data.content.modalityPayload.message } },
+        },
+        {
+          templateType: "CaseCarousel",
+          data: {
+            content: {
+              elements: [
+                ...(modality.cases || []).map((c) => ({
+                  title: c.caseId,
+                  subtitle: `${c.dateCreated} | ${c.reasonL2}`,
+                })),
+                ...(modality.secondaryAction ? [{ title: modality.secondaryAction.label }] : []),
+              ],
+            },
+          },
+        },
+      ],
+    }),
+  },
+  YesNo: {
+    templateType: "QuickReply",
+    // QuickReply renders its own title bubble + option chips in one message — no MultiPart needed.
+    // sendAsPlainText: true tells ReplyElement to send the label as plain text ("Yes"/"No")
+    // instead of the structured INTERACTIVE_RESPONSE envelope — Agentic CX expects plain text.
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      elements: (modality.options || []).map((opt) => ({ title: opt.label })),
+      sendAsPlainText: true,
+    }),
+  },
+  // StackedMenu: rename "StackedMenu" to whatever key VA team provides.-- As of now asked them this to add.
+  // Renders as a vertical full-width stacked QuickReply (displayStyle: "stack").
+  // Sends the selected option as plain text — same contract as YesNo.
+  StackedMenu: {
+    templateType: "QuickReply",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      displayStyle: "stack",
+      elements: (modality.options || []).map((opt) => ({ title: opt.label })),
+      sendAsPlainText: true,
+    }),
+  },
+  // ReshipMenu: rename to actual key confirmed by Agentic CX team.
+  // ReshipCaseCreation reads content.title + content.elements[].{title, emphasis}.
+  ReshipMenu: {
+    templateType: "ReshipCaseCreation",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      elements: (modality.options || []).map((opt) => ({
+        title: opt.label,
+        emphasis: opt.emphasis,
+      })),
+    }),
+  },
+  // we can add other modilities like above -- but need to refactor because we have many more templateType more
+};
+/**
+ * Generic parser for TouchpointModality payloads from Agentic CX designer.
+ */
+function normalizeTouchpointModality(parsed) {
+  if (!parsed || parsed.templateType !== "TouchpointModality") return parsed;
+
+  const modalities =
+    parsed.data &&
+    parsed.data.content &&
+    parsed.data.content.modalityPayload &&
+    parsed.data.content.modalityPayload.modalities;
+
+  if (!modalities || typeof modalities !== "object") return parsed;
+
+  // Step 1: find the first configured parent key present in the response
+  const parentKey = MODALITY_PARENT_KEYS.find((k) => modalities[k]);
+  if (!parentKey || !MODALITY_CONFIG_MAP[parentKey]) {
+    console.warn("[ModalityParser] No supported parent key found in modalities:", Object.keys(modalities));
+    return parsed;
+  }
+
+  const modality = modalities[parentKey];
+  const config = MODALITY_CONFIG_MAP[parentKey];
+
+  // Step 2: validate a known child data-array key exists in the modality
+  const childKey = MODALITY_CHILD_KEYS.find((k) => Array.isArray(modality[k]));
+  if (!childKey) {
+    console.warn("[ModalityParser] No supported child key found in modality:", parentKey, Object.keys(modality));
+    return parsed;
+  }
+  // Step 3:  content shaping entirely to the config entry
+  return {
+    ...parsed,
+    templateType: config.templateType,
+    data: { ...parsed.data, content: config.toContent(modality, parsed) },
+  };
+}
 /**
  * Frontend validations for interactive messages
  *  - Client will always receive a valid template to render
