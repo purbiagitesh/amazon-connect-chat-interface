@@ -908,6 +908,17 @@ class ChatSession {
   }
 
   /** called when transcript has chat ended message */
+  // Deliberately triggers ONLY "chat-disconnected", never "chat-closed" -
+  // this is what this ChatJS onEnded callback reaches, i.e. the chat ending
+  // for any reason OTHER than the customer's own "End chat" button
+  // (agent-side end, contact expiry, etc.). launcher.js's
+  // wireChatEndCleanup only calls closePanel() from its onChatClose
+  // handler ("chat-closed"), never from onChatDisconnected
+  // ("chat-disconnected") - so per the product requirement that the panel
+  // must stay exactly as it was (open/minimized) on any agent/server-side
+  // disconnect, do NOT add a "chat-closed" trigger here. Only endChat()
+  // (the customer's own explicit end-chat action) should ever trigger
+  // both together.
   _handleEndedEvent() {
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");

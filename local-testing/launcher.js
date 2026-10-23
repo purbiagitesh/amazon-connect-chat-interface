@@ -24,11 +24,39 @@
   var realCloseWidget = null;
   var pendingOpenRequest = false;
 
+  // Tab-local (sessionStorage, NOT localStorage) record of whether THIS
+  // tab's panel was open or minimized the last time it changed - survives a
+  // same-tab reload/navigation, but starts empty for a genuinely new tab
+  // (sessionStorage never carries over to a new tab the way localStorage
+  // would). Read synchronously here, before any async bootstrap work, so
+  // it's available on window.connect.ChatWidget immediately - panel
+  // visibility itself is never decided by this script (see bootstrap()'s
+  // auto-resume below), only exposed as data for the brand developer's own
+  // script to act on, e.g. calling ChatWidget.open() on page load to
+  // restore exactly what this tab had before the reload.
+  var PANEL_VISIBILITY_SESSION_KEY = 'ac_panel_open_state_session';
+  var wasOpenBeforeReload = false;
+  try {
+    wasOpenBeforeReload = sessionStorage.getItem(PANEL_VISIBILITY_SESSION_KEY) === 'open';
+  } catch (e) {
+    // sessionStorage unavailable (private browsing, disabled) - default to
+    // false, same as a tab that never recorded any prior state.
+  }
+
   window.connect = window.connect || {};
   window.connect.ChatWidget = {
     ready: false,
     launcherElement: null,
     panelElement: null,
+    // Whether a chat is currently active (started or resumed), regardless
+    // of whether THIS tab's panel is open or minimized - the signal a
+    // brand's own script can check on a new tab to decide whether to call
+    // open() itself (see setHasActiveChat below for how this stays in sync).
+    hasActiveChat: false,
+    // Whether THIS tab's panel was open (not minimized) the last time it
+    // changed, before this page load - only meaningful for a same-tab
+    // reload/navigation; always false on a genuinely new tab.
+    wasOpenBeforeReload: wasOpenBeforeReload,
     open: function () {
       if (realOpenWidget) {
         realOpenWidget();
@@ -614,32 +642,30 @@
     }
 
     // Keep the flag and the launcher's text visibility in sync: an active
-    // chat hides the "Chat now" label, leaving just the icon.
+    // chat hides the "Chat now" label, leaving just the icon. Also mirrored
+    // onto the public API (see window.connect.ChatWidget.hasActiveChat
+    // above) so a brand's own script - e.g. on a brand-new tab - can check
+    // whether there's an active chat to restore, without this script ever
+    // deciding on its own to open/resume anything visually.
     function setHasActiveChat(active) {
       hasActiveChat = active;
       btn.classList.toggle('chat-active', active);
+      window.connect.ChatWidget.hasActiveChat = active;
     }
 
-    // ─── Cross-tab panel open/closed sync ───
-    // Per the brand dev's own feedback: don't hook this to any specific
-    // button's click event - our own launcher button is only one of
-    // several ways the panel can open (window.connect.ChatWidget.open()/
-    // close() is the same public API a brand's own custom launcher
-    // buttons call - see realOpenWidget/realCloseWidget below). Every one
-    // of those paths ends up calling openPanel()/closePanel() right here,
-    // so broadcasting from inside these two functions themselves covers
-    // all of them uniformly, present and future, with nothing extra
-    // required from a brand's own launcher code.
-    var WIDGET_OPEN_STATE_STORAGE_KEY = 'ac_widget_open_state';
-
-    function broadcastWidgetOpenState(isOpen) {
+    // Tab-local record for a same-tab reload/navigation - see
+    // PANEL_VISIBILITY_SESSION_KEY/wasOpenBeforeReload above. sessionStorage,
+    // tab-local, purely informational for whatever reads
+    // window.connect.ChatWidget.wasOpenBeforeReload on the next load - NOT
+    // a cross-tab mechanism (see the removed general open/close sync below).
+    function persistPanelVisibilityForReload(isOpen) {
       try {
-        localStorage.setItem(WIDGET_OPEN_STATE_STORAGE_KEY, isOpen ? 'open' : 'closed');
+        sessionStorage.setItem(PANEL_VISIBILITY_SESSION_KEY, isOpen ? 'open' : 'closed');
       } catch (e) {
-        // localStorage unavailable (private browsing, quota, disabled) -
-        // cross-tab sync just doesn't happen; never let this break opening
-        // or closing the panel in the current tab.
+        // sessionStorage unavailable - nothing to restore on a future
+        // reload; never let this affect opening/closing the panel now.
       }
+      window.connect.ChatWidget.wasOpenBeforeReload = isOpen;
     }
 
     function openPanel() {
@@ -647,65 +673,47 @@
       btn.classList.add('widget-open');
       // The user is now viewing the conversation - drop any unread badge.
       clearUnread();
-      broadcastWidgetOpenState(true);
+      persistPanelVisibilityForReload(true);
     }
 
     function closePanel() {
       panel.classList.remove('open');
       btn.classList.remove('widget-open');
-      broadcastWidgetOpenState(false);
+      persistPanelVisibilityForReload(false);
     }
 
-    // Reacts to ANOTHER tab calling openPanel()/closePanel() (broadcast
-    // above). The browser only fires "storage" in tabs OTHER than the one
-    // that made the write, and only when the value actually changes - so
-    // this never re-triggers itself and can safely call the exact same
-    // openPanel()/closePanel() functions a local click would, with no
-    // infinite-loop risk (re-setting the same value fires no further event).
-    window.addEventListener('storage', function (e) {
-      if (e.key === WIDGET_OPEN_STATE_STORAGE_KEY) {
-        if (e.newValue === 'closed') {
-          if (panel.classList.contains('open')) {
-            closePanel();
-          }
-          return;
-        }
-        if (e.newValue === 'open') {
-          if (panel.classList.contains('open')) return; // already open here too
-          if (hasActiveChat) {
-            openPanel();
-            return;
-          }
-          var resumable = getResumableSession(resolvedBrand);
-          if (resumable) {
-            openPanel();
-            resumeChat(resumable);
-          } else {
-            // The other tab is (most likely) still in the middle of
-            // starting a brand new chat - show the panel in its loading
-            // state and wait for that session to actually get persisted
-            // (see the chatStorageKey() branch below) rather than racing
-            // to start a second, separate contact of our own.
-            if (window.connect.ChatInterface && typeof window.connect.ChatInterface.resetChatUI === 'function') {
-              window.connect.ChatInterface.resetChatUI();
-            }
-            openPanel();
-          }
-        }
-        return;
+    // ─── First-conversation-only cross-tab open ───
+    // The general "mirror every open/close toggle across tabs" sync has
+    // been removed per product decision - toggling the panel in one tab no
+    // longer affects any other tab, ever. The ONE exception that stays: the
+    // very first time a BRAND NEW conversation is started (never a resume,
+    // never a later open/close), every other currently-open tab should join
+    // it too, since they'd otherwise have no way to know a conversation
+    // just began. This fires exactly once per new conversation - see
+    // broadcastNewChatStarted(), called only from startChat()'s onSuccess,
+    // never from resumeChat()'s.
+    var NEW_CHAT_STARTED_STORAGE_KEY = 'ac_new_chat_started';
+
+    function broadcastNewChatStarted() {
+      try {
+        localStorage.setItem(NEW_CHAT_STARTED_STORAGE_KEY, String(Date.now()));
+      } catch (e) {
+        // localStorage unavailable - other tabs just won't auto-join this
+        // new conversation; never let this affect starting it in this tab.
       }
-      if (e.key === chatStorageKey()) {
-        // Another tab just persisted a newly-started/resumed session - if
-        // THIS tab's panel is already open (from the sync above) but has
-        // no active chat of its own yet, pick up that same session now,
-        // instead of sitting on a loading spinner forever or separately
-        // starting a second contact.
-        if (panel.classList.contains('open') && !hasActiveChat) {
-          var resumableNow = getResumableSession(resolvedBrand);
-          if (resumableNow) {
-            resumeChat(resumableNow);
-          }
-        }
+    }
+
+    // The browser only fires "storage" in tabs OTHER than the one that made
+    // the write, so this never re-triggers itself. Guarded on !hasActiveChat
+    // and the panel not already being open so it never disrupts a tab that's
+    // independently already showing something of its own.
+    window.addEventListener('storage', function (e) {
+      if (e.key !== NEW_CHAT_STARTED_STORAGE_KEY) return;
+      if (hasActiveChat || panel.classList.contains('open')) return;
+      var resumable = getResumableSession(resolvedBrand);
+      if (resumable) {
+        openPanel();
+        resumeChat(resumable);
       }
     });
 
@@ -723,27 +731,42 @@
         notifyNewMessageWhileMinimized();
       });
 
+      // Only ever fires from the customer's OWN "End chat" button
+      // (ChatSession.js's endChat() is the only thing that triggers both
+      // "chat-closed" and "chat-disconnected" together) - closePanel()/
+      // setHasActiveChat(false) here are deliberately scoped to that
+      // explicit customer action only.
       chatSession.onChatClose(function () {
         setHasActiveChat(false);
         clearPersistedChat(resolvedBrand);
         closePanel();
       });
-      // Fires earlier than onChatClose for a server/agent-initiated end
-      // (see review notes) - onChatClose only fires once the customer
-      // explicitly dismisses the ended-chat screen, which they might never
-      // do before navigating away. Clearing here too means a subsequent
-      // page doesn't attempt to resume an already-ended chat.
-      // hasActiveChat must reset here too, not just in onChatClose above:
-      // the inactivity auto-disconnect flow (and a server/agent-initiated
-      // end) only ever fires "chat-disconnected", deliberately never
-      // "chat-closed" (see _endChatKeepingPanelOpen in ChatSession.js - the
-      // panel is meant to stay open showing the ended conversation).
-      // Without this, hasActiveChat stays stuck true forever once a chat
-      // ends this way, so reopening the widget skips startOrResumeChat()
-      // entirely and just keeps showing the same ended conversation with no
-      // way to start a fresh one.
+      // Fires for EVERY way a chat can end, including a server/agent-
+      // initiated one (ChatSession.js's _handleEndedEvent, reached via
+      // ChatJS's onEnded) - which deliberately never also triggers
+      // "chat-closed", precisely so the onChatClose handler above is never
+      // reached for it.
+      //
+      // Per the product requirement: the panel must stay exactly as it was
+      // (open showing the now-ended conversation, or still minimized), AND
+      // the launcher icon/button must NOT revert to its default look
+      // either - both must stay frozen as they were until the customer
+      // actually refreshes the page. That means setHasActiveChat(false) is
+      // deliberately NOT called here (unlike onChatClose above): flipping
+      // it would both strip the "chat-active" icon styling immediately AND
+      // make a click on the minimized button start a BRAND NEW chat
+      // (startOrResumeChat()'s `if (hasActiveChat)` check) instead of just
+      // revealing the now-ended conversation, which is exactly the
+      // behavior the requirement asks for when the customer clicks it.
+      //
+      // clearPersistedChat() still runs though - that's a separate
+      // concern, purely about what the NEXT page load should do (point 4:
+      // a refresh must reset to "no conversation active", so the ended
+      // session is never offered for resume again). hasActiveChat/the icon
+      // naturally reset to their defaults on that next load anyway, simply
+      // because nothing will exist to resume - there's no need to force it
+      // early within this same page view.
       chatSession.onChatDisconnected(function () {
-        setHasActiveChat(false);
         clearPersistedChat(resolvedBrand);
       });
     }
@@ -763,6 +786,11 @@
           persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
         }
         wireChatEndCleanup(chatSession);
+        // Only ever called here, never from resumeChat()'s onSuccess below -
+        // this is specifically "a brand new conversation just began", not
+        // every open/resume, per the first-conversation-only cross-tab open
+        // requirement (see broadcastNewChatStarted above).
+        broadcastNewChatStarted();
       }, function onFailure(error) {
         console.error('[chat-widget] Failed to start chat:', error);
         closePanel();
@@ -841,22 +869,23 @@
     }
 
     // Auto-resume: if a chat was already active before this page/tab
-    // loaded, reconnect immediately, so the customer picks their
-    // conversation back up without clicking anything and without waiting.
-    // Does nothing at all if there's no resumable session - pages/brands
-    // that never had an active chat behave exactly as before this feature
-    // existed. Safe to run synchronously here (not via setTimeout) - by the
-    // time setupWidget() runs, bootstrap() has already awaited
-    // scriptLoaded (Promise.all above), so
-    // window.connect.ChatInterface.resumeChat is guaranteed to exist.
+    // loaded, reconnect immediately IN THE BACKGROUND, so notification
+    // badges/chimes for new messages keep working and the panel (once
+    // revealed) has full history ready with no extra wait. Does nothing at
+    // all if there's no resumable session - pages/brands that never had an
+    // active chat behave exactly as before this feature existed. Safe to
+    // run synchronously here (not via setTimeout) - by the time
+    // setupWidget() runs, bootstrap() has already awaited scriptLoaded
+    // (Promise.all above), so window.connect.ChatInterface.resumeChat is
+    // guaranteed to exist.
     //
-    // Whether the PANEL also reopens depends on how it was left before this
-    // reload (see WIDGET_OPEN_STATE_STORAGE_KEY/broadcastWidgetOpenState) -
-    // a minimized chat (panel closed, chat still active) must stay
-    // minimized across a reload, not pop back open on its own. The chat
-    // session itself still resumes in the background either way, so
-    // notification badges/chimes for new messages keep working while
-    // minimized, exactly like they do without a reload.
+    // Deliberately never calls openPanel() here - panel VISIBILITY on
+    // reload/navigation is the brand developer's own call
+    // (window.connect.ChatWidget.open()), not something this script
+    // decides on its own. The widget always comes back minimized
+    // regardless of how it was left before; the brand developer's own
+    // open() call is what reveals it (already-connected, with history
+    // loaded) when they decide to.
     if (!hasActiveChat) { // already resumed/started via a click before this ran
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
@@ -871,11 +900,6 @@
         // know a persisted session exists here, so there's no reason to
         // wait for the round-trip just to decide how the button should look.
         setHasActiveChat(true);
-        var persistedOpenState = null;
-        try { persistedOpenState = localStorage.getItem(WIDGET_OPEN_STATE_STORAGE_KEY); } catch (e) {}
-        if (persistedOpenState !== 'closed') {
-          openPanel();
-        }
         resumeChat(resumable);
       }
     }
@@ -922,7 +946,14 @@
               brand: brandInfo.brand,
               env: brandInfo.environment,
               launcherElement: dom.btn,
-              panelElement: dom.panel
+              panelElement: dom.panel,
+              // Same values already readable from window.connect.ChatWidget
+              // at this point - included here too so a brand script that's
+              // only listening for this event (rather than polling the
+              // object) has everything it needs in one place to decide
+              // whether/how to call open() itself.
+              hasActiveChat: window.connect.ChatWidget.hasActiveChat,
+              wasOpenBeforeReload: window.connect.ChatWidget.wasOpenBeforeReload
             }
           }));
         });
