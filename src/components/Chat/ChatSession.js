@@ -799,6 +799,14 @@ class ChatSession {
     if (context.lastName) attributes.lastName = context.lastName;
     if (context.email) attributes.email = context.email;
     if (context.customerId) attributes.customerId = String(context.customerId);
+    // Match the same attribute keys buildContactAttributes() (launcher.js)
+    // already sends at chat-start time, so this mid-chat update is just as
+    // complete as the initial set. customerLoggedIn is hardcoded "Yes"
+    // unconditionally - this method only ever runs once the caller has
+    // already confirmed context.authenticated === true, so it's always
+    // correct here.
+    attributes.customerLoggedIn = "Yes";
+    if (context.firstName) attributes.customerName = context.firstName;
 
     const apiGatewayEndpoint = this.customizationParams.apiGatewayEndpoint;
     if (apiGatewayEndpoint && Object.keys(attributes).length > 0) {
