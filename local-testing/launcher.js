@@ -701,7 +701,6 @@
     //   - a named hook function, if the brand site has defined one
     function notifyActiveChatState(isActive) {
       try {
-        console.log('============chatActiveChanged==============', isActive);
         document.dispatchEvent(new CustomEvent('elc:chatActiveChanged', {detail: {active: isActive}}));
       } catch (e) {
         // CustomEvent unsupported/blocked - never let this break open/close.
@@ -775,7 +774,6 @@
     // call openPanel()/closePanel() themselves.
     function notifyChatMinimizedState(isMinimized) {
       try {
-        console.log('============chatMinimizedChanged==============', isMinimized);
         document.dispatchEvent(new CustomEvent('elc:chatMinimizedChanged', {detail: {minimized: isMinimized}}));
       } catch (e) {
         // CustomEvent unsupported/blocked - never let this break open/close.
