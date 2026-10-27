@@ -711,6 +711,15 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
    * Cancel any pending (not flushed) typing events, send the message (and attachment if applicable), and clear input bar.
    */
   function sendMessage() {
+    // SendMessageButton has no disabled state of its own (isActive is purely
+    // visual) and stays clickable/keyboard-activatable regardless of the
+    // text input's own disabled state - so once the chat has ended
+    // (isComposerDisabled, see Chat.js's isChatEnded), this is the one
+    // place that actually has to stop the send from reaching the dead
+    // contact, rather than just disabling the input.
+    if (isComposerDisabled) {
+      return;
+    }
     throttledOnTyping.cancel();
     sendTextMessage(message);
     setMessage("");

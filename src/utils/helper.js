@@ -164,7 +164,7 @@ export function safeParseInteractiveMessageJSON(data) {
   }
 }
 
-// ─── Agentic CX Modality Parser Configuration not Agentic core response ────────────────────────────────
+// ─── Agentic CX Modality Parser Configuration not Agentic core response────────────────────────────────
 // To support a new Agentic CX template:
 //   1. Add its parent key to MODALITY_PARENT_KEYS
 //   2. Add its data-array child key to MODALITY_CHILD_KEYS (if it uses a new one)
@@ -175,8 +175,9 @@ export function safeParseInteractiveMessageJSON(data) {
 const MODALITY_PARENT_KEYS = [
   "CaseMenu",
   "YesNo",
+  "LeaveQueue",
   "StackedMenu", //rename to actual key name confirmed by Agentic CX team
-  "ReshipMenu",  // rename to actual key name confirmed by Agentic CX team
+  "ReshipMenu",  //rename to actual key name confirmed by Agentic CX team
   // "OrderMenu",  //future: add here
 ];
 
@@ -230,7 +231,15 @@ const MODALITY_CONFIG_MAP = {
       sendAsPlainText: true,
     }),
   },
-  // StackedMenu: rename "StackedMenu" to whatever key VA team provides.-- As of now asked them this to add.
+  LeaveQueue: {
+    templateType: "QuickReply",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      elements: (modality.options || []).map((opt) => ({ title: opt.label })),
+      sendAsPlainText: true,
+    }),
+  },
+  // StackedMenu: rename "StackedMenu" to whatever key Agentic CX team provides.
   // Renders as a vertical full-width stacked QuickReply (displayStyle: "stack").
   // Sends the selected option as plain text — same contract as YesNo.
   StackedMenu: {
@@ -254,7 +263,7 @@ const MODALITY_CONFIG_MAP = {
       })),
     }),
   },
-  // we can add other modilities like above -- but need to refactor because we have many more templateType more
+// we can add other modilities like above -- but need to refactor because we have many more templateType more
 };
 /**
  * Generic parser for TouchpointModality payloads from Agentic CX designer.

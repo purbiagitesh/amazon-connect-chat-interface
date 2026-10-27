@@ -305,13 +305,12 @@ export default class Chat extends Component {
 
   render() {
     const {chatSession, headerConfig, transcriptConfig, composerConfig, disclaimerConfig, logoConfig} = this.props;
-    console.log('MESSAGES', this.state.transcript);
     // A QuickReply message awaiting a response locks the free-text input -
     // once the customer answers (or a new bot message arrives), that
     // response becomes the latest transcript item and the composer
     // re-enables itself automatically.
     const lastTranscriptItem = this.state.transcript[this.state.transcript.length - 1];
-    const isComposerLocked = !!lastTranscriptItem && modelUtils.isPendingQuickReplyMessage(lastTranscriptItem);
+    const isComposerLocked = !!lastTranscriptItem && modelUtils.isPendingComposerLockMessage(lastTranscriptItem);
     // The attach icon stays hidden until the bot's current step explicitly
     // asks for a file (attachmentExpected: true on the latest interactive
     // message) - see modelUtils.isAttachmentExpectedMessage.

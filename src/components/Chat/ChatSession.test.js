@@ -240,6 +240,25 @@ describe("ChatSession", () => {
         session.closeChat();
         expect(session.logger.info).toBeCalled();
       });
+      // Locks in the invariant launcher.js's wireChatEndCleanup depends on:
+      // a server/agent-initiated chat end (_handleEndedEvent, reached via
+      // ChatJS's onEnded) must fire "chat-disconnected" but NEVER
+      // "chat-closed" - only the customer's own endChat() should fire
+      // both. launcher.js only ever calls closePanel() from "chat-closed",
+      // so this is what keeps the panel from auto-closing on an
+      // agent/server-side disconnect (per the product requirement that it
+      // must stay exactly as it was, open or minimized).
+      test("a server/agent-initiated chat end triggers chat-disconnected but never chat-closed", () => {
+        const disconnectedHandler = jest.fn();
+        const closedHandler = jest.fn();
+        session.onChatDisconnected(disconnectedHandler);
+        session.onChatClose(closedHandler);
+
+        session._handleEndedEvent();
+
+        expect(disconnectedHandler).toHaveBeenCalledTimes(1);
+        expect(closedHandler).not.toHaveBeenCalled();
+      });
       test("Authentication: should get auth url from chatJs", () => {
         const returnVal = session.getAuthenticationUrl({sessionId: 'test', redirectUri: 'test'});
         expect(session.client.session.getAuthenticationUrl).toBeCalled();
