@@ -10,6 +10,7 @@ import {
   InteractiveMessageType,
   AttachmentStatus,
 } from "./Model";
+import { safeParseInteractiveMessageJSON } from "../../../utils/helper";
 
 function isRecognizedEvent(eventName) {
   var values = Object.values(ContentType.EVENT_CONTENT_TYPE);
@@ -284,20 +285,39 @@ function isViewMessage(message) {
   }
 }
 
-// QuickReply is the only interactive template whose CTA buttons should lock
-// the composer's free-text input - other templates (ListPicker links,
-// ViewResource forms, etc.) don't guarantee a response ever comes back
-// (e.g. hyperlink options), which would leave the composer stuck disabled.
-// Matches both a native Lex-sent interactive message and the same JSON sent
-// as text/plain by a custom-bot Lambda (see isInteractiveMessagePayload in
-// ChatMessage.js for the same dual-shape handling).
-function isPendingQuickReplyMessage(message) {
+// Templates whose CTA buttons should lock the composer's free-text input.
+// Only templates that guarantee a response (i.e. the user MUST click a button
+// to continue) are included. Templates with external hyperlinks (ListPicker,
+// Panel) or open-ended forms (ViewResource, TimePicker) are excluded — those
+// don't guarantee a reply ever comes back, which would leave the composer
+// stuck disabled.
+const COMPOSER_LOCKING_TEMPLATE_TYPES = new Set([
+  InteractiveMessageType.QUICK_REPLY,
+  InteractiveMessageType.CAROUSEL,
+  InteractiveMessageType.ORDER_CAROUSEL,
+  InteractiveMessageType.CASE_CAROUSEL,
+  InteractiveMessageType.LIST_CONFIRMATION,
+  InteractiveMessageType.LIST_SELECTION,
+  InteractiveMessageType.LIST_SELECTION_STEPPER,
+  InteractiveMessageType.SINGLE_PRODUCT,
+  InteractiveMessageType.PRODUCT_SELECTOR,
+  InteractiveMessageType.SHADE_SELECTOR,
+  InteractiveMessageType.RESHIP_CASE_CREATION,
+]);
+
+// Returns true when the latest transcript item is a selection-UI interactive
+// message whose CTA buttons are the only way to respond — locking free-text
+// input until the customer clicks one (or a new bot message arrives).
+// Uses safeParseInteractiveMessageJSON so TouchpointModality payloads from
+// Agentic CX designer are normalized before the template-type check, matching
+// how ChatMessage.js renders them.
+function isPendingComposerLockMessage(message) {
   try {
     if (!message.content || typeof message.content.data !== "string") {
       return false;
     }
-    const parsed = JSON.parse(message.content.data);
-    if (parsed.templateType !== InteractiveMessageType.QUICK_REPLY) {
+    const parsed = safeParseInteractiveMessageJSON(message.content.data);
+    if (!parsed || !COMPOSER_LOCKING_TEMPLATE_TYPES.has(parsed.templateType)) {
       return false;
     }
     return (
@@ -350,7 +370,7 @@ var modelUtils = {
   isParticipantAgentOrCustomer: isParticipantAgentOrCustomer,
   createViewMessageData: createViewMessageData,
   isViewMessage: isViewMessage,
-  isPendingQuickReplyMessage: isPendingQuickReplyMessage,
+  isPendingComposerLockMessage: isPendingComposerLockMessage,
   isAttachmentExpectedMessage: isAttachmentExpectedMessage,
 };
 

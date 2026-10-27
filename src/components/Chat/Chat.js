@@ -305,20 +305,12 @@ export default class Chat extends Component {
 
   render() {
     const {chatSession, headerConfig, transcriptConfig, composerConfig, disclaimerConfig, logoConfig} = this.props;
-    console.log('MESSAGES', this.state.transcript);
     // A QuickReply message awaiting a response locks the free-text input -
     // once the customer answers (or a new bot message arrives), that
     // response becomes the latest transcript item and the composer
     // re-enables itself automatically.
     const lastTranscriptItem = this.state.transcript[this.state.transcript.length - 1];
-    // Once the contact has actually ended (agent/server-side disconnect,
-    // or the customer's own "End chat") the composer must lock too - the
-    // panel/transcript deliberately stay visible (see ChatTranscriptor.js/
-    // launcher.js's wireChatEndCleanup, which never auto-closes on this),
-    // but there's nothing left to send a message to. Without this, the
-    // customer could still type and attempt to send into a dead contact.
-    const isChatEnded = this.state.contactStatus !== CONTACT_STATUS.CONNECTED;
-    const isComposerLocked = isChatEnded || (!!lastTranscriptItem && modelUtils.isPendingQuickReplyMessage(lastTranscriptItem));
+    const isComposerLocked = !!lastTranscriptItem && modelUtils.isPendingComposerLockMessage(lastTranscriptItem);
     // The attach icon stays hidden until the bot's current step explicitly
     // asks for a file (attachmentExpected: true on the latest interactive
     // message) - see modelUtils.isAttachmentExpectedMessage.

@@ -130,7 +130,29 @@ export default class ChatTranscriptor extends PureComponent {
     if (itemDetails.displayName === "SYSTEM_MESSAGE") {
       return `system-notice-${itemDetails.id}`;
     }
-    return isAdvisorSender(itemDetails) ? "advisor" : "assistant";
+   
+    // Same per-message treatment for ChatSession's inactivity notices
+    // ("Sorry, I didn't get your response.", the re-prompted message, and
+    // "Thank you for connecting with us today.") - each one should draw its
+    // own avatar bubble as a visual cue that the assistant is speaking again
+    // after a pause, rather than silently folding into whatever group came
+    // right before it (see modelUtils.cloneIncomingItemForReprompt /
+    // createLocalIncomingNotice, which set this flag).
+    if (itemDetails.isLocalNotice) {
+      return `local-notice-${itemDetails.id}`;
+    }
+    // QuickReply is a new interactive prompt — always give it its own avatar
+    // even when a plain text message from the same participant immediately
+    // precedes it (Agentic CX sends both from the same participantId in one turn).
+    const parsedContent = itemDetails.content && safeParseInteractiveMessageJSON(itemDetails.content.data);
+    if (parsedContent && parsedContent.templateType === InteractiveMessageType.QUICK_REPLY) {
+      return `quickreply-${itemDetails.id}`;
+    }
+    // Agentic CX designer sends each conversation turn from a distinct
+    // participantId, so include it in the key — different turns each get their
+    // own avatar while consecutive messages from the same participant still
+    // share one (traditional single-bot flows are unaffected).
+    return isAdvisorSender(itemDetails) ? "advisor" : `assistant-${itemDetails.participantId}`;
   };
  
   renderMessage = (itemsInGroup, previousItemDetails, isLatestMessage) => {
