@@ -23,11 +23,34 @@ const DEFAULT_PREFIX = "Amazon-Connect-ChatInterface-ChatSession";
 // internal signal between the contact flow and this widget, the customer
 // must never see it.
 const AUTH_POLLING_TRIGGER_KEY = "_start_auth_polling";
-const AUTH_POLLING_INTERVAL_MS = 5 * 1000;
+const AUTH_POLLING_INTERVAL_MS = 30 * 1000;
+// Hard cap on how long polling runs before giving up - see
+// AUTH_POLLING_TIMEOUT_SILENT_MESSAGE below. Checked on a poll tick (not a
+// separate timer), so the actual give-up point is up to one
+// AUTH_POLLING_INTERVAL_MS late - acceptable given the 10-minute scale.
+const AUTH_POLLING_MAX_DURATION_MS = 10 * 60 * 1000;
 // Sent to the bot once login is detected (see _sendSilentMessageToBot) -
 // never shown in the customer's own transcript, purely so the bot/VA knows
 // to continue the flow as an authenticated customer.
 const AUTH_POLLING_SILENT_MESSAGE = "Customer has logged in";
+// Sent to the bot if AUTH_POLLING_MAX_DURATION_MS elapses with the customer
+// still not authenticated - lets the flow move on (e.g. stop waiting, show
+// a fallback) instead of leaving the customer in limbo indefinitely.
+const AUTH_POLLING_TIMEOUT_SILENT_MESSAGE = "User has not logged in";
+
+// ─── Login-prompt nudge: "are you still there?" before the login ask ───
+// Before actually asking the customer to log in, the flow shows a guest/
+// login choice message and appends this marker to signal: give the
+// customer AUTH_PROMPT_TIMER_MS to respond on their own (type, click a
+// quick reply, send an attachment - see addOutgoingMessage/
+// addOutgoingAttachment's _clearAuthPromptTimer() calls) before nudging
+// them. If nothing arrives in time, AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE is
+// sent silently so the flow can respond with its own next message (which
+// is expected to carry AUTH_POLLING_TRIGGER_KEY, handing off into the
+// polling flow above - no extra glue needed for that step).
+const AUTH_PROMPT_TIMER_TRIGGER_KEY = "start_15s_timer";
+const AUTH_PROMPT_TIMER_MS = 15 * 1000;
+const AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE = "15s_timeout";
 
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
@@ -219,6 +242,12 @@ class ChatSession {
   // currently running (before the trigger message arrives, and again once
   // authentication is detected/the chat ends).
   _authPollingTimer = null;
+  // Timestamp _startAuthPolling() began running - null whenever
+  // _authPollingTimer is, used to measure AUTH_POLLING_MAX_DURATION_MS.
+  _authPollingStartedAt = null;
+  // See AUTH_PROMPT_TIMER_TRIGGER_KEY above - null whenever no prompt
+  // nudge is currently pending.
+  _authPromptTimer = null;
 
   _eventHandlers = {
     "transcript-changed": [],
@@ -307,6 +336,7 @@ class ChatSession {
 
   async endChat() {
     this._stopAuthPolling();
+    this._clearAuthPromptTimer();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -402,6 +432,9 @@ class ChatSession {
   }
 
   addOutgoingMessage(data) {
+    // The customer sent something on their own - no need for the "are you
+    // still there?" nudge (see AUTH_PROMPT_TIMER_TRIGGER_KEY above).
+    this._clearAuthPromptTimer();
     const message = this.alterOutgoingMessageForViewsIfRequired(data);
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
@@ -433,6 +466,9 @@ class ChatSession {
   }
 
   addOutgoingAttachment(attachment) {
+    // See addOutgoingMessage above - sending an attachment counts as the
+    // customer responding on their own too.
+    this._clearAuthPromptTimer();
     const transcriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, attachment, this.thisParticipant);
     this._addItemsToTranscript([transcriptItem]);
     this.logger && this.logger.info(`Sending File. ContactId: ${this.contactId}.`);
@@ -672,6 +708,9 @@ class ChatSession {
     // so the stripped text is what ends up in the transcript further down,
     // never the raw marker.
     this._checkForAuthPollingTrigger(item);
+    // Same idea for AUTH_PROMPT_TIMER_TRIGGER_KEY - strips it and starts
+    // the 15s "are you still there?" nudge timer.
+    this._checkForAuthPromptTimerTrigger(item);
 
    this.logger && this.logger.info("_handleIncomingData item created");
     console.log(item);
@@ -754,15 +793,18 @@ class ChatSession {
       return; // already polling - the trigger message arriving again shouldn't start a second interval
     }
     this.logger && this.logger.info("Auth polling trigger received - polling for customer authentication.");
+    this._authPollingStartedAt = Date.now();
     this._authPollingTimer = setInterval(() => {
       this._pollCustomerAuthentication();
     }, AUTH_POLLING_INTERVAL_MS);
     if (typeof this._authPollingTimer.unref === "function") {
       this._authPollingTimer.unref();
     }
-    // Check immediately too, rather than waiting the full interval for the
-    // very first check.
-    this._pollCustomerAuthentication();
+    // Deliberately no immediate check here - AUTH_POLLING_MAX_DURATION_MS /
+    // AUTH_POLLING_INTERVAL_MS must equal exactly 20 checks (the spec:
+    // "every 30 seconds for 10 minutes, total of 20 checks, fail
+    // authentication after check 20"). An extra immediate check would make
+    // it 21.
   }
 
   _stopAuthPolling() {
@@ -770,6 +812,7 @@ class ChatSession {
       clearInterval(this._authPollingTimer);
       this._authPollingTimer = null;
     }
+    this._authPollingStartedAt = null;
   }
 
   async _pollCustomerAuthentication() {
@@ -784,10 +827,55 @@ class ChatSession {
       return;
     }
     if (!context || context.authenticated !== true) {
-      return; // still a guest - keep polling
+      // Still a guest - give up once AUTH_POLLING_MAX_DURATION_MS has
+      // passed since polling started, rather than polling forever.
+      if (this._authPollingStartedAt && Date.now() - this._authPollingStartedAt >= AUTH_POLLING_MAX_DURATION_MS) {
+        this._stopAuthPolling();
+        this._sendSilentMessageToBot(AUTH_POLLING_TIMEOUT_SILENT_MESSAGE);
+      }
+      return;
     }
     this._stopAuthPolling();
     await this._handleCustomerAuthenticated(context);
+  }
+
+  // See AUTH_PROMPT_TIMER_TRIGGER_KEY above.
+  _checkForAuthPromptTimerTrigger(item) {
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return;
+    }
+    if (
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
+    ) {
+      return;
+    }
+    if (item.content.data.indexOf(AUTH_PROMPT_TIMER_TRIGGER_KEY) === -1) {
+      return;
+    }
+    item.content.data = item.content.data.split(AUTH_PROMPT_TIMER_TRIGGER_KEY).join("").trim();
+    this._startAuthPromptTimer();
+  }
+
+  _startAuthPromptTimer() {
+    // Re-arm on every occurrence (unlike auth polling's one-shot guard) -
+    // each one represents a fresh guest/login prompt being shown, so each
+    // should get its own full nudge window.
+    this._clearAuthPromptTimer();
+    this._authPromptTimer = setTimeout(() => {
+      this._authPromptTimer = null;
+      this._sendSilentMessageToBot(AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE);
+    }, AUTH_PROMPT_TIMER_MS);
+    if (typeof this._authPromptTimer.unref === "function") {
+      this._authPromptTimer.unref();
+    }
+  }
+
+  _clearAuthPromptTimer() {
+    if (this._authPromptTimer) {
+      clearTimeout(this._authPromptTimer);
+      this._authPromptTimer = null;
+    }
   }
 
   // Pushes the newly-known customer attributes onto the live contact, then
@@ -1097,6 +1185,7 @@ class ChatSession {
   /** called when transcript has chat ended message */
   _handleEndedEvent() {
     this._stopAuthPolling();
+    this._clearAuthPromptTimer();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
