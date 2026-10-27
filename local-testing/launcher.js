@@ -285,7 +285,7 @@
 
     var attributes = {
       brand_code: brandInfo.config.title || '',
-      customerLoggedIn: customerName,
+      customerLoggedIn: customerLoggedIn,
       customerId: String(utagData.USER_ID),
       email: email,
       customerName: customerName,
@@ -647,11 +647,104 @@
     // above) so a brand's own script - e.g. on a brand-new tab - can check
     // whether there's an active chat to restore, without this script ever
     // deciding on its own to open/resume anything visually.
-    function setHasActiveChat(active) {
+    // The piece that actually applies a new hasActiveChat value to THIS
+    // tab's own state/UI/public-API/notifications. Split out from
+    // setHasActiveChat() below so the cross-tab listener further down can
+    // reuse it WITHOUT re-broadcasting what it just received - calling
+    // setHasActiveChat() from that listener would re-write
+    // ACTIVE_CHAT_STATE_STORAGE_KEY on every receipt, which every other
+    // tab (including the original sender) would then receive again,
+    // forever.
+    // `options.silent` exists for exactly one caller: bootstrap's
+    // auto-resume on page load (see "Deliberately never calls openPanel()"
+    // below). On a fresh page load, the local hasActiveChat variable always
+    // restarts false, then flips true the instant a resumable session is
+    // found - that flip LOOKS like a real "became active" transition in
+    // this execution context, but it isn't one: the chat was already
+    // active before this reload too, so notifying/broadcasting it would
+    // fire elc:chatActiveChanged/onChatActiveChanged on every single
+    // refresh of an already-active chat, with no real state change behind
+    // it - exactly the false-positive brand devs reported. Every other
+    // caller leaves this unset, since for them the local variable's old
+    // value genuinely does reflect the last known state.
+    function applyActiveChatState(active, options) {
+      var silent = !!(options && options.silent);
+      var changed = active !== hasActiveChat;
       hasActiveChat = active;
       btn.classList.toggle('chat-active', active);
       window.connect.ChatWidget.hasActiveChat = active;
+      if (changed && !silent) {
+        notifyActiveChatState(active);
+      }
+      return changed;
     }
+
+    function setHasActiveChat(active, options) {
+      var changed = applyActiveChatState(active, options);
+      // Only ever broadcast a REAL change - a same-value call (e.g.
+      // resumeChat()'s onSuccess setting true right after bootstrap's
+      // silent pre-set already did) is a no-op here too, not just locally.
+      if (changed && !(options && options.silent)) {
+        broadcastActiveChatState(active);
+      }
+    }
+
+    // Per the brand dev's own integration request: since the widget is the
+    // source of truth for hasActiveChat, notify ELC's own site code every
+    // time it changes - true on a brand-new chat AND on a resume, false
+    // whenever the customer ends the chat (see wireChatEndCleanup's
+    // onChatClose) - and do so in EVERY open tab for this site, not just
+    // the one where the change happened (see ACTIVE_CHAT_STATE_STORAGE_KEY
+    // below). Two notification styles, mirroring notifyChatMinimizedState()
+    // below, since different integration code may want one or the other:
+    //   - a custom DOM event, listened for via document.addEventListener
+    //   - a named hook function, if the brand site has defined one
+    function notifyActiveChatState(isActive) {
+      try {
+        console.log('============chatActiveChanged==============', isActive);
+        document.dispatchEvent(new CustomEvent('elc:chatActiveChanged', {detail: {active: isActive}}));
+      } catch (e) {
+        // CustomEvent unsupported/blocked - never let this break open/close.
+      }
+      try {
+        if (window.ElcAmazonConnect && typeof window.ElcAmazonConnect.onChatActiveChanged === 'function') {
+          window.ElcAmazonConnect.onChatActiveChanged(isActive);
+        }
+      } catch (e) {
+        // The brand's own hook threw - never let that break open/close either.
+      }
+    }
+
+    // Cross-tab delivery for hasActiveChat itself (both true AND false),
+    // separate from - and in addition to - the first-conversation-only
+    // cross-tab OPEN further below. That mechanism only ever fires on a
+    // brand-new chat starting, and only tells other tabs to visually join
+    // when they're idle; it never fires on chat END, so it can't be reused
+    // here. This one's only job is making sure every open tab's own
+    // hasActiveChat flag (and therefore its elc:chatActiveChanged event /
+    // onChatActiveChanged hook) stays correct and gets notified, regardless
+    // of whether that tab also does anything visually about it.
+    var ACTIVE_CHAT_STATE_STORAGE_KEY = 'ac_active_chat_state';
+
+    function broadcastActiveChatState(active) {
+      try {
+        localStorage.setItem(ACTIVE_CHAT_STATE_STORAGE_KEY, (active ? 'true' : 'false') + ':' + Date.now());
+      } catch (e) {
+        // localStorage unavailable - other tabs just won't hear about this
+        // change; never let that affect applying it in this tab.
+      }
+    }
+
+    // The browser only fires "storage" in tabs OTHER than the one that
+    // wrote it, so this can't loop back on its own sender. Calls
+    // applyActiveChatState() directly (never setHasActiveChat()) so
+    // receiving a broadcast never re-broadcasts it.
+    window.addEventListener('storage', function (e) {
+      if (e.key !== ACTIVE_CHAT_STATE_STORAGE_KEY || !e.newValue) return;
+      // applyActiveChatState() itself now no-ops when the value hasn't
+      // actually changed, so no need to check that here too.
+      applyActiveChatState(e.newValue.indexOf('true') === 0);
+    });
 
     // Tab-local record for a same-tab reload/navigation - see
     // PANEL_VISIBILITY_SESSION_KEY/wasOpenBeforeReload above. sessionStorage,
@@ -668,18 +761,48 @@
       window.connect.ChatWidget.wasOpenBeforeReload = isOpen;
     }
 
+    // Per the brand dev's own integration request: notify ELC's own site
+    // code whenever THIS tab's panel is minimized or expanded (e.g. so a
+    // checkout page can hide the launcher while minimized). This is
+    // deliberately tab-local, not a cross-tab broadcast like
+    // notifyActiveChatState() can be - the storage event brand devs already
+    // tried for this doesn't fire in the tab that made the write, only in
+    // OTHER tabs, so it can't be used to detect a minimize/expand in the
+    // same tab it happened in. Calling this directly from openPanel()/
+    // closePanel() covers every way the panel can toggle - the launcher
+    // button, startChat()/resumeChat()/startOrResumeChat(), and the public
+    // window.connect.ChatWidget.open()/close() API - since all of them
+    // call openPanel()/closePanel() themselves.
+    function notifyChatMinimizedState(isMinimized) {
+      try {
+        console.log('============chatMinimizedChanged==============', isMinimized);
+        document.dispatchEvent(new CustomEvent('elc:chatMinimizedChanged', {detail: {minimized: isMinimized}}));
+      } catch (e) {
+        // CustomEvent unsupported/blocked - never let this break open/close.
+      }
+      try {
+        if (window.ElcAmazonConnect && typeof window.ElcAmazonConnect.onChatMinimized === 'function') {
+          window.ElcAmazonConnect.onChatMinimized(isMinimized);
+        }
+      } catch (e) {
+        // The brand's own hook threw - never let that break open/close either.
+      }
+    }
+
     function openPanel() {
       panel.classList.add('open');
       btn.classList.add('widget-open');
       // The user is now viewing the conversation - drop any unread badge.
       clearUnread();
       persistPanelVisibilityForReload(true);
+      notifyChatMinimizedState(false);
     }
 
     function closePanel() {
       panel.classList.remove('open');
       btn.classList.remove('widget-open');
       persistPanelVisibilityForReload(false);
+      notifyChatMinimizedState(true);
     }
 
     // ─── First-conversation-only cross-tab open ───
@@ -706,7 +829,11 @@
     // The browser only fires "storage" in tabs OTHER than the one that made
     // the write, so this never re-triggers itself. Guarded on !hasActiveChat
     // and the panel not already being open so it never disrupts a tab that's
-    // independently already showing something of its own.
+    // independently already showing something of its own. When this does
+    // resume into an open panel, resumeChat()'s onSuccess calls
+    // setHasActiveChat(true), which notifies ELC's own code (see
+    // notifyActiveChatState above) in THIS tab too - no separate call
+    // needed here.
     window.addEventListener('storage', function (e) {
       if (e.key !== NEW_CHAT_STARTED_STORAGE_KEY) return;
       if (hasActiveChat || panel.classList.contains('open')) return;
@@ -899,7 +1026,10 @@
         // resumed - exactly the stale flash this is avoiding. We already
         // know a persisted session exists here, so there's no reason to
         // wait for the round-trip just to decide how the button should look.
-        setHasActiveChat(true);
+        // Silent: this chat was already active before this reload - see
+        // applyActiveChatState's comment above for why this specific call
+        // must not notify/broadcast.
+        setHasActiveChat(true, {silent: true});
         resumeChat(resumable);
       }
     }
