@@ -311,7 +311,7 @@ export default class Chat extends Component {
     // response becomes the latest transcript item and the composer
     // re-enables itself automatically.
     const lastTranscriptItem = this.state.transcript[this.state.transcript.length - 1];
-    const isComposerLocked = !!lastTranscriptItem && modelUtils.isPendingQuickReplyMessage(lastTranscriptItem);
+   const isComposerLocked = !!lastTranscriptItem && modelUtils.isPendingComposerLockMessage(lastTranscriptItem);
     // The attach icon stays hidden until the bot's current step explicitly
     // asks for a file (attachmentExpected: true on the latest interactive
     // message) - see modelUtils.isAttachmentExpectedMessage.
