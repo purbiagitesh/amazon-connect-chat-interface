@@ -36,7 +36,7 @@ const AUTH_POLLING_SILENT_MESSAGE = "Customer has logged in";
 // Sent to the bot if AUTH_POLLING_MAX_DURATION_MS elapses with the customer
 // still not authenticated - lets the flow move on (e.g. stop waiting, show
 // a fallback) instead of leaving the customer in limbo indefinitely.
-const AUTH_POLLING_TIMEOUT_SILENT_MESSAGE = "User has not logged in";
+const AUTH_POLLING_TIMEOUT_SILENT_MESSAGE = "Customer has not logged in";
 
 // ─── Login-prompt nudge: "are you still there?" before the login ask ───
 // Before actually asking the customer to log in, the flow shows a guest/
