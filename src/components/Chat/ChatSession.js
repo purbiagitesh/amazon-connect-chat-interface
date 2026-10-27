@@ -5,9 +5,52 @@ import {ContentType, PARTICIPANT_MESSAGE, Direction, Status, ATTACHMENT_MESSAGE,
 import {getTimeFromTimeStamp, flattenFeedbackQuickReplyResponse} from "../../utils/helper";
 import Eventbus from './eventbus';
 import isJson from "is-json";
+import {updateContactAttributes} from "./AuthAttributesSync";
 
 const SYSTEM_EVENTS = Object.values(ContentType.EVENT_CONTENT_TYPE);
 const DEFAULT_PREFIX = "Amazon-Connect-ChatInterface-ChatSession";
+
+// ─── Guest -> authenticated mid-chat: contact-attribute sync ───
+// The contact flow/bot decides WHEN it's worth checking whether the guest
+// has since logged in - never this widget's own timing/config. It signals
+// that by appending this exact marker to an otherwise-normal text message,
+// e.g. "Once you're logged in, we can pick up where we left off.
+// _start_auth_polling". Seeing it is what starts polling
+// window.ElcAmazonConnect.getCustomerContext() (see _checkForAuthPollingTrigger/
+// _startAuthPolling below) - never on widget-open, never via a brand config
+// flag. The marker itself is stripped from the message before it ever
+// reaches the transcript (see _checkForAuthPollingTrigger) - it's purely an
+// internal signal between the contact flow and this widget, the customer
+// must never see it.
+const AUTH_POLLING_TRIGGER_KEY = "_start_auth_polling";
+const AUTH_POLLING_INTERVAL_MS = 30 * 1000;
+// Hard cap on how long polling runs before giving up - see
+// AUTH_POLLING_TIMEOUT_SILENT_MESSAGE below. Checked on a poll tick (not a
+// separate timer), so the actual give-up point is up to one
+// AUTH_POLLING_INTERVAL_MS late - acceptable given the 10-minute scale.
+const AUTH_POLLING_MAX_DURATION_MS = 10 * 60 * 1000;
+// Sent to the bot once login is detected (see _sendSilentMessageToBot) -
+// never shown in the customer's own transcript, purely so the bot/VA knows
+// to continue the flow as an authenticated customer.
+const AUTH_POLLING_SILENT_MESSAGE = "Customer has logged in";
+// Sent to the bot if AUTH_POLLING_MAX_DURATION_MS elapses with the customer
+// still not authenticated - lets the flow move on (e.g. stop waiting, show
+// a fallback) instead of leaving the customer in limbo indefinitely.
+const AUTH_POLLING_TIMEOUT_SILENT_MESSAGE = "Customer has not logged in";
+
+// ─── Login-prompt nudge: "are you still there?" before the login ask ───
+// Before actually asking the customer to log in, the flow shows a guest/
+// login choice message and appends this marker to signal: give the
+// customer AUTH_PROMPT_TIMER_MS to respond on their own (type, click a
+// quick reply, send an attachment - see addOutgoingMessage/
+// addOutgoingAttachment's _clearAuthPromptTimer() calls) before nudging
+// them. If nothing arrives in time, AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE is
+// sent silently so the flow can respond with its own next message (which
+// is expected to carry AUTH_POLLING_TRIGGER_KEY, handing off into the
+// polling flow above - no extra glue needed for that step).
+const AUTH_PROMPT_TIMER_TRIGGER_KEY = "start_15s_timer";
+const AUTH_PROMPT_TIMER_MS = 15 * 1000;
+const AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE = "15s_timeout";
 
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
@@ -195,6 +238,17 @@ class ChatSession {
    */
   isOutgoingMessageInFlight = false;
 
+  // See AUTH_POLLING_TRIGGER_KEY above - null whenever no polling is
+  // currently running (before the trigger message arrives, and again once
+  // authentication is detected/the chat ends).
+  _authPollingTimer = null;
+  // Timestamp _startAuthPolling() began running - null whenever
+  // _authPollingTimer is, used to measure AUTH_POLLING_MAX_DURATION_MS.
+  _authPollingStartedAt = null;
+  // See AUTH_PROMPT_TIMER_TRIGGER_KEY above - null whenever no prompt
+  // nudge is currently pending.
+  _authPromptTimer = null;
+
   _eventHandlers = {
     "transcript-changed": [],
     "typing-participants-changed": [],
@@ -281,6 +335,8 @@ class ChatSession {
   }
 
   async endChat() {
+    this._stopAuthPolling();
+    this._clearAuthPromptTimer();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -376,6 +432,9 @@ class ChatSession {
   }
 
   addOutgoingMessage(data) {
+    // The customer sent something on their own - no need for the "are you
+    // still there?" nudge (see AUTH_PROMPT_TIMER_TRIGGER_KEY above).
+    this._clearAuthPromptTimer();
     const message = this.alterOutgoingMessageForViewsIfRequired(data);
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
@@ -407,6 +466,9 @@ class ChatSession {
   }
 
   addOutgoingAttachment(attachment) {
+    // See addOutgoingMessage above - sending an attachment counts as the
+    // customer responding on their own too.
+    this._clearAuthPromptTimer();
     const transcriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, attachment, this.thisParticipant);
     this._addItemsToTranscript([transcriptItem]);
     this.logger && this.logger.info(`Sending File. ContactId: ${this.contactId}.`);
@@ -631,6 +693,25 @@ class ChatSession {
     var data = dataInput.data;
     var item = modelUtils.createItemFromIncoming(data, this.thisParticipant);
 
+    // Connect echoes a CUSTOMER participant's own sent message back over
+    // this same websocket - _sendSilentMessageToBot relies on catching
+    // that echo HERE and dropping it entirely, before it reaches any other
+    // processing (typing updates, delivered receipts, the transcript),
+    // since there's no optimistic transcript entry to begin with for it to
+    // de-duplicate against like a normal typed message has.
+    if (this._shouldSuppressSilentMessageEcho(data, item)) {
+      return;
+    }
+
+    // Strips AUTH_POLLING_TRIGGER_KEY out of the message (if present) and
+    // starts polling - deliberately before anything else touches `item`,
+    // so the stripped text is what ends up in the transcript further down,
+    // never the raw marker.
+    this._checkForAuthPollingTrigger(item);
+    // Same idea for AUTH_PROMPT_TIMER_TRIGGER_KEY - strips it and starts
+    // the 15s "are you still there?" nudge timer.
+    this._checkForAuthPromptTimerTrigger(item);
+
    this.logger && this.logger.info("_handleIncomingData item created");
     console.log(item);
 
@@ -683,6 +764,200 @@ class ChatSession {
     } else {
       this.logger && this.logger.info("_handleIncomingData NOT NOT item created");
     }
+  }
+
+  // ─── Guest -> authenticated mid-chat: contact-attribute sync ───
+  // See AUTH_POLLING_TRIGGER_KEY above.
+  _checkForAuthPollingTrigger(item) {
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return;
+    }
+    if (
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
+    ) {
+      return;
+    }
+    if (item.content.data.indexOf(AUTH_POLLING_TRIGGER_KEY) === -1) {
+      return;
+    }
+    // Strip every occurrence and any whitespace left behind, so whatever
+    // text the flow wrote around the marker (e.g. a trailing space before
+    // it) never shows up either.
+    item.content.data = item.content.data.split(AUTH_POLLING_TRIGGER_KEY).join("").trim();
+    this._startAuthPolling();
+  }
+
+  _startAuthPolling() {
+    if (this._authPollingTimer) {
+      return; // already polling - the trigger message arriving again shouldn't start a second interval
+    }
+    this.logger && this.logger.info("Auth polling trigger received - polling for customer authentication.");
+    this._authPollingStartedAt = Date.now();
+    this._authPollingTimer = setInterval(() => {
+      this._pollCustomerAuthentication();
+    }, AUTH_POLLING_INTERVAL_MS);
+    if (typeof this._authPollingTimer.unref === "function") {
+      this._authPollingTimer.unref();
+    }
+    // Deliberately no immediate check here - AUTH_POLLING_MAX_DURATION_MS /
+    // AUTH_POLLING_INTERVAL_MS must equal exactly 20 checks (the spec:
+    // "every 30 seconds for 10 minutes, total of 20 checks, fail
+    // authentication after check 20"). An extra immediate check would make
+    // it 21.
+  }
+
+  _stopAuthPolling() {
+    if (this._authPollingTimer) {
+      clearInterval(this._authPollingTimer);
+      this._authPollingTimer = null;
+    }
+    this._authPollingStartedAt = null;
+  }
+
+  async _pollCustomerAuthentication() {
+    let context;
+    try {
+      if (!window.ElcAmazonConnect || typeof window.ElcAmazonConnect.getCustomerContext !== "function") {
+        return;
+      }
+      context = await window.ElcAmazonConnect.getCustomerContext();
+    } catch (e) {
+      this.logger && this.logger.error("getCustomerContext() failed during auth polling.", e);
+      return;
+    }
+    if (!context || context.authenticated !== true) {
+      // Still a guest - give up once AUTH_POLLING_MAX_DURATION_MS has
+      // passed since polling started, rather than polling forever.
+      if (this._authPollingStartedAt && Date.now() - this._authPollingStartedAt >= AUTH_POLLING_MAX_DURATION_MS) {
+        this._stopAuthPolling();
+        this._sendSilentMessageToBot(AUTH_POLLING_TIMEOUT_SILENT_MESSAGE);
+      }
+      return;
+    }
+    this._stopAuthPolling();
+    await this._handleCustomerAuthenticated(context);
+  }
+
+  // See AUTH_PROMPT_TIMER_TRIGGER_KEY above.
+  _checkForAuthPromptTimerTrigger(item) {
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return;
+    }
+    if (
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
+    ) {
+      return;
+    }
+    if (item.content.data.indexOf(AUTH_PROMPT_TIMER_TRIGGER_KEY) === -1) {
+      return;
+    }
+    item.content.data = item.content.data.split(AUTH_PROMPT_TIMER_TRIGGER_KEY).join("").trim();
+    this._startAuthPromptTimer();
+  }
+
+  _startAuthPromptTimer() {
+    // Re-arm on every occurrence (unlike auth polling's one-shot guard) -
+    // each one represents a fresh guest/login prompt being shown, so each
+    // should get its own full nudge window.
+    this._clearAuthPromptTimer();
+    this._authPromptTimer = setTimeout(() => {
+      this._authPromptTimer = null;
+      this._sendSilentMessageToBot(AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE);
+    }, AUTH_PROMPT_TIMER_MS);
+    if (typeof this._authPromptTimer.unref === "function") {
+      this._authPromptTimer.unref();
+    }
+  }
+
+  _clearAuthPromptTimer() {
+    if (this._authPromptTimer) {
+      clearTimeout(this._authPromptTimer);
+      this._authPromptTimer = null;
+    }
+  }
+
+  // Pushes the newly-known customer attributes onto the live contact, then
+  // lets the bot/VA know login happened (see _sendSilentMessageToBot) so it
+  // can continue the flow as an authenticated customer.
+  async _handleCustomerAuthenticated(context) {
+    const attributes = {};
+    if (context.firstName) attributes.firstName = context.firstName;
+    if (context.lastName) attributes.lastName = context.lastName;
+    if (context.email) attributes.email = context.email;
+    if (context.customerId) attributes.customerId = String(context.customerId);
+    // Match the same attribute keys buildContactAttributes() (launcher.js)
+    // already sends at chat-start time, so this mid-chat update is just as
+    // complete as the initial set. customerLoggedIn is hardcoded "Yes"
+    // unconditionally - this method only ever runs once the caller has
+    // already confirmed context.authenticated === true, so it's always
+    // correct here.
+    attributes.customerLoggedIn = "Yes";
+    if (context.firstName) attributes.customerName = context.firstName;
+
+    const apiGatewayEndpoint = this.customizationParams.apiGatewayEndpoint;
+    if (apiGatewayEndpoint && Object.keys(attributes).length > 0) {
+      try {
+        await updateContactAttributes({apiGatewayEndpoint, contactId: this.contactId, attributes});
+      } catch (e) {
+        this.logger && this.logger.error("Failed to sync authenticated customer attributes.", e);
+      }
+    }
+
+    this._sendSilentMessageToBot(AUTH_POLLING_SILENT_MESSAGE);
+  }
+
+  // Sent straight through the client, deliberately bypassing
+  // addOutgoingMessage()'s normal transcript-adding path entirely - the
+  // customer must never see this in their own transcript, it exists purely
+  // to tell the bot/VA the login just happened.
+  //
+  // Records this exact text as "pending" BEFORE sending, so
+  // _shouldSuppressSilentMessageEcho (in _handleIncomingData) can catch and
+  // drop its echo whenever it actually arrives - not tied to the
+  // sendMessage() promise's own timing. addOutgoingMessage()'s
+  // isOutgoingMessageInFlight flag is the wrong tool to reuse here: it gets
+  // reset as soon as the SendMessage HTTP response comes back, but the
+  // websocket echo can legitimately arrive after that (there's no
+  // optimistic transcript entry here for the flag to be de-duplicating
+  // against, unlike a normal typed message) - this content-matched
+  // approach stays correct regardless of which arrives first.
+  _sendSilentMessageToBot(text) {
+    this._pendingSilentMessages = this._pendingSilentMessages || {};
+    this._pendingSilentMessages[text] = (this._pendingSilentMessages[text] || 0) + 1;
+    this.client.sendMessage({data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN})
+      .catch((e) => {
+        // The send itself failed - no echo will ever arrive for this
+        // attempt, so release its pending slot rather than leaving it
+        // stuck (which would wrongly suppress some LATER, unrelated
+        // message that happens to have the exact same text).
+        this._pendingSilentMessages[text] = Math.max(0, (this._pendingSilentMessages[text] || 1) - 1);
+        this.logger && this.logger.error("Failed to send silent login notice to bot.", e);
+      });
+  }
+
+  // See _sendSilentMessageToBot above. Only ever suppresses a message that
+  // is BOTH a genuine roundtrip of this exact participant's own send (so a
+  // real agent/bot message that happens to contain the same text is never
+  // affected) AND currently pending from a silent send.
+  _shouldSuppressSilentMessageEcho(rawData, item) {
+    if (!this._isRoundtripMessage(rawData)) {
+      return false;
+    }
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return false;
+    }
+    const pending = this._pendingSilentMessages;
+    const text = item.content.data;
+    if (!pending || !pending[text]) {
+      return false;
+    }
+    pending[text] -= 1;
+    if (pending[text] <= 0) {
+      delete pending[text];
+    }
+    return true;
   }
 
   async _describeAndProcessView(item) {
@@ -920,6 +1195,8 @@ class ChatSession {
   // (the customer's own explicit end-chat action) should ever trigger
   // both together.
   _handleEndedEvent() {
+    this._stopAuthPolling();
+    this._clearAuthPromptTimer();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});

@@ -102,7 +102,11 @@ class ChatContainer extends Component {
     this.setState({status: "Initiating"});
     const customizationParams = {
       authenticationRedirectUri: input.authenticationRedirectUri || '',
-      authenticationIdentityProvider: input.authenticationIdentityProvider || ''
+      authenticationIdentityProvider: input.authenticationIdentityProvider || '',
+      // Lets ChatSession.js push authenticated-customer attributes onto the
+      // already-live contact mid-chat (see AuthAttributesSync.js) - same
+      // combined-Lambda URL StartChatContact above just used.
+      apiGatewayEndpoint: input.apiGatewayEndpoint || ''
     }
     try {
       const chatFlowStartTime = performance.now();
@@ -160,7 +164,10 @@ class ChatContainer extends Component {
     this.setState({status: "Initiating"});
     const customizationParams = {
       authenticationRedirectUri: input.authenticationRedirectUri || '',
-      authenticationIdentityProvider: input.authenticationIdentityProvider || ''
+      authenticationIdentityProvider: input.authenticationIdentityProvider || '',
+      // See submitChatInitiation's same field above - a resumed session
+      // needs this too, so auth polling still works after a reload/new tab.
+      apiGatewayEndpoint: input.apiGatewayEndpoint || ''
     }
     try {
       const chatSession = await this.openChatSession(input.chatDetails, input.name, input.region, input.stage, customizationParams);

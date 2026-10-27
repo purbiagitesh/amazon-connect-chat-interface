@@ -8,6 +8,20 @@
 </head>
 
 <body>
+  <!-- TEST-ONLY: mocks the brand site's own login state + the
+       window.ElcAmazonConnect.getCustomerContext() API it exposes (see
+       launcher.js's getCustomerContext()/buildContactAttributes, and
+       ChatSession.js's auth-polling, which reads this same global
+       directly). Starts as a guest - click Login to flip
+       getCustomerContext() to return an authenticated customer; Logout
+       flips it back. Not part of the production script, and not something
+       any real brand page needs - they already have their own. -->
+  <div style="position:fixed;top:8px;left:8px;z-index:2147483647;font-family:sans-serif;font-size:12px;background:#fff;border:1px solid #ccc;border-radius:6px;padding:6px 8px;display:flex;gap:6px;align-items:center;">
+    <span id="test-auth-status">Guest</span>
+    <button type="button" id="test-login-btn">Login</button>
+    <button type="button" id="test-logout-btn">Logout</button>
+  </div>
+
   <!-- Intentionally blank otherwise: this page represents an arbitrary
        brand's real website, which has none of our markup/CSS on it. Every
        DOM element the chat launcher needs (the button, its styles) is
@@ -20,6 +34,44 @@
     // launcher.js to wait for. Not part of the production script - change
     // brand/ELC_ENV here to test different brands locally.
     window.utag_data = { brand: 'labseries', ELC_ENV: 'NOPROD' };
+
+    // ─── TEST-ONLY: mock login state + getCustomerContext() ───
+    // Field names (authenticated/firstName/lastName/email) match what
+    // launcher.js's buildContactAttributes() and ChatSession.js's auth
+    // polling already expect from a real brand site - see both files'
+    // comments on window.ElcAmazonConnect.getCustomerContext().
+    var __testLoggedIn = false;
+    var __testCustomer = {
+      firstName: 'Gitesh',
+      lastName: 'Purbia',
+      email: 'gitesh.purbia@gmail.com',
+      customerId: '232323',
+    };
+
+    window.ElcAmazonConnect = window.ElcAmazonConnect || {};
+    window.ElcAmazonConnect.getCustomerContext = function () {
+      return Promise.resolve(
+        __testLoggedIn
+          ? Object.assign({authenticated: true}, __testCustomer)
+          : {authenticated: false}
+      );
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var statusEl = document.getElementById('test-auth-status');
+      function render() {
+        statusEl.textContent = __testLoggedIn ? 'Logged in: ' + __testCustomer.firstName : 'Guest';
+      }
+      document.getElementById('test-login-btn').addEventListener('click', function () {
+        __testLoggedIn = true;
+        render();
+      });
+      document.getElementById('test-logout-btn').addEventListener('click', function () {
+        __testLoggedIn = false;
+        render();
+      });
+      render();
+    });
   </script>
 
   <!-- The actual production artifact: this is the one script Tealium
