@@ -35,13 +35,14 @@
   // script to act on, e.g. calling ChatWidget.open() on page load to
   // restore exactly what this tab had before the reload.
   var PANEL_VISIBILITY_SESSION_KEY = 'ac_panel_open_state_session';
-  var wasOpenBeforeReload = false;
+  var panelVisibilitySession = null;
   try {
-    wasOpenBeforeReload = sessionStorage.getItem(PANEL_VISIBILITY_SESSION_KEY) === 'open';
+    panelVisibilitySession = sessionStorage.getItem(PANEL_VISIBILITY_SESSION_KEY);
   } catch (e) {
-    // sessionStorage unavailable (private browsing, disabled) - default to
-    // false, same as a tab that never recorded any prior state.
+    // sessionStorage unavailable (private browsing, disabled) - treat the
+    // same as a tab that never recorded any prior state (null).
   }
+  var wasOpenBeforeReload = panelVisibilitySession === 'open';
 
   window.connect = window.connect || {};
   window.connect.ChatWidget = {
@@ -57,6 +58,16 @@
     // changed, before this page load - only meaningful for a same-tab
     // reload/navigation; always false on a genuinely new tab.
     wasOpenBeforeReload: wasOpenBeforeReload,
+    // Live current state of THIS tab's panel, kept in sync from here on by
+    // openPanel()/closePanel() on every toggle (see notifyChatMinimizedState
+    // below) - unlike wasOpenBeforeReload, this is for reading the CURRENT
+    // state on demand, not just the pre-reload one. True only when
+    // sessionStorage explicitly recorded this tab's panel as closed before
+    // this reload - i.e. it was actually minimized, not just never opened.
+    // A genuinely new tab (no sessionStorage record) is false: nothing has
+    // minimized its panel, it simply hasn't been opened yet - a distinct
+    // state from having been minimized, per product decision.
+    isMinimized: panelVisibilitySession === 'closed',
     open: function () {
       if (realOpenWidget) {
         realOpenWidget();
@@ -773,6 +784,7 @@
     // window.connect.ChatWidget.open()/close() API - since all of them
     // call openPanel()/closePanel() themselves.
     function notifyChatMinimizedState(isMinimized) {
+      window.connect.ChatWidget.isMinimized = isMinimized;
       try {
         document.dispatchEvent(new CustomEvent('elc:chatMinimizedChanged', {detail: {minimized: isMinimized}}));
       } catch (e) {
@@ -906,16 +918,26 @@
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
       }, function onSuccess(chatSession) {
-        setHasActiveChat(true);
         if (chatSession.rawChatDetails) {
           persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
         }
         wireChatEndCleanup(chatSession);
-        // Only ever called here, never from resumeChat()'s onSuccess below -
-        // this is specifically "a brand new conversation just began", not
-        // every open/resume, per the first-conversation-only cross-tab open
-        // requirement (see broadcastNewChatStarted above).
+        // Deliberately broadcast BEFORE setHasActiveChat(true) below, not
+        // after - setHasActiveChat() broadcasts its own
+        // ACTIVE_CHAT_STATE_STORAGE_KEY change, and the storage listener
+        // for THAT key (see applyActiveChatState above) sets this flag's
+        // cross-tab counterpart directly. If that arrived first, every
+        // other open tab's NEW_CHAT_STARTED_STORAGE_KEY listener below
+        // would see hasActiveChat already true and skip resumeChat()
+        // entirely via its own `if (hasActiveChat ...) return` guard -
+        // leaving that tab's panel opened (by the brand's own
+        // onChatActiveChanged hook) but never actually resumed, stuck on
+        // its loading spinner until a manual refresh. Broadcasting this
+        // first guarantees every other tab still has hasActiveChat===false
+        // when it handles this event, so the guard passes and it resumes
+        // for real.
         broadcastNewChatStarted();
+        setHasActiveChat(true);
       }, function onFailure(error) {
         console.error('[chat-widget] Failed to start chat:', error);
         closePanel();
