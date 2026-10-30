@@ -12,6 +12,7 @@ import {FlexRowContainer} from "connect-theme/Helpers";
 import {CHAT_FEATURE_TYPES} from "./constants";
 import {ContentType} from "./datamodel/Model";
 import {LanguageProvider, LanguageContext} from "../../context/LanguageContext";
+import {FormattedMessage} from "react-intl";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -227,10 +228,20 @@ class ChatContainer extends Component {
     if ("InitiateFailed" === this.state.status) {
       return (
         <Wrapper>
-          <MessageBoxFail>Initialization failed</MessageBoxFail>
+          <MessageBoxFail>
+            <FormattedMessage
+              id="Chat.InitializationFailed"
+              defaultMessage="Initialization failed"
+            />
+          </MessageBoxFail>
           <ButtonWrapper>
             <Button col="2" type="tertiary" onClick={this.resetState}>
-              <span>Go Back</span>
+              <span>
+                <FormattedMessage
+                  id="Chat.GoBack"
+                  defaultMessage="Go Back"
+                />
+              </span>
             </Button>
           </ButtonWrapper>
         </Wrapper>

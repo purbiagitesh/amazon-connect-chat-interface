@@ -9,6 +9,7 @@ import { setupGuidesRenderer } from './utils/helper';
 import defaultTheme from './theme/defaultTheme';
 import buildComponentPalette, { buildChatTranscriptorPalette } from './theme/componentPalette';
 import packageJson from '../package.json';
+import { AmazonConnectChatInterfaceStrings } from './localization';
 
 function getBrandInfo() {
   if (typeof window === 'undefined') {
@@ -129,7 +130,7 @@ function buildHeaderConfig(brandConfig = {}) {
   return headerConfig;
 }
 
-function buildDisclaimerConfig(brandConfig = {}, countryCode = 'us') {
+function buildDisclaimerConfig(brandConfig = {}, countryCode = 'us', locale = 'en_US') {
   const disclaimerConfig = {};
   const disclaimer = brandConfig.disclaimer || {};
   if (disclaimer.privacyPolicyUrl) {
@@ -142,7 +143,8 @@ function buildDisclaimerConfig(brandConfig = {}, countryCode = 'us') {
     disclaimerConfig.consumerHealthDataPrivacyStatementUrl = disclaimer.consumerHealthDataPrivacyStatementUrl[countryCode];
   }
   if (disclaimer.disclaimerMessage) {
-    disclaimerConfig.disclaimerMessage = disclaimer.disclaimerMessage[countryCode];
+    const key = locale.replace('-', '_') + '_' + countryCode;
+    disclaimerConfig.disclaimerMessage = disclaimer.disclaimerMessage[key];
   }
   return disclaimerConfig;
 }
@@ -203,7 +205,7 @@ function buildLogoConfig(brandInfo) {
 
     const disclaimerConfig = Object.assign(
       {},
-      buildDisclaimerConfig(brandConfig, utagData?.country_code),
+      buildDisclaimerConfig(brandConfig, utagData?.country_code, utagData?.locale),
       props.disclaimerConfig || {}
     );
 
@@ -239,6 +241,12 @@ function buildLogoConfig(brandInfo) {
       document.getElementById(containerId) ||
       document.getElementById("root")
     );
+  };
+
+  // Used by launcher.js, which isn't bundled and can't import the localization files itself.
+  connect.ChatInterface.getLocalizedString = (id, locale = 'en_US') => {
+    const strings = AmazonConnectChatInterfaceStrings[String(locale).replace('-', '_')] || {};
+    return strings[id] || AmazonConnectChatInterfaceStrings.en_US[id];
   };
 
   connect.ChatInterface.getCurrentTheme = () => {

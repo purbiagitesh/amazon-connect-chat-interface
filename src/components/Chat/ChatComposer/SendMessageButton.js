@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import defaultTheme from '../../../theme/defaultTheme';
 import {KEYBOARD_KEY_CONSTANTS} from "connect-constants";
+import { useIntl } from 'react-intl';
 
 const INACTIVE_COLOR = defaultTheme.palette.whisper;
 const ACTIVE_ICON_COLOR = defaultTheme.palette.secondaryBlack;
@@ -61,6 +62,7 @@ const SendButton = styled.div`
  * @param {Function} props.sendMessage
  */
 function SendMessageButton({isActive, sendMessage}) {
+  const intl = useIntl();
   const sendIconUrl = getClientSendIconUrl();
 
   return (
@@ -68,7 +70,7 @@ function SendMessageButton({isActive, sendMessage}) {
       isActive={isActive}
       onClick={sendMessage}
       data-testid="customer-chat-send-message-button"
-      aria-label="Send Message"
+      aria-label={intl.formatMessage({id: 'Chat.SendMessage', defaultMessage: 'Send Message'})}
       tabIndex={0}
       onKeyDown={(e) => {
         // if space or enter is pressed

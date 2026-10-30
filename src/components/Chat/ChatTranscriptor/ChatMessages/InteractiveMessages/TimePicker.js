@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {ResponsesSection, HeaderText} from "../InteractiveMessage";
 import {truncateStrFromCharLimit} from "../../../../../utils/helper";
 import {InteractiveMessageType} from "../../../datamodel/Model";
+import { FormattedMessage } from 'react-intl';
 
 const NUM_TIMESLOTS_PER_PAGE = 3;
 
@@ -250,14 +251,18 @@ export default function TimePicker({content, addMessage}) {
                 <path d="M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z" fillRule="evenodd"/>
               </svg>
             </ResetSelectionButton>
-            <ConfirmSelectionButton disabled={selectedTimeslot == null} onClick={confirmSelection} data-testid={`time-picker-confirm-selection-button`}>Confirm</ConfirmSelectionButton>
+            <ConfirmSelectionButton disabled={selectedTimeslot == null} onClick={confirmSelection} data-testid={`time-picker-confirm-selection-button`}>
+              <FormattedMessage id="Chat.Confirm" defaultMessage="Confirm" />
+            </ConfirmSelectionButton>
           </>}
             {showTimeslotPaginationButtons &&
             <>
-            <PrevTimeslotsButton disabled={timeslotPageIndex === 0}
-                                 onClick={showEarlierTimeslots}>Earlier</PrevTimeslotsButton>
-            <NextTimeslotsButton disabled={timeslotNextPageStartIndex >= timeslotsForSelectedDate.length}
-                  onClick={showLaterTimeslots}>Later</NextTimeslotsButton>
+            <PrevTimeslotsButton disabled={timeslotPageIndex === 0} onClick={showEarlierTimeslots}>
+              <FormattedMessage id="Chat.Earlier" defaultMessage="Earlier" />
+            </PrevTimeslotsButton>
+            <NextTimeslotsButton disabled={timeslotNextPageStartIndex >= timeslotsForSelectedDate.length} onClick={showLaterTimeslots}>
+              <FormattedMessage id="Chat.Later" defaultMessage="Later" />
+            </NextTimeslotsButton>
             </>}
         </TimeslotControls>
       </ResponsesSection>

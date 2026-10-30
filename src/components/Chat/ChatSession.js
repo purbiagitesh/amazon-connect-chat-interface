@@ -445,6 +445,7 @@ class ChatSession {
 
     // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
     const outgoingMessageSendStartTime = performance.now();
+    this._lastOutgoingSendTime = outgoingMessageSendStartTime;
 
     this.client
       .sendMessage(message.content)
@@ -716,14 +717,16 @@ class ChatSession {
     console.log(item);
 
     // Latency testing: log the ms difference between the last Incoming and last Outgoing message (sentTime is in seconds)
-    if (item && item.transportDetails && item.transportDetails.sentTime) {
-      this._lastSentTimeByDirection = this._lastSentTimeByDirection || {};
-      this._lastSentTimeByDirection[item.transportDetails.direction] = item.transportDetails.sentTime;
-      const incomingSentTime = this._lastSentTimeByDirection[Direction.Incoming];
-      const outgoingSentTime = this._lastSentTimeByDirection[Direction.Outgoing];
-      if (incomingSentTime && outgoingSentTime) {
-       this.logger && this.logger.info("_handleIncomingData item created");
-      }
+    if (
+      this._lastOutgoingSendTime &&
+      item && item.transportDetails &&
+      item.transportDetails.direction === Direction.Incoming &&
+      modelUtils.isTypeMessageOrAttachment(item.type)
+    ) {
+      // ANSI codes render green in Chrome/Edge DevTools; the ChatJS logger flattens args, so %c styling isn't possible.
+      this.logger && this.logger.info(`\x1b[32m[responseTime] outgoing message sent -> incoming message received (ms): ${Math.round(performance.now() - this._lastOutgoingSendTime)}\x1b[0m`);
+      // Only the first reply after each sent message is measured.
+      this._lastOutgoingSendTime = null;
     }
 
     if (item) {

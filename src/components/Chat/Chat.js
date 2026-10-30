@@ -1,5 +1,5 @@
 import PT from "prop-types";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 import {CONTACT_STATUS} from "../../constants/global";
 import ChatTranscriptor from "./ChatTranscriptor";
 import ChatComposer from "./ChatComposer";
@@ -130,11 +130,20 @@ const CloseButton = styled.button`
   flex-shrink: 0;
   width: auto;
   font-family: inherit;
+  &&:hover,
+  &&:focus,
+  &&:active {
+    background: transparent !important;
+    color: ${props => props.textColor} !important;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 `;
 
 const defaultHeaderConfig = {
   isHTML: false,
-  render: (config) => {
+  render: (config, intl) => {
     const brandInfo = (
       (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config) ||
       (window.parent && window.parent.__CHAT_BRAND_INFO__ && window.parent.__CHAT_BRAND_INFO__.config) ||
@@ -163,11 +172,11 @@ const defaultHeaderConfig = {
             <div>
               {config.lastTranscriptItem?.participantRole === 'AGENT' ? (
                 <HeaderAgentName textColor={textColor}>
-                  {config.lastTranscriptItem.displayName || ''}<Separator>{' •'}</Separator>{`Consumer Care Advisor`}
+                  {config.lastTranscriptItem.displayName || ''}<Separator>{' •'}</Separator><FormattedMessage id="Chat.ConsumerCareAdvisor" defaultMessage="Consumer Care Advisor" />
                 </HeaderAgentName>
               ) : (
                 <HeaderTitle textColor={textColor}>
-                  {hc.title || ''}
+                  {hc.title + ' ' + intl.formatMessage({id: 'Chat.VirtualAssistant', defaultMessage: 'Virtual Assistant'}) || ''}
                 </HeaderTitle>
               )}
               {hc.subtitle && (
@@ -181,7 +190,7 @@ const defaultHeaderConfig = {
             <CloseButton
               onClick={() => config.onEndChat && config.onEndChat()}
               textColor={textColor}
-              aria-label="Close chat"
+              aria-label={intl.formatMessage({id: 'Chat.CloseChat', defaultMessage: 'Close chat'})}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 1.61143L14.3886 0L8 6.38857L1.61143 0L0 1.61143L6.38857 8L0 14.3886L1.61143 16L8 9.61143L14.3886 16L16 14.3886L9.61143 8L16 1.61143Z" fill="white" />
@@ -200,11 +209,12 @@ Header.defaultProps = {
 };
 
 function Header({headerConfig, logoConfig, lastTranscriptItem, onEndChat}) {
+  const intl = useIntl();
   const config = Object.assign({}, defaultHeaderConfig, headerConfig, logoConfig, {lastTranscriptItem, onEndChat});
   if (config.isHTML) {
     return renderHTML(config.render());
   } else {
-    return config.render(config);
+    return config.render(config, intl);
   }
 }
 

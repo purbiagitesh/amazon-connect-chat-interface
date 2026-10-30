@@ -144,8 +144,8 @@
     + '  display: none !important;'
     + '  position: absolute !important;'
     + '  top: -8px !important;'
-    + '  left: -8px !important;'
-    + '  right: auto !important;'
+    + '  right: -8px !important;'
+    + '  left: auto !important;'
     + '  min-width: 24px !important;'
     + '  height: 24px !important;'
     + '  padding: 0 6px !important;'
@@ -218,14 +218,42 @@
     var btn = document.createElement('button');
     btn.id = 'amazon-connect-launcher-btn';
     btn.setAttribute('aria-label', 'Open chat');
-    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span><span class="btn-text">Chat now</span><span class="notification-badge" aria-hidden="true"></span>';
+    btn.innerHTML = '<span class="btn-icon">' + FALLBACK_ICON_SVG + '</span><span class="btn-text"></span><span class="notification-badge" aria-hidden="true"></span>';
     document.body.appendChild(btn);
 
     var panel = document.createElement('div');
     panel.id = CHAT_PANEL_ID;
     document.body.appendChild(panel);
 
+    shieldFromHostFocusTraps([btn, panel]);
+
     return { btn: btn, panel: panel };
+  }
+
+  // Host-site modals (e.g. Colorbox's trapFocus on the brand signup popup) use
+  // document-level capture listeners to pull focus back into the modal.
+  // Window capture runs first, so swallowing widget-bound events here hides
+  // them from the host trap.
+  function shieldFromHostFocusTraps(widgetRoots) {
+    function isInsideWidget(target) {
+      return widgetRoots.some(function (root) { return root.contains(target); });
+    }
+    function shield(e) {
+      if (e.type === 'keydown' && e.key !== 'Tab') {
+        return;
+      }
+      if (!isInsideWidget(e.target)) {
+        return;
+      }
+      e.stopImmediatePropagation();
+      // Stopping native focus also hides it from React 16's onFocus; re-announce it.
+      if (e.type === 'focus') {
+        e.target.dispatchEvent(new CustomEvent('ac-widget-focus'));
+      }
+    }
+    ['focus', 'focusin'].forEach(function (type) {
+      window.addEventListener(type, shield, { capture: true, passive: true });
+    });
   }
 
   var UTAG_POLL_INTERVAL_MS = 100;
@@ -238,6 +266,7 @@
     NOPROD: 'NOPROD'
   };
   var BRAND_ALIAS_MAP = {};
+  var utagDataStore = null;
 
   function waitForUtagData(onReady, onTimeout) {
     var waited = 0;
@@ -248,6 +277,7 @@
         window.utag_data.brand.trim()
       ) {
         clearInterval(timer);
+        utagDataStore = window.utag_data;
         onReady(window.utag_data);
       }
       waited += UTAG_POLL_INTERVAL_MS;
@@ -327,14 +357,15 @@
     return 'ac_active_chat';
   }
 
-  function persistActiveChat(brand, env, chatDetails, customerName) {
+  function persistActiveChat(brand, env, chatDetails, customerName, language) {
     try {
       localStorage.setItem(chatStorageKey(), JSON.stringify({
         chatDetails: chatDetails,
         name: customerName,
         brand: brand,
         env: env,
-        startedAt: Date.now()
+        startedAt: Date.now(),
+        language: language
       }));
     } catch (e) {
       // localStorage unavailable (private browsing, quota, disabled) -
@@ -449,6 +480,15 @@
     });
   }
 
+  function getLauncherText(utagData) {
+    var locale = (utagData && utagData.locale) || 'en_US';
+    var chatInterface = window.connect && window.connect.ChatInterface;
+    var text = chatInterface && typeof chatInterface.getLocalizedString === 'function'
+      ? chatInterface.getLocalizedString('Chat.LauncherButtonText', locale)
+      : null;
+    return text || 'Chat now';
+  }
+
   function setupWidget(brandInfo, btn, panel) {
     if (brandInfo.config && Array.isArray(brandInfo.config.fontFaces)) {
       brandInfo.config.fontFaces = brandInfo.config.fontFaces.map(function (face) {
@@ -470,6 +510,13 @@
     var brandColors = brandConfig.colors || {};
 
     applyBrandColors(brandConfig);
+
+    // Update launcher button text based on locale
+    var launcherText = getLauncherText(utagDataStore);
+    var btnTextSpan = btn.querySelector('.btn-text');
+    if (btnTextSpan) {
+      btnTextSpan.textContent = launcherText;
+    }
 
     window.connect.ChatInterface.init({
       containerId: CHAT_PANEL_ID,
@@ -910,6 +957,7 @@
 
     async function startChat() {
       var contactAttributes = await buildContactAttributes(brandInfo, window.utag_data);
+      var language = (contactAttributes.language_code || 'en-US').replace('-', '_');
       window.connect.ChatInterface.initiateChat({
         name: contactAttributes.customerName,
         region: brandConfig.region,
@@ -917,9 +965,10 @@
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
         contactAttributes: JSON.stringify(contactAttributes),
         supportedMessagingContentTypes: 'text/plain,text/markdown,application/vnd.amazonaws.connect.message.interactive,application/vnd.amazonaws.connect.message.interactive.response',
+        language: language
       }, function onSuccess(chatSession) {
         if (chatSession.rawChatDetails) {
-          persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName);
+          persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName, language);
         }
         wireChatEndCleanup(chatSession);
         // Deliberately broadcast BEFORE setHasActiveChat(true) below, not
@@ -945,6 +994,7 @@
     }
 
     function resumeChat(persisted) {
+      var language = persisted.language || 'en_US';
       window.connect.ChatInterface.resumeChat({
         chatDetails: persisted.chatDetails,
         name: persisted.name,
@@ -953,9 +1003,10 @@
         // attributes mid-chat even after a reload/new tab resumes this
         // same session - see ChatContainer.js's submitChatResume.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
+        language: language
       }, function onSuccess(chatSession) {
         setHasActiveChat(true);
-        persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name);
+        persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails || persisted.chatDetails, persisted.name, language);
         wireChatEndCleanup(chatSession);
       }, function onFailure(error) {
         console.warn('[chat-widget] failed to resume previous chat session', error);

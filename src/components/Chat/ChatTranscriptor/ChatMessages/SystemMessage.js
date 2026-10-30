@@ -4,7 +4,8 @@ import PT from "prop-types";
 import styled from "styled-components";
 import {ContentType} from "../../datamodel/Model";
 import {AuthenticationMessage} from './AuthenticationMessage'
-import {formatDateDisplay, formatTimeDisplay} from "../../../../utils/helper";
+import {formatDateDisplay, formatTimeDisplay, getLocaleFromLanguage} from "../../../../utils/helper";
+import {LanguageContext} from "../../../../context/LanguageContext";
 
 // Events that arrive from Connect but are hidden entirely per Figma - no
 // text and no date/time divider. CHAT_ENDED still fires (contact status is
@@ -37,18 +38,21 @@ export class SystemMessage extends React.PureComponent {
   };
 
   static defaultProps = {};
-
+ 
+  static contextType = LanguageContext;
+ 
   renderTimestamp = () => {
     const transportDetails = this.props.messageDetails.transportDetails;
     const sentTime = transportDetails && transportDetails.sentTime;
     if (!sentTime) {
       return null;
     }
+    const locale = getLocaleFromLanguage(this.context && this.context.selectedLanguage);
     return (
       <Timestamp>
-        {formatDateDisplay(sentTime)}
+        {formatDateDisplay(sentTime, locale)}
         <TimestampDot />
-        {formatTimeDisplay(sentTime)}
+        {formatTimeDisplay(sentTime, locale)}
       </Timestamp>
     );
   };

@@ -16,17 +16,22 @@ export function getTimeFromTimeStamp(timeStamp) {
   return new Date(timeStamp).getTime();
 }
 
-// timestamp is in epoch seconds (matches transportDetails.sentTime)
-export function formatTimeDisplay(timestamp) {
-  const d = new Date(0);
-  d.setUTCSeconds(timestamp);
-  return d.toLocaleTimeString([], { hour: "numeric", minute: "numeric" });
+// Converts a LanguageContext selectedLanguage (e.g. id "de_DE") to a BCP 47 locale.
+export function getLocaleFromLanguage(selectedLanguage) {
+  return selectedLanguage && selectedLanguage.id ? selectedLanguage.id.replace("_", "-") : [];
 }
 
-export function formatDateDisplay(timestamp) {
+// timestamp is in epoch seconds (matches transportDetails.sentTime)
+export function formatTimeDisplay(timestamp, locale = []) {
   const d = new Date(0);
   d.setUTCSeconds(timestamp);
-  return d.toLocaleDateString([], { month: "long", day: "numeric" });
+  return d.toLocaleTimeString(locale, { hour: "numeric", minute: "numeric" });
+}
+ 
+export function formatDateDisplay(timestamp, locale = []) {
+  const d = new Date(0);
+  d.setUTCSeconds(timestamp);
+  return d.toLocaleDateString(locale, { month: "long", day: "numeric" });
 }
 
 export function createInteractiveMessagePayload(

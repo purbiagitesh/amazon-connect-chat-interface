@@ -640,6 +640,19 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
     textInputRef.current.focus();
   }, [attachments.length, textInputRef]);
 
+  // launcher.js swallows native focus (to beat host modal focus traps), so React's onFocus never fires there.
+  const onTextInputFocusRef = useRef(onTextInputFocus);
+  onTextInputFocusRef.current = onTextInputFocus;
+  useEffect(() => {
+    const el = textInputRef && textInputRef.current;
+    if (!el || !el.addEventListener) {
+      return undefined;
+    }
+    const handler = () => onTextInputFocusRef.current();
+    el.addEventListener("ac-widget-focus", handler);
+    return () => el.removeEventListener("ac-widget-focus", handler);
+  }, [textInputRef, contactStatus]);
+
   function hasSameContent(event) {
     return event.target.innerText === message;
   }
@@ -993,8 +1006,12 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       {composerConfig && composerConfig.attachmentsEnabled && mediaAttachments.length > 0 && (
         <MediaAttachmentsRow data-testid="customer-chat-media-attachments">
           {canScrollMediaLeft && (
-            <ScrollArrowButton type="button" aria-label="Show previous attachment" onClick={() => scrollMediaBy(-1)}>
-              <ChevronLeftIcon />
+              <ScrollArrowButton
+                type="button"
+                aria-label={intl.formatMessage({ id: 'Chat.ShowPreviousAttachment', defaultMessage: 'Show previous attachment' })}
+                onClick={() => scrollMediaBy(-1)}
+              >
+                <ChevronLeftIcon />
             </ScrollArrowButton>
           )}
           <MediaChipScrollArea ref={mediaScrollRef} onScroll={updateMediaScrollState}>
@@ -1018,8 +1035,12 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             ))}
           </MediaChipScrollArea>
           {canScrollMediaRight && (
-            <ScrollArrowButton type="button" aria-label="Show more attachments" onClick={() => scrollMediaBy(1)}>
-              <ChevronRightIcon />
+              <ScrollArrowButton
+                type="button"
+                aria-label={intl.formatMessage({ id: 'Chat.ShowMoreAttachments', defaultMessage: 'Show more attachments' })}
+                onClick={() => scrollMediaBy(1)}
+              >
+                <ChevronRightIcon />
             </ScrollArrowButton>
           )}
         </MediaAttachmentsRow>
@@ -1078,7 +1099,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                   }
                 }}
               >
-                <IconButton aria-label={"Attach a file"} disabled={isAttachIconDisabled} style={{ verticalAlign: 'middle' }}>
+                <IconButton aria-label={intl.formatMessage({id: 'Chat.AttachFile', defaultMessage: 'Attach a file'})} disabled={isAttachIconDisabled} style={{ verticalAlign: 'middle' }}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <AttachMediaIcon />

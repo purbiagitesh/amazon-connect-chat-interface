@@ -1,5 +1,5 @@
 import React, { PureComponent, useState, useEffect, useMemo } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, IntlContext } from "react-intl";
 import styled from "styled-components";
 import PT from "prop-types";
 import Linkify from "react-linkify";
@@ -57,9 +57,12 @@ export function isAdvisorSender(messageDetails) {
 // "title" field, e.g. "Estee Lauder Virtual Assistant"). Reused here so the
 // per-message sender label matches the header instead of showing the raw
 // Connect participant DisplayName ("SYSTEM_MESSAGE"/"BOT").
-function getVirtualAssistantName() {
+function getVirtualAssistantName(intl) {
+  const vaLabel = intl
+    ? intl.formatMessage({id: 'Chat.VirtualAssistant', defaultMessage: 'Virtual Assistant'})
+    : 'Virtual Assistant';
   if (window.__CHAT_BRAND_INFO__ && window.__CHAT_BRAND_INFO__.config && window.__CHAT_BRAND_INFO__.config.header) {
-    return window.__CHAT_BRAND_INFO__.config.header.title;
+    return window.__CHAT_BRAND_INFO__.config.header.title + ' ' + vaLabel;
   }
   try {
     if (
@@ -69,7 +72,7 @@ function getVirtualAssistantName() {
       window.parent.__CHAT_BRAND_INFO__.config &&
       window.parent.__CHAT_BRAND_INFO__.config.header
     ) {
-      return window.parent.__CHAT_BRAND_INFO__.config.header.title;
+      return window.parent.__CHAT_BRAND_INFO__.config.header.title + ' ' + vaLabel;
     }
   } catch (e) {
     // window.parent is cross-origin; client info isn't reachable
@@ -403,16 +406,19 @@ export class ParticipantMessage extends PureComponent {
     }
   }
 
+  static contextType = IntlContext;
+
   timestampToDisplayable(timestamp) {
     const d = new Date(0);
     d.setUTCSeconds(timestamp);
     const today = new Date().toDateString();
     const thatDay = new Date(timestamp * 1000).toDateString();
     const option = { hour: "numeric", minute: "numeric" };
+    const locale = (this.context && this.context.locale) || [];
     if (today === thatDay) {
-      return d.toLocaleTimeString([], option);
+      return d.toLocaleTimeString(locale, option);
     }
-    return d.toLocaleTimeString([], {
+    return d.toLocaleTimeString(locale, {
       ...option,
       weekday: "short",
       month: "short",
@@ -433,7 +439,7 @@ export class ParticipantMessage extends PureComponent {
       // the Virtual Assistant experience, same as the avatar logic in
       // render() below - label it with the brand's name instead of the raw
       // Connect DisplayName.
-      displayName = getVirtualAssistantName() || displayName;
+      displayName = getVirtualAssistantName(this.context) || displayName;
     }
     const transportDetails = this.props.messageDetails.transportDetails;
     const statusStringPrefix = "connect-chat-transport-status-";
