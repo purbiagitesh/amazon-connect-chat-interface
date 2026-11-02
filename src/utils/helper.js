@@ -27,7 +27,6 @@ export function formatTimeDisplay(timestamp, locale = []) {
   d.setUTCSeconds(timestamp);
   return d.toLocaleTimeString(locale, { hour: "numeric", minute: "numeric" });
 }
- 
 export function formatDateDisplay(timestamp, locale = []) {
   const d = new Date(0);
   d.setUTCSeconds(timestamp);
@@ -171,10 +170,13 @@ export function safeParseInteractiveMessageJSON(data) {
 
 // ─── Agentic CX Modality Parser Configuration not Agentic core response────────────────────────────────
 // To support a new Agentic CX template:
-//   1. Add its parent key to MODALITY_PARENT_KEYS
+//   1. Add its parent key (normalized, no locale suffix) to MODALITY_PARENT_KEYS
 //   2. Add its data-array child key to MODALITY_CHILD_KEYS (if it uses a new one)
 //   3. Add an entry to MODALITY_CONFIG_MAP describing the component and field mapping
 //
+// Generative-node keys from Agentic CX designer carry a locale suffix
+// (e.g. "YesNoGenNode/en-US"). The lookup below strips the suffix automatically,
+// so only the base name goes here and in MODALITY_CONFIG_MAP.
 // The parser logic below never needs to change — only this config does.
 // Supported parent keys inside modalityPayload.modalities
 const MODALITY_PARENT_KEYS = [
@@ -183,14 +185,16 @@ const MODALITY_PARENT_KEYS = [
   "LeaveQueue",
   "StackedMenu", //rename to actual key name confirmed by Agentic CX team
   "ReshipMenu",  //rename to actual key name confirmed by Agentic CX team
-  // "OrderMenu",  //future: add here
+  "OrderMenu",
+  // Generative-node modalities — same base name, locale suffix stripped at lookup time
+  "YesNoGenNode",
 ];
 
 // Supported child data-array keys inside each parent modality object (used for validation)
 const MODALITY_CHILD_KEYS = [
   "cases",
   "options",
-   //future: add here
+  "orders",
 ];
 
 // Per-parent config: templateType to render + toContent(modality, parsed) that
@@ -268,7 +272,58 @@ const MODALITY_CONFIG_MAP = {
       })),
     }),
   },
-// we can add other modilities like above -- but need to refactor because we have many more templateType more
+  // YesNoGenNode: generative-node variant of YesNo — identical rendering.
+  // The contract sends "YesNoGenNode/en-US" as the key; locale is stripped at lookup time.
+  YesNoGenNode: {
+    templateType: "QuickReply",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      elements: (modality.options || []).map((opt) => ({ title: opt.label })),
+      sendAsPlainText: true,
+    }),
+  },
+  OrderMenu: {
+    templateType: "MultiPart",
+    toContent: (modality, parsed) => ({
+      elements: [
+        {
+          templateType: "Text",
+          data: { content: { title: parsed.data.content.modalityPayload.message } },
+        },
+        {
+          templateType: "OrderCarousel",
+          data: {
+            content: {
+              orders: (modality.orders || []).map((order) => ({
+                ...order,
+                products: (order.products || []).map((p) => {
+                  const variant = p.product && p.product.variants && p.product.variants[0];
+                  const shade = variant && variant.shade && variant.shade !== "null" ? variant.shade : null;
+                  const size = variant && variant.size && variant.size !== "null" ? variant.size : null;
+                  return {
+                    name: p.name,
+                    qty: p.qty,
+                    price: shade ? `Shade: ${shade}` : size || "",
+                  };
+                }),
+              })),
+            },
+          },
+          metadata: (modality.secondaryActions || []).length > 0
+            ? {
+                testId: "order-carousel-fallback",
+                heading: "Can't find your order?",
+                ctas: (modality.secondaryActions || []).map((a, i) => ({
+                  testId: `order-carousel-fallback-cta-${i}`,
+                  label: a.label,
+                  message: a.choiceValue,
+                })),
+              }
+            : undefined,
+        },
+      ],
+    }),
+  },
 };
 /**
  * Generic parser for TouchpointModality payloads from Agentic CX designer.
@@ -284,14 +339,22 @@ function normalizeTouchpointModality(parsed) {
 
   if (!modalities || typeof modalities !== "object") return parsed;
 
-  // Step 1: find the first configured parent key present in the response
-  const parentKey = MODALITY_PARENT_KEYS.find((k) => modalities[k]);
-  if (!parentKey || !MODALITY_CONFIG_MAP[parentKey]) {
+  // Step 1: find the raw modality key whose normalized form (locale suffix stripped)
+  // matches a configured parent key. "YesNoGenNode/en-US" → base "YesNoGenNode".
+  const rawParentKey = Object.keys(modalities).find((rawKey) =>
+    MODALITY_PARENT_KEYS.includes(rawKey.split("/")[0])
+  );
+  if (!rawParentKey) {
     console.warn("[ModalityParser] No supported parent key found in modalities:", Object.keys(modalities));
     return parsed;
   }
+  const parentKey = rawParentKey.split("/")[0];
+  if (!MODALITY_CONFIG_MAP[parentKey]) {
+    console.warn("[ModalityParser] No config entry for parent key:", parentKey);
+    return parsed;
+  }
 
-  const modality = modalities[parentKey];
+  const modality = modalities[rawParentKey];
   const config = MODALITY_CONFIG_MAP[parentKey];
 
   // Step 2: validate a known child data-array key exists in the modality

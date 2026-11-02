@@ -52,6 +52,29 @@ const AUTH_PROMPT_TIMER_TRIGGER_KEY = "start_15s_timer";
 const AUTH_PROMPT_TIMER_MS = 15 * 1000;
 const AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE = "15s_timeout";
 
+// ─── Agentic CX inactivity timer ───
+// The Agentic CX node has no built-in timer, so the flow appends this marker
+// to a message to signal: give the customer INACTIVITY_TIMER_MS to respond
+// before sending INACTIVITY_TIMER_SILENT_MESSAGE silently so the flow can
+// continue. The marker is stripped before the message reaches the transcript.
+const INACTIVITY_TIMER_TRIGGER_KEY = "start_90_seconds_timer";
+const INACTIVITY_TIMER_MS = 90 * 1000; // TODO: change back to 90 * 1000 before shipping
+const INACTIVITY_TIMER_SILENT_MESSAGE = "Customer Did Not Respond For 90 Seconds";
+
+// ─── Silent-message registry ───
+// Every text value that _sendSilentMessageToBot() may ever send MUST be listed
+// here. _isSilentTranscriptItem() uses this set to filter these messages out of
+// the transcript when it is restored from the getTranscript API, so they never
+// appear as chat bubbles on widget reload / scroll-back / chat rehydration.
+// The real-time websocket echo is handled separately by
+// _shouldSuppressSilentMessageEcho — this set covers the transcript-load gap.
+const SILENT_MESSAGE_TEXTS = new Set([
+  AUTH_POLLING_SILENT_MESSAGE,
+  AUTH_POLLING_TIMEOUT_SILENT_MESSAGE,
+  AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE,
+  INACTIVITY_TIMER_SILENT_MESSAGE,
+]);
+
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
   return CurrentChatSessionInstance;
@@ -248,6 +271,9 @@ class ChatSession {
   // See AUTH_PROMPT_TIMER_TRIGGER_KEY above - null whenever no prompt
   // nudge is currently pending.
   _authPromptTimer = null;
+  // See INACTIVITY_TIMER_TRIGGER_KEY above - null whenever no inactivity
+  // countdown is currently running.
+  _inactivityTimer = null;
 
   _eventHandlers = {
     "transcript-changed": [],
@@ -337,6 +363,7 @@ class ChatSession {
   async endChat() {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
+    this._clearInactivityTimer();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -432,9 +459,10 @@ class ChatSession {
   }
 
   addOutgoingMessage(data) {
-    // The customer sent something on their own - no need for the "are you
-    // still there?" nudge (see AUTH_PROMPT_TIMER_TRIGGER_KEY above).
+    // The customer sent something on their own - cancel any pending nudge
+    // timer (AUTH_PROMPT_TIMER_TRIGGER_KEY) and inactivity timer.
     this._clearAuthPromptTimer();
+    this._clearInactivityTimer();
     const message = this.alterOutgoingMessageForViewsIfRequired(data);
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
@@ -445,7 +473,6 @@ class ChatSession {
 
     // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
     const outgoingMessageSendStartTime = performance.now();
-    this._lastOutgoingSendTime = outgoingMessageSendStartTime;
 
     this.client
       .sendMessage(message.content)
@@ -470,6 +497,7 @@ class ChatSession {
     // See addOutgoingMessage above - sending an attachment counts as the
     // customer responding on their own too.
     this._clearAuthPromptTimer();
+    this._clearInactivityTimer();
     const transcriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, attachment, this.thisParticipant);
     this._addItemsToTranscript([transcriptItem]);
     this.logger && this.logger.info(`Sending File. ContactId: ${this.contactId}.`);
@@ -676,7 +704,11 @@ class ChatSession {
         const transcriptItems = incomingDataList.map((data) => {
           var transcriptItem = modelUtils.createItemFromIncoming(data, this.thisParticipant);
           return transcriptItem;
-        });
+        // Strip silent messages from the restored transcript so they never
+        // appear as chat bubbles on reload / scroll-back / rehydration.
+        // The real-time websocket echo path is handled by
+        // _shouldSuppressSilentMessageEcho; this covers the transcript-load gap.
+        }).filter((item) => !this._isSilentTranscriptItem(item));
         // call describeview to get the view if the newest message is a view message
         let lastItem = transcriptItems.pop();
         if (modelUtils.isViewMessage(lastItem) && lastItem.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE)
@@ -712,21 +744,22 @@ class ChatSession {
     // Same idea for AUTH_PROMPT_TIMER_TRIGGER_KEY - strips it and starts
     // the 15s "are you still there?" nudge timer.
     this._checkForAuthPromptTimerTrigger(item);
+    // Same idea for INACTIVITY_TIMER_TRIGGER_KEY - strips it and starts
+    // the 90s Agentic CX inactivity timer.
+    this._checkForInactivityTimerTrigger(item);
 
    this.logger && this.logger.info("_handleIncomingData item created");
     console.log(item);
 
     // Latency testing: log the ms difference between the last Incoming and last Outgoing message (sentTime is in seconds)
-    if (
-      this._lastOutgoingSendTime &&
-      item && item.transportDetails &&
-      item.transportDetails.direction === Direction.Incoming &&
-      modelUtils.isTypeMessageOrAttachment(item.type)
-    ) {
-      // ANSI codes render green in Chrome/Edge DevTools; the ChatJS logger flattens args, so %c styling isn't possible.
-      this.logger && this.logger.info(`\x1b[32m[responseTime] outgoing message sent -> incoming message received (ms): ${Math.round(performance.now() - this._lastOutgoingSendTime)}\x1b[0m`);
-      // Only the first reply after each sent message is measured.
-      this._lastOutgoingSendTime = null;
+    if (item && item.transportDetails && item.transportDetails.sentTime) {
+      this._lastSentTimeByDirection = this._lastSentTimeByDirection || {};
+      this._lastSentTimeByDirection[item.transportDetails.direction] = item.transportDetails.sentTime;
+      const incomingSentTime = this._lastSentTimeByDirection[Direction.Incoming];
+      const outgoingSentTime = this._lastSentTimeByDirection[Direction.Outgoing];
+      if (incomingSentTime && outgoingSentTime) {
+       this.logger && this.logger.info("_handleIncomingData item created");
+      }
     }
 
     if (item) {
@@ -881,6 +914,47 @@ class ChatSession {
     }
   }
 
+  // ─── Agentic CX inactivity timer ───
+  // See INACTIVITY_TIMER_TRIGGER_KEY above.
+  _checkForInactivityTimerTrigger(item) {
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return;
+    }
+    if (
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
+      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
+    ) {
+      return;
+    }
+    if (item.content.data.indexOf(INACTIVITY_TIMER_TRIGGER_KEY) === -1) {
+      return;
+    }
+    // Strip the marker (and any surrounding whitespace) before the message
+    // reaches the transcript - the customer must never see it.
+    item.content.data = item.content.data.split(INACTIVITY_TIMER_TRIGGER_KEY).join("").trim();
+    this._startInactivityTimer();
+  }
+
+  _startInactivityTimer() {
+    // Re-arm on every occurrence so a new trigger message always resets the
+    // window - never run two timers at once.
+    this._clearInactivityTimer();
+    this._inactivityTimer = setTimeout(() => {
+      this._inactivityTimer = null;
+      this._sendSilentMessageToBot(INACTIVITY_TIMER_SILENT_MESSAGE);
+    }, INACTIVITY_TIMER_MS);
+    if (typeof this._inactivityTimer.unref === "function") {
+      this._inactivityTimer.unref();
+    }
+  }
+
+  _clearInactivityTimer() {
+    if (this._inactivityTimer) {
+      clearTimeout(this._inactivityTimer);
+      this._inactivityTimer = null;
+    }
+  }
+
   // Pushes the newly-known customer attributes onto the live contact, then
   // lets the bot/VA know login happened (see _sendSilentMessageToBot) so it
   // can continue the flow as an authenticated customer.
@@ -938,6 +1012,26 @@ class ChatSession {
         this._pendingSilentMessages[text] = Math.max(0, (this._pendingSilentMessages[text] || 1) - 1);
         this.logger && this.logger.error("Failed to send silent login notice to bot.", e);
       });
+  }
+
+  // _shouldSuppressSilentMessageEcho for the transcript-load
+  // path. Returns true when an item loaded from getTranscript() was originally
+  // sent silently and must never appear as a chat bubble.
+  // Guards:
+  //   - participantRole === CUSTOMER  → never filter an agent/bot message that
+  //     coincidentally uses the same text.
+  //   - exact content.data match against SILENT_MESSAGE_TEXTS → safe even if
+  //     the customer typed something that starts with the same words.
+  // Does NOT touch the real-time websocket path - that is handled exclusively
+  // by _shouldSuppressSilentMessageEcho below.
+  _isSilentTranscriptItem(item) {
+    if (!item || !item.content || typeof item.content.data !== "string") {
+      return false;
+    }
+    if (item.participantRole !== PARTICIPANT_TYPES.CUSTOMER) {
+      return false;
+    }
+    return SILENT_MESSAGE_TEXTS.has(item.content.data);
   }
 
   // See _sendSilentMessageToBot above. Only ever suppresses a message that
@@ -1200,6 +1294,7 @@ class ChatSession {
   _handleEndedEvent() {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
+    this._clearInactivityTimer();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
