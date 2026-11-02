@@ -95,7 +95,7 @@ const HeaderAgentName = styled.div`
   font-weight: 700;
   letter-spacing: 0;
 `;
- 
+
 const HeaderTitle = styled.div`
   color: ${props => props.textColor};
   font-size: 16px;

@@ -34,13 +34,32 @@
   // auto-resume below), only exposed as data for the brand developer's own
   // script to act on, e.g. calling ChatWidget.open() on page load to
   // restore exactly what this tab had before the reload.
+  //
+  // EXCEPT - browsers clone sessionStorage (not just localStorage) into any
+  // new tab opened with an "opener" relationship to an existing one: the
+  // browser's own "Duplicate Tab", or a target="_blank"/ctrl-click/
+  // middle-click link open. Left unchecked, a duplicated tab would inherit
+  // the ORIGINAL tab's panel-visibility record, which breaks the product
+  // requirement that a brand new tab always starts un-minimized regardless
+  // of any other tab's state. window.name is the fix: unlike sessionStorage,
+  // it is NEVER cloned into a new tab by any of those - it only survives an
+  // actual same-tab reload/navigation, which is exactly the distinction
+  // needed here. Tag it once; if it's missing/different on this load, this
+  // is not the same tab as whatever wrote the sessionStorage record, so that
+  // record is ignored even though it's technically present.
+  var TAB_IDENTITY_MARKER = 'ac_widget_tab_identity';
+  var isSameTabAsLastLoad = window.name === TAB_IDENTITY_MARKER;
+  window.name = TAB_IDENTITY_MARKER;
+
   var PANEL_VISIBILITY_SESSION_KEY = 'ac_panel_open_state_session';
   var panelVisibilitySession = null;
-  try {
-    panelVisibilitySession = sessionStorage.getItem(PANEL_VISIBILITY_SESSION_KEY);
-  } catch (e) {
-    // sessionStorage unavailable (private browsing, disabled) - treat the
-    // same as a tab that never recorded any prior state (null).
+  if (isSameTabAsLastLoad) {
+    try {
+      panelVisibilitySession = sessionStorage.getItem(PANEL_VISIBILITY_SESSION_KEY);
+    } catch (e) {
+      // sessionStorage unavailable (private browsing, disabled) - treat the
+      // same as a tab that never recorded any prior state (null).
+    }
   }
   var wasOpenBeforeReload = panelVisibilitySession === 'open';
 
@@ -528,6 +547,18 @@
     });
 
     var hasActiveChat = false;
+    // Tracks whether THIS tab's own live session has ended (expiry/agent
+    // end) without hasActiveChat itself having been reset - per the
+    // product requirement, hasActiveChat/the icon deliberately stay frozen
+    // on an expiry (see wireChatEndCleanup's onChatDisconnected below), so
+    // they alone can't tell "still genuinely active" apart from "frozen on
+    // a dead session". The NEW_CHAT_STARTED_STORAGE_KEY listener further
+    // down needs that distinction - without it, a tab frozen on an expired
+    // session would never pick up a brand new conversation started
+    // elsewhere, since its own hasActiveChat never stopped reading true.
+    // Reset false again as soon as this tab has a live session of its own
+    // (wireChatEndCleanup is called once per newly-started/resumed one).
+    var hasEndedSessionWithoutRefresh = false;
     var resolvedBrand = brandInfo.brand;
     var resolvedEnv = brandInfo.environment;
 
@@ -662,7 +693,106 @@
     // notification is likely to fire, rather than waiting for
     // playNotificationChime()'s first call to discover it isn't ready yet.
     loadNotificationSoundBuffer(ensureAudioContext());
- 
+
+    // ─── Cross-tab "is someone actually looking at this right now" ───
+    // Per-tab panel-open state alone isn't enough to decide whether to
+    // sound/badge-notify: the customer could have the panel open in THIS
+    // tab while that browser tab itself is in the background (switched
+    // away), in which case they're not actually seeing new messages
+    // arrive either. Tracks BOTH conditions (panel open AND this browser
+    // tab visible) per tab, shared across tabs via localStorage, so every
+    // tab can tell whether ANY tab is currently actively showing the
+    // conversation - not just itself.
+    var ACTIVE_VIEWER_STORAGE_KEY = 'ac_chat_active_viewer';
+    // Refreshed on this cadence while actively viewing, so other tabs can
+    // tell a stale record (from a tab that closed/crashed without
+    // reaching the pagehide cleanup below) apart from a genuinely active
+    // one - see isAnyTabActivelyViewing().
+    var ACTIVE_VIEWER_HEARTBEAT_MS = 2000;
+    var ACTIVE_VIEWER_STALE_MS = 5000;
+    var TAB_VIEWER_ID = Date.now() + '-' + Math.random().toString(36).slice(2);
+    var activeViewerHeartbeatTimer = null;
+
+    function isActivelyViewingChat() {
+      return panel.classList.contains('open') && document.visibilityState === 'visible';
+    }
+
+    // Keeps ACTIVE_VIEWER_STORAGE_KEY in sync with THIS tab's own current
+    // state - called whenever that state might have changed (panel open/
+    // close, this browser tab's own visibilitychange, and once up front).
+    function reportActiveViewState() {
+      if (isActivelyViewingChat()) {
+        try {
+          localStorage.setItem(ACTIVE_VIEWER_STORAGE_KEY, JSON.stringify({tabId: TAB_VIEWER_ID, at: Date.now()}));
+        } catch (e) {
+          // localStorage unavailable - other tabs just won't see this tab as
+          // the active viewer; never let this affect this tab's own UI.
+        }
+        if (!activeViewerHeartbeatTimer) {
+          activeViewerHeartbeatTimer = setInterval(function () {
+            try {
+              localStorage.setItem(ACTIVE_VIEWER_STORAGE_KEY, JSON.stringify({tabId: TAB_VIEWER_ID, at: Date.now()}));
+            } catch (e) {
+              // best-effort only
+            }
+          }, ACTIVE_VIEWER_HEARTBEAT_MS);
+          if (typeof activeViewerHeartbeatTimer.unref === 'function') activeViewerHeartbeatTimer.unref();
+        }
+        return;
+      }
+      if (activeViewerHeartbeatTimer) {
+        clearInterval(activeViewerHeartbeatTimer);
+        activeViewerHeartbeatTimer = null;
+      }
+      // Only clear the shared record if it's still OUR OWN claim - never
+      // clobber a different tab that has since become the active viewer.
+      try {
+        var raw = localStorage.getItem(ACTIVE_VIEWER_STORAGE_KEY);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && parsed.tabId === TAB_VIEWER_ID) {
+            localStorage.removeItem(ACTIVE_VIEWER_STORAGE_KEY);
+          }
+        }
+      } catch (e) {
+        // best-effort only
+      }
+    }
+
+    function isAnyTabActivelyViewing() {
+      try {
+        var raw = localStorage.getItem(ACTIVE_VIEWER_STORAGE_KEY);
+        if (!raw) return false;
+        var parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed.at !== 'number') return false;
+        return Date.now() - parsed.at <= ACTIVE_VIEWER_STALE_MS;
+      } catch (e) {
+        // Fail open (treat as "nobody viewing") - worst case is an
+        // unnecessary notification, never a missed/silenced real one.
+        return false;
+      }
+    }
+
+    document.addEventListener('visibilitychange', reportActiveViewState);
+    window.addEventListener('pagehide', function () {
+      if (activeViewerHeartbeatTimer) {
+        clearInterval(activeViewerHeartbeatTimer);
+        activeViewerHeartbeatTimer = null;
+      }
+      try {
+        var raw = localStorage.getItem(ACTIVE_VIEWER_STORAGE_KEY);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && parsed.tabId === TAB_VIEWER_ID) {
+            localStorage.removeItem(ACTIVE_VIEWER_STORAGE_KEY);
+          }
+        }
+      } catch (e) {
+        // best-effort only
+      }
+    });
+    reportActiveViewState();
+
     function renderUnreadBadge() {
       if (!notificationBadge) return;
       if (unreadCount > 0) {
@@ -689,13 +819,55 @@
       unreadCount = 0;
       renderUnreadBadge();
     }
- 
+
+    // ─── Cross-tab unread-badge clearing ───
+    // Reading the conversation in ANY tab (opening its panel) means the
+    // customer has seen the new message(s) - every OTHER minimized tab's
+    // own unread badge is stale at that point too, not just this one's.
+    var UNREAD_CLEARED_STORAGE_KEY = 'ac_unread_cleared_at';
+
+    function broadcastUnreadCleared() {
+      try {
+        localStorage.setItem(UNREAD_CLEARED_STORAGE_KEY, String(Date.now()));
+      } catch (e) {
+        // localStorage unavailable - other tabs just keep their own badge
+        // until THEIR OWN panel is opened; never let this affect this tab.
+      }
+    }
+
+    // The browser only fires "storage" in tabs OTHER than the one that
+    // made the write, so this never re-clears the tab that was just
+    // opened - clearUnread() there already ran directly inside openPanel().
+    window.addEventListener('storage', function (e) {
+      if (e.key !== UNREAD_CLEARED_STORAGE_KEY) return;
+      clearUnread();
+    });
+
     function notifyNewMessageWhileMinimized() {
-      // An open panel means the user is already looking at the conversation.
-      if (panel.classList.contains('open')) return;
-      unreadCount += 1;
-      renderUnreadBadge();
-      blinkUnreadBadge();
+      // Keep our own active-view record current first, in case this
+      // exact call is the first thing to notice this tab's panel/
+      // visibility state (reportActiveViewState() is also wired directly
+      // to the open/close/visibilitychange events, this is just a safety
+      // net against ordering surprises).
+      reportActiveViewState();
+
+      // Case 1: the conversation is open AND visible in SOME tab right
+      // now (not necessarily this one) - the customer can already see
+      // the message there, so no sound/badge anywhere, including other
+      // minimized tabs.
+      if (isAnyTabActivelyViewing()) return;
+
+      // Case 3: this tab itself is minimized - bump its unread badge.
+      // Case 2 (open, but THIS browser tab is backgrounded) skips the
+      // badge - the launcher button it lives on is hidden by CSS
+      // whenever the panel is open regardless of tab visibility, so
+      // there's nothing to render - but still falls through to the
+      // chime below, since nobody is actually watching it either way.
+      if (!panel.classList.contains('open')) {
+        unreadCount += 1;
+        renderUnreadBadge();
+        blinkUnreadBadge();
+      }
       playNotificationChime();
     }
 
@@ -849,10 +1021,13 @@
     function openPanel() {
       panel.classList.add('open');
       btn.classList.add('widget-open');
-      // The user is now viewing the conversation - drop any unread badge.
+      // The user is now viewing the conversation - drop any unread badge,
+      // here and in every other open tab (see broadcastUnreadCleared()).
       clearUnread();
+      broadcastUnreadCleared();
       persistPanelVisibilityForReload(true);
       notifyChatMinimizedState(false);
+      reportActiveViewState();
     }
 
     function closePanel() {
@@ -860,6 +1035,7 @@
       btn.classList.remove('widget-open');
       persistPanelVisibilityForReload(false);
       notifyChatMinimizedState(true);
+      reportActiveViewState();
     }
 
     // ─── First-conversation-only cross-tab open ───
@@ -884,16 +1060,23 @@
     }
 
     // The browser only fires "storage" in tabs OTHER than the one that made
-    // the write, so this never re-triggers itself. Guarded on !hasActiveChat
-    // and the panel not already being open so it never disrupts a tab that's
-    // independently already showing something of its own. When this does
-    // resume into an open panel, resumeChat()'s onSuccess calls
-    // setHasActiveChat(true), which notifies ELC's own code (see
+    // the write, so this never re-triggers itself. Guarded on the panel not
+    // already being open so it never disrupts a tab that's independently
+    // already showing something of its own. Also guarded on !hasActiveChat
+    // - UNLESS hasEndedSessionWithoutRefresh is true, meaning THIS tab's
+    // hasActiveChat is only reading true because it's frozen on a session
+    // that already ended (see that var's own comment) - without this
+    // exception, a minimized tab left on an expired conversation would
+    // never pick up a brand new one started elsewhere, since hasActiveChat
+    // alone can't tell that apart from a still-genuinely-active session.
+    // When this does resume into an open panel, resumeChat()'s onSuccess
+    // calls setHasActiveChat(true), which notifies ELC's own code (see
     // notifyActiveChatState above) in THIS tab too - no separate call
     // needed here.
     window.addEventListener('storage', function (e) {
       if (e.key !== NEW_CHAT_STARTED_STORAGE_KEY) return;
-      if (hasActiveChat || panel.classList.contains('open')) return;
+      if (panel.classList.contains('open')) return;
+      if (hasActiveChat && !hasEndedSessionWithoutRefresh) return;
       var resumable = getResumableSession(resolvedBrand);
       if (resumable) {
         openPanel();
@@ -906,6 +1089,9 @@
     // Connect/the agent ends it server-side) must stop this widget from
     // trying to resume it on the next page/tab.
     function wireChatEndCleanup(chatSession) {
+      // This tab now has a live session again - see
+      // hasEndedSessionWithoutRefresh's own comment above.
+      hasEndedSessionWithoutRefresh = false;
 
       // Every incoming message (bot/agent/system) notifies the launcher
       // while minimized - notifyNewMessageWhileMinimized() itself no-ops
@@ -952,6 +1138,21 @@
       // early within this same page view.
       chatSession.onChatDisconnected(function () {
         clearPersistedChat(resolvedBrand);
+        // See hasEndedSessionWithoutRefresh's own comment above - this is
+        // what lets the NEW_CHAT_STARTED_STORAGE_KEY listener further down
+        // tell "still genuinely active" apart from "frozen on a dead
+        // session" in THIS tab, even though hasActiveChat itself
+        // deliberately never resets here.
+        hasEndedSessionWithoutRefresh = true;
+        // The conversation itself just changed (expired/ended) even though
+        // no new chat message necessarily arrived for onIncoming above to
+        // catch - still worth a badge/chime if minimized, same as any
+        // other update the customer hasn't seen yet. notifyNewMessageWhile
+        // Minimized() already no-ops when the panel is open, and its own
+        // chime already dedupes across every open tab's own independent
+        // connection to this same contact (see its own comment) - both
+        // apply here for free, no extra handling needed.
+        notifyNewMessageWhileMinimized();
       });
     }
 
