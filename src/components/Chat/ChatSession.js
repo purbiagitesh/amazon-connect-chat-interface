@@ -52,6 +52,51 @@ const AUTH_PROMPT_TIMER_TRIGGER_KEY = "start_15s_timer";
 const AUTH_PROMPT_TIMER_MS = 15 * 1000;
 const AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE = "15s_timeout";
 
+// Every exact text _sendSilentMessageToBot can send on this widget's own
+// behalf - see _isKnownSilentMessage below, used to recognize and hide
+// these (live or from transcript history), regardless of which open tab
+// actually sent one.
+const KNOWN_SILENT_MESSAGE_TEXTS = [
+  AUTH_POLLING_SILENT_MESSAGE,
+  AUTH_POLLING_TIMEOUT_SILENT_MESSAGE,
+  AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE,
+];
+
+// Cross-tab de-duplication for _sendSilentMessageToBot. Every open tab
+// independently resumes the same session and reacts to the same incoming
+// trigger (see _sendSilentMessageToBot's own comment), so without this,
+// EVERY open tab actually sends its own copy of the control text to the
+// bot - and the bot replies to each one individually, so the customer
+// sees the bot's real reply duplicated once per open tab (this is
+// separate from _isKnownSilentMessage, which only hides the control text
+// itself, not the bot's visible reply to it). See
+// _claimSilentMessageSendLock below for how the lock itself works.
+const SILENT_MESSAGE_LOCK_PREFIX = "ac_silent_send_lock_";
+// How long a claim is left to "settle" before the claiming tab checks
+// whether it actually won, and only then sends. Every open tab's timer/
+// poll fires off the same shared trigger, so in practice they land within
+// a few ms of each other - this just needs to comfortably cover that
+// window, not network latency.
+const SILENT_MESSAGE_LOCK_SETTLE_MS = 300;
+
+// ============================================================================
+// TEMPORARY - FOR TESTING THE CHAT-EXPIRY/DISCONNECT FLOW ONLY. REMOVE THIS
+// BLOCK (and the _tempAutoExpireTimer field/_startTempAutoExpireTimer/
+// _clearTempAutoExpireTimer methods and their call sites, all tagged
+// "TEMP-AUTO-EXPIRE") once testing is done - this is not a real product
+// requirement.
+// Simulates a non-customer-initiated disconnect (inactivity expiry/agent
+// end) one minute after connecting, by calling _handleEndedEvent() directly
+// - the exact same path ChatJS's own onEnded takes for that case. Fires
+// "chat-disconnected" only, never "chat-closed", so the panel/icon stay
+// frozen in place exactly like a real expiry (see _handleEndedEvent's own
+// comment) - deliberately NOT the same as the header-title click (which
+// calls the full endChat(), a hard reset, by design for that separate
+// feature). The underlying ChatJS session is NOT actually torn down by
+// this, so it's for exercising the UI reaction only.
+// ============================================================================
+const TEMP_AUTO_EXPIRE_MS = 60 * 1000;
+
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
   return CurrentChatSessionInstance;
@@ -248,6 +293,9 @@ class ChatSession {
   // See AUTH_PROMPT_TIMER_TRIGGER_KEY above - null whenever no prompt
   // nudge is currently pending.
   _authPromptTimer = null;
+  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above. Remove with the rest
+  // of that block once testing is done.
+  _tempAutoExpireTimer = null;
 
   _eventHandlers = {
     "transcript-changed": [],
@@ -337,6 +385,8 @@ class ChatSession {
   async endChat() {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
+    // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
+    this._clearTempAutoExpireTimer();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -628,6 +678,8 @@ class ChatSession {
     });
     this.client.onConnectionEstablished(async () => {
       await this._loadLatestTranscript();
+      // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
+      this._startTempAutoExpireTimer();
     });
   }
 
@@ -673,10 +725,23 @@ class ChatSession {
       .then(async response => {
         var incomingDataList = response.data.Transcript;
         this.nextToken = response.data.NextToken;
-        const transcriptItems = incomingDataList.map((data) => {
-          var transcriptItem = modelUtils.createItemFromIncoming(data, this.thisParticipant);
-          return transcriptItem;
-        });
+        const transcriptItems = incomingDataList
+          .map((data) => ({
+            data,
+            transcriptItem: modelUtils.createItemFromIncoming(data, this.thisParticipant),
+          }))
+          // Drop the widget's own past hidden/silent sends entirely - see
+          // _isKnownSilentMessage's own comment for why history needs this
+          // same check too, not just the live echo path below.
+          .filter(({data, transcriptItem}) => !this._isKnownSilentMessage(data, transcriptItem))
+          .map(({transcriptItem}) => {
+            // Strip any hidden flow marker (e.g. start_15s_timer,
+            // _start_auth_polling) before it ever reaches the transcript -
+            // see _stripHiddenMarkersForHistoryItem's own comment for why
+            // this only strips, never re-arms the timer/polling it signals.
+            this._stripHiddenMarkersForHistoryItem(transcriptItem);
+            return transcriptItem;
+          });
         // call describeview to get the view if the newest message is a view message
         let lastItem = transcriptItems.pop();
         if (modelUtils.isViewMessage(lastItem) && lastItem.content.type === ContentType.MESSAGE_CONTENT_TYPE.INTERACTIVE_MESSAGE)
@@ -700,7 +765,7 @@ class ChatSession {
     // processing (typing updates, delivered receipts, the transcript),
     // since there's no optimistic transcript entry to begin with for it to
     // de-duplicate against like a normal typed message has.
-    if (this._shouldSuppressSilentMessageEcho(data, item)) {
+    if (this._isKnownSilentMessage(data, item)) {
       return;
     }
 
@@ -771,24 +836,33 @@ class ChatSession {
 
   // ─── Guest -> authenticated mid-chat: contact-attribute sync ───
   // See AUTH_POLLING_TRIGGER_KEY above.
-  _checkForAuthPollingTrigger(item) {
+  // Shared by _checkForAuthPollingTrigger/_checkForAuthPromptTimerTrigger
+  // below AND _loadTranscript's historical-item pass - strips `markerKey`
+  // (and any whitespace left behind) out of `item.content.data` in place,
+  // returning whether it was actually present. Never shows the raw marker
+  // in the transcript either way; whether to also act on it (start a
+  // timer) is entirely up to the caller.
+  _stripHiddenMarker(item, markerKey) {
     if (!item || !item.content || typeof item.content.data !== "string") {
-      return;
+      return false;
     }
     if (
       item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
       item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
     ) {
-      return;
+      return false;
     }
-    if (item.content.data.indexOf(AUTH_POLLING_TRIGGER_KEY) === -1) {
-      return;
+    if (item.content.data.indexOf(markerKey) === -1) {
+      return false;
     }
-    // Strip every occurrence and any whitespace left behind, so whatever
-    // text the flow wrote around the marker (e.g. a trailing space before
-    // it) never shows up either.
-    item.content.data = item.content.data.split(AUTH_POLLING_TRIGGER_KEY).join("").trim();
-    this._startAuthPolling();
+    item.content.data = item.content.data.split(markerKey).join("").trim();
+    return true;
+  }
+
+  _checkForAuthPollingTrigger(item) {
+    if (this._stripHiddenMarker(item, AUTH_POLLING_TRIGGER_KEY)) {
+      this._startAuthPolling();
+    }
   }
 
   _startAuthPolling() {
@@ -834,7 +908,7 @@ class ChatSession {
       // passed since polling started, rather than polling forever.
       if (this._authPollingStartedAt && Date.now() - this._authPollingStartedAt >= AUTH_POLLING_MAX_DURATION_MS) {
         this._stopAuthPolling();
-        this._sendSilentMessageToBot(AUTH_POLLING_TIMEOUT_SILENT_MESSAGE);
+        this._sendSilentMessageToBot(AUTH_POLLING_TIMEOUT_SILENT_MESSAGE, this._silentMessageLockKey("auth_poll_timeout"));
       }
       return;
     }
@@ -844,30 +918,45 @@ class ChatSession {
 
   // See AUTH_PROMPT_TIMER_TRIGGER_KEY above.
   _checkForAuthPromptTimerTrigger(item) {
-    if (!item || !item.content || typeof item.content.data !== "string") {
-      return;
+    if (this._stripHiddenMarker(item, AUTH_PROMPT_TIMER_TRIGGER_KEY)) {
+      // item.id is the server-assigned message id carrying this
+      // occurrence's trigger - every open tab sees the exact same id for
+      // it, so it scopes the send-lock to THIS occurrence rather than the
+      // whole session (see _startAuthPromptTimer's own comment for why
+      // that distinction matters here).
+      this._startAuthPromptTimer(item.id);
     }
-    if (
-      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN &&
-      item.content.type !== ContentType.MESSAGE_CONTENT_TYPE.TEXT_MARKDOWN
-    ) {
-      return;
-    }
-    if (item.content.data.indexOf(AUTH_PROMPT_TIMER_TRIGGER_KEY) === -1) {
-      return;
-    }
-    item.content.data = item.content.data.split(AUTH_PROMPT_TIMER_TRIGGER_KEY).join("").trim();
-    this._startAuthPromptTimer();
   }
 
-  _startAuthPromptTimer() {
+  // Called for every item loaded from transcript HISTORY (_loadTranscript -
+  // reconnect/page-reload/resume via _loadLatestTranscript, and
+  // loadPreviousTranscript's own "load more" / chat-rehydrate use) rather
+  // than live over the websocket (_handleIncomingData above). These markers
+  // must never reach the UI there either - otherwise a reload mid-flow
+  // shows the raw "start_15s_timer"/"_start_auth_polling" text verbatim,
+  // since _loadTranscript's items never went through _handleIncomingData's
+  // stripping. Deliberately strips ONLY, never re-triggers
+  // _startAuthPolling()/_startAuthPromptTimer(): these items already
+  // happened in a previous moment (possibly a previous page load, possibly
+  // long past their 15s/10min window), so blindly restarting that timer for
+  // an old message every time the page reloads would trade this display
+  // bug for stale/duplicate timer behavior instead of just fixing it.
+  _stripHiddenMarkersForHistoryItem(item) {
+    this._stripHiddenMarker(item, AUTH_POLLING_TRIGGER_KEY);
+    this._stripHiddenMarker(item, AUTH_PROMPT_TIMER_TRIGGER_KEY);
+  }
+
+  _startAuthPromptTimer(triggerItemId) {
     // Re-arm on every occurrence (unlike auth polling's one-shot guard) -
     // each one represents a fresh guest/login prompt being shown, so each
-    // should get its own full nudge window.
+    // should get its own full nudge window. The send-lock below is keyed
+    // by triggerItemId (this specific occurrence), not just the contact,
+    // so a later occurrence in the same session is never blocked by an
+    // earlier one's lock.
     this._clearAuthPromptTimer();
     this._authPromptTimer = setTimeout(() => {
       this._authPromptTimer = null;
-      this._sendSilentMessageToBot(AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE);
+      this._sendSilentMessageToBot(AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE, this._silentMessageLockKey(`auth_prompt_timeout_${triggerItemId}`));
     }, AUTH_PROMPT_TIMER_MS);
     if (typeof this._authPromptTimer.unref === "function") {
       this._authPromptTimer.unref();
@@ -878,6 +967,28 @@ class ChatSession {
     if (this._authPromptTimer) {
       clearTimeout(this._authPromptTimer);
       this._authPromptTimer = null;
+    }
+  }
+
+  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above. Remove with the rest
+  // of that block once testing is done.
+  _startTempAutoExpireTimer() {
+    this._clearTempAutoExpireTimer();
+    this._tempAutoExpireTimer = setTimeout(() => {
+      this._tempAutoExpireTimer = null;
+      this.logger && this.logger.info("[TEMP-AUTO-EXPIRE] 1 minute elapsed - simulating an inactivity/agent-side disconnect for testing.");
+      this._handleEndedEvent();
+    }, TEMP_AUTO_EXPIRE_MS);
+    if (typeof this._tempAutoExpireTimer.unref === "function") {
+      this._tempAutoExpireTimer.unref();
+    }
+  }
+
+  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
+  _clearTempAutoExpireTimer() {
+    if (this._tempAutoExpireTimer) {
+      clearTimeout(this._tempAutoExpireTimer);
+      this._tempAutoExpireTimer = null;
     }
   }
 
@@ -908,7 +1019,7 @@ class ChatSession {
       }
     }
 
-    this._sendSilentMessageToBot(AUTH_POLLING_SILENT_MESSAGE);
+    this._sendSilentMessageToBot(AUTH_POLLING_SILENT_MESSAGE, this._silentMessageLockKey("auth_login"));
   }
 
   // Sent straight through the client, deliberately bypassing
@@ -916,51 +1027,99 @@ class ChatSession {
   // customer must never see this in their own transcript, it exists purely
   // to tell the bot/VA the login just happened.
   //
-  // Records this exact text as "pending" BEFORE sending, so
-  // _shouldSuppressSilentMessageEcho (in _handleIncomingData) can catch and
-  // drop its echo whenever it actually arrives - not tied to the
-  // sendMessage() promise's own timing. addOutgoingMessage()'s
-  // isOutgoingMessageInFlight flag is the wrong tool to reuse here: it gets
-  // reset as soon as the SendMessage HTTP response comes back, but the
-  // websocket echo can legitimately arrive after that (there's no
-  // optimistic transcript entry here for the flag to be de-duplicating
-  // against, unlike a normal typed message) - this content-matched
-  // approach stays correct regardless of which arrives first.
-  _sendSilentMessageToBot(text) {
-    this._pendingSilentMessages = this._pendingSilentMessages || {};
-    this._pendingSilentMessages[text] = (this._pendingSilentMessages[text] || 0) + 1;
-    this.client.sendMessage({data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN})
-      .catch((e) => {
-        // The send itself failed - no echo will ever arrive for this
-        // attempt, so release its pending slot rather than leaving it
-        // stuck (which would wrongly suppress some LATER, unrelated
-        // message that happens to have the exact same text).
-        this._pendingSilentMessages[text] = Math.max(0, (this._pendingSilentMessages[text] || 1) - 1);
-        this.logger && this.logger.error("Failed to send silent login notice to bot.", e);
-      });
+  // `lockKey`, when provided, is claimed via _claimSilentMessageSendLock
+  // first - the actual client.sendMessage call only happens if this tab
+  // wins that claim. Every call site passes one (see
+  // SILENT_MESSAGE_LOCK_PREFIX above for why); it's optional only so a
+  // future one-off send isn't forced to invent a key it doesn't need.
+  _sendSilentMessageToBot(text, lockKey) {
+    const send = () => {
+      this.client.sendMessage({data: text, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN})
+        .catch((e) => {
+          this.logger && this.logger.error("Failed to send silent message to bot.", e);
+        });
+    };
+    if (!lockKey) {
+      send();
+      return;
+    }
+    this._claimSilentMessageSendLock(lockKey, send);
   }
 
-  // See _sendSilentMessageToBot above. Only ever suppresses a message that
-  // is BOTH a genuine roundtrip of this exact participant's own send (so a
-  // real agent/bot message that happens to contain the same text is never
-  // affected) AND currently pending from a silent send.
-  _shouldSuppressSilentMessageEcho(rawData, item) {
+  // Builds a lock key scoped to this contact - callers append their own
+  // per-occurrence suffix (see each call site's own comment for whether
+  // that needs to be unique per send or is safe to reuse for the whole
+  // session).
+  _silentMessageLockKey(suffix) {
+    return `${SILENT_MESSAGE_LOCK_PREFIX}${this.contactId}_${suffix}`;
+  }
+
+  // "Last writer wins": every open tab that reaches this writes its own
+  // claim into localStorage immediately (synchronous, so whichever tab's
+  // timer/poll actually runs last here simply overwrites every earlier
+  // tab's claim), then waits SILENT_MESSAGE_LOCK_SETTLE_MS and checks
+  // whether ITS OWN claim is still the value stored - if some other tab
+  // claimed after it, this tab's claim has already been overwritten, so
+  // it quietly skips `onWin` rather than risk the bot replying twice. The
+  // key is removed by whichever tab wins, so it never lingers once this
+  // occurrence is resolved.
+  _claimSilentMessageSendLock(lockKey, onWin) {
+    let claimId;
+    try {
+      claimId = `${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      window.localStorage.setItem(lockKey, claimId);
+    } catch (e) {
+      // localStorage unavailable (private browsing, disabled storage, ...)
+      // - fail open so the message still gets sent at least once.
+      onWin();
+      return;
+    }
+    setTimeout(() => {
+      let current = claimId;
+      try {
+        current = window.localStorage.getItem(lockKey);
+        window.localStorage.removeItem(lockKey);
+      } catch (e) {
+        // ignore - fail open below with the last known value
+      }
+      if (current === claimId) {
+        onWin();
+      }
+    }, SILENT_MESSAGE_LOCK_SETTLE_MS);
+  }
+
+  // See _sendSilentMessageToBot above. Suppresses a message that is BOTH a
+  // genuine roundtrip of this exact participant's own send (so a real
+  // agent/bot message that happens to contain the same text is never
+  // affected) AND an exact match for one of the fixed, internal-only
+  // control strings in KNOWN_SILENT_MESSAGE_TEXTS - every call site of
+  // _sendSilentMessageToBot only ever sends one of those three.
+  //
+  // Deliberately matches on TEXT alone, not a per-send "pending" record
+  // tied to THIS tab's own call - every open tab independently resumes the
+  // same session and reacts to the same incoming marker (e.g.
+  // AUTH_PROMPT_TIMER_TRIGGER_KEY), so more than one tab can end up
+  // sending the exact same silent text within the same window. Connect
+  // echoes every participant message to every open connection watching
+  // this contact, including other tabs' - a per-tab pending count could
+  // only ever suppress the echo of ITS OWN send, leaving every OTHER open
+  // tab's independent send showing up as a real, visible message in this
+  // one.
+  //
+  // Shared by two call sites for two different situations: _handleIncoming
+  // Data uses it for a message arriving LIVE over the websocket in THIS
+  // page load; _loadTranscript uses it for an item pulled from transcript
+  // HISTORY via the server instead - e.g. one sent in a PREVIOUS page
+  // load, which _handleIncomingData never sees at all. Both need the exact
+  // same text-based recognition for the exact same reason.
+  _isKnownSilentMessage(rawData, item) {
     if (!this._isRoundtripMessage(rawData)) {
       return false;
     }
     if (!item || !item.content || typeof item.content.data !== "string") {
       return false;
     }
-    const pending = this._pendingSilentMessages;
-    const text = item.content.data;
-    if (!pending || !pending[text]) {
-      return false;
-    }
-    pending[text] -= 1;
-    if (pending[text] <= 0) {
-      delete pending[text];
-    }
-    return true;
+    return KNOWN_SILENT_MESSAGE_TEXTS.indexOf(item.content.data) !== -1;
   }
 
   async _describeAndProcessView(item) {
@@ -1200,6 +1359,8 @@ class ChatSession {
   _handleEndedEvent() {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
+    // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
+    this._clearTempAutoExpireTimer();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
