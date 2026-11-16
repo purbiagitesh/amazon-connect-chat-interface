@@ -392,6 +392,8 @@ export class ParticipantMessage extends PureComponent {
     // attachments - renders all of them as one grid bubble instead of the
     // plain filename-link AttachmentMessage.
     groupedAttachmentItems: PT.array,
+    // Hides QuickReply option chips once the contact has ended.
+    isContactEnded: PT.bool,
   };
 
   constructor(props) {
@@ -707,6 +709,7 @@ export class ParticipantMessage extends PureComponent {
         : null;
     const quickReplyContent =
       interactiveParsed &&
+      !this.props.isContactEnded &&
       interactiveParsed.templateType === InteractiveMessageType.QUICK_REPLY &&
       interactiveParsed.data
         ? interactiveParsed.data.content
@@ -818,6 +821,7 @@ export class ParticipantMessage extends PureComponent {
               fallbackCardData={metadata}
               addMessage={this.props.mediaOperations.addMessage}
               textInputRef={this.props.textInputRef}
+              isContactEnded={this.props.isContactEnded}
               // QuickReply's controls render below the bubble (see render());
               // here inside the bubble we only want its title.
               renderPart={templateType === InteractiveMessageType.QUICK_REPLY ? "bubble" : undefined}

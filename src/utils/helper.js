@@ -183,9 +183,10 @@ const MODALITY_PARENT_KEYS = [
   "CaseMenu",
   "YesNo",
   "LeaveQueue",
-  "StackedMenu", //rename to actual key name confirmed by Agentic CX team
-  "ReshipMenu",  //rename to actual key name confirmed by Agentic CX team
+  "StackedMenu",
+  "ReshipMenu",
   "OrderMenu",
+  "OrderConfirmation", 
   // Generative-node modalities — same base name, locale suffix stripped at lookup time
   "YesNoGenNode",
 ];
@@ -195,6 +196,7 @@ const MODALITY_CHILD_KEYS = [
   "cases",
   "options",
   "orders",
+  "products",
 ];
 
 // Per-parent config: templateType to render + toContent(modality, parsed) that
@@ -282,6 +284,46 @@ const MODALITY_CONFIG_MAP = {
       sendAsPlainText: true,
     }),
   },
+  // OrderConfirmation: rename to actual key confirmed by Agentic CX team.
+  // Two bubbles — title text above (modalityPayload.message), ListConfirmation card below.
+  // Returned as MultiPart so ChatTranscriptor splits them into separate items.
+  OrderConfirmation: {
+    templateType: "MultiPart",
+    toContent: (modality, parsed) => ({
+      elements: [
+        {
+          templateType: "Text",
+          data: { content: { title: parsed.data.content.modalityPayload.message } },
+        },
+        {
+          templateType: "ListConfirmation",
+          data: {
+            content: {
+              order: {
+                orderNumber: modality.orderNumber,
+                orderDate: modality.orderDate,
+                products: (modality.products || []).map((p) => {
+                  const variant = p.product && p.product.variants && p.product.variants[0];
+                  const shade = variant && variant.shade && variant.shade !== "null" ? variant.shade : null;
+                  const size = variant && variant.size && variant.size !== "null" ? variant.size : null;
+                  return {
+                    name: p.name,
+                    qty: p.qty,
+                    ...(shade ? { shade } : {}),
+                    ...(size && !shade ? { size } : {}),
+                  };
+                }),
+                yesLabel: modality.yesLabel,
+                noLabel: modality.noLabel,
+                yesMessage: modality.yesMessage,
+                noMessage: modality.noMessage,
+              },
+            },
+          },
+        },
+      ],
+    }),
+  },
   OrderMenu: {
     templateType: "MultiPart",
     toContent: (modality, parsed) => ({
@@ -309,17 +351,20 @@ const MODALITY_CONFIG_MAP = {
               })),
             },
           },
-          metadata: (modality.secondaryActions || []).length > 0
-            ? {
-                testId: "order-carousel-fallback",
-                heading: "Can't find your order?",
-                ctas: (modality.secondaryActions || []).map((a, i) => ({
-                  testId: `order-carousel-fallback-cta-${i}`,
-                  label: a.label,
-                  message: a.choiceValue,
-                })),
-              }
-            : undefined,
+          metadata: (() => {
+            const sa = modality.secondaryActions;
+            const actions = Array.isArray(sa) ? sa : (sa && typeof sa === "object" ? [sa] : []);
+            return actions.length > 0
+              ? {
+                  testId: "order-carousel-fallback",
+                  ctas: actions.map((a, i) => ({
+                    testId: `order-carousel-fallback-cta-${i}`,
+                    label: a.label,
+                    message: a.choiceValue,
+                  })),
+                }
+              : undefined;
+          })(),
         },
       ],
     }),

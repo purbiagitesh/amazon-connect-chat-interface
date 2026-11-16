@@ -1057,8 +1057,8 @@ class ChatSession {
     // unconditionally - this method only ever runs once the caller has
     // already confirmed context.authenticated === true, so it's always
     // correct here.
-    attributes.customerLoggedIn = "Yes";
-    if (context.firstName) attributes.customerName = context.firstName;
+    attributes.userLoggedIn = "Yes";
+    if (context.firstName) attributes.firstName = context.firstName;
 
     const apiGatewayEndpoint = this.customizationParams.apiGatewayEndpoint;
     if (apiGatewayEndpoint && Object.keys(attributes).length > 0) {

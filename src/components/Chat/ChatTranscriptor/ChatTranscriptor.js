@@ -149,11 +149,13 @@ export default class ChatTranscriptor extends PureComponent {
     if (parsedContent && parsedContent.templateType === InteractiveMessageType.QUICK_REPLY) {
       return `quickreply-${itemDetails.id}`;
     }
-    // Agentic CX designer sends each conversation turn from a distinct
-    // participantId, so include it in the key — different turns each get their
-    // own avatar while consecutive messages from the same participant still
-    // share one (traditional single-bot flows are unaffected).
-    return isAdvisorSender(itemDetails) ? "advisor" : `assistant-${itemDetails.participantId}`;
+    // TEMP: Every incoming bubble gets its own avatar regardless of participantId.
+    // Previously grouped consecutive messages from the same participant under a shared
+    // key ("advisor" / "assistant-{participantId}") so only the first bubble showed the
+    // avatar. Changed to per-message unique keys so every bubble always shows its avatar.
+    // Revert this line to the original when the grouping UX is decided:
+    //   return isAdvisorSender(itemDetails) ? "advisor" : `assistant-${itemDetails.participantId}`;
+    return isAdvisorSender(itemDetails) ? `advisor-${itemDetails.id}` : `assistant-${itemDetails.id}`;
   };
  
   renderMessage = (itemsInGroup, previousItemDetails, isLatestMessage) => {

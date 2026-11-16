@@ -115,3 +115,10 @@ export const CSM_CATEGORY = {
   API: "API",
   UI: "UI"
 };
+
+export const COUNTRY_NAMES = {
+  us: "United States",
+  fr: "France",
+  ca: "Canada",
+  uk: "United Kingdom"
+};

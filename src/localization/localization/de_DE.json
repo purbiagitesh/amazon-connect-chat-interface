@@ -66,5 +66,6 @@
     "disclaimer.showMore": "Mehr anzeigen",
     "disclaimer.showLess": "Weniger anzeigen",
     "Chat.VirtualAssistant": "Virtueller Assistent",
-    "Chat.LauncherButtonText": "Jetzt chatten"
+    "Chat.LauncherButtonText": "Jetzt chatten",
+    "Chat.CantFindYourOrder": "Sie können Ihre Bestellung nicht finden?"
 }

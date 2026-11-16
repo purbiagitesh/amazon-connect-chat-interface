@@ -138,6 +138,15 @@ const PickerOptionTitle = styled(Text)`
     justify-content: center;
   ` : ""}
 `;
+// display: contents keeps the wrapper out of the layout; pointer-events and
+// inert block every control inside it once the contact has ended.
+const DisabledActions = styled.div`
+  display: contents;
+
+  &[data-disabled="true"] {
+    pointer-events: none;
+  }
+`;
 //#endregion Styled Components
 
 InteractiveMessage.propTypes = {
@@ -149,10 +158,23 @@ InteractiveMessage.propTypes = {
   // QUICK_REPLY only: "bubble" / "actions" to render just one half of the
   // template (ChatMessage places the title bubble beside the avatar and the
   // controls in a full-width row below it).
-  renderPart: PT.oneOf(["bubble", "actions"])
+  renderPart: PT.oneOf(["bubble", "actions"]),
+  isContactEnded: PT.bool
 };
 
-export function InteractiveMessage({content, templateType, fallbackCardData, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
+export function InteractiveMessage({isContactEnded, ...props}) {
+  return (
+    <DisabledActions
+      data-disabled={!!isContactEnded}
+      aria-disabled={!!isContactEnded}
+      inert={isContactEnded ? "" : undefined}
+    >
+      <InteractiveMessageTemplate {...props} />
+    </DisabledActions>
+  );
+}
+
+function InteractiveMessageTemplate({content, templateType, fallbackCardData, addMessage, textInputRef, isCarouselElem, templateIdentifier, renderPart}) {
   const [responseSelected, setResponseSelected] = useState(false);
   const ref = useRef();
 

@@ -300,6 +300,7 @@ const TextInput = styled(TextareaAutosize)`
     font-weight: normal !important;
     height: 18px !important;
     text-transform: none !important;
+    background: transparent !important;
   }
 
   &:focus {

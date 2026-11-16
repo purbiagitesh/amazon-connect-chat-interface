@@ -344,15 +344,16 @@
     var customerName = firstName;
 
     var attributes = {
-      brand_code: brandInfo.config.title || '',
-      customerLoggedIn: customerLoggedIn,
+      brand: brandInfo.config.title || '',
+      userLoggedIn: customerLoggedIn,
       customerId: String(utagData.USER_ID),
       email: email,
-      customerName: customerName,
-      region_code:utagData.region_code || 'NA',
-      language_code: utagData.locale || 'en-US',
-      country_code: utagData.country_code || 'us',
-      channel: 'Chat',
+      firstName: customerName,
+      lastName: lastName,
+      region:utagData.region_code || 'NA',
+      language: utagData.locale || 'en-US',
+      country: utagData.country_code || 'us',
+      Channel_type: 'Chat',
       isShopify: brandInfo.config.isShopify
     };
     return attributes;
@@ -571,6 +572,36 @@
     var notificationBadge = btn.querySelector('.notification-badge');
     var unreadCount = 0;
     var notificationAudioCtx = null;
+    var UNREAD_COUNT_STORAGE_KEY = 'ac_unread_count';
+ 
+    function readStoredUnreadCount() {
+      try {
+        return Math.max(0, parseInt(localStorage.getItem(UNREAD_COUNT_STORAGE_KEY), 10) || 0);
+      } catch (e) {
+        return 0;
+      }
+    }
+ 
+    function storeUnreadCount() {
+      try {
+        if (unreadCount > 0) {
+          localStorage.setItem(UNREAD_COUNT_STORAGE_KEY, String(unreadCount));
+        } else {
+          localStorage.removeItem(UNREAD_COUNT_STORAGE_KEY);
+        }
+      } catch (e) {
+        // localStorage unavailable - badge just won't survive a refresh.
+      }
+    }
+ 
+    // Only removals are synced across tabs: every tab already counts the same
+    // incoming messages itself, so syncing increments would double-count.
+    window.addEventListener('storage', function (e) {
+      if (e.key !== UNREAD_COUNT_STORAGE_KEY || e.newValue) return;
+      if (unreadCount === 0) return;
+      unreadCount = 0;
+      renderUnreadBadge();
+    });
 
     // Served alongside launcher.js itself (not from src/assets/ - that tree
     // only feeds the webpack-bundled React app; this plain script has no
@@ -815,9 +846,24 @@
     }
  
     function clearUnread() {
-      if (unreadCount === 0) return;
+      if (unreadCount === 0 && !readStoredUnreadCount()) return;
       unreadCount = 0;
+      storeUnreadCount();
       renderUnreadBadge();
+    }
+ 
+    // Called once the chat is known to be active (incl. resume after refresh),
+    // so a stale count from an expired session is never shown.
+    function restoreUnread() {
+      if (panel.classList.contains('open')) {
+        clearUnread();
+        return;
+      }
+      var stored = readStoredUnreadCount();
+      if (stored > unreadCount) {
+        unreadCount = stored;
+        renderUnreadBadge();
+      }
     }
 
     // ─── Cross-tab unread-badge clearing ───
@@ -865,6 +911,7 @@
       // chime below, since nobody is actually watching it either way.
       if (!panel.classList.contains('open')) {
         unreadCount += 1;
+      storeUnreadCount();
         renderUnreadBadge();
         blinkUnreadBadge();
       }
@@ -903,6 +950,11 @@
       hasActiveChat = active;
       btn.classList.toggle('chat-active', active);
       window.connect.ChatWidget.hasActiveChat = active;
+      if (active) {
+        restoreUnread();
+      } else {
+        clearUnread();
+      }
       if (changed && !silent) {
         notifyActiveChatState(active);
       }
@@ -1158,9 +1210,9 @@
 
     async function startChat() {
       var contactAttributes = await buildContactAttributes(brandInfo, window.utag_data);
-      var language = (contactAttributes.language_code || 'en-US').replace('-', '_');
+      var language = (contactAttributes.language || 'en-US').replace('-', '_');
       window.connect.ChatInterface.initiateChat({
-        name: contactAttributes.customerName,
+        name: contactAttributes.firstName,
         region: brandConfig.region,
         featurePermissions: { "ATTACHMENTS": true }, //This is needs to be removed once this flag will come from connect/VA.
         apiGatewayEndpoint: brandConfig.apiGatewayEndpoint,
@@ -1169,7 +1221,7 @@
         language: language,
       }, function onSuccess(chatSession) {
         if (chatSession.rawChatDetails) {
-          persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.customerName, language);
+          persistActiveChat(resolvedBrand, resolvedEnv, chatSession.rawChatDetails, contactAttributes.firstName, language);
         }
         wireChatEndCleanup(chatSession);
         // Deliberately broadcast BEFORE setHasActiveChat(true) below, not

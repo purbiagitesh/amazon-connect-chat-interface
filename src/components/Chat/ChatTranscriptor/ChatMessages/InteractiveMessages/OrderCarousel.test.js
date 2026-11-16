@@ -1,4 +1,5 @@
 import React from "react";
+import { IntlProvider } from "react-intl";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { ThemeProvider } from "../../../../../theme";
 import OrderCarousel from "./OrderCarousel";
@@ -6,9 +7,11 @@ import OrderCarousel from "./OrderCarousel";
 function renderCarousel(props = {}) {
   const addMessage = jest.fn();
   render(
-    <ThemeProvider>
-      <OrderCarousel addMessage={addMessage} {...props} />
-    </ThemeProvider>
+    <IntlProvider locale="en">
+      <ThemeProvider>
+        <OrderCarousel addMessage={addMessage} {...props} />
+      </ThemeProvider>
+    </IntlProvider>
   );
   return { addMessage };
 }

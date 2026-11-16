@@ -66,5 +66,6 @@
     "disclaimer.showMore": "Tampilkan lebih banyak",
     "disclaimer.showLess": "Tampilkan lebih sedikit",
     "Chat.VirtualAssistant": "Asisten Virtual",
-    "Chat.LauncherButtonText": "Chat sekarang"
+    "Chat.LauncherButtonText": "Chat sekarang",
+    "Chat.CantFindYourOrder": "Tidak menemukan pesanan Anda?"
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import PT from "prop-types";
+import { useIntl } from "react-intl";
 import SelectionCarousel from "./SelectionCarousel";
 import { MOCK_ORDERS } from "./OrderCarousel.mockData";
 
@@ -18,6 +19,7 @@ OrderCarousel.propTypes = {
 };
 
 export default function OrderCarousel({ content, fallbackCardData, addMessage }) {
+  const intl = useIntl();
   // Falls back to mock data only when no runtime content is supplied - see
   // OrderCarousel.mockData.js. Swapping to the real VA JSON is a data
   // change only, not a structural one.
@@ -34,22 +36,18 @@ export default function OrderCarousel({ content, fallbackCardData, addMessage })
       primaryText: product.name,
       secondaryText: formatProductMeta(product),
     })),
-    onSelectMessage: `Selected order ${order.orderNumber}`,
+    onSelectMessage: `${order.orderNumber}`,
   }));
 
-  // const fallbackCard = {
-  //   testId: "order-card-empty",
-  //   heading: "Can't find your order?",
-  //   ctas: [
-  //     { testId: "order-card-empty-enter", label: "Enter order number", message: "Enter order number" },
-  //     { testId: "order-card-empty-unknown", label: "Don't know order number", message: "Don't know order number" },
-  //   ],
-  // };
+  const fallbackCard = fallbackCardData && {
+    ...fallbackCardData,
+    heading: intl.formatMessage({ id: "Chat.CantFindYourOrder", defaultMessage: "Can't find your order?" }),
+  };
 
   return (
     <SelectionCarousel
       cards={cards}
-      fallbackCard={fallbackCardData}
+      fallbackCard={fallbackCard}
       addMessage={addMessage}
       testIdPrefix="order-carousel"
     /> 

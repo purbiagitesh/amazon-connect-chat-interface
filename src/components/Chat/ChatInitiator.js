@@ -1,5 +1,6 @@
 import request from "../../utils/fetchRequest";
 import {START_CHAT_CLIENT_TIMEOUT_MS} from "../../constants/http";
+import {COUNTRY_NAMES} from "../../constants/global";
 
 function safeParse(jsonString, defaultValue) {
   try {
@@ -55,6 +56,9 @@ export function initiateChat(input) {
 
   const attributes = safeParse(input.contactAttributes, null);
   if (attributes) {
+    if (attributes.country) {
+      attributes.countryName = COUNTRY_NAMES[String(attributes.country).toLowerCase()] || "United States";
+    }
     initiateChatRequest.Attributes = attributes;
   }
 
