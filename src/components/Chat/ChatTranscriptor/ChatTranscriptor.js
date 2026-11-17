@@ -416,10 +416,23 @@ export default class ChatTranscriptor extends PureComponent {
         (type === PARTICIPANT_MESSAGE || type === ATTACHMENT_MESSAGE) &&
         transportDetails.direction === Direction.Outgoing
       )).pop();
- 
+    // Mirrors lastSentMessage above, but for the other side - lets
+    // ChatTranscriptScroller tell "a genuinely NEW incoming message arrived"
+    // apart from any other reason its children might change (e.g. the
+    // customer's own just-sent message getting its optimistic transcript
+    // entry replaced by the server-confirmed one once sendMessage()
+    // resolves - same id, no new incoming message, but still a children
+    // change that must NOT consume the scroller's one-per-burst allowance
+    // meant for the real incoming reply).
+    const lastReceivedMessage = this.props.transcript
+      .filter(({type, transportDetails}) => (
+        (type === PARTICIPANT_MESSAGE || type === ATTACHMENT_MESSAGE) &&
+        transportDetails.direction === Direction.Incoming
+      )).pop();
+
     const renderGroups = this.buildRenderGroups();
     const lastGroupIndex = renderGroups.length - 1;
- 
+
     return (
       <TranscriptWrapper
         className="transcript"
@@ -427,6 +440,7 @@ export default class ChatTranscriptor extends PureComponent {
         type={this.props.contactStatus}
         loadPreviousTranscript={this.loadTranscript}
         lastSentMessageId={lastSentMessage ? lastSentMessage.id : null}
+        lastReceivedMessageId={lastReceivedMessage ? lastReceivedMessage.id : null}
       >
         {(this.props.contactStatus === CONTACT_STATUS.CONNECTED ||
           this.props.contactStatus === CONTACT_STATUS.ACW ||

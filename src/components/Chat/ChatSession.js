@@ -61,6 +61,25 @@ const INACTIVITY_TIMER_TRIGGER_KEY = "start_90_seconds_timer";
 const INACTIVITY_TIMER_MS = 90 * 1000; // TODO: change back to 90 * 1000 before shipping
 const INACTIVITY_TIMER_SILENT_MESSAGE = "Customer Did Not Respond For 90 Seconds";
 
+// ─── NUC05 follow-up timer (customer stopped responding) ───
+// Unlike every trigger above, this one is deliberately UNCONDITIONAL - not
+// gated behind a marker string from the flow. It (re)starts on every real
+// incoming message/attachment from the other side (see _handleIncomingData)
+// and is cancelled the moment the customer replies (see
+// addOutgoingMessage/addOutgoingAttachment's _clearNuc05Timers() calls).
+// Stage 1 waits NUC05_REPROMPT_DELAY_MS for a reply; if none arrives,
+// stage 2 waits a further NUC05_FOLLOWUP_DELAY_MS before silently sending
+// NUC05_TIMEOUT_SILENT_MESSAGE so the flow can continue into the NUC05
+// Follow Up Flow. Two things are deliberately NOT done yet, pending future
+// work: (1) the re-prompt between stage 1 and 2 (re-showing the last
+// message) - that will only apply conditionally, based on a specific
+// string in the message, which isn't implemented yet, so stage 1 elapsing
+// just silently starts stage 2; and (2) disconnecting the chat - this
+// timer only ever sends the silent message, nothing else.
+const NUC05_REPROMPT_DELAY_MS = 90 * 1000;
+const NUC05_FOLLOWUP_DELAY_MS = 30 * 1000;
+const NUC05_TIMEOUT_SILENT_MESSAGE = "timeout_trigger_nuc05_flow";
+
 // Every exact text _sendSilentMessageToBot can send on this widget's own
 // behalf - see _isKnownSilentMessage below, used to recognize and hide
 // these (live or from transcript history), regardless of which open tab
@@ -70,6 +89,7 @@ const KNOWN_SILENT_MESSAGE_TEXTS = [
   AUTH_POLLING_TIMEOUT_SILENT_MESSAGE,
   AUTH_PROMPT_TIMEOUT_SILENT_MESSAGE,
   INACTIVITY_TIMER_SILENT_MESSAGE,
+  NUC05_TIMEOUT_SILENT_MESSAGE,
 ];
 
 // Cross-tab de-duplication for _sendSilentMessageToBot. Every open tab
@@ -88,24 +108,6 @@ const SILENT_MESSAGE_LOCK_PREFIX = "ac_silent_send_lock_";
 // a few ms of each other - this just needs to comfortably cover that
 // window, not network latency.
 const SILENT_MESSAGE_LOCK_SETTLE_MS = 300;
-
-// ============================================================================
-// TEMPORARY - FOR TESTING THE CHAT-EXPIRY/DISCONNECT FLOW ONLY. REMOVE THIS
-// BLOCK (and the _tempAutoExpireTimer field/_startTempAutoExpireTimer/
-// _clearTempAutoExpireTimer methods and their call sites, all tagged
-// "TEMP-AUTO-EXPIRE") once testing is done - this is not a real product
-// requirement.
-// Simulates a non-customer-initiated disconnect (inactivity expiry/agent
-// end) one minute after connecting, by calling _handleEndedEvent() directly
-// - the exact same path ChatJS's own onEnded takes for that case. Fires
-// "chat-disconnected" only, never "chat-closed", so the panel/icon stay
-// frozen in place exactly like a real expiry (see _handleEndedEvent's own
-// comment) - deliberately NOT the same as the header-title click (which
-// calls the full endChat(), a hard reset, by design for that separate
-// feature). The underlying ChatJS session is NOT actually torn down by
-// this, so it's for exercising the UI reaction only.
-// ============================================================================
-const TEMP_AUTO_EXPIRE_MS = 60 * 1000;
 
 var CurrentChatSessionInstance = {};
 export function getCurrentChatSessionInstance () {
@@ -306,9 +308,10 @@ class ChatSession {
   // See INACTIVITY_TIMER_TRIGGER_KEY above - null whenever no inactivity
   // countdown is currently running.
   _inactivityTimer = null;
-  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above. Remove with the rest
-  // of that block once testing is done.
-  _tempAutoExpireTimer = null;
+  // See NUC05_REPROMPT_DELAY_MS above - stage 1 (90s) and stage 2 (30s)
+  // timers; each null whenever not currently running.
+  _nuc05RepromptTimer = null;
+  _nuc05FollowUpTimer = null;
 
   _eventHandlers = {
     "transcript-changed": [],
@@ -399,8 +402,7 @@ class ChatSession {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
     this._clearInactivityTimer();
-    // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
-    this._clearTempAutoExpireTimer();
+    this._clearNuc05Timers();
     await this.client.disconnect();
     this._updateContactStatus(CONTACT_STATUS.DISCONNECTED);
     this._triggerEvent("chat-disconnected");
@@ -497,9 +499,11 @@ class ChatSession {
 
   addOutgoingMessage(data) {
     // The customer sent something on their own - cancel any pending nudge
-    // timer (AUTH_PROMPT_TIMER_TRIGGER_KEY) and inactivity timer.
+    // timer (AUTH_PROMPT_TIMER_TRIGGER_KEY), inactivity timer, and NUC05
+    // follow-up timer (see NUC05_REPROMPT_DELAY_MS above).
     this._clearAuthPromptTimer();
     this._clearInactivityTimer();
+    this._clearNuc05Timers();
     const message = this.alterOutgoingMessageForViewsIfRequired(data);
 
     this.logger && this.logger.info(`Adding outgoing message. ContactId: ${this.contactId}`);
@@ -510,6 +514,7 @@ class ChatSession {
 
     // Latency testing: time for a user-typed outgoing message to reach Connect (SendMessage API round trip)
     const outgoingMessageSendStartTime = performance.now();
+    this._lastOutgoingSendTime = outgoingMessageSendStartTime;
 
     this.client
       .sendMessage(message.content)
@@ -535,6 +540,7 @@ class ChatSession {
     // customer responding on their own too.
     this._clearAuthPromptTimer();
     this._clearInactivityTimer();
+    this._clearNuc05Timers();
     const transcriptItem = modelUtils.createOutgoingTranscriptItem(ATTACHMENT_MESSAGE, attachment, this.thisParticipant);
     this._addItemsToTranscript([transcriptItem]);
     this.logger && this.logger.info(`Sending File. ContactId: ${this.contactId}.`);
@@ -693,8 +699,6 @@ class ChatSession {
     });
     this.client.onConnectionEstablished(async () => {
       await this._loadLatestTranscript();
-      // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
-      this._startTempAutoExpireTimer();
     });
   }
 
@@ -800,14 +804,16 @@ class ChatSession {
     console.log(item);
 
     // Latency testing: log the ms difference between the last Incoming and last Outgoing message (sentTime is in seconds)
-    if (item && item.transportDetails && item.transportDetails.sentTime) {
-      this._lastSentTimeByDirection = this._lastSentTimeByDirection || {};
-      this._lastSentTimeByDirection[item.transportDetails.direction] = item.transportDetails.sentTime;
-      const incomingSentTime = this._lastSentTimeByDirection[Direction.Incoming];
-      const outgoingSentTime = this._lastSentTimeByDirection[Direction.Outgoing];
-      if (incomingSentTime && outgoingSentTime) {
-       this.logger && this.logger.info("_handleIncomingData item created");
-      }
+    if (
+      this._lastOutgoingSendTime &&
+      item && item.transportDetails &&
+      item.transportDetails.direction === Direction.Incoming &&
+      modelUtils.isTypeMessageOrAttachment(item.type)
+    ) {
+      // ANSI codes render green in Chrome/Edge DevTools; the ChatJS logger flattens args, so %c styling isn't possible.
+      this.logger && this.logger.info(`\x1b[32m[responseTime] outgoing message sent -> incoming message received (ms): ${Math.round(performance.now() - this._lastOutgoingSendTime)}\x1b[0m`);
+      // Only the first reply after each sent message is measured.
+      this._lastOutgoingSendTime = null;
     }
 
     if (item) {
@@ -819,6 +825,15 @@ class ChatSession {
       const {transportDetails, type, participantRole} = item;
       if (transportDetails.direction === Direction.Incoming) {
         this._triggerEvent("incoming-message", data);
+        if (modelUtils.isTypeMessageOrAttachment(type)) {
+          // NUC05 follow-up timer - restarts on every real incoming
+          // message/attachment, deliberately unconditional (see
+          // NUC05_REPROMPT_DELAY_MS above), not restricted to Agent/
+          // Customer roles like the delivered-receipt check below, since a
+          // bot/Lex message waiting on a reply is exactly the case this is
+          // for.
+          this._startNuc05Timer(item.id);
+        }
         if (modelUtils.isTypeMessageOrAttachment(type) && modelUtils.isParticipantAgentOrCustomer(participantRole)) {
           this.sendDeliveredReceipt(
             item.id,
@@ -1020,25 +1035,43 @@ class ChatSession {
     }
   }
 
-  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above. Remove with the rest
-  // of that block once testing is done.
-  _startTempAutoExpireTimer() {
-    this._clearTempAutoExpireTimer();
-    this._tempAutoExpireTimer = setTimeout(() => {
-      this._tempAutoExpireTimer = null;
-      this.logger && this.logger.info("[TEMP-AUTO-EXPIRE] 1 minute elapsed - simulating an inactivity/agent-side disconnect for testing.");
-      this._handleEndedEvent();
-    }, TEMP_AUTO_EXPIRE_MS);
-    if (typeof this._tempAutoExpireTimer.unref === "function") {
-      this._tempAutoExpireTimer.unref();
+  // ─── NUC05 follow-up timer ───
+  // See NUC05_REPROMPT_DELAY_MS above. Starts stage 1 (90s) fresh on every
+  // call - never runs two stage-1 countdowns at once.
+  _startNuc05Timer(triggerItemId) {
+    this._clearNuc05Timers();
+    this._nuc05RepromptTimer = setTimeout(() => {
+      this._nuc05RepromptTimer = null;
+      this._handleNuc05Reprompt(triggerItemId);
+    }, NUC05_REPROMPT_DELAY_MS);
+    if (typeof this._nuc05RepromptTimer.unref === "function") {
+      this._nuc05RepromptTimer.unref();
     }
   }
 
-  // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
-  _clearTempAutoExpireTimer() {
-    if (this._tempAutoExpireTimer) {
-      clearTimeout(this._tempAutoExpireTimer);
-      this._tempAutoExpireTimer = null;
+  // Stage 1 (90s) elapsed with no reply. Re-prompting the customer (re-
+  // showing the last message) is intentionally NOT done here yet - per
+  // current requirements that will only apply conditionally, based on a
+  // specific string in the message, which isn't implemented yet. For now
+  // this just silently starts stage 2 (the final 30s countdown).
+  _handleNuc05Reprompt(triggerItemId) {
+    this._nuc05FollowUpTimer = setTimeout(() => {
+      this._nuc05FollowUpTimer = null;
+      this._sendSilentMessageToBot(NUC05_TIMEOUT_SILENT_MESSAGE, this._silentMessageLockKey(`nuc05_timeout_${triggerItemId}`));
+    }, NUC05_FOLLOWUP_DELAY_MS);
+    if (typeof this._nuc05FollowUpTimer.unref === "function") {
+      this._nuc05FollowUpTimer.unref();
+    }
+  }
+
+  _clearNuc05Timers() {
+    if (this._nuc05RepromptTimer) {
+      clearTimeout(this._nuc05RepromptTimer);
+      this._nuc05RepromptTimer = null;
+    }
+    if (this._nuc05FollowUpTimer) {
+      clearTimeout(this._nuc05FollowUpTimer);
+      this._nuc05FollowUpTimer = null;
     }
   }
 
@@ -1410,8 +1443,7 @@ class ChatSession {
     this._stopAuthPolling();
     this._clearAuthPromptTimer();
     this._clearInactivityTimer();
-    // TEMP-AUTO-EXPIRE - see TEMP_AUTO_EXPIRE_MS above.
-    this._clearTempAutoExpireTimer();
+    this._clearNuc05Timers();
     this._updateContactStatus(CONTACT_STATUS.ENDED);
     this._triggerEvent("chat-disconnected");
     Eventbus.trigger('agentEndChat', {});
