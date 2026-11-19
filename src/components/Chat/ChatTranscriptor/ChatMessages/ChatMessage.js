@@ -865,10 +865,35 @@ export class ParticipantMessage extends PureComponent {
         </RichText>
       )
     }
+
     this.triggerCountMetric(CSM_CONSTANTS.RENDER_PLAIN_MESSAGE)
     if (isCarouselSelectionMessage(content)) {
       const carouselAndNestedPickerTitle = formatCarouselInteractiveSelection(content);
       return <PlainTextMessage content={carouselAndNestedPickerTitle} />
+    }
+
+    // ACXD's "Play prompt" block (see MARKDOWN_WRAPPER_RE above) has no way
+    // to send a real paragraph break either - a bot author's only option
+    // for a multi-sentence reply is a literal \n inside the text/plain
+    // body, which CSS's default white-space handling collapses to a single
+    // space, running every sentence together. Markdown only starts a new
+    // <p> on a BLANK line, so turn every single \n into a blank line (\n\n)
+    // and render through the same markdown pipeline as the <markdown>
+    // opt-in above. Scoped to incoming plain text only - a customer's own
+    // typed message (Direction.Outgoing) and every other modality
+    // (interactive messages, attachments, already-markdown content, a
+    // carousel selection echo) have all already returned above, so they're
+    // untouched.
+    const hasLineBreaks =
+      this.props.messageDetails.transportDetails.direction === Direction.Incoming &&
+      typeof content === "string" &&
+      content.includes("\n");
+    if (hasLineBreaks) {
+      return (
+        <RichText>
+          <RichMessageRenderer content={content.replace(/\r\n/g, "\n").replace(/\n/g, "\n\n")} />
+        </RichText>
+      )
     }
 
     return <PlainTextMessage content={content} />

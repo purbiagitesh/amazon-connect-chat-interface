@@ -545,7 +545,7 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
-        forceAttachmentStepActive: false,
+        forceAttachmentStepActive: true,
     });
 
     var hasActiveChat = false;

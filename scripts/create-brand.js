@@ -104,7 +104,7 @@ async function interactiveCreate() {
 
   const displayName = await prompt(rl, `Display name [${brandName}]: `) || brandName;
   const primaryColor = await prompt(rl, 'Primary brand color [#3F51B5]: ') || '#3F51B5';
-  const region = await prompt(rl, 'AWS region [us-east-1]: ') || 'us-east-1';
+  const region = await prompt(rl, 'AWS region [eu-west-2]: ') || 'eu-west-2';
 
   rl.close();
 
@@ -153,7 +153,7 @@ Examples:
       name: args.name,
       displayName: args.name,
       primaryColor: '#3F51B5',
-      region: 'us-east-1'
+      region: 'eu-west-2'
     };
   } else {
     // Interactive mode
@@ -175,7 +175,7 @@ Examples:
   const replacements = {
     '#3F51B5': brandConfig.primaryColor,
     'Chat Support': `${brandConfig.displayName} Support`,
-    'us-east-1': brandConfig.region
+    'eu-west-2': brandConfig.region
   };
 
   // Copy template with replacements

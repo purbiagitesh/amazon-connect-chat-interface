@@ -412,6 +412,7 @@ function buildBrandInfoData(brandName, envName, config, logoUrl, fontFiles = [],
     generatedAt: new Date().toISOString(),
     config: {
       ...config.widget,
+      brandName: config.header.brandName,
       fontFamily: finalFontFamily,
       fontFaces:           getFontFaceDescriptors(fontFiles, finalFontFamily, assetsBasePath),
       header:              config.header || {},
