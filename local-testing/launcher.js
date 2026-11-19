@@ -310,7 +310,7 @@
   function resolveBrand(utagData) {
     var rawBrand = (utagData.brand || '').toLowerCase().trim();
     var brand = BRAND_ALIAS_MAP[rawBrand] || rawBrand;
-    var rawEnv = (utagData.ELC_ENV || '').toUpperCase().trim();
+    var rawEnv = (utagData['ut.env'] || '').toUpperCase().trim();
     var env = ENV_MAP[rawEnv] || 'prod';
     return { brand: brand, env: env };
   }
@@ -345,8 +345,9 @@
 
     var attributes = {
       brand: brandInfo.config.title || '',
+      brandName: brandInfo.config.brandName || "",
       userLoggedIn: customerLoggedIn,
-      customerId: String(utagData.USER_ID),
+      customerId: String(utagData.CUSTOMER_ID || utagData.USER_ID),
       email: email,
       firstName: customerName,
       lastName: lastName,

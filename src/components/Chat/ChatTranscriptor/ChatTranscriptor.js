@@ -202,6 +202,7 @@ export default class ChatTranscriptor extends PureComponent {
         },
         textInputRef: this.props.textInputRef,
         isLatestMessage,
+        isContactEnded: this.props.contactStatus === CONTACT_STATUS.ENDED || this.props.contactStatus === CONTACT_STATUS.DISCONNECTED,
         sendReadReceipt: this.props.sendReadReceipt,
         showAvatar,
       }
