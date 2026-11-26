@@ -353,6 +353,30 @@ function isAttachmentExpectedMessage(message) {
   }
 }
 
+// Returns true once ANY message in the transcript is an EnableFileUpload modality,
+// keeping the attach icon visible for the rest of the session after the ACXD triggers it.
+// Scans the full transcript so the icon persists even after the customer sends a reply
+// (which pushes a new item to the top, moving EnableFileUpload off the latest position).
+function hasEnableFileUploadIconMessage(transcript) {
+  if (!Array.isArray(transcript)) return false;
+  return transcript.some((item) => {
+    try {
+      if (!item || !item.content || typeof item.content.data !== "string") return false;
+      const parsed = JSON.parse(item.content.data);
+      if (!parsed || parsed.templateType !== "TouchpointModality") return false;
+      const modalities =
+        parsed.data &&
+        parsed.data.content &&
+        parsed.data.content.modalityPayload &&
+        parsed.data.content.modalityPayload.modalities;
+      if (!modalities || typeof modalities !== "object") return false;
+      return Object.keys(modalities).some((key) => key.split("/")[0] === "EnableFileUpload");
+    } catch (e) {
+      return false;
+    }
+  });
+}
+
 var modelUtils = {
   createItemFromIncoming: createItemFromIncoming,
   createOutgoingTranscriptItem: createOutgoingTranscriptItem,
@@ -372,6 +396,7 @@ var modelUtils = {
   isViewMessage: isViewMessage,
   isPendingComposerLockMessage: isPendingComposerLockMessage,
   isAttachmentExpectedMessage: isAttachmentExpectedMessage,
+  hasEnableFileUploadIconMessage: hasEnableFileUploadIconMessage,
 };
 
 export {modelUtils};

@@ -166,7 +166,7 @@ const defaultHeaderConfig = {
             {hc.logoUrl && (
               <HeaderLogo
                 src={hc.logoUrl}
-                alt=""
+                alt={hc.logoAltText || hc.title || ''}
               />
             )}
             <div>
@@ -192,7 +192,7 @@ const defaultHeaderConfig = {
               textColor={textColor}
               aria-label={intl.formatMessage({id: 'Chat.CloseChat', defaultMessage: 'Close chat'})}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <path d="M16 1.61143L14.3886 0L8 6.38857L1.61143 0L0 1.61143L6.38857 8L0 14.3886L1.61143 16L8 9.61143L14.3886 16L16 14.3886L9.61143 8L16 1.61143Z" fill="white" />
               </svg>
             </CloseButton>
@@ -332,7 +332,8 @@ export default class Chat extends Component {
     // compliant file goes through (see modelUtils.shouldAllowAttachmentReupload).
     const isAttachmentStepActive = (!!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem))
       || this.props.forceAttachmentStepActive
-      || modelUtils.shouldAllowAttachmentReupload(this.state.transcript, MAX_ATTACHMENT_REUPLOAD_ATTEMPTS);
+      || modelUtils.shouldAllowAttachmentReupload(this.state.transcript, MAX_ATTACHMENT_REUPLOAD_ATTEMPTS)
+      || modelUtils.hasEnableFileUploadIconMessage(this.state.transcript);
     //const isAttachmentStepActive = !!lastTranscriptItem && modelUtils.isAttachmentExpectedMessage(lastTranscriptItem);
     return (
       <ChatWrapper data-testid="amazon-connect-chat-wrapper">

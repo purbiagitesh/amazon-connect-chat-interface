@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PT from "prop-types";
 import { Button } from "connect-core";
 import { ContentType } from "../../../datamodel/Model";
+import { useA11yText } from "../../../../../utils/a11y";
 
 // Generic carousel-of-selectable-cards primitive. Structure/behavior here
 // (scroll, expand/collapse, single-select-disables-siblings, chevron +
@@ -20,7 +21,7 @@ const DEFAULT_SELECT_LABEL = "Select this order";
 function ChevronIcon({ direction }) {
   return (
     <ChevronIconWrapper direction={direction}>
-      <svg width="8px" height="12px" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+      <svg width="8px" height="12px" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <polygon fill="currentColor" fillRule="nonzero" points="2 0 0.59 1.41 5.17 6 0.59 10.59 2 12 8 6" />
         </g>
@@ -262,7 +263,7 @@ function SelectableCard({ card, expanded, onToggleExpand, selected, disabled, on
       </CardTop>
       <ButtonGroup>
         {!card.hideToggle && (
-          <SecondaryCardButton disabled={disabled} onClick={onToggleExpand} data-testid={`${card.testId}-toggle`}>
+          <SecondaryCardButton disabled={disabled} aria-expanded={expanded} onClick={onToggleExpand} data-testid={`${card.testId}-toggle`}>
             {expanded ? toggleLabels.collapse : toggleLabels.expand}
           </SecondaryCardButton>
         )}
@@ -340,6 +341,7 @@ SelectionCarousel.propTypes = {
 };
 
 export default function SelectionCarousel({ cards, fallbackCard, addMessage, testIdPrefix = "selection-carousel" }) {
+  const a11yText = useA11yText();
   const totalCards = cards.length + (fallbackCard ? 1 : 0);
 
   const scrollerRef = useRef(null);
@@ -405,12 +407,12 @@ export default function SelectionCarousel({ cards, fallbackCard, addMessage, tes
           enabled={canScrollLeft}
           disabled={!canScrollLeft}
           onClick={() => scrollByCard(-1)}
-          aria-label="Previous cards"
+          aria-label={a11yText("Chat.PreviousCards")}
           data-testid={`${testIdPrefix}-prev`}
         >
           <ChevronIcon direction="left" />
         </NavButton>
-        <Pagination>
+        <Pagination aria-hidden="true">
           {Array.from({ length: totalCards }).map((_, index) => (
             <Dot key={index} active={index === activeIndex} />
           ))}
@@ -419,7 +421,7 @@ export default function SelectionCarousel({ cards, fallbackCard, addMessage, tes
           enabled={canScrollRight}
           disabled={!canScrollRight}
           onClick={() => scrollByCard(1)}
-          aria-label="Next cards"
+          aria-label={a11yText("Chat.NextCards")}
           data-testid={`${testIdPrefix}-next`}
         >
           <ChevronIcon direction="right" />

@@ -1,6 +1,7 @@
 import React from "react";
 import PT from "prop-types";
 import styled from "styled-components";
+import {useA11yText} from "../../../../../utils/a11y";
 
 const StepperRow = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ const StepperLabel = styled.div`
 
 function MinusIcon() {
   return (
-    <svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <rect x="0" y="3.25" width="8" height="1.5" fill="currentColor" />
     </svg>
   );
@@ -60,7 +61,7 @@ function MinusIcon() {
 
 function PlusIcon() {
   return (
-    <svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <rect x="0" y="3.25" width="8" height="1.5" fill="currentColor" />
       <rect x="3.25" y="0" width="1.5" height="8" fill="currentColor" />
     </svg>
@@ -81,6 +82,7 @@ NumericStepper.defaultProps = {
 };
 
 export default function NumericStepper({ value, min, max, onChange, label, testId }) {
+  const a11yText = useA11yText();
   // Purchased qty of 1 (max <= min) locks the stepper entirely, per spec,
   // rather than hiding it - the consumer still sees the fixed value of 1.
   const locked = max <= min;
@@ -91,17 +93,17 @@ export default function NumericStepper({ value, min, max, onChange, label, testI
     <StepperRow data-testid={testId}>
       <StepperButton
         type="button"
-        aria-label="Decrease quantity"
+        aria-label={a11yText("Chat.DecreaseQuantity")}
         disabled={!canDecrement}
         onClick={() => onChange(value - 1)}
         data-testid={`${testId}-decrement`}
       >
         <MinusIcon />
       </StepperButton>
-      <StepperValue>{value}</StepperValue>
+      <StepperValue aria-live="polite" aria-relevant="additions text">{value}</StepperValue>
       <StepperButton
         type="button"
-        aria-label="Increase quantity"
+        aria-label={a11yText("Chat.IncreaseQuantity")}
         disabled={!canIncrement}
         onClick={() => onChange(value + 1)}
         data-testid={`${testId}-increment`}

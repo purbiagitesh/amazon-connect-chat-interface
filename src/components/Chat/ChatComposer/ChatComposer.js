@@ -10,6 +10,7 @@ import Disclaimer from "./Disclaimer";
 import {RichTextEditor} from "../RichMessageComponents";
 
 import {ATTACHMENT_ACCEPT_CONTENT_TYPES, AttachmentStatus, ContentType} from "../datamodel/Model";
+import {formatA11yMessage} from "../../../utils/a11y";
 
 // Defaults for the "Standard" and "With Character Counter" Input Field variants (Figma spec).
 const DEFAULT_COMPOSER_MAX_LENGTH = 200;
@@ -454,7 +455,7 @@ const ScrollArrowButton = styled.button`
 
 function ChevronLeftIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -462,7 +463,7 @@ function ChevronLeftIcon() {
 
 function ChevronRightIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -473,7 +474,7 @@ function ChevronRightIcon() {
 // Figma reference icon: a rounded square with a picture glyph.
 function ImagePlaceholderIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M14 8v10H6V8h8Zm0-1H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM9.83 12.9 7.83 15.4 6.5 13.83 4.5 16.33h9l-2.86-3.43-.81.99Z" fill="currentColor" />
     </svg>
   );
@@ -483,7 +484,7 @@ function ImagePlaceholderIcon() {
 // mirrors the reference icon's badge.
 function RemoveBadgeIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <circle cx="10" cy="10" r="9" fill="var(--ac-widget-composer-media-chip-badge-bg, #232F3E)" />
       <path d="M7 7l6 6M13 7l-6 6" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
@@ -494,7 +495,7 @@ function RemoveBadgeIcon() {
 // previous plain paperclip per the exported Figma "With Media Attached" icon.
 function AttachMediaIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M18 20H4V6H13V4H4C2.9 4 2 4.9 2 6V20C2 21.1 2.9 22 4 22H18C19.1 22 20 21.1 20 20V11H18V20ZM10.21 16.83L8.25 14.47L5.5 18H16.5L12.96 13.29L10.21 16.83ZM20 4V1H18V4H15C15.01 4.01 15 6 15 6H18V8.99C18.01 9 20 8.99 20 8.99V6H23V4H20Z" fill="#1A1A1A" />
     </svg>
   );
@@ -550,7 +551,8 @@ ChatComposer.defaultProps = {
 
 export default function ChatComposer({addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig, disclaimerConfig, disabled, attachmentStepActive}) {
   let logger;
-  let mobileJitter;
+  // Must persist across renders, otherwise the iOS focus jitter guard resets on every keystroke.
+  const mobileJitterRef = useRef(false);
   if (window.connect && window.connect.LogManager) {
     logger = window.connect.LogManager.getLogger({
       prefix: "ChatInterface-ChatComposer",
@@ -695,9 +697,14 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
    */
   function onTextInputFocus() {
     setIsInputFocused(true);
-    if (!mobileJitter && isIphone()) {
-      mobileJitter = true;
+    if (!mobileJitterRef.current && isIphone()) {
+      mobileJitterRef.current = true;
       const tempInputElem = document.createElement("input");
+      // Must stay focusable (so no display:none), but should never be visible to the user.
+      tempInputElem.setAttribute("aria-hidden", "true");
+      tempInputElem.tabIndex = -1;
+      tempInputElem.style.cssText =
+        "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;pointer-events:none;font-size:16px;";
       const chatWidgetWrapper = document.querySelector('[data-testid="amazon-connect-chat-wrapper"] div');
       if (chatWidgetWrapper) {
         chatWidgetWrapper.appendChild(tempInputElem);
@@ -707,7 +714,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       setTimeout(() => {
         textInputRef && textInputRef.current && textInputRef.current.focus();
         tempInputElem.remove();
-        mobileJitter = false;
+        mobileJitterRef.current = false;
       }, 300);
     }
   }
@@ -1027,7 +1034,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                 </MediaChipVisual>
                 <MediaChipRemoveButton
                   type="button"
-                  aria-label={`Remove ${entry.file.name}`}
+                  aria-label={formatA11yMessage(intl, "Chat.RemoveAttachmentNamed", { fileName: entry.file.name })}
                   onClick={() => removeAttachment(entry.id)}
                 >
                   <RemoveBadgeIcon />
@@ -1051,9 +1058,9 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
             <AttachmentContainer key={entry.id}>
               <div>
                 <span>{entry.file.name}</span>
-                <IconButton onClick={() => removeAttachment(entry.id)} aria-label={"Remove attachment"}>
+                <IconButton onClick={() => removeAttachment(entry.id)} aria-label={formatA11yMessage(intl, "Chat.RemoveAttachmentNamed", { fileName: entry.file.name })}>
                   <CloseIcon>
-                    <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" focusable="false">
                       <path d="M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z" fillRule="evenodd" />
                     </svg>
                   </CloseIcon>
@@ -1113,7 +1120,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
                       data-testid={`customer-chat-file-select`}
                       accept={SUPPORTED_IMAGE_ACCEPT}
                       onChange={onFileInput}
-                      aria-label={"Attach a file"}
+                      aria-label={formatA11yMessage(intl, "Chat.AttachFile")}
                       tabIndex={-1}
                       disabled={isAttachIconDisabled}
                     />
@@ -1126,12 +1133,17 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       </ComposerInputRow>
     </DefaultChatComposerWrapper>
     {showCharacterCounter && (
-      <CharacterCounter data-testid="customer-chat-character-counter" hasError={isAtCharacterLimit}>
+      <CharacterCounter
+        key={isAtCharacterLimit ? "limit" : "count"}
+        data-testid="customer-chat-character-counter"
+        hasError={isAtCharacterLimit}
+        role={isAtCharacterLimit ? "alert" : undefined}
+      >
         {characterCounterText}
       </CharacterCounter>
     )}
     {attachmentLimitMessage && (
-      <AttachmentLimitMessage data-testid="customer-chat-attachment-limit-message">
+      <AttachmentLimitMessage role="alert" data-testid="customer-chat-attachment-limit-message">
         {intl.formatMessage(
           { id: "chatComposer.attachmentLimitMessage", defaultMessage: "You can attach up to {max} files at a time." },
           { max: MAX_ATTACHMENTS_COUNT }
@@ -1139,7 +1151,7 @@ export default function ChatComposer({addMessage, addAttachment, onTyping, conta
       </AttachmentLimitMessage>
     )}
     {attachmentSizeLimitMessage && (
-      <AttachmentLimitMessage data-testid="customer-chat-attachment-size-limit-message"> {/* snapshot marker only — no getByTestId call references this */}
+      <AttachmentLimitMessage role="alert" data-testid="customer-chat-attachment-size-limit-message"> {/* snapshot marker only — no getByTestId call references this */}
         {intl.formatMessage({
           id: "chatComposer.attachmentSizeLimitMessage",
           defaultMessage: "Total size of all uploaded images cannot exceed 20MB.",

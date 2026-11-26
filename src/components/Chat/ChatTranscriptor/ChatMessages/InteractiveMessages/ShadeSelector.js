@@ -162,7 +162,7 @@ const ChevronWrapper = styled.span`
 function ChevronDown({ open }) {
   return (
     <ChevronWrapper open={open}>
-      <svg width="12" height="8" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">
+      <svg width="12" height="8" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
         <polygon fill="currentColor" points="0 1.41 1.41 0 6 4.59 10.59 0 12 1.41 6 7.41" />
       </svg>
     </ChevronWrapper>

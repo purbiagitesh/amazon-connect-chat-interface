@@ -8,7 +8,7 @@ import EventBus from "./eventbus";
 import "./ChatInterface";
 import './ChatEvents';
 import {defaultTheme} from "connect-theme";
-import {FlexRowContainer} from "connect-theme/Helpers";
+import {FlexRowContainer, HiddenText} from "connect-theme/Helpers";
 import {CHAT_FEATURE_TYPES} from "./constants";
 import {ContentType} from "./datamodel/Model";
 import {LanguageProvider, LanguageContext} from "../../context/LanguageContext";
@@ -219,32 +219,36 @@ class ChatContainer extends Component {
   render() {
     if ("NotInitiated" === this.state.status || "Initiating" === this.state.status) {
       return (
-        <LoadingWrapper center={true}>
-          <Loader color={defaultTheme.color.primary} size={30} />
-        </LoadingWrapper>
+        <LanguageProvider>
+          <LoadingWrapper center={true}>
+            <Loader color={defaultTheme.color.primary} size={30} />
+            <HiddenText role="status">
+              <FormattedMessage id="Chat.Loading" defaultMessage="Loading" />
+            </HiddenText>
+          </LoadingWrapper>
+        </LanguageProvider>
       );
     }
 
     if ("InitiateFailed" === this.state.status) {
       return (
-        <Wrapper>
-          <MessageBoxFail>
-            <FormattedMessage
-              id="Chat.InitializationFailed"
-              defaultMessage="Initialization failed"
-            />
-          </MessageBoxFail>
-          <ButtonWrapper>
-            <Button col="2" type="tertiary" onClick={this.resetState}>
-              <span>
-                <FormattedMessage
-                  id="Chat.GoBack"
-                  defaultMessage="Go Back"
-                />
-              </span>
-            </Button>
-          </ButtonWrapper>
-        </Wrapper>
+        <LanguageProvider>
+          <Wrapper>
+            <MessageBoxFail role="alert">
+              <FormattedMessage
+                id="Chat.InitializationFailed"
+                defaultMessage="Initialization failed"
+              />
+            </MessageBoxFail>
+            <ButtonWrapper>
+              <Button col="2" type="tertiary" onClick={this.resetState}>
+                <span>
+                  <FormattedMessage id="Chat.GoBack" defaultMessage="Go Back" />
+                </span>
+              </Button>
+            </ButtonWrapper>
+          </Wrapper>
+        </LanguageProvider>
       );
     }
     return (

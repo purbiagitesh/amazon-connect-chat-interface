@@ -22,6 +22,7 @@ import { shouldDisplayMessageForType, safeParseInteractiveMessageJSON } from "..
 import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
+import { formatA11yMessage, useA11yText } from "../../../../utils/a11y";
 
 // The widget is typically rendered inside the vendor's iframe, which never
 // loads clientInfo.js itself - only the host page does. Fall back to the
@@ -325,6 +326,7 @@ TransportErrorMessage.RetryButton = styled.a`
 `;
 
 export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageType }) => {
+  const a11yText = useA11yText();
   const metricName = InteractiveMessageType + "_ERROR"
   if (window.connect && window.connect.csmService) {
     window.connect.csmService.addCountAndErrorMetric(metricName, CSM_CATEGORY.UI, false);
@@ -332,8 +334,8 @@ export const ErrorFallback = ({ error, resetErrorBoundary, InteractiveMessageTyp
   console.warn("Render Error for:", error);
   return (
     <div role="alert">
-      <p>Something went wrong</p>
-      <button onClick={resetErrorBoundary}>Reload Editor</button>
+      <p>{a11yText("Chat.ErrorHeader")}</p>
+      <button onClick={resetErrorBoundary}>{a11yText("Chat.ReloadEditor")}</button>
     </div>
   )
 }
@@ -467,7 +469,7 @@ export class ParticipantMessage extends PureComponent {
         break;
       case Status.SendFailed:
         transportStatusElement = (
-          <ErrorText>
+          <ErrorText role="alert">
             <Icon />
             <span>
               <FormattedMessage
@@ -492,7 +494,7 @@ export class ParticipantMessage extends PureComponent {
                   defaultMessage={displayName}
                 />
                 <span style={{display: 'inline-flex', alignItems: 'center', margin: '0 4px'}}>{' •'}</span>
-                Consumer Care Advisor
+                <FormattedMessage id="Chat.ConsumerCareAdvisor" defaultMessage="Consumer Care Advisor" />
               </>
             ) : (
               <FormattedMessage
@@ -520,16 +522,14 @@ export class ParticipantMessage extends PureComponent {
     }
     return (
       <React.Fragment>
-        <Footer.MessageReceipt>
+        <Footer.MessageReceipt aria-live="polite">
           {lastReadReceipt && <FormattedMessage
             id="connect-chat-read-receipt"
             defaultMessage="Read"
-            aria-live="polite"
           />}
           {lastDeliveredReceipt && <FormattedMessage
             id="connect-chat-delivered-receipt"
             defaultMessage="Delivered"
-            aria-live="polite"
           />}
         </Footer.MessageReceipt>
       </React.Fragment>
@@ -673,7 +673,7 @@ export class ParticipantMessage extends PureComponent {
       // caption exactly as before.
       if (!isMediaGridAttachment && content.Status === AttachmentStatus.REJECTED && error === undefined) {
         error = {
-          message: "Attachment was rejected." // This will be removed once customize error message will come from connect.
+          message: formatA11yMessage(this.context, "Chat.AttachmentRejected") // This will be removed once customize error message will come from connect.
         }
       }
       // Only a batch that has at least one REJECTED image/video switches the
@@ -716,7 +716,13 @@ export class ParticipantMessage extends PureComponent {
         : null;
 
     const mainMessage = (
-      <MessageContainer direction={direction} data-testid="main-message">
+      <MessageContainer
+        direction={direction}
+        data-testid="main-message"
+        role="log"
+        aria-live="polite"
+        aria-label={formatA11yMessage(this.context, "Chat.Transcript")}
+      >
         {/* Incoming (Virtual Assistant / advisor) messages keep the sender
             name next to the timestamp. Outgoing (customer's own) messages
             show only the timestamp per Figma - the customer already knows
@@ -749,9 +755,19 @@ export class ParticipantMessage extends PureComponent {
     ) : (
       <MessageRow data-testid="main-message-row">
         {avatarUrl ? (
-          <AvatarImg src={avatarUrl} alt="" data-testid="virtual-assistant-avatar" style={{marginBottom: '4px'}}/>
+          <AvatarImg
+            src={avatarUrl}
+            alt={getVirtualAssistantName(this.context) || formatA11yMessage(this.context, "Chat.VirtualAssistant")}
+            data-testid="virtual-assistant-avatar"
+            style={{marginBottom: '4px'}}
+          />
         ) : showAdvisorIcon ? (
-          <AdvisorAvatar aria-hidden="true" data-testid="advisor-avatar" style={{marginBottom: '4px'}}>
+          <AdvisorAvatar
+            role="img"
+            aria-label={formatA11yMessage(this.context, "Chat.ConsumerCareAdvisor")}
+            data-testid="advisor-avatar"
+            style={{marginBottom: '4px'}}
+          >
             <AdvisorIcon />
           </AdvisorAvatar>
         ) : (
@@ -904,7 +920,7 @@ export class ParticipantMessage extends PureComponent {
       return null;
     }
     return (
-      <TransportErrorMessage>
+      <TransportErrorMessage role="alert">
         <span>{error.message}</span>
         {error.retry && this.renderRetryButton(error.retry)}
       </TransportErrorMessage>
@@ -924,7 +940,7 @@ export class ParticipantMessage extends PureComponent {
         onClick={onRetry}
         onKeyPress={onRetry}
       >
-        Retry
+        {formatA11yMessage(this.context, "Chat.Retry")}
       </TransportErrorMessage.RetryButton>
     );
   }
@@ -1001,6 +1017,8 @@ const TypingBubble = styled.div`
 // on both the light-neutral VA bubble and the brand-color consumer bubble);
 // a brand with a very dark consumer-bubble color would need this revisited.
 export class ParticipantTyping extends PureComponent {
+  static contextType = IntlContext;
+
   render() {
     const isOutgoing = this.props.direction === Direction.Outgoing;
     const avatarUrl = getClientAvatarUrl();
@@ -1008,11 +1026,15 @@ export class ParticipantTyping extends PureComponent {
       <TypingRow direction={this.props.direction} data-testid="participant-typing">
         {!isOutgoing &&
           (avatarUrl ? (
-            <TypingAvatar src={avatarUrl} alt="" data-testid="virtual-assistant-typing-avatar" />
+            <TypingAvatar
+              src={avatarUrl}
+              alt={getVirtualAssistantName(this.context) || formatA11yMessage(this.context, "Chat.VirtualAssistant")}
+              data-testid="virtual-assistant-typing-avatar"
+            />
           ) : (
             <TypingAvatarSpacer aria-hidden="true" />
           ))}
-        <TypingBubble direction={this.props.direction} aria-label="typing" role="status">
+        <TypingBubble direction={this.props.direction} aria-label={formatA11yMessage(this.context, "Chat.Typing")} role="status">
           {/* margin 4 => 8px between dots to match Figma gap: 8; size kept
               at 7 so all three dots + gaps fit the fixed 66x30 bubble
               (66 - 20 padding = 46 >= 3*7 + 2*8 + 2*4 outer margins). */}
@@ -1069,7 +1091,7 @@ class AttachmentMessage extends PureComponent {
 //Because no figma UI is provided by Design team.
 function ImagePlaceholderIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M14 8v10H6V8h8Zm0-1H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1ZM9.83 12.9 7.83 15.4 6.5 13.83 4.5 16.33h9l-2.86-3.43-.81.99Z" fill="currentColor" />
     </svg>
   );
@@ -1209,6 +1231,7 @@ const LightboxCloseButton = styled.button`
 `;
 
 function ImageLightbox({ url, name, onClose }) {
+  const a11yText = useA11yText();
   useEffect(() => {
     function onKeyDown(e) {
       if (e.key === "Escape") {
@@ -1223,14 +1246,14 @@ function ImageLightbox({ url, name, onClose }) {
     <LightboxOverlay
       role="dialog"
       aria-modal="true"
-      aria-label={`Full view: ${name}`}
+      aria-label={a11yText("Chat.FullViewImage", { fileName: name })}
       onClick={onClose}
     >
       <LightboxCloseButton
-        aria-label="Close image preview"
+        aria-label={a11yText("Chat.CloseImagePreview")}
         onClick={onClose}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
           <line x1="4" y1="4" x2="20" y2="20" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
           <line x1="20" y1="4" x2="4" y2="20" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
@@ -1302,6 +1325,7 @@ function MediaAttachmentPreview({ item, content, contentType, downloadAttachment
 // wrapping grid of chips (see ChatTranscriptor's buildRenderGroups) instead
 // of one filename-link bubble per attachment.
 class MediaAttachmentGrid extends PureComponent {
+  static contextType = IntlContext;
   state = { lightboxUrl: null, lightboxName: null };
    //Rule - 12 showing enlarge image when tapping to it -- delay is there loader can be added??
   // Holds blob object URLs created for the lightbox so they can be revoked
@@ -1350,7 +1374,9 @@ class MediaAttachmentGrid extends PureComponent {
               <MediaAttachmentChip
                 key={item.id}
                 href={content.AttachmentName}
-                aria-label={isRejected ? `Image restricted: ${content.AttachmentName}` : content.AttachmentName}
+                aria-label={isRejected
+                  ? formatA11yMessage(this.context, "Chat.ImageRestricted", { fileName: content.AttachmentName })
+                  : content.AttachmentName}
                 onClick={handleClick}
                 onKeyPress={handleClick}
               >

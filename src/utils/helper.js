@@ -189,6 +189,9 @@ const MODALITY_PARENT_KEYS = [
   "OrderConfirmation", 
   // Generative-node modalities — same base name, locale suffix stripped at lookup time
   "YesNoGenNode",
+  // ACXD-triggered prompt to enable the file upload icon in the composer
+  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time because of genNode
+  "EnableFileUpload",
 ];
 
 // Supported child data-array keys inside each parent modality object (used for validation)
@@ -320,6 +323,21 @@ const MODALITY_CONFIG_MAP = {
               },
             },
           },
+        },
+      ],
+    }),
+  },
+  // EnableFileUpload: renders only the bot's text message — no button shown.
+  // Must use MultiPart (a valid InteractiveMessageType) wrapping a Text element;
+  // The attach icon is enabled separately by hasEnableFileUploadIconMessage() in Utils.js.
+  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time.--Gennode
+  EnableFileUpload: {
+    templateType: "MultiPart",
+    toContent: (modality, parsed) => ({
+      elements: [
+        {
+          templateType: "Text",
+          data: { content: { title: parsed.data.content.modalityPayload.message } },
         },
       ],
     }),

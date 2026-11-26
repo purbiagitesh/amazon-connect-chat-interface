@@ -6,6 +6,7 @@ import {defaultTheme} from "../../../theme";
 import {Text, Loader} from "connect-core";
 import {usePrevious} from "connect-hooks";
 import {MessageBox} from "./ChatMessages/ChatMessage";
+import {useA11yText} from "../../../utils/a11y";
 
 const ScrollContainer = styled.div`
   overflow: auto;
@@ -54,6 +55,7 @@ export default function ChatTranscriptScroller({
   const prevLastSentMessageId = usePrevious(lastSentMessageId);
   const prevLastReceivedMessageId = usePrevious(lastReceivedMessageId);
   const [loading, setLoading] = useState(false);
+  const a11yText = useA11yText();
 
   // Stores the scroll position during transcript loading
   const [loadingScrollPos, setLoadingScrollPos] = useState(null);
@@ -252,9 +254,17 @@ export default function ChatTranscriptScroller({
   }
 
   return (
-    <ScrollContainer ref={ref} onScroll={handleScroll} className={className}>
+    <ScrollContainer
+      ref={ref}
+      onScroll={handleScroll}
+      className={className}
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+      aria-label={a11yText("Chat.Transcript")}
+    >
       { loading &&
-        <LoaderWrapper>
+        <LoaderWrapper role="status">
           <Loader size={20} color={defaultTheme.color.primary} />
           <Text>
             <span>

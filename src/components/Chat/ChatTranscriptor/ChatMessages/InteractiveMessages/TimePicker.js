@@ -4,6 +4,7 @@ import {Button} from "connect-core";
 import styled from "styled-components";
 import {ResponsesSection, HeaderText} from "../InteractiveMessage";
 import {truncateStrFromCharLimit} from "../../../../../utils/helper";
+import {useA11yText} from "../../../../../utils/a11y";
 import {InteractiveMessageType} from "../../../datamodel/Model";
 import { FormattedMessage } from 'react-intl';
 
@@ -135,7 +136,7 @@ function TimeslotButton({timeslot, onClick, onKeyPress, selected}) {
     );
 
     return (
-        <Button selected={selected} value={date} onKeyPress={onKeyPress} onClick={onClick}>
+        <Button selected={selected} aria-pressed={selected} value={date} onKeyPress={onKeyPress} onClick={onClick}>
             {`${start}` }
         </Button>
     );
@@ -149,8 +150,7 @@ TimePicker.propTypes = {
 function Chevron({direction}){
   return (
     <ChevronIcon direction={direction}>
-      <svg width="8px" height="12px" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
-        <title>Path</title>
+      <svg width="8px" height="12px" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <polygon id="Path" fill="currentColor" fillRule="nonzero" points="2 0 0.59 1.41 5.17 6 0.59 10.59 2 12 8 6"></polygon>
         </g>
@@ -160,6 +160,7 @@ function Chevron({direction}){
 }
 
 export default function TimePicker({content, addMessage}) {
+  const a11yText = useA11yText();
   const {title: inputTitle, subtitle: inputSubtitle, timeZoneOffset, timeslots} = content;
   const title = truncateStrFromCharLimit(inputTitle, InteractiveMessageType.TIME_PICKER, "titleCharLimit");
   const subtitle = truncateStrFromCharLimit(inputSubtitle, InteractiveMessageType.TIME_PICKER, "subtitleCharLimit");
@@ -231,12 +232,12 @@ export default function TimePicker({content, addMessage}) {
       <ResponsesSection>
         <DatePicker>
           {showDateControls &&
-          <DatePicker.PrevDateButton disabled={datePageIndex === 0} onKeyPress={showEarlierDate} onClick={showEarlierDate} data-testid={`time-picker-prev-date-button`}>
+          <DatePicker.PrevDateButton disabled={datePageIndex === 0} aria-label={a11yText("Chat.Earlier")} onKeyPress={showEarlierDate} onClick={showEarlierDate} data-testid={`time-picker-prev-date-button`}>
             <Chevron direction={"left"}/>
           </DatePicker.PrevDateButton>}
           <span>{dateString}</span>
           {showDateControls &&
-          <DatePicker.NextDateButton disabled={datePageIndex === availableDates.length - 1} onClick={showLaterDate} data-testid={`time-picker-next-date-button`}>
+          <DatePicker.NextDateButton disabled={datePageIndex === availableDates.length - 1} aria-label={a11yText("Chat.Later")} onClick={showLaterDate} data-testid={`time-picker-next-date-button`}>
             <Chevron direction={"right"}/>
           </DatePicker.NextDateButton>}
         </DatePicker>
@@ -246,8 +247,8 @@ export default function TimePicker({content, addMessage}) {
         <TimeslotControls>
           {selectedTimeslot != null &&
           <>
-            <ResetSelectionButton onClick={resetSelection} data-testid={`time-picker-reset-selection-button`}>
-              <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+            <ResetSelectionButton aria-label={a11yText("Chat.ClearSelection")} onClick={resetSelection} data-testid={`time-picker-reset-selection-button`}>
+              <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" focusable="false">
                 <path d="M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z" fillRule="evenodd"/>
               </svg>
             </ResetSelectionButton>

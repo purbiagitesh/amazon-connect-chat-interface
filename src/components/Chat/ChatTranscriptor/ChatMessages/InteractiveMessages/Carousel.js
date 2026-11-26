@@ -5,6 +5,7 @@ import {RichMessageRenderer} from "../../../RichMessageComponents";
 import {InteractiveMessage, MessageBody} from "../InteractiveMessage";
 import {Button} from "connect-core";
 import {truncateStrFromCharLimit} from "../../../../../utils/helper";
+import {useA11yText} from "../../../../../utils/a11y";
 import {InteractiveMessageType} from "../../../datamodel/Model";
 
 const SCROLL_OFFSET_AMOUNT = 200;
@@ -111,7 +112,7 @@ function NestedInteractiveMessages({elements, addMessage}) {
 function ChevronIcon({direction}) {
   return (
     <ChevronIconWrapper direction={direction}>
-      <svg width='8px' height='12px' viewBox='0 0 8 12' xmlns='http://www.w3.org/2000/svg'>
+      <svg width='8px' height='12px' viewBox='0 0 8 12' xmlns='http://www.w3.org/2000/svg' aria-hidden='true' focusable='false'>
         <g id='Page-1' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
           <polygon
             id='Path'
@@ -136,6 +137,7 @@ Carousel.propTypes = {
  *  - Render maximum of 5 elements
  */
 export default function Carousel({content, addMessage}) {
+  const a11yText = useA11yText();
   // assumptions: version 1. Guaranteed title exists, at least 2 elements.
   const {title: inputTitle, elements: inputElems} = content;
   const scrollerRef = useRef(null);
@@ -162,6 +164,7 @@ export default function Carousel({content, addMessage}) {
         onClick={handleScrollLeft}
         data-testid='interactive-carousel-scroll-left-btn'
         direction={"left"}
+        aria-label={a11yText("Chat.PreviousCards")}
       >
         <ChevronIcon direction={"left"} />
       </ScrollButton>
@@ -175,6 +178,7 @@ export default function Carousel({content, addMessage}) {
         onClick={handleScrollRight}
         data-testid='interactive-carousel-scroll-right-btn'
         direction={"right"}
+        aria-label={a11yText("Chat.NextCards")}
       >
         <ChevronIcon direction={"right"} />
       </ScrollButton>

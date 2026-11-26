@@ -2,7 +2,7 @@ import React from "react";
 import {useIntl} from "react-intl";
 import PT from "prop-types";
 import styled from "styled-components";
-
+import {formatA11yMessage} from "../../../utils/a11y";
 // Recording/privacy consent banner shown directly above the composer input.
 // Figma spec ("Disclaimer" component):
 //  - Expanded by default at the start of a new chat session.
@@ -140,7 +140,7 @@ const Chevron = styled.svg`
 // neither failure mode applies.
 function ShieldIcon(props) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" {...props}>
       <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM19 11C19 12.85 18.49 14.65 17.62 16.21L16.17 14.76C17.46 12.82 17.24 10.18 15.53 8.47C13.58 6.52 10.41 6.52 8.46 8.47C6.51 10.42 6.51 13.59 8.46 15.54C10.17 17.25 12.81 17.46 14.75 16.18L16.47 17.9C15.28 19.32 13.74 20.41 12 20.94C7.98 19.69 5 15.52 5 11V6.3L12 3.19L19 6.3V11ZM12 15C10.34 15 9 13.66 9 12C9 10.34 10.34 9 12 9C13.66 9 15 10.34 15 12C15 13.66 13.66 15 12 15Z" fill="#595959" />
     </svg>
   );
@@ -151,7 +151,7 @@ function ShieldIcon(props) {
 // reason as ShieldIcon above - no loader dependency, no runtime request.
 function ExpandMoreIcon(props) {
   return (
-    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" {...props}>
       <path d="M0.5875 3.08789L2.5 1.17956L4.4125 3.08789L5 2.50039L2.5 0.000390768L0 2.50039L0.5875 3.08789Z" fill="#595959" />
     </svg>
   );
@@ -159,7 +159,7 @@ function ExpandMoreIcon(props) {
 
 function ExpandLessIcon(props) {
   return (
-    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="5" height="4" viewBox="0 0 5 4" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" {...props}>
       <path d="M4.4125 0L2.5 1.90833L0.5875 0L0 0.5875L2.5 3.0875L5 0.5875L4.4125 0Z" fill="#595959" />
     </svg>
   );
@@ -167,6 +167,12 @@ function ExpandLessIcon(props) {
 
 export default function Disclaimer({expanded, onToggleExpand, highlighted, privacyPolicyUrl, termsOfUseUrl, consumerHealthDataPrivacyStatementUrl, disclaimerMessage}) {
   const intl = useIntl();
+
+  // Links that open in a new tab say so to screen readers; an href-less
+  // link stays unlabelled since it's inert.
+  const newTabLabel = (label, url) => (url
+    ? formatA11yMessage(intl, "Chat.OpensInNewTab", {label})
+    : undefined);
 
   const privacyPolicyLabel = intl.formatMessage({
     id: "disclaimer.privacyPolicy",
@@ -204,6 +210,7 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
           href={consumerHealthDataPrivacyStatementUrl || undefined}
           target={consumerHealthDataPrivacyStatementUrl ? "_blank" : undefined}
           rel={consumerHealthDataPrivacyStatementUrl ? "noopener noreferrer" : undefined}
+          aria-label={newTabLabel(consumerHealthDataPrivacyStatementLabel, consumerHealthDataPrivacyStatementUrl)}
         >
           {consumerHealthDataPrivacyStatementLabel}
         </Link>
@@ -214,6 +221,7 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
           href={privacyPolicyUrl || undefined}
           target={privacyPolicyUrl ? "_blank" : undefined}
           rel={privacyPolicyUrl ? "noopener noreferrer" : undefined}
+          aria-label={newTabLabel(privacyPolicyLabel, privacyPolicyUrl)}
         >
           {privacyPolicyLabel}
         </Link>
@@ -224,6 +232,7 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
           href={termsOfUseUrl || undefined}
           target={termsOfUseUrl ? "_blank" : undefined}
           rel={termsOfUseUrl ? "noopener noreferrer" : undefined}
+          aria-label={newTabLabel(termsOfUseLabel, termsOfUseUrl)}
         >
           {termsOfUseLabel}
         </Link>
@@ -243,19 +252,25 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
   });
 
   return (
-    <Container data-testid="customer-chat-disclaimer" highlighted={highlighted}>
+    <Container
+      data-testid="customer-chat-disclaimer"
+      highlighted={highlighted}
+      role="region"
+      aria-label={formatA11yMessage(intl, "Chat.PrivacyNotice")}
+    >
       <IconWrapper>
-        <ShieldIcon aria-hidden="true" />
+        <ShieldIcon />
       </IconWrapper>
       <Body>
         {expanded ? (
           <>
-            <Text expanded>{text}</Text>
+            <Text expanded id="customer-chat-disclaimer-text">{text}</Text>
             <ToggleButton
               type="button"
               expanded
               onClick={onToggleExpand}
               aria-expanded={expanded}
+              aria-controls="customer-chat-disclaimer-text"
               data-testid="customer-chat-disclaimer-toggle"
             >
               {toggleLabel}
@@ -264,11 +279,12 @@ export default function Disclaimer({expanded, onToggleExpand, highlighted, priva
           </>
         ) : (
           <CollapsedRow>
-            <Text>{text}</Text>
+            <Text id="customer-chat-disclaimer-text">{text}</Text>
             <ToggleButton
               type="button"
               onClick={onToggleExpand}
               aria-expanded={expanded}
+              aria-controls="customer-chat-disclaimer-text"
               data-testid="customer-chat-disclaimer-toggle"
             >
               {toggleLabel}

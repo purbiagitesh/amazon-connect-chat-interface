@@ -98,6 +98,7 @@ function ReplyElement({element, handleSelection, isRatingStyle, sendAsPlainText}
   // the selected label as a plain text message, not the structured envelope.
   return (
     <Option
+      aria-label={sanitizeInteractiveMessageStr(element.title)}
       onClick={() => handleSelection(
         sendAsPlainText
           ? { text: element.title, type: ContentType.MESSAGE_CONTENT_TYPE.TEXT_PLAIN }
