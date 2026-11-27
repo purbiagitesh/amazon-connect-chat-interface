@@ -85,5 +85,6 @@
     "disclaimer.showLess": "Mostrar menos",
     "Chat.VirtualAssistant": "Asistente Virtual",
     "Chat.LauncherButtonText": "Chatear ahora",
-    "Chat.CantFindYourOrder": "¿No encuentras tu pedido?"
+    "Chat.CantFindYourOrder": "¿No encuentras tu pedido?",
+    "Chat.NoneOfIt": "Nada de esto"
 }

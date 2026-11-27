@@ -85,5 +85,6 @@
     "disclaimer.showLess": "詳細を隠す",
     "Chat.VirtualAssistant": "バーチャルアシスタント",
     "Chat.LauncherButtonText": "今すぐチャット",
-    "Chat.CantFindYourOrder": "ご注文が見つかりませんか？"
+    "Chat.CantFindYourOrder": "ご注文が見つかりませんか？",
+    "Chat.NoneOfIt": "どれも該当しない"
 }

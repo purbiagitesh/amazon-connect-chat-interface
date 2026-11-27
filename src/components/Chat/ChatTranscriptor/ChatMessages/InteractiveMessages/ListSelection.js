@@ -28,6 +28,18 @@ ListSelection.propTypes = {
   content: PT.object,
   addMessage: PT.func.isRequired,
 };
+// can show only the human-readable names while ACXD receives names + SKUs.
+export function isListSelectionMessage(messageContent) {
+  if (typeof messageContent !== "string") return false;
+  let parsed;
+  try { parsed = JSON.parse(messageContent); } catch (e) { return false; }
+  if (typeof parsed !== "object" || parsed === null) return false;
+  return ["display", "skus"].every((k) => k in parsed && typeof parsed[k] === "string");
+}
+
+export function formatListSelectionDisplay(messageContent) {
+  return JSON.parse(messageContent).display;
+}
 
 export default function ListSelection({ content, addMessage }) {
   // Falls back to mock data only when no runtime content is supplied - see
@@ -48,8 +60,11 @@ export default function ListSelection({ content, addMessage }) {
   }
 
   function handleConfirm() {
-    const names = products.filter((product) => selected[product.id]).map((product) => product.name);
-    respond(names.join(", "));
+    const chosen = products.filter((product) => selected[product.id]);
+    respond(JSON.stringify({
+      display: chosen.map((p) => p.name).join(", "),  // shown in bubble only, ACXD ignores
+      skus:    chosen.map((p) => p.id).join(", "),    // what ACXD receives
+    }));
   }
 
   function handleSecondaryCta() {

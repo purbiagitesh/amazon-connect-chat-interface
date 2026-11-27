@@ -95,5 +95,6 @@
     "disclaimer.showLess": "Show less",
     "Chat.VirtualAssistant": "Virtual Assistant",
     "Chat.LauncherButtonText": "Chat now",
-    "Chat.CantFindYourOrder": "Can't find your order?"
+    "Chat.CantFindYourOrder": "Can't find your order?",
+    "Chat.NoneOfIt": "None of it"
 }

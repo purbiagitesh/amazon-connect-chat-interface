@@ -355,7 +355,8 @@
       language: utagData.locale || 'en-US',
       country: utagData.country_code || 'us',
       Channel_type: 'Chat',
-      isShopify: brandInfo.config.isShopify
+      isShopify: brandInfo.config.isShopify,
+      category: brandInfo.config.category
     };
     return attributes;
   }
@@ -545,7 +546,7 @@
       logoConfig: brandInfo.assets && brandInfo.assets.logo
         ? { sourceUrl: brandInfo.assets.logo, altText: (brandInfo.brand || 'Brand') + ' logo' }
         : undefined,
-        forceAttachmentStepActive: true,
+        forceAttachmentStepActive: false,
     });
 
     var hasActiveChat = false;

@@ -189,8 +189,10 @@ const MODALITY_PARENT_KEYS = [
   "OrderConfirmation", 
   // Generative-node modalities — same base name, locale suffix stripped at lookup time
   "YesNoGenNode",
+  "ListSelection",
+  "ListSelectionStepper",
   // ACXD-triggered prompt to enable the file upload icon in the composer
-  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time because of genNode
+  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time
   "EnableFileUpload",
 ];
 
@@ -330,7 +332,7 @@ const MODALITY_CONFIG_MAP = {
   // EnableFileUpload: renders only the bot's text message — no button shown.
   // Must use MultiPart (a valid InteractiveMessageType) wrapping a Text element;
   // The attach icon is enabled separately by hasEnableFileUploadIconMessage() in Utils.js.
-  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time.--Gennode
+  // Key arrives as "EnableFileUpload/en-US"; locale suffix is stripped at lookup time.
   EnableFileUpload: {
     templateType: "MultiPart",
     toContent: (modality, parsed) => ({
@@ -385,6 +387,55 @@ const MODALITY_CONFIG_MAP = {
           })(),
         },
       ],
+    }),
+  },
+  // ListSelection: single card — title from modalityPayload.message, products from modality.
+  // ACXD sends "quantity" (not "qty"), "sku" (not "id"), and variant options as option1/option2
+  // (not shade/size). This mapper normalises all three before the component sees the data.
+  ListSelection: {
+    templateType: "ListSelection",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      subtitle: modality.subtitle,
+      confirmLabel: modality.confirmLabel,
+      secondaryCta: modality.secondaryCta,
+      products: (modality.products || []).map((p, i) => {
+        const variant = p.product && p.product.variants && p.product.variants[0];
+        const shade = variant && variant.option1 && variant.option1 !== "null" ? variant.option1 : null;
+        const size  = variant && variant.option2 && variant.option2 !== "null" ? variant.option2 : null;
+        return {
+          id: p.sku || `p${i}`,
+          name: p.name,
+          qty: p.quantity,
+          ...(shade ? { shade } : {}),
+          ...(size && !shade ? { size } : {}),
+        };
+      }),
+    }),
+  },
+  // ListSelectionStepper: same field mapping as ListSelection plus quantityLabel,
+  // which drives the "of N <label>" text in the NumericStepper (e.g. "Damaged",
+  // "Wrong", "Missing"). ACXD picks the label; the component stays the same.
+  ListSelectionStepper: {
+    templateType: "ListSelectionStepper",
+    toContent: (modality, parsed) => ({
+      title: parsed.data.content.modalityPayload.message,
+      subtitle: modality.subtitle,
+      confirmLabel: modality.confirmLabel,
+      quantityLabel: modality.quantityLabel,
+      secondaryCta: modality.secondaryCta,
+      products: (modality.products || []).map((p, i) => {
+        const variant = p.product && p.product.variants && p.product.variants[0];
+        const shade = variant && variant.option1 && variant.option1 !== "null" ? variant.option1 : null;
+        const size  = variant && variant.option2 && variant.option2 !== "null" ? variant.option2 : null;
+        return {
+          id: p.sku || `p${i}`,
+          name: p.name,
+          qty: p.quantity,
+          ...(shade ? { shade } : {}),
+          ...(size && !shade ? { size } : {}),
+        };
+      }),
     }),
   },
 };

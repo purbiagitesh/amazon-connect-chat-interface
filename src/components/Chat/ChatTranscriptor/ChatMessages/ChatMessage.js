@@ -23,6 +23,7 @@ import { modelUtils } from "../../datamodel/Utils";
 import { RichMessageRenderer } from "../../RichMessageComponents";
 import { formatCarouselInteractiveSelection, isCarouselSelectionMessage } from "./InteractiveMessages/Carousel";
 import { formatA11yMessage, useA11yText } from "../../../../utils/a11y";
+import { isListSelectionMessage, formatListSelectionDisplay } from "./InteractiveMessages/ListSelection";
 
 // The widget is typically rendered inside the vendor's iframe, which never
 // loads clientInfo.js itself - only the host page does. Fall back to the
@@ -883,6 +884,9 @@ export class ParticipantMessage extends PureComponent {
     }
 
     this.triggerCountMetric(CSM_CONSTANTS.RENDER_PLAIN_MESSAGE)
+     if (isListSelectionMessage(content)) {
+      return <PlainTextMessage content={formatListSelectionDisplay(content)} />
+    }
     if (isCarouselSelectionMessage(content)) {
       const carouselAndNestedPickerTitle = formatCarouselInteractiveSelection(content);
       return <PlainTextMessage content={carouselAndNestedPickerTitle} />

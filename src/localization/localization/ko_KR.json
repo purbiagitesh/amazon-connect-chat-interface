@@ -85,5 +85,6 @@
     "disclaimer.showLess": "숨기기",
     "Chat.VirtualAssistant": "가상 어시스턴트",
     "Chat.LauncherButtonText": "지금 채팅하기",
-    "Chat.CantFindYourOrder": "주문을 찾을 수 없으신가요?"
+    "Chat.CantFindYourOrder": "주문을 찾을 수 없으신가요?",
+    "Chat.NoneOfIt": "해당 없음"
 }

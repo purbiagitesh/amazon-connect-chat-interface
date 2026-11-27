@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PT from "prop-types";
+import { FormattedMessage } from "react-intl";
 import { MOCK_LIST_SELECTION_STEPPER } from "./ListSelectionStepper.mockData";
 import { ContentType } from "../../../datamodel/Model";
 import Checkbox from "./Checkbox";
@@ -62,17 +63,27 @@ export default function ListSelectionStepper({ content, addMessage }) {
   }
 
   function handleConfirm() {
-    // Multiple selected products are submitted as one message, each as its
-    // own "Name / Qty: N" block, per the confirmed Damaged Item flow mock.
-    const message = products
-      .filter((product) => selected[product.id])
-      .map((product) => `${product.name}\nQty: ${quantities[product.id] || 1}`)
-      .join("\n\n");
-    respond(message);
+    const chosen = products.filter((product) => selected[product.id]);
+    respond(JSON.stringify({
+      display: chosen.map((p) => p.name).join(", "),
+      skus:    chosen.map((p) => `${p.id}:${quantities[p.id] || 1}`).join(", "),
+    }));
   }
 
-  function handleSecondaryCta() {
-    respond(secondaryCta.message || secondaryCta.label);
+  function handleAllOfIt() {
+    const next = {};
+    products.forEach((p) => { next[p.id] = true; });
+    setSelected(next);
+    setQuantities((prev) => {
+      const updated = { ...prev };
+      products.forEach((p) => { if (!updated[p.id]) updated[p.id] = 1; });
+      return updated;
+    });
+  }
+
+  function handleNoneOfIt() {
+    setSelected({});
+    setQuantities({});
   }
 
   return (
@@ -116,9 +127,14 @@ export default function ListSelectionStepper({ content, addMessage }) {
         <PrimaryCtaButton disabled={!anySelected} onClick={handleConfirm} data-testid="list-selection-stepper-confirm">
           {confirmLabel}
         </PrimaryCtaButton>
-        <SecondaryCtaButton onClick={handleSecondaryCta} data-testid="list-selection-stepper-secondary">
+        <SecondaryCtaButton onClick={handleAllOfIt} data-testid="list-selection-stepper-all">
           {secondaryCta.label}
         </SecondaryCtaButton>
+        {anySelected && (
+          <SecondaryCtaButton onClick={handleNoneOfIt} data-testid="list-selection-stepper-none">
+            <FormattedMessage id="Chat.NoneOfIt" defaultMessage="None of it" />
+          </SecondaryCtaButton>
+        )}
       </CtaGroup>
     </ListCardShell>
   );

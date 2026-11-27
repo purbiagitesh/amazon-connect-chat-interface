@@ -355,7 +355,8 @@
       language: utagData.locale || 'en-US',
        country: utagData.country_code || 'United States', //Demo request to make this country
       Channel_type: 'Chat',
-      isShopify: brandInfo.config.isShopify
+      isShopify: brandInfo.config.isShopify,
+      category: brandInfo.config.category
     };
     return attributes;
   }

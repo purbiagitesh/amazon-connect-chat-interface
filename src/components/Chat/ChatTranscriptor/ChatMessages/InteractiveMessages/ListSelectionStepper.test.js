@@ -1,14 +1,17 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "../../../../../theme";
 import ListSelectionStepper from "./ListSelectionStepper";
 
 function renderCard(props = {}) {
   const addMessage = jest.fn();
   render(
-    <ThemeProvider>
-      <ListSelectionStepper addMessage={addMessage} {...props} />
-    </ThemeProvider>
+    <IntlProvider locale="en">
+      <ThemeProvider>
+        <ListSelectionStepper addMessage={addMessage} {...props} />
+      </ThemeProvider>
+    </IntlProvider>
   );
   return { addMessage };
 }

@@ -85,5 +85,6 @@
     "disclaimer.showLess": "顯示更少",
     "Chat.VirtualAssistant": "虛擬助手",
     "Chat.LauncherButtonText": "立即聊天",
-    "Chat.CantFindYourOrder": "找不到您的訂單？"
+    "Chat.CantFindYourOrder": "找不到您的訂單？",
+    "Chat.NoneOfIt": "都不是"
 }
